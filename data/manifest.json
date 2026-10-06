@@ -1,4 +1,47 @@
 {
-  "schema_version": 1,
-  "datasets": []
+  "datasets": [
+    {
+      "path": "runs/data/downloads/sctab_val_f1_macro_epoch41.ckpt",
+      "sha256": "573b911f30f7a70d33a13d1e4e28d596827e389ac0fe55dbfe30952ece70f56c",
+      "source": "https://huggingface.co/MohamedMabrouk/scTab/resolve/9d49621154863948c057db0741452b18dcb78559/val_f1_macro_epoch%3D41_val_f1_macro%3D0.847.ckpt",
+      "license": "Mirror self-declares MIT (HF tag; not authoritative). Official scTab README states MIT for the code repository only; checkpoint licence from the scTab authors is not recorded.",
+      "provenance": "historical runs/data/downloads/fetch1.sh (exact URL used 2026-10-05); historical runs/data/downloads/fetch1.log (shasum -a 256 after download 2026-10-05T17:41Z)"
+    },
+    {
+      "path": "evidence/probes/P00-metadata-20261005/hf-hparams.yaml",
+      "sha256": "e53f93c42017b20021c70ce0251d8a6bcc19a5dc6374cea1c6019a4003dfbf94",
+      "source": "https://huggingface.co/MohamedMabrouk/scTab/resolve/9d49621154863948c057db0741452b18dcb78559/hparams.yaml",
+      "license": "as sctab-checkpoint (mirror self-declared MIT; not authoritative)",
+      "provenance": "INFERRED: access-and-feasibility.md names `hparams.yaml` in mirror rev 9d49621; the exact retrieval URL was not saved; sha256 of the preserved historical probe copy (computed 2026-10-06); not an upstream-published hash"
+    },
+    {
+      "path": "evidence/probes/P01-census-blood-obs-20261005/sctab_var.parquet",
+      "sha256": "eca915f6fb7158ac67c58736b54f78f79c455632c977828d4295deb010317579",
+      "source": "https://huggingface.co/MohamedMabrouk/scTab/resolve/9d49621154863948c057db0741452b18dcb78559/merlin_cxg_2023_05_15_sf-log1p_minimal/var.parquet",
+      "license": "as sctab-checkpoint (mirror self-declared MIT; not authoritative)",
+      "provenance": "Exact historical retrieval command recovered from original orchestration/claude-stream.jsonl; pinned mirror revision 9d49621154863948c057db0741452b18dcb78559.; sha256 of the preserved historical probe copy (computed 2026-10-06); not an upstream-published hash"
+    },
+    {
+      "path": "runs/data/models/celltypist/Immune_All_Low.pkl",
+      "sha256": "290874d35dac039d4c9218c343fde4aac1077709b72a331ce7266f6828c36502",
+      "source": "https://celltypist.cog.sanger.ac.uk/models/Pan_Immune_CellTypist/v2/Immune_All_Low.pkl",
+      "license": "unknown (access-and-feasibility.md: 'to verify'); source Dominguez Conde et al. 2022 https://doi.org/10.1126/science.abl5197",
+      "provenance": "historical probes/P00-metadata-20261005/celltypist-models.json (models.json, v2, 2022-07-16); historical runs/data/models/celltypist/SHA256SUMS (2026-10-05)"
+    },
+    {
+      "path": "runs/data/models/celltypist/Immune_All_High.pkl",
+      "sha256": "a715fec36c2c421f7c4e31cf4cb4bea883eedab7fd7b20a4b76f091c22660448",
+      "source": "https://celltypist.cog.sanger.ac.uk/models/Pan_Immune_CellTypist/v2/Immune_All_High.pkl",
+      "license": "unknown (access-and-feasibility.md: 'to verify')",
+      "provenance": "historical probes/P00-metadata-20261005/celltypist-models.json; historical runs/data/models/celltypist/SHA256SUMS (2026-10-05)"
+    },
+    {
+      "path": "runs/data/ontology/cl-basic-v2025-07-30.obo",
+      "sha256": "ba24e2439bceb2608ae47adb9496d79675e717058259677305dd260f478ba07d",
+      "source": "https://github.com/obophenotype/cell-ontology/releases/download/v2025-07-30/cl-basic.obo",
+      "license": "CC BY 4.0 (access-and-feasibility.md table; upstream licence file not re-inspected here)",
+      "provenance": "INFERRED from the GitHub release tag v2025-07-30 named in access-and-feasibility.md; the exact retrieval URL was not saved; historical runs/data/ontology/cl-basic-v2025-07-30.obo.sha256 (2026-10-05)"
+    }
+  ],
+  "census_metadata_logical_sha256": "c6f8bc7c79fac6dc074839f47a0fca48d0f09dfaeef23b751647d80908a0c8e2"
 }
