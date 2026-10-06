@@ -69,6 +69,12 @@ def main():
         t0 = time.time()
         urllib.request.urlretrieve(url, h5)
         digest, size = sha256(h5), h5.stat().st_size
+        pins_path = W / "data/cite-inputs.json"
+        if pins_path.exists():
+            pins = json.loads(pins_path.read_text())
+            expected = pins.get(name, {}).get("sha256")
+            if expected is not None and digest != expected:
+                raise ValueError(f"CITE input hash mismatch for {name}")
         a = sc.read_10x_h5(h5, gex_only=False)
         a.var_names_make_unique()
         gex = a[:, (a.var.feature_types == "Gene Expression").to_numpy()].copy()
@@ -102,7 +108,7 @@ def main():
         A = pd.DataFrame(adt.X[keep].toarray() if sp.issparse(adt.X) else adt.X[keep], columns=list(adt.var_names))
         A.insert(0, "barcode", np.asarray(cells))
         A.to_parquet(OUT / f"adt_{name}.parquet")
-        h5.unlink()
+        # Preserve the raw input beside its checksum receipt for audit/reproduction.
         receipt[name] = {"url": url, "sha256": digest, "bytes": size, "cells_raw": int(a.n_obs),
                          "cells_qc": int(keep.sum()), "antibodies": list(adt.var_names),
                          "scTab_genes_present": int(present.sum()), "seconds": round(time.time() - t0, 1)}
