@@ -1,0 +1,29 @@
+{
+  "scope": "read-only metadata audit of original D05 query H5ADs, no rescoring",
+  "studies": [
+    {
+      "study": "HIHA",
+      "all_donors": 12,
+      "natural_donors": 12,
+      "natural_cells": 7200
+    },
+    {
+      "study": "RA",
+      "all_donors": 12,
+      "natural_donors": 12,
+      "natural_cells": 7200
+    },
+    {
+      "study": "Glaucoma",
+      "all_donors": 3,
+      "natural_donors": 3,
+      "natural_cells": 1800
+    },
+    {
+      "study": "JDM",
+      "all_donors": 5,
+      "natural_donors": 5,
+      "natural_cells": 3000
+    }
+  ]
+}
