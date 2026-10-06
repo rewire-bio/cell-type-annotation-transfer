@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "title": "Cell-type annotation transfer and reference coverage",
+  "question": "Which annotation workflows transfer to held-out blood studies, and when should predictions be left unassigned?",
+  "validation_fixture": false,
+  "experiment": {
+    "command": [
+      "uv",
+      "run",
+      "--frozen",
+      "python",
+      "scripts/experiment.py",
+      "--config",
+      "{config}",
+      "--output",
+      "{output}"
+    ],
+    "inputs": [
+      "src",
+      "scripts",
+      "uv.lock",
+      "pyproject.toml",
+      ".python-version",
+      "Makefile",
+      "data/manifest.json"
+    ],
+    "outputs": [
+      "results.json"
+    ],
+    "results_file": "results.json"
+  },
+  "reproduction": {
+    "command": [
+      "make",
+      "reproduce"
+    ],
+    "results_file": "results/full/results.json",
+    "paper_file": "paper/build/main.pdf",
+    "abs_tolerance": 1e-10,
+    "rel_tolerance": 1e-08
+  },
+  "budgets": {
+    "experiment_seconds": 120,
+    "reproduction_seconds": 600,
+    "worker_seconds": 900,
+    "max_worker_calls": 20,
+    "max_attempts": 2,
+    "max_storage_mb": 500
+  },
+  "paper": {
+    "source": "paper/main.tex",
+    "pdf": "paper/build/main.pdf"
+  }
+}

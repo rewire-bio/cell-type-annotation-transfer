@@ -1,0 +1,11 @@
+Protocol frozen 2026-10-05T21:15:52Z by coordinator (claude-opus-5-5) before any validation/test/platform/CITE-seq expression was downloaded.
+9b4374d80a85f2a647e7b479c358d898da89750d9007d3b122c86afc90f166e3  protocol-frozen-original.md
+f4b2f9a46dc6b60b2bae80a46c262f75a569f0f2207146992695b3156ed7c1ea  label-maps/celltypist_immune_all_low_v2.csv
+888b3522812e47688a9a908861ef6c263a068d62698794c8eb398381e82e151b  label-maps/census_blood_author_labels.csv
+fb19d4153ce622759d578e11daf6767279fc54df79053ab549c663d6a0356006  label-maps/sctab_164_labels.csv
+83fe9e28d54026842114c79f35aa5282dc30b39f6ce07c72fb15789ad63a6d1b  ../companion/src/celltransfer/ontology.py
+cb677c69d767021184639ecad45cce3a7b8f18d9e87af81f41d73bfa1bd8dd63  ../companion/src/celltransfer/label_maps.py
+ba24e2439bceb2608ae47adb9496d79675e717058259677305dd260f478ba07d  ../runs/data/ontology/cl-basic-v2025-07-30.obo
+a715fec36c2c421f7c4e31cf4cb4bea883eedab7fd7b20a4b76f091c22660448  ../runs/data/models/celltypist/Immune_All_High.pkl
+290874d35dac039d4c9218c343fde4aac1077709b72a331ce7266f6828c36502  ../runs/data/models/celltypist/Immune_All_Low.pkl
+573b911f30f7a70d33a13d1e4e28d596827e389ac0fe55dbfe30952ece70f56c  ../runs/data/downloads/sctab_val_f1_macro_epoch41.ckpt

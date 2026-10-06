@@ -1,0 +1,14 @@
+numpy==1.26.4
+scipy==1.13.1
+pandas==2.2.3
+scikit-learn==1.5.2
+anndata
+scanpy
+h5py
+pyarrow==17.0.0
+matplotlib==3.9.2
+psutil
+pyyaml
+torch==2.4.1
+celltypist
+cellxgene-census

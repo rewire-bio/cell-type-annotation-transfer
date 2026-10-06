@@ -1,0 +1,99 @@
+[
+  {
+    "job_id": "3cc2d1c4-c9b9-4123-860f-54a05ce9ccb7",
+    "state": {
+      "artifacts": [],
+      "attempt": 1,
+      "blockers": [
+        "Completed workers require artifacts, validation evidence, and no blockers"
+      ],
+      "exit_code": 0,
+      "finished_at": 1791306127.591291,
+      "job_id": "3cc2d1c4-c9b9-4123-860f-54a05ce9ccb7",
+      "owner_pid": 56158,
+      "pid": 56164,
+      "previous_job": null,
+      "revision": "02091eaa768876c7074d0d46526c61350b37ee09",
+      "role": "research-designer",
+      "started_at": 1791305802.028192,
+      "status": "failed",
+      "validation": [],
+      "worktree": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/3cc2d1c4-c9b9-4123-860f-54a05ce9ccb7/worktree"
+    },
+    "models": [
+      "claude-opus-5-5"
+    ],
+    "report": {
+      "status": "completed",
+      "artifacts": [
+        "protocol/resume-plan.md",
+        "protocol/implementation-checklist.md"
+      ],
+      "validation": [
+        "Read all 7 supplied inputs: protocol.md, historical/evidence/protocol-deviations.md, historical/evidence/access-and-feasibility.md, historical/companion/scripts/queue_main.sh, historical/companion/src/celltransfer/methods.py, historical/companion/scripts/score_all.py, evidence/migration-manifest.json (all 3079 lines, via paged read and grep).",
+        "Also read historical/companion/scripts/run_matched.py and the scaffold files (study.json, Makefile, configs/*.json, data/manifest.json, scripts/experiment.py, pyproject.toml, .gitignore, README.md, evidence/claims.json, evidence/reviews.json) and grepped for the pi fixture in src, scripts, tests and paper.",
+        "historical/runs/ is git-ignored and absent from this worktree (glob found nothing). Read two files from the original workspace without modifying them: runs/queue-main/queue.log (gives arm A/B step timings and the B_M4 FAIL at 2026-10-06T09:59:36Z) and runs/T02-matched-armB-20261006T092352Z/M4/B_M4_fit.stderr (OSError Errno 28, no space left on device, during the joblib memmap in LogisticRegression.fit; 6.08 s; peak footprint 3.27 GB).",
+        "Storage estimates come from manifest byte counts: D05 reference checkpoints about 215 MB, reference_F 33 MB, T01 M6 scanvi adata 108 MB, scTab checkpoint 503,162,157 bytes.",
+        "No shell commands, hashing, experiments, downloads or scoring were run. sha256 equality of protocol.md with the frozen original is not checked; it is listed as checklist item A1 (shasum -a 256 protocol.md historical/evidence/protocol-frozen-original.md, expected 9b4374d8...).",
+        "No historical evidence file, input file or other worktree was modified. Only the two owned outputs were written."
+      ],
+      "blockers": [
+        "No user approval is recorded. Execution of Mode R (cached resume) and Mode F (clean reproduction) needs the user to record an amendment in protocol/amendments/ accepting operational amendments OA-1 to OA-11, the per-step wall-time and memory ceilings, the stopping rules, the tiered reproduction tolerances, the network fetches and no paid compute. The worker did not and must not create that approval.",
+        "Scaffold study.json budgets (120 s experiment, 600 s reproduction, 500 MB storage) and its 1e-10 absolute tolerance cannot be met by this study (the scTab checkpoint alone is 503 MB, Mode R needs about 2-2.5 h, and scANVI is not bitwise-deterministic). Replacing them is a material operational change that needs approval.",
+        "The cached historical runs (D05, T01, T02) are git-ignored and absent from this worktree. Mode R needs read-only access through a configured HISTORICAL_RUNS_ROOT plus sha256 verification against the migration manifest.",
+        "Licence clearance is still pending for Census data (CC BY 4.0, to be verified), the 10x CITE-seq files (to verify), the CellTypist models (to verify) and the scTab weights (third-party mirror). Per-cell data, models and CITE matrices cannot go into the public repo until cleared.",
+        "Three discrepancies need a user decision and are recorded in checklist A3: 4 vs 5 CITE files; disk floor of 0.4 GiB vs 1.0 GiB vs the deviation-1 wait rule; and whether released models are scored on CITE.",
+        "Infeasible or notrun items are retained, not dropped: Pan-Human Azimuth and scGPT (frozen notrun), study-level and platform-level uncertainty, human adjudication, and bit-identical runtime reproduction. The scoring runtime with 1,000 bootstrap reps is unmeasured, so it is bounded by a 120 min ceiling with stop-and-report."
+      ]
+    }
+  },
+  {
+    "job_id": "d81e1493-a27e-4c85-8ddc-fa2652e133e5",
+    "state": {
+      "artifacts": [],
+      "attempt": 1,
+      "blockers": [
+        "Completed workers require artifacts, validation evidence, and no blockers"
+      ],
+      "exit_code": 0,
+      "finished_at": 1791306461.528291,
+      "job_id": "d81e1493-a27e-4c85-8ddc-fa2652e133e5",
+      "owner_pid": 56820,
+      "pid": 56826,
+      "previous_job": null,
+      "revision": "b9be78359618d0b9b635e3a0e0bac1bf65e13dbb",
+      "role": "methods-reviewer",
+      "started_at": 1791306172.166742,
+      "status": "failed",
+      "validation": [],
+      "worktree": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/d81e1493-a27e-4c85-8ddc-fa2652e133e5/worktree"
+    },
+    "models": [
+      "claude-opus-5-5"
+    ],
+    "report": {
+      "status": "completed",
+      "artifacts": [
+        "protocol/preexecution-review.md",
+        "protocol/resume-plan-reviewed.md"
+      ],
+      "validation": [
+        "Read protocol.md, protocol/resume-plan.md, protocol/implementation-checklist.md and historical/companion/scripts/score_all.py in full. For context, also read evaluate.py, protein_check.py, protocol-deviations.md, study.json and Makefile, and grepped build_cite.py and ontology.py. Input files were not modified.",
+        "Checked score_all.py lines 116-121 against protocol.md section 6: Arm A and practical-track natural unknowns are taken from all strata, while the protocol says natural stratum only unless stated (it says all strata only for Arm B simulated unknowns). Logged as B1.",
+        "Arithmetic check: the original Mode F components add up to 0.5+0.5+0.35+0.5+2 = 3.85 GiB, not about 2 GiB. The Mode R step ceilings add up to 380 min, which is more than the 6 h stage ceiling.",
+        "Confirmed from the code that build_cite.py writes released_predictions_<name>.parquet and protein_check.py requires it, so P1/P2 are part of the protein check. Checked by grep that the gate names match the ontology target class names.",
+        "Confirmed from the code that bootstrap CIs and paired differences exist for only 7 metrics. Thresholds are fixed from validation, so validation uncertainty is not carried into the intervals. tau_cov can be -inf and tau_err can be None.",
+        "No commands, experiments, scoring or data access were run. This is a pre-approval critique, not a methods pass or scientific verification."
+      ],
+      "blockers": [
+        "Pre-approval B1 (user decision needed before R6): natural-unknown stratum mismatch. score_all.py builds natural unknowns and unknown_auroc for Arm A and the practical track from all strata, but protocol.md section 6 defaults to the natural stratum. R0 must check whether any top-up classes fall outside K. If some do, choose option (a), the protocol text (recommended), or option (b), keep the code behaviour, before any scoring.",
+        "Pre-approval B2: storage. The plan's Mode F estimate of about 2 GiB is wrong; its own components add up to about 4 GiB. Caches outside the measured directories (uv, HF, CellTypist, tectonic) are not covered by the 5 GiB cap. The reviewed plan redirects these caches and proposes a 7 GiB cap.",
+        "Pre-approval B3: the 12 GiB memory ceiling cannot be enforced as written. /usr/bin/time -l only reports after the process exits, and macOS ignores RLIMIT_AS/RSS. Its figure also undercounts the n_jobs=4 worker processes, while summing RSS would double-count memmap pages. The reviewed plan uses a foreground watchdog on process-group phys_footprint, which must be shown to work at R0.",
+        "Pre-approval B4: make reproduce must rebuild all tables, figures and the compiled PDF from the committed manuscript, within a budget of 15 h and the 7 GiB cap. The study.json tolerance of 1e-10 is not achievable. Blog handoff must not proceed on a recorded reason that Mode F is infeasible. Open item for the coordinator: how the harness reads the tolerance fields.",
+        "Pre-approval B5: tolerances were incomplete. The reviewed plan replaces the relative tolerance on tau, which breaks near zero, -inf and None, with a state-equality check. It adds a combined abs/rel close() rule with NaN-state matching, tolerances for the missing metrics, CI endpoints, paired differences and protein results, and a precise sign tier with a near-zero exemption. The M6 threshold of at least 97% label agreement has no empirical basis; it becomes a diagnostic only, and M6 stays under the same metric tolerances as the other methods.",
+        "Pre-approval B6: the stage ceilings did not account for the step ceilings or retries. The reviewed plan proposes Mode R 8 h and Mode F 14 h, both counting all attempts.",
+        "User approval of resume-plan-reviewed.md section 10 has not been given. The coordinator can record it, and the user does not need to edit files. Until then, execution and scoring stay disabled."
+      ]
+    }
+  }
+]

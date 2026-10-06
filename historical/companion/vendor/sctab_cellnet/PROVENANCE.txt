@@ -1,0 +1,7 @@
+Vendored from https://github.com/theislab/scTab at 5ede7f2ba1f9618b86924f2ff587931de18f4ada (MIT). Files unmodified: cellnet/tabnet/sparsemax.py, cellnet/tabnet/tab_network.py, cellnet/utils/data_loading.py, LICENSE. Empty __init__.py files added so the upstream package __init__ (which imports training dependencies) is not needed.
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  cellnet/tabnet/__init__.py
+588a742593697188d65a96b4675e43ae0b6ace614be902f7370379e157df5aae  cellnet/tabnet/sparsemax.py
+94a951baeb0058129ea7aa8e3cd9d9b791c99f7aab70c23e021b13475a0ca020  cellnet/tabnet/tab_network.py
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  cellnet/utils/__init__.py
+d11ea15ade40eddb79f6db367401622b764b36f90d526e143bed20c9855c488e  cellnet/utils/data_loading.py
+c10a30764345fa3311b341f72159417aa558bbf64b58db2046a6df8d282cf180  LICENSE

@@ -1,0 +1,99 @@
+label,status,target,lineage
+Age-associated B cells,mapped,B,B lineage
+Alveolar macrophages,outside,,
+B cells,mapped,B,B lineage
+CD16+ NK cells,mapped,NK,NK/ILC
+CD16- NK cells,mapped,NK,NK/ILC
+CD8a/a,outside,,T
+CD8a/b(entry),outside,,T
+CMP,mapped,HSPC,progenitor
+CRTAM+ gamma-delta T cells,mapped,gamma-delta T,T
+Classical monocytes,mapped,CD14 mono,monocyte
+Cycling B cells,mapped,B,B lineage
+Cycling DCs,coarser,,dendritic
+Cycling NK cells,mapped,NK,NK/ILC
+Cycling T cells,coarser,,T
+Cycling gamma-delta T cells,mapped,gamma-delta T,T
+Cycling monocytes,coarser,,monocyte
+DC,coarser,,dendritic
+DC precursor,outside,,dendritic
+DC1,mapped,cDC,dendritic
+DC2,mapped,cDC,dendritic
+DC3,mapped,cDC,dendritic
+Double-negative thymocytes,outside,,T
+Double-positive thymocytes,outside,,T
+ELP,mapped,HSPC,progenitor
+ETP,outside,,progenitor
+Early MK,outside,,MK/erythroid
+Early erythroid,mapped,erythroid,MK/erythroid
+Early lymphoid/T lymphoid,outside,,progenitor
+Endothelial cells,outside,,
+Epithelial cells,outside,,
+Erythrocytes,mapped,erythroid,MK/erythroid
+Erythrophagocytic macrophages,outside,,
+Fibroblasts,outside,,
+Follicular B cells,mapped,B,B lineage
+Follicular helper T cells,mapped,CD4 T,T
+GMP,mapped,HSPC,progenitor
+Germinal center B cells,mapped,B,B lineage
+Granulocytes,coarser,,granulocyte
+HSC/MPP,mapped,HSPC,progenitor
+Hofbauer cells,outside,,
+ILC,mapped,ILC,NK/ILC
+ILC precursor,mapped,ILC,NK/ILC
+ILC1,mapped,ILC,NK/ILC
+ILC2,mapped,ILC,NK/ILC
+ILC3,mapped,ILC,NK/ILC
+Intermediate macrophages,outside,,
+Intestinal macrophages,outside,,
+Kidney-resident macrophages,outside,,
+Kupffer cells,outside,,
+Large pre-B cells,outside,,B lineage
+Late erythroid,mapped,erythroid,MK/erythroid
+MAIT cells,mapped,MAIT,T
+MEMP,mapped,HSPC,progenitor
+MNP,coarser,,
+Macrophages,outside,,
+Mast cells,outside,,
+Megakaryocyte precursor,outside,,MK/erythroid
+Megakaryocyte-erythroid-mast cell progenitor,mapped,HSPC,progenitor
+Megakaryocytes/platelets,mapped,platelet/MK,MK/erythroid
+Memory B cells,mapped,B,B lineage
+Memory CD4+ cytotoxic T cells,mapped,CD4 T,T
+Mid erythroid,mapped,erythroid,MK/erythroid
+Migratory DCs,mapped,cDC,dendritic
+Mono-mac,coarser,,
+Monocyte precursor,outside,,monocyte
+Monocytes,coarser,,monocyte
+Myelocytes,outside,,granulocyte
+NK cells,mapped,NK,NK/ILC
+NKT cells,outside,,T
+Naive B cells,mapped,B,B lineage
+Neutrophil-myeloid progenitor,mapped,HSPC,progenitor
+Neutrophils,mapped,neutrophil,granulocyte
+Non-classical monocytes,mapped,CD16 mono,monocyte
+Plasma cells,mapped,ASC,B lineage
+Plasmablasts,mapped,ASC,B lineage
+Pre-pro-B cells,outside,,B lineage
+Pro-B cells,outside,,B lineage
+Proliferative germinal center B cells,mapped,B,B lineage
+Promyelocytes,outside,,granulocyte
+Regulatory T cells,mapped,CD4 T,T
+Small pre-B cells,outside,,B lineage
+T(agonist),outside,,T
+Tcm/Naive cytotoxic T cells,mapped,CD8 T,T
+Tcm/Naive helper T cells,mapped,CD4 T,T
+Tem/Effector helper T cells,mapped,CD4 T,T
+Tem/Effector helper T cells PD1+,mapped,CD4 T,T
+Tem/Temra cytotoxic T cells,mapped,CD8 T,T
+Tem/Trm cytotoxic T cells,mapped,CD8 T,T
+Transitional B cells,mapped,B,B lineage
+Transitional DC,outside,,dendritic
+Transitional NK,mapped,NK,NK/ILC
+Treg(diff),mapped,CD4 T,T
+Trm cytotoxic T cells,mapped,CD8 T,T
+Type 1 helper T cells,mapped,CD4 T,T
+Type 17 helper T cells,mapped,CD4 T,T
+gamma-delta T cells,mapped,gamma-delta T,T
+pDC,mapped,pDC,dendritic
+pDC precursor,outside,,dendritic

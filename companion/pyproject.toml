@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "celltransfer"
+version = "0.1.0"
+description = "Study-held-out cell-type annotation transfer with abstention (rewire.it article companion)"
+requires-python = ">=3.11,<3.13"
+license = {text = "MIT"}
+dependencies = ["numpy>=1.26,<2", "scipy>=1.13", "pandas>=2.2", "anndata>=0.10", "h5py"]
+
+[project.optional-dependencies]
+study = ["scikit-learn==1.5.2", "scanpy==1.11.5", "celltypist==1.7.1", "cellxgene-census==1.18.0", "torch==2.4.1", "scvi-tools==1.4.1", "pyyaml", "pyarrow==17.0.0", "matplotlib==3.9.2"]
+
+[project.scripts]
+celltransfer = "celltransfer.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["celltransfer*"]

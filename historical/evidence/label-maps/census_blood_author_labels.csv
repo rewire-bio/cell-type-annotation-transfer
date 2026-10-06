@@ -1,0 +1,159 @@
+cell_type_ontology_term_id,name,status,target,lineage,cells_blood_normal_primary
+CL:0000034,stem cell,coarser,,,305
+CL:0000037,hematopoietic stem cell,mapped,HSPC,progenitor,889
+CL:0000038,erythroid progenitor cell,ambiguous,HSPC|erythroid,,641
+CL:0000049,common myeloid progenitor,mapped,HSPC,progenitor,4532
+CL:0000050,megakaryocyte-erythroid progenitor cell,mapped,HSPC,progenitor,268
+CL:0000051,common lymphoid progenitor,mapped,HSPC,progenitor,1706
+CL:0000057,fibroblast,outside,,,1
+CL:0000066,epithelial cell,outside,,,19
+CL:0000081,blood cell,coarser,,,5310
+CL:0000084,T cell,coarser,,,86862
+CL:0000094,granulocyte,coarser,,,525
+CL:0000097,mast cell,outside,,,88
+CL:0000113,mononuclear phagocyte,coarser,,,666
+CL:0000115,endothelial cell,outside,,,383
+CL:0000138,chondrocyte,outside,,,1
+CL:0000145,professional antigen presenting cell,coarser,,,4765
+CL:0000158,club cell,outside,,,5
+CL:0000232,erythrocyte,mapped,erythroid,MK/erythroid,24000
+CL:0000233,platelet,mapped,platelet/MK,MK/erythroid,55908
+CL:0000235,macrophage,outside,,,4118
+CL:0000236,B cell,mapped,B,B lineage,288159
+CL:0000451,dendritic cell,coarser,,,12038
+CL:0000492,CD4-positive helper T cell,mapped,CD4 T,T,14375
+CL:0000542,lymphocyte,coarser,,,7707
+CL:0000545,T-helper 1 cell,mapped,CD4 T,T,101
+CL:0000546,T-helper 2 cell,mapped,CD4 T,T,16
+CL:0000547,proerythroblast,mapped,erythroid,MK/erythroid,158
+CL:0000553,megakaryocyte progenitor cell,mapped,HSPC,progenitor,15
+CL:0000556,megakaryocyte,mapped,platelet/MK,MK/erythroid,2506
+CL:0000576,monocyte,coarser,,,75169
+CL:0000583,alveolar macrophage,outside,,,7
+CL:0000623,natural killer cell,mapped,NK,NK/ILC,445457
+CL:0000624,"CD4-positive, alpha-beta T cell",mapped,CD4 T,T,358673
+CL:0000625,"CD8-positive, alpha-beta T cell",mapped,CD8 T,T,287438
+CL:0000646,basal cell,outside,,,18
+CL:0000670,primordial germ cell,outside,,,4
+CL:0000763,myeloid cell,coarser,,,26097
+CL:0000764,erythroid lineage cell,mapped,erythroid,MK/erythroid,300
+CL:0000765,erythroblast,mapped,erythroid,MK/erythroid,17
+CL:0000766,myeloid leukocyte,coarser,,,1
+CL:0000767,basophil,coarser,,,41
+CL:0000775,neutrophil,mapped,neutrophil,granulocyte,40311
+CL:0000782,myeloid dendritic cell,mapped,cDC,dendritic,4071
+CL:0000784,plasmacytoid dendritic cell,mapped,pDC,dendritic,49146
+CL:0000785,mature B cell,mapped,B,B lineage,9762
+CL:0000786,plasma cell,mapped,ASC,B lineage,12893
+CL:0000787,memory B cell,mapped,B,B lineage,295298
+CL:0000788,naive B cell,mapped,B,B lineage,654810
+CL:0000789,alpha-beta T cell,coarser,,,304
+CL:0000791,mature alpha-beta T cell,coarser,,,43891
+CL:0000792,"CD4-positive, CD25-positive, alpha-beta regulatory T cell",mapped,CD4 T,T,2082
+CL:0000794,"CD8-positive, alpha-beta cytotoxic T cell",mapped,CD8 T,T,57215
+CL:0000795,"CD8-positive, alpha-beta regulatory T cell",mapped,CD8 T,T,5185
+CL:0000798,gamma-delta T cell,mapped,gamma-delta T,T,78846
+CL:0000800,mature gamma-delta T cell,mapped,gamma-delta T,T,171397
+CL:0000809,"double-positive, alpha-beta thymocyte",outside,,,880
+CL:0000810,"CD4-positive, alpha-beta thymocyte",outside,,,5858
+CL:0000811,"CD8-positive, alpha-beta thymocyte",outside,,,2620
+CL:0000813,memory T cell,coarser,,,341
+CL:0000814,mature NK T cell,outside,,,4293
+CL:0000815,regulatory T cell,coarser,,,67894
+CL:0000816,immature B cell,mapped,B,B lineage,990
+CL:0000817,precursor B cell,mapped,B,B lineage,459
+CL:0000818,transitional stage B cell,mapped,B,B lineage,81161
+CL:0000826,pro-B cell,mapped,HSPC,progenitor,416
+CL:0000837,hematopoietic multipotent progenitor cell,mapped,HSPC,progenitor,211563
+CL:0000838,lymphoid lineage restricted progenitor cell,mapped,HSPC,progenitor,243
+CL:0000839,myeloid lineage restricted progenitor cell,mapped,HSPC,progenitor,379
+CL:0000860,classical monocyte,mapped,CD14 mono,monocyte,265034
+CL:0000875,non-classical monocyte,mapped,CD16 mono,monocyte,44956
+CL:0000890,alternatively activated macrophage,outside,,,1
+CL:0000895,"naive thymus-derived CD4-positive, alpha-beta T cell",mapped,CD4 T,T,2228975
+CL:0000896,"activated CD4-positive, alpha-beta T cell",mapped,CD4 T,T,8339
+CL:0000897,"CD4-positive, alpha-beta memory T cell",mapped,CD4 T,T,73333
+CL:0000898,naive T cell,coarser,,,1616
+CL:0000899,T-helper 17 cell,mapped,CD4 T,T,1
+CL:0000900,"naive thymus-derived CD8-positive, alpha-beta T cell",mapped,CD8 T,T,715606
+CL:0000904,"central memory CD4-positive, alpha-beta T cell",mapped,CD4 T,T,1431041
+CL:0000905,"effector memory CD4-positive, alpha-beta T cell",mapped,CD4 T,T,681277
+CL:0000906,"activated CD8-positive, alpha-beta T cell",mapped,CD8 T,T,2677
+CL:0000907,"central memory CD8-positive, alpha-beta T cell",mapped,CD8 T,T,169414
+CL:0000909,"CD8-positive, alpha-beta memory T cell",mapped,CD8 T,T,49634
+CL:0000910,cytotoxic T cell,outside,,,3296
+CL:0000913,"effector memory CD8-positive, alpha-beta T cell",mapped,CD8 T,T,641394
+CL:0000921,type I NK T cell,outside,,,676
+CL:0000931,activated type II NK T cell,outside,,,234
+CL:0000934,"CD4-positive, alpha-beta cytotoxic T cell",mapped,CD4 T,T,36573
+CL:0000935,"CD4-negative, CD8-negative, alpha-beta intraepithelial T cell",outside,,,236
+CL:0000938,"CD16-negative, CD56-bright natural killer cell, human",mapped,NK,NK/ILC,78905
+CL:0000939,"CD16-positive, CD56-dim natural killer cell, human",mapped,NK,NK/ILC,810899
+CL:0000940,mucosal invariant T cell,mapped,MAIT,T,321036
+CL:0000946,antibody secreting cell,mapped,ASC,B lineage,450
+CL:0000968,Be cell,mapped,B,B lineage,41150
+CL:0000970,unswitched memory B cell,mapped,B,B lineage,2323
+CL:0000972,class switched memory B cell,mapped,B,B lineage,4440
+CL:0000979,IgG memory B cell,mapped,B,B lineage,607
+CL:0000980,plasmablast,mapped,ASC,B lineage,7496
+CL:0000982,IgG plasmablast,mapped,ASC,B lineage,20
+CL:0000984,IgA plasmablast,mapped,ASC,B lineage,66
+CL:0000985,IgG plasma cell,mapped,ASC,B lineage,183
+CL:0000986,IgM plasma cell,mapped,ASC,B lineage,84
+CL:0000987,IgA plasma cell,mapped,ASC,B lineage,277
+CL:0000990,conventional dendritic cell,mapped,cDC,dendritic,25340
+CL:0001024,"CD34-positive, CD38-negative hematopoietic stem cell",mapped,HSPC,progenitor,74
+CL:0001029,common dendritic progenitor,mapped,HSPC,progenitor,111
+CL:0001042,T-helper 22 cell,mapped,CD4 T,T,6379
+CL:0001043,"activated CD4-positive, alpha-beta T cell, human",mapped,CD4 T,T,12
+CL:0001044,"effector CD4-positive, alpha-beta T cell",mapped,CD4 T,T,9783
+CL:0001046,memory CCR4-positive regulatory T cell,mapped,CD4 T,T,10981
+CL:0001049,"activated CD8-positive, alpha-beta T cell, human",mapped,CD8 T,T,1
+CL:0001050,"effector CD8-positive, alpha-beta T cell",mapped,CD8 T,T,8544
+CL:0001054,CD14-positive monocyte,mapped,CD14 mono,monocyte,499467
+CL:0001056,"dendritic cell, human",coarser,,,975
+CL:0001057,"myeloid dendritic cell, human",mapped,cDC,dendritic,41
+CL:0001058,"plasmacytoid dendritic cell, human",mapped,pDC,dendritic,1470
+CL:0001062,"effector memory CD8-positive, alpha-beta T cell, terminally differentiated",mapped,CD8 T,T,8065
+CL:0001065,innate lymphoid cell,mapped,ILC,NK/ILC,6623
+CL:0001066,"erythroid progenitor cell, mammalian",ambiguous,HSPC|erythroid,,74
+CL:0001067,group 1 innate lymphoid cell,mapped,ILC,NK/ILC,36
+CL:0001071,group 3 innate lymphoid cell,mapped,ILC,NK/ILC,72
+CL:0001077,"ILC1, human",mapped,ILC,NK/ILC,213
+CL:0001078,"group 3 innate lymphoid cell, human",mapped,ILC,NK/ILC,57
+CL:0001081,"group 2 innate lymphoid cell, human",mapped,ILC,NK/ILC,36
+CL:0001082,immature innate lymphoid cell,mapped,ILC,NK/ILC,3010
+CL:0001087,"effector memory CD4-positive, alpha-beta T cell, terminally differentiated",mapped,CD4 T,T,819
+CL:0001203,"CD8-positive, alpha-beta memory T cell, CD45RO-positive",mapped,CD8 T,T,635
+CL:0002010,pre-conventional dendritic cell,mapped,HSPC,progenitor,894
+CL:0002028,basophil mast progenitor cell,mapped,HSPC,progenitor,318
+CL:0002038,T follicular helper cell,mapped,CD4 T,T,911
+CL:0002057,"CD14-positive, CD16-negative classical monocyte",mapped,CD14 mono,monocyte,1210529
+CL:0002117,IgG-negative class switched memory B cell,mapped,B,B lineage,1285
+CL:0002151,late promyelocyte,mapped,HSPC,progenitor,2
+CL:0002154,early promyelocyte,mapped,HSPC,progenitor,6
+CL:0002193,myelocyte,mapped,HSPC,progenitor,108
+CL:0002343,"decidual natural killer cell, human",mapped,NK,NK/ILC,188
+CL:0002393,intermediate monocyte,coarser,,,53701
+CL:0002394,CD141-positive myeloid dendritic cell,mapped,cDC,dendritic,4979
+CL:0002396,"CD14-low, CD16-positive monocyte",mapped,CD16 mono,monocyte,289844
+CL:0002397,"CD14-positive, CD16-positive monocyte",mapped,CD14 mono,monocyte,662
+CL:0002399,CD1c-positive myeloid dendritic cell,mapped,cDC,dendritic,79946
+CL:0002422,enucleated reticulocyte,mapped,erythroid,MK/erythroid,3
+CL:0002470,MHC-II-positive classical monocyte,mapped,HSPC,progenitor,5
+CL:0002489,double negative thymocyte,coarser,,,19332
+CL:0002601,uterine smooth muscle cell,outside,,,1
+CL:0002633,respiratory basal cell,outside,,,6
+CL:0002677,naive regulatory T cell,mapped,CD4 T,T,71329
+CL:0002678,memory regulatory T cell,mapped,CD4 T,T,81494
+CL:0008001,hematopoietic precursor cell,mapped,HSPC,progenitor,246892
+CL:0009068,CD8aa(I) thymocyte,outside,,,14707
+CL:0011024,double negative T regulatory cell,outside,,,1037
+CL:0011026,progenitor cell,coarser,,,1005
+CL:0017009,"Axl+ dendritic cell, human",outside,,,2095
+CL:2000001,peripheral blood mononuclear cell,outside,,,131
+CL:2000002,decidual cell,outside,,,1
+CL:2000060,placental villous trophoblast,outside,,,7
+CL:2000095,cord blood hematopoietic stem cell,mapped,HSPC,progenitor,8413
+CL:3000001,Hofbauer cell,outside,,,7
+CL:4030009,epithelial cell of proximal tubule segment 1,outside,,,2

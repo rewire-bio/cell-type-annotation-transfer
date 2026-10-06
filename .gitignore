@@ -1,0 +1,22 @@
+.venv/
+.tools/
+__pycache__/
+*.pyc
+.research/
+results/
+paper/build/
+paper/generated/*.tex
+paper/figures/*.pdf
+paper/figures/*.svg
+blog-handoff/
+
+# Portable evidence must survive Git ignore rules for generated outputs.
+!evidence/archive/
+!evidence/archive/**
+
+# Historical raw data and execution artifacts remain local pending licence/log review.
+historical/runs/
+historical/research/automated-research/
+
+# Retrieval snapshots retained locally until redistribution review.
+historical/evidence/probes/

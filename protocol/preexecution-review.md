@@ -1,0 +1,50 @@
+# Pre-execution methods review of `protocol/resume-plan.md`
+
+Reviewer: methods-reviewer worker, 2026-10-06, snapshot `b9be7835`.
+Scope: a critique of the proposed operational resume protocol **before user approval**. This is not a final methods pass and not scientific verification. Nothing was executed; no data, predictions or labels were opened.
+Inputs read: `protocol.md`, `protocol/resume-plan.md`, `protocol/implementation-checklist.md`, `historical/companion/scripts/score_all.py`. For context I also read, without modifying them: `historical/companion/src/celltransfer/evaluate.py`, `historical/companion/scripts/protein_check.py`, `historical/companion/scripts/build_cite.py` (grep only), `historical/companion/src/celltransfer/ontology.py` (grep only), `historical/evidence/protocol-deviations.md`, `study.json` and `Makefile`.
+Corrected plan: `protocol/resume-plan-reviewed.md`.
+
+## Verdict
+
+The plan is sound in intent. It keeps the scientific choices frozen, keeps blinding, uses immutable attempts and does not retry scientific exceptions. **It is not ready for approval as written.** Six findings (B1–B6) must be fixed in the plan text that the user approves. All six are fixed in `resume-plan-reviewed.md`, except that B1 needs one user decision before scoring. None of them requires new research or a change to scientific scope.
+
+## Blocking findings (resolve before approval)
+
+**B1. Natural-unknown stratum: the code and the frozen protocol disagree (needs a user decision before R6).**
+`protocol.md` §6 says "Unless stated, natural stratum only". It qualifies only the *simulated* unknowns as "all strata". `score_all.py` lines 116–121 build Arm A and practical-track natural unknowns as `tt[mapped & ~target.isin(K)]` over **all strata**. That includes rare top-up cells. `unknown_auroc` (line 126) compares natural-stratum knowns against all-strata unknowns. If any top-up class (ASC, pDC, cDC, MAIT, γδ T, CD16 mono, HSPC, ILC, platelet/MK, erythroid) falls outside K, the natural-unknown count and the false-acceptance rate are inflated by enrichment sampling. Whether it matters depends on K. K is in `features_and_classes.json` and is reference-only information, so checking it does not break blinding. Nothing has been scored, so the issue can be resolved cleanly now. Choosing a definition after seeing results would be post-hoc. The fix is in reviewed plan §5 (D-1).
+
+**B2. Storage arithmetic and cap are wrong.**
+Plan §6 says Mode F's peak extra storage is "≈ 2 GiB" but lists env 0.5 + scTab 0.5 + data 0.35 + arms 0.5 + scratch ≤ 2, which adds up to **≈ 3.85 GiB (~4 GiB)**. On top of that, Mode R's retained outputs and venv are still present when Mode F runs. Off-prefix caches are not counted either: the uv wheel cache, the Hugging Face/CellTypist download caches, the tectonic bundle and `~/.cache`. They can add 1–2 GiB that the 5 GiB `du` cap never sees. As written, the cap can either trip during a valid Mode F, or be met on paper while the real disk use is much higher. The original failure was ENOSPC, so this matters. Fixed in reviewed plan §3.
+
+**B3. The 12 GiB memory ceiling cannot be enforced as written.**
+`/usr/bin/time -l` reports peak usage only after the process exits, so it can classify a failure but cannot prevent one. macOS does not enforce `RLIMIT_AS`/`RLIMIT_RSS`, and there are no cgroups. The "peak memory footprint" from `time -l` covers the direct child process. For M4/M5 with `n_jobs=4`, loky worker processes are not summed in, so the historical 3.27 GB figure probably understates the aggregate. Summing RSS across workers has the opposite problem: it double-counts shared joblib memmap pages and could kill a legitimate M4 fit (parent ~3.3 GB + 4 × ~2 GB of mapped pages ≈ 11 GB). A foreground watchdog is needed, and its measurement method must be stated and tested. Fixed in reviewed plan §4 (OA-5).
+
+**B4. Harness reproduction and blog gating are under-specified.**
+(a) `study.json` sets reproduction to `make reproduce` with a 600 s budget and `abs 1e-10 / rel 1e-8` tolerances. The plan replaces the budgets but does not say what `make reproduce` must produce. It must rebuild every table and figure and compile `paper/build/main.pdf` from the committed manuscript. A 1e-10 tolerance cannot hold for M6 or for threaded BLAS. (b) Plan §9 allows a blog handoff after "Mode F **or a recorded reason it is infeasible**". That lets the blog go ahead with no independent re-derivation. It must be removed. Fixed in reviewed plan §6 (H) and §8.
+
+**B5. The tolerances are incomplete or ill-defined in several places.**
+- τ relative difference ≤ 1e-4. M1/M2 confidences are margins, so τ can sit near 0 and a relative difference blows up. `threshold_coverage` can return `-inf` (when the cap is below 90%) and `threshold_error` can return `None` ("not attainable"), and neither has a defined difference. `tau_err` is also discontinuous: one label flip can move it to a different tie block. A relative tolerance on τ is therefore not meaningful. τ should be compared by state, and its effect judged through the downstream metrics.
+- `conf` abs ≤ 1e-5 has no relative component. M1 confidences are on a z-score scale.
+- Several metrics are missing from the tolerance list: `unknown_auroc`, `risk@*`, `cross_lineage_share`, `lineage_agreement_closed`, `coarser/outside_fraction`, `max_coverage`, the bootstrap CI endpoints, the paired differences, per-study, per-class, platform and protein agreement. There is also no rule for when NaN appears in one mode and not the other.
+- The S tier ("CI excludes 0 in either mode → same sign") does not say what "sign" means. If it means CI exclusion, near-zero differences make it fragile. It also has no near-zero exemption.
+- "Unassigned" is listed, but `score_all.py` does not output it. It is 1 − coverage and should be derived and documented as such.
+Fixed in reviewed plan §7.
+
+**B6. The stage ceiling does not match the step ceilings, and retries are not budgeted.**
+Mode R step ceilings add up to 380 min (6.3 h) for a single attempt, which is more than the 6 h stage ceiling. With `max_attempts: 2`, the worst case is about 12.7 h. The plan does not say whether the stage ceiling includes retries. Fixed in reviewed plan §6.
+
+## Substantive non-blocking findings (fix in plan; no approval risk if adopted)
+
+1. **The stochastic tolerance T3 (M6 label agreement ≥ 97%) has no empirical basis.** No repeat M6 run exists. D01/D04 equivalence covered the data build, not scANVI training. The 97% figure is a guess. There is a second problem: T3 can pass while the M-tier fails, because 3% label disagreement can move accepted error by more than 0.01. The reviewed plan keeps M6 under the **same** metric tolerances as every other method (no special relaxation). It reports M6 per-cell agreement as a diagnostic with no pass/fail line, and labels any M6 breach as attributable to non-deterministic CPU training *only if* M1–M5 pass. The tolerances are deliberately not loosened to make M6 pass.
+2. **The M-tier 0.01 is loose for the deterministic methods,** where T2 (≥ 99.9% agreement) already limits metric differences to roughly ≤ 0.002. That is acceptable because T2 is the binding check for M1–M5. The paper should still say that 0.01 is an engineering tolerance, not a statistically derived one. The AURC tolerance of 0.005 can be a large relative difference, because AURC values are small. Its magnitude should be reported next to the result.
+3. **Bootstrap scope (code fact; limitation to report, not to change).** CIs exist only for seven metrics: coverage and accepted error at both OPs, macro-F1, unknown false-acceptance at OP-cov, and cross-lineage rate at OP-cov. Paired differences exist only for those seven. AURC, AUROC, Brier/ECE, unknown false-acceptance at OP-err, per-class, per-study and platform results have **no** interval. They must be reported as point estimates. The intervals are conditional on the validation-fixed thresholds: validation-set uncertainty is not propagated. Unknown false-acceptance replicates are NaN when no donor carrying unknowns is drawn, and those replicates are dropped by `nanpercentile`. The count of NaN replicates should be reported. None of this is a deviation from the protocol. These are limitations.
+4. **R7 command is incomplete.** `protein_check.py` needs `--cite <R4 dir>` and `--matched A=<R5 dir>`, and the R5 output must contain `M1`…`M6` subdirectories holding `predictions_<cite>.parquet`. Checklist A3(c) is answered by the code: `build_cite.py` writes `released_predictions_<name>.parquet`, and `protein_check.py` requires it. So P1/P2 *are* part of the protein check. Gate names in `protein_check.py` match the target class names in `ontology.py` (checked by grep).
+5. **Calibration detail (deviation 3 already covers it).** ECE uses the un-renormalised top CellTypist sigmoid probability, while Brier uses renormalised probabilities. Report both as frozen.
+6. **M4 chosen C is in T1.** A near-tie in validation macro-F1 could flip C through threaded-BLAS noise. If that happens, report `validation_macro_f1_by_C` from both modes. It is still a T1 breach and is not waived.
+7. **Assembly naming.** `score_all.py` keys method tables on the `M*` directory name. The OA-9 symlinks must be named exactly `M1`…`M6`.
+8. **Blinding order is correct.** Tolerances and code hashes are fixed before R6. Mode F runs after Mode R results are seen, which is acceptable because Mode F has no free choices. Any code change between R and F must be recorded in an amendment and makes the Mode F comparison invalid as a reproduction.
+
+## What the user is asked to approve
+
+Approval of the concrete items listed in `resume-plan-reviewed.md` §10: the operational amendments, budgets, the memory and storage enforcement, the tolerances, and the B1 decision. Network access, the public repository and the no-paid-compute condition are already authorised. The coordinator can record the user's answer in `protocol/amendments/`, and the user does not need to edit any files. This review does not grant approval and does not certify the methods.
