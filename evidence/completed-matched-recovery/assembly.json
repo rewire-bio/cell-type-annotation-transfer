@@ -1,0 +1,232 @@
+{
+ "armB": {
+  "M1": {
+   "fit_dir": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/historical/runs/T02-matched-armB-20261006T092352Z/M1",
+   "fit_info": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/historical/runs/T02-matched-armB-20261006T092352Z/M1/fit_info.json",
+   "historical_manifest_sha256": "12df0f6b2d958085bd921a17784bc413c3faf4cda45c68e0d8f48c0bee93c913",
+   "predictions_dir": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/historical/runs/T02-matched-armB-20261006T092352Z/M1",
+   "provenance": "cached",
+   "source_sha256": {
+    "B_M1_fit.stderr": "857053d1af8dffe19aaac6cb9d3fc8d9229a6271b9bac3303ee01281864713ce",
+    "B_M1_fit.stdout": "44181971797246a6a55f15042a0daf51d3d3384ceee8cbf0262eea3cb57d2ce4",
+    "B_M1_predict.stderr": "cfb738206393f1f77b1e28804ed26fde05422230a5cb708463e9b703bdd5c528",
+    "B_M1_predict.stdout": "0cf3ffdd7101e1c4fe1d09e4385ae971a4ffe817c88f7f6d108b8da91907dba7",
+    "fit_info.json": "928673b3441e1b80e2dd25c98c0cbc17fd7d4fb758b29b86de2bc7590421eda8",
+    "model.pkl": "de03dfb8cf9c0e298b58ab8a60be9edd46483b7a0379c955b51a32b043bef56f",
+    "predict_info.json": "b6a1b6b88ef6a05d6d6d9512264be8b51a584048f91a8d1e3b9bb848e807f5cf",
+    "predictions_ClonalHaem.parquet": "276704f9559fd228583b8889fb14de462b205ed4367991b29c9dbcb0d2764fc6",
+    "predictions_Glaucoma.parquet": "02610b9a0d8563f7709cd41abc1822f3b0f31d07f06e3b2bde12d323705bbc8b",
+    "predictions_HIHA.parquet": "c2b618a18afafd87eb1d3ddc227d739d72ed6c5a2be5928b82f3c4c3a0fb29e3",
+    "predictions_JDM.parquet": "47e32566a8a360f343109e1bebe408468ffd45707edaa91c26bd61683316b8ed",
+    "predictions_KidneyBlood.parquet": "027388be57bf686748823c7daee90b9d7fe2c567fb6df711fafbcca25a8f7422",
+    "predictions_Platform_10x3v3.parquet": "f37af3d2b04292d2145aa4266c5fc0f424db9b6a1e624f1cd26feec7ce965a25",
+    "predictions_Platform_10x5v2.parquet": "a872d287b2f8c11e05f0f9f60e6ca8100095ac4624c5b1927c1097562be7dbd3",
+    "predictions_Platform_10xgeneexpressionflex.parquet": "68244696dbda9e8a047ef13c8759e6d1692c81d2bedb1455a675c269d3defb23",
+    "predictions_Platform_AsteriascRNAseqkit.parquet": "39f26ca45fc7fd4713793cb3acac148fc70fa8b9cf9270da19e4d667d250ac2e",
+    "predictions_Platform_BDRhapsodyWholeTranscriptomeAnalysis.parquet": "70c7da55e8a872c427d80ade690100e249ca5a4859480a2350d7c62eaf35e2af",
+    "predictions_Platform_HIVECLXSingleCellRNAseqSolution.parquet": "ee478baf6a5e370658baaa1a84bfd0d9caf1c953403fae3b873fde74e2a6e340",
+    "predictions_Platform_ParseEvercodeWholeTranscriptomev2.parquet": "0a4a444f8a2d2a879a9fa5b2736b6b4017ad0cda9f54ecf77e9c2a32676c85f4",
+    "predictions_Platform_ScaleBiosinglecellRNAsequencing.parquet": "312b06d9b0522864d036b3aa5e8e5a6a9852c1d8bd8627993add305cd093dba1",
+    "predictions_Platform_particletemplatedinstantpartitionsequencing.parquet": "ca3f03b7e63942410a6608bbffbf3a78b070687a60bbadbd238d7ea37bd5d65f",
+    "predictions_RA.parquet": "514af62ec9f72609bc8193e127f37534e4fc5c32ef71f9d2b2843f2256d182af"
+   }
+  },
+  "M2": {
+   "fit_dir": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/historical/runs/T02-matched-armB-20261006T092352Z/M2",
+   "fit_info": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/historical/runs/T02-matched-armB-20261006T092352Z/M2/fit_info.json",
+   "historical_manifest_sha256": "12df0f6b2d958085bd921a17784bc413c3faf4cda45c68e0d8f48c0bee93c913",
+   "predictions_dir": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/historical/runs/T02-matched-armB-20261006T092352Z/M2",
+   "provenance": "cached",
+   "source_sha256": {
+    "B_M2_fit.stderr": "c008fecbc3799390fa54bf0e05ac4a194d65b470bbfc7123378434e6a53c8957",
+    "B_M2_fit.stdout": "791d5c6b34c0e2442d392a9c7479c3db0b0065b2678fd1f6787d05f36754acd9",
+    "B_M2_predict.stderr": "2c0b82d01e89c0f26b9137b685bb1f480d4d7c30caac871acbe1c34d39a33cce",
+    "B_M2_predict.stdout": "27e24f7904a70ff43dd7da36bd930294afe22b202a72048611034f4b21aecf9c",
+    "fit_info.json": "92b983154c03829eda02a6bd9a0fd1c8ba10504a56c6280655ff7df97b8e288f",
+    "model.pkl": "38d62b0ac4196823210a6996d37f81cec2652e0cd7f60f9f6a7a8a9a3590d14d",
+    "predict_info.json": "71e3f7fbc2169d5abc72b8bf8c6eb290afe1d45fb6ac107c0eb05df0d51fee85",
+    "predictions_ClonalHaem.parquet": "fe4a29c35900a9d33685f36c3fbbed0cf011236a6719447087affc7e44adfc8a",
+    "predictions_Glaucoma.parquet": "3b71614b90f365ab28de29aec98d68395785393123f7296a140526ceafc43525",
+    "predictions_HIHA.parquet": "77cd4e209c3007349a68e01a070a01c9a48299d957af92235b32eaf244919b49",
+    "predictions_JDM.parquet": "95e70769b5fe9dd18ff7922825c5fc2ddb0bd27fc02800be38be00012992e3c7",
+    "predictions_KidneyBlood.parquet": "22137ac87baf050fb59b7649e816814729fb0b856560782792ed3b4a6657a3a3",
+    "predictions_Platform_10x3v3.parquet": "76f8e7dd60a450208a95e8c3adcca1c3b50bd003312bbdd1208c6e43dc7be966",
+    "predictions_Platform_10x5v2.parquet": "ce565636ca164f232aeafcd3d0061e40ed2d8566fb53c122539fc3441db0f708",
+    "predictions_Platform_10xgeneexpressionflex.parquet": "14d631c4ffd719bad0a4fc584c03739928b51c1807b1b5f66aed86bca504de8c",
+    "predictions_Platform_AsteriascRNAseqkit.parquet": "a16f5e3f534679c50af32937aabd1f74e2c790c21c26fac90896e1c8f1711cff",
+    "predictions_Platform_BDRhapsodyWholeTranscriptomeAnalysis.parquet": "0400315861b051e78f8cff7477000844af8837b28b76c2dc37667c3e3a544978",
+    "predictions_Platform_HIVECLXSingleCellRNAseqSolution.parquet": "77637b084ddbf440e76dbba6db6bc47615c6e4c4f6d36535e123ebeb4d01e0f5",
+    "predictions_Platform_ParseEvercodeWholeTranscriptomev2.parquet": "7c0fb42c1b6a28b54dcfaef83f6529d7581849abb0e1d05ed2678d00cf288359",
+    "predictions_Platform_ScaleBiosinglecellRNAsequencing.parquet": "435c5cc937c6c97b49e4c1ede8a690bccc995d0f955126b4e69f0facf989b243",
+    "predictions_Platform_particletemplatedinstantpartitionsequencing.parquet": "4e8d1b82f0053ac91d246f037864bed60614ca26d4aa942f462bcecb3053de11",
+    "predictions_RA.parquet": "9306a3ffa4a75d65dca5a7bfb2bdce9298a8434d25312b66b64bf78ca845b645"
+   }
+  },
+  "M3": {
+   "fit_dir": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/historical/runs/T02-matched-armB-20261006T092352Z/M3",
+   "fit_info": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/historical/runs/T02-matched-armB-20261006T092352Z/M3/fit_info.json",
+   "historical_manifest_sha256": "12df0f6b2d958085bd921a17784bc413c3faf4cda45c68e0d8f48c0bee93c913",
+   "predictions_dir": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/historical/runs/T02-matched-armB-20261006T092352Z/M3",
+   "provenance": "cached",
+   "source_sha256": {
+    "B_M3_fit.stderr": "29bb230d61dc0a7b0e0c019f6a267373f943759639106d8d48f00059f1642871",
+    "B_M3_fit.stdout": "0cb109008c4ba4d8e9d36f8dc79dbe91bceebeb703920680147dd94f2083a674",
+    "B_M3_predict.stderr": "0e5c506628a53ebc8d0419c878aa1b05b09be30f4b5f89c50286eb153e2ecada",
+    "B_M3_predict.stdout": "f9aea4a6792db83d48d9a041281b8c119940ac8a84dfd5f3308c6d34050cf711",
+    "fit_info.json": "7236d2d494cb42dc9c1298d0b25616e878dddf0311dbdafbd69fffb4b1c3c53b",
+    "model.pkl": "f36725067c0f767084059663b29025285271831b62b4526c81a33ff72d245f87",
+    "predict_info.json": "ada1244f02a1802bdd8855c28d417345bceda6e8a6fbb0d511f8457681e58d52",
+    "predictions_ClonalHaem.parquet": "745bc11d1600da80269499c3e70ee9d3c132ce434ed24c1bc294123420c20ba6",
+    "predictions_Glaucoma.parquet": "611faef71db2cceddfb237cdcebf66ee5a6372992a94da3a2ff1b1f73efda0be",
+    "predictions_HIHA.parquet": "c279443cb7e0d6b3a712b7f1f854930b4cb106ee8823219e1edccde18ae2fc77",
+    "predictions_JDM.parquet": "ae5c8c7c6af695b658efd55c5811e7b2132468f213d5396f1015da83175a9c99",
+    "predictions_KidneyBlood.parquet": "6c684c27a59a972ba323aeb24edfeacad8e9eebd72801baef53c75a5de97ed91",
+    "predictions_Platform_10x3v3.parquet": "cbe4383264548d54d52fdd399a0cc8c707fbbb0ecdbe789c5ffe64bb552c6520",
+    "predictions_Platform_10x5v2.parquet": "969fc3c423fc751b4992151a1da9d935803ddb8828cfb15436447c525f0af851",
+    "predictions_Platform_10xgeneexpressionflex.parquet": "8b5abcc340c8b8c570cd2adcfa990e682051cf2c68402c438f3bb8e792fc4a97",
+    "predictions_Platform_AsteriascRNAseqkit.parquet": "1ad97299a4dd76fb8fd36f43aa2e2b922777876bbc110496b20e64a403032684",
+    "predictions_Platform_BDRhapsodyWholeTranscriptomeAnalysis.parquet": "5102212bf88febccf3e181d1e3d6bed5dda6237128a30f0bf36b69577fbff242",
+    "predictions_Platform_HIVECLXSingleCellRNAseqSolution.parquet": "abc3aa1ecea11facbfc9348df2bc064d78d9726be1586815d2baddbb45a14f06",
+    "predictions_Platform_ParseEvercodeWholeTranscriptomev2.parquet": "3dbcc87b2fb882adfac9996e8dae8c3ec78f20bfb929def9101beea0c673a976",
+    "predictions_Platform_ScaleBiosinglecellRNAsequencing.parquet": "b9587a44ebe23fa1b6e27ecc4e9941ca7c83cd6c42e0ccbf265dc6e5169dbfb0",
+    "predictions_Platform_particletemplatedinstantpartitionsequencing.parquet": "73a398ebbe0bc96cbb8db51e62180d6c3f47d2a4aca2dbd513993d5e7970b9f7",
+    "predictions_RA.parquet": "c817b45dfbff9d340dcdf6de81c0645f9c7a71cd7b78c9b7d82ad02201a4bc93"
+   }
+  },
+  "M4": {
+   "fit_dir": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/attempts/B_M4_fit/out-2-20261006T173841065451Z",
+   "fit_files_sha256": {
+    "fit_info.json": "b3415797656d53b60bc7aafad6a615923013484ce523cf10a01f5ce1103265a3",
+    "model.pkl": "ebcd504cb6dcef0c47bc2e8cafc4ae6d4d3fe0943145483e254b5a769c8df39e"
+   },
+   "fit_info": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/attempts/B_M4_fit/out-2-20261006T173841065451Z/fit_info.json",
+   "fit_receipt": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/receipts/B_M4_fit.json",
+   "note": "chosen_C and validation_macro_f1_by_C are in fit_info.json (T1 exact comparison; model export uses fit_dir/model.pkl)",
+   "predict_receipt": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/receipts/B_M4_predict.json",
+   "predictions_dir": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/attempts/B_M4_predict/out-1-20261006T174121538428Z",
+   "predictions_sha256": {
+    "predict_info.json": "908aa0746123f588a76f4b8bb1e0efb57a5d722d6ae751db49502d30776b3d48",
+    "predictions_ClonalHaem.parquet": "cf530e626c1212b7b51452ce0eefa24ee7fd9c487b997d513adb29c8cd43aaae",
+    "predictions_Glaucoma.parquet": "64251e2cee26c4e4a2086872640f8c04ad94de9c2ebb88c1f0c07355c79f301c",
+    "predictions_HIHA.parquet": "e8ee817c456872416b84baa116a3e534316ebe6cbf6c5c25a3bd52f7dbb61445",
+    "predictions_JDM.parquet": "0a2422b42ab882361d64e27ad1391a39bfba540c1e0693ff576d0f1308943188",
+    "predictions_KidneyBlood.parquet": "d97241d3419fa99b2ef1ed8100fbe27b3ade068066fa61a60a3ec1c07fb22a77",
+    "predictions_Platform_10x3v3.parquet": "b679e2aa90f83451a8f360a628f44df574283d138f453567abc1c2d81f4bcbc7",
+    "predictions_Platform_10x5v2.parquet": "825fa68b04f69385916254bf63c23f26ab0975b4a00b07a41ef50749a19283fb",
+    "predictions_Platform_10xgeneexpressionflex.parquet": "8ed42034cad59120f5e2b843ca692171e2251ee1b1893d959c85c79c6cb42f86",
+    "predictions_Platform_AsteriascRNAseqkit.parquet": "7a88c12de52e5b999b222c227987fb532154089dc2d6fed58c3c7d56e046f03b",
+    "predictions_Platform_BDRhapsodyWholeTranscriptomeAnalysis.parquet": "fd7dbd5545910b1fcf280a34bee5b33534a6b5d952a118ffa8b967034d94bdff",
+    "predictions_Platform_HIVECLXSingleCellRNAseqSolution.parquet": "7c0cb46e759d7fb34218e16f6998bc8d52807af9074558d00f309d33323fba52",
+    "predictions_Platform_ParseEvercodeWholeTranscriptomev2.parquet": "58de58e643fe68525b60e1766229181d47e89bd331db0d9ac8ce858b1dce74ea",
+    "predictions_Platform_ScaleBiosinglecellRNAsequencing.parquet": "6c1e5807c532a4dff62b48668145f0e7e94b96ea3598196851205d7bc1626d57",
+    "predictions_Platform_particletemplatedinstantpartitionsequencing.parquet": "b68bbc596c2d8dcc341c7adc954fc999136a956dd781c617645d9b3afe0bf9e9",
+    "predictions_RA.parquet": "201a7b036dc6d624d8046c4a67143943cbb77e0f9b3bcd08265365b5154fe3c9"
+   },
+   "provenance": "recomputed",
+   "source": {
+    "code_sha256": {
+     "companion/scripts/build_cite.py": "1ba4c48c46edf9ea738f5e07c1d873498fd449a3b0563553191596f06639d9df",
+     "companion/scripts/protein_check.py": "9458409448615ebce2bab0b189ef113c57371d57af647ef27c2c1c2c7442ba59",
+     "companion/scripts/run_matched.py": "adeca9d66edce6d62651f6fe695108921f0d41f447ba5f95e768fed033b4c614",
+     "companion/scripts/score_all.py": "20f457204050bdac2c0d99596c43b9bb3214e9ff974ba24041f50eeab4e54d9f",
+     "companion/src/celltransfer/evaluate.py": "e5fae4e8646821887d4555bc7746ba1bd1b4a259d172197590808d7d215a59a2",
+     "companion/src/celltransfer/methods.py": "914989c507d02ffe04886907b0812fd3c80ac597c8c87a657890923f35cf3c14",
+     "scripts/recover.py": "612aeb7a0cd936a8281a63848c7946192bc268608b611935113ced73af32e4aa",
+     "scripts/resource_guard.py": "4b251743fcd914392db132b6e1b33d0405d081942e1df638960f5125c13021c5"
+    },
+    "dirty": false,
+    "git_rev": "5a0b9aaaf5ee1a92f132ff6fcd437b1b815c583b"
+   }
+  },
+  "M5": {
+   "fit_dir": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/attempts/B_M5_fit/out-1-20261006T174127882447Z",
+   "fit_files_sha256": {
+    "fit_info.json": "7440e75a3ef79c85331b58ed994d1f91889258daf260ccfc7035c962e137b413",
+    "model.pkl": "832f53a30679519743388064bd29bb59ed43deebf8e9dd6da777990d11bc3316"
+   },
+   "fit_info": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/attempts/B_M5_fit/out-1-20261006T174127882447Z/fit_info.json",
+   "fit_receipt": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/receipts/B_M5_fit.json",
+   "predict_receipt": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/receipts/B_M5_predict.json",
+   "predictions_dir": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/attempts/B_M5_predict/out-1-20261006T175052298949Z",
+   "predictions_sha256": {
+    "predict_info.json": "8c163f41745061e0736e48ec94df4e4364bd1d570e78633118ffb796292c0728",
+    "predictions_ClonalHaem.parquet": "01cd9a3dc85d7dabe11652f27ddee5f32484cff8ae029a88009d1268d3cc7f5f",
+    "predictions_Glaucoma.parquet": "d8913efe1f0a9effb3a6cb72b7799e40b4ed38560e67b0fb2434a951fbbfd28a",
+    "predictions_HIHA.parquet": "bf0a849c229a89a58bb5d6eb38d07ceaedcc7ef7763c047af35792f30197fc0d",
+    "predictions_JDM.parquet": "70acc8847abf4222e48c2f7a9eb3e12c17f45ef25b397f49ddb89e8e9b765332",
+    "predictions_KidneyBlood.parquet": "a991aab02c28abaf43d7d53f3c77f5b316a4822dc6d92a98790349fa303b8825",
+    "predictions_Platform_10x3v3.parquet": "0f6a317d4f1366242cf318fb467536fd342fcb7cae0520f6d1c5c6d103afd1cc",
+    "predictions_Platform_10x5v2.parquet": "cdba51afb6ebd806c518ffba482a48ecb381ca51d75b4b3e025d0e24fe5d2f21",
+    "predictions_Platform_10xgeneexpressionflex.parquet": "e14688b4130f92b1acf7dd26882c8fab97389c73f468011beb9c6496f27d3bca",
+    "predictions_Platform_AsteriascRNAseqkit.parquet": "feaba76e86543b0d58819d6b339a7bddf0b95314b90f693fb8c653966cd5b4e5",
+    "predictions_Platform_BDRhapsodyWholeTranscriptomeAnalysis.parquet": "040c2cf969fc811bcea9fe25ce65548fb241bb87a5b75d1d418540e0bb3b5a5c",
+    "predictions_Platform_HIVECLXSingleCellRNAseqSolution.parquet": "287f909b4eff6f77f00a53b3d89f370a8eff1f55b090f5999506e1b5f415d1ab",
+    "predictions_Platform_ParseEvercodeWholeTranscriptomev2.parquet": "0d025e4b3b8834750b8b8ba8d97a2d9fde676d91ad941415d2f736c3cfc1d42e",
+    "predictions_Platform_ScaleBiosinglecellRNAsequencing.parquet": "9b0e035eaf7621558218dc3ae5a495fb6bcbe4e56a760c4e7dabcf914bb9af89",
+    "predictions_Platform_particletemplatedinstantpartitionsequencing.parquet": "067e6c67d2ab39a20fb43f53879be49c56b2c60961e8905787aefb567f3c2b94",
+    "predictions_RA.parquet": "7222ac9583a9c020fd5891cf93c3e49a1f049a2998941b0d3a8ecdc4db5bb518"
+   },
+   "provenance": "recomputed",
+   "source": {
+    "code_sha256": {
+     "companion/scripts/build_cite.py": "1ba4c48c46edf9ea738f5e07c1d873498fd449a3b0563553191596f06639d9df",
+     "companion/scripts/protein_check.py": "9458409448615ebce2bab0b189ef113c57371d57af647ef27c2c1c2c7442ba59",
+     "companion/scripts/run_matched.py": "adeca9d66edce6d62651f6fe695108921f0d41f447ba5f95e768fed033b4c614",
+     "companion/scripts/score_all.py": "20f457204050bdac2c0d99596c43b9bb3214e9ff974ba24041f50eeab4e54d9f",
+     "companion/src/celltransfer/evaluate.py": "e5fae4e8646821887d4555bc7746ba1bd1b4a259d172197590808d7d215a59a2",
+     "companion/src/celltransfer/methods.py": "914989c507d02ffe04886907b0812fd3c80ac597c8c87a657890923f35cf3c14",
+     "scripts/recover.py": "612aeb7a0cd936a8281a63848c7946192bc268608b611935113ced73af32e4aa",
+     "scripts/resource_guard.py": "4b251743fcd914392db132b6e1b33d0405d081942e1df638960f5125c13021c5"
+    },
+    "dirty": false,
+    "git_rev": "5a0b9aaaf5ee1a92f132ff6fcd437b1b815c583b"
+   }
+  },
+  "M6": {
+   "fit_dir": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/attempts/B_M6_fit/out-1-20261006T175058568874Z",
+   "fit_files_sha256": {
+    "fit_info.json": "577947f17941c86b2632e008af3ac74e2143dfe82de184406874e1c015cdd8b9",
+    "model.pkl": "c0301f0acc391fb082809e07fc53c97b49c392641e71c508f6f82345a17c2fc6",
+    "scanvi/adata.h5ad": "a7706d95e3a05ca7a82587ad6bd296a5ee4c82cc4df6ae7b6841870019adcb3b",
+    "scanvi/model.pt": "961370d8c1759a1b0f06781473551b1a12670215f9ce8423ca863d2ec437fe6c"
+   },
+   "fit_info": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/attempts/B_M6_fit/out-1-20261006T175058568874Z/fit_info.json",
+   "fit_receipt": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/receipts/B_M6_fit.json",
+   "predict_receipt": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/receipts/B_M6_predict.json",
+   "predictions_dir": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/attempts/B_M6_predict/out-1-20261006T180251315352Z",
+   "predictions_sha256": {
+    "predict_info.json": "9aa643d777dd3835c4abbc4940023b7fa9480986f8f0692547aa271e295caf9a",
+    "predictions_ClonalHaem.parquet": "42dad1b6840a3242220aba63b63d1f1ba252cfb74b31266a3dff3991db020287",
+    "predictions_Glaucoma.parquet": "8f79ea2dab86851214d2fa7f443d4cc38785846788a208796fe571dc1f808fdb",
+    "predictions_HIHA.parquet": "a34578ca08a689ae31e594a83e28531dd04e3f6f921f4e01d5f660ea6db99d3f",
+    "predictions_JDM.parquet": "064fd05bad0031fed97a1419b83df1fae88f31e0e582c772e9122b48d25379ec",
+    "predictions_KidneyBlood.parquet": "2f4c4dc9b1375c25473fb449b4a5a13e447c57e57ff57ff202e8fbaf5f371bdf",
+    "predictions_Platform_10x3v3.parquet": "9b483948c991153672f85d300b32d0ef512a5d86bb2e61952e36c69692cb57a0",
+    "predictions_Platform_10x5v2.parquet": "1cc978814d12762d02f59017047d61a27d49adf2b94611ae01b355622cfba8aa",
+    "predictions_Platform_10xgeneexpressionflex.parquet": "7e72666e207ba7b1f53fce06670e5eda797fc9dfc3122256da7f658bf338ef05",
+    "predictions_Platform_AsteriascRNAseqkit.parquet": "c998b33842cd20ddc4205d829eaa8624733936276cf866e54e912b8db88cc942",
+    "predictions_Platform_BDRhapsodyWholeTranscriptomeAnalysis.parquet": "d15bf562ba43f2e8d4136af9a49d762259f5f55cdb18ff60203f7b3746034fef",
+    "predictions_Platform_HIVECLXSingleCellRNAseqSolution.parquet": "2c1a4f90ccfb58cde1f9a33bcbd0299b4a94b2a1c1fa2d1d66df72f616920b38",
+    "predictions_Platform_ParseEvercodeWholeTranscriptomev2.parquet": "2dd8dd292830b55000a363af48b126c340e105ead1d203252e6255f081c05ddc",
+    "predictions_Platform_ScaleBiosinglecellRNAsequencing.parquet": "412563f1c494fb40ada3ad9230642f2065855cb59b750b58a9fe44b053bf97e2",
+    "predictions_Platform_particletemplatedinstantpartitionsequencing.parquet": "849d0f21c979cffafb4b703f7572c6397fe449e0374026248915d08eaf4deb89",
+    "predictions_RA.parquet": "7b3917b04b257004e5d4b3b8f55b46622f943be0dbb0d0fc129ec22c16d4c807"
+   },
+   "provenance": "recomputed",
+   "source": {
+    "code_sha256": {
+     "companion/scripts/build_cite.py": "1ba4c48c46edf9ea738f5e07c1d873498fd449a3b0563553191596f06639d9df",
+     "companion/scripts/protein_check.py": "9458409448615ebce2bab0b189ef113c57371d57af647ef27c2c1c2c7442ba59",
+     "companion/scripts/run_matched.py": "adeca9d66edce6d62651f6fe695108921f0d41f447ba5f95e768fed033b4c614",
+     "companion/scripts/score_all.py": "20f457204050bdac2c0d99596c43b9bb3214e9ff974ba24041f50eeab4e54d9f",
+     "companion/src/celltransfer/evaluate.py": "e5fae4e8646821887d4555bc7746ba1bd1b4a259d172197590808d7d215a59a2",
+     "companion/src/celltransfer/methods.py": "914989c507d02ffe04886907b0812fd3c80ac597c8c87a657890923f35cf3c14",
+     "scripts/recover.py": "612aeb7a0cd936a8281a63848c7946192bc268608b611935113ced73af32e4aa",
+     "scripts/resource_guard.py": "4b251743fcd914392db132b6e1b33d0405d081942e1df638960f5125c13021c5"
+    },
+    "dirty": false,
+    "git_rev": "5a0b9aaaf5ee1a92f132ff6fcd437b1b815c583b"
+   }
+  }
+ }
+}

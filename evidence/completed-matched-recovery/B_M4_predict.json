@@ -1,0 +1,56 @@
+{
+ "attempt_dir": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/attempts/B_M4_predict/attempt-1-20261006T174121538603Z",
+ "command": [
+  "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.venv/bin/python3",
+  "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/companion/scripts/run_matched.py",
+  "--workspace",
+  "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer",
+  "--data",
+  "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/historical/runs/D05-build-data-full-20261006T084048Z",
+  "--arm",
+  "B",
+  "--method",
+  "M4",
+  "--stage",
+  "predict",
+  "--model-dir",
+  "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/attempts/B_M4_fit/out-2-20261006T173841065451Z",
+  "--out",
+  "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/attempts/B_M4_predict/out-1-20261006T174121538428Z"
+ ],
+ "created_utc": "20261006T174127Z",
+ "files_sha256": {
+  "predict_info.json": "908aa0746123f588a76f4b8bb1e0efb57a5d722d6ae751db49502d30776b3d48",
+  "predictions_ClonalHaem.parquet": "cf530e626c1212b7b51452ce0eefa24ee7fd9c487b997d513adb29c8cd43aaae",
+  "predictions_Glaucoma.parquet": "64251e2cee26c4e4a2086872640f8c04ad94de9c2ebb88c1f0c07355c79f301c",
+  "predictions_HIHA.parquet": "e8ee817c456872416b84baa116a3e534316ebe6cbf6c5c25a3bd52f7dbb61445",
+  "predictions_JDM.parquet": "0a2422b42ab882361d64e27ad1391a39bfba540c1e0693ff576d0f1308943188",
+  "predictions_KidneyBlood.parquet": "d97241d3419fa99b2ef1ed8100fbe27b3ade068066fa61a60a3ec1c07fb22a77",
+  "predictions_Platform_10x3v3.parquet": "b679e2aa90f83451a8f360a628f44df574283d138f453567abc1c2d81f4bcbc7",
+  "predictions_Platform_10x5v2.parquet": "825fa68b04f69385916254bf63c23f26ab0975b4a00b07a41ef50749a19283fb",
+  "predictions_Platform_10xgeneexpressionflex.parquet": "8ed42034cad59120f5e2b843ca692171e2251ee1b1893d959c85c79c6cb42f86",
+  "predictions_Platform_AsteriascRNAseqkit.parquet": "7a88c12de52e5b999b222c227987fb532154089dc2d6fed58c3c7d56e046f03b",
+  "predictions_Platform_BDRhapsodyWholeTranscriptomeAnalysis.parquet": "fd7dbd5545910b1fcf280a34bee5b33534a6b5d952a118ffa8b967034d94bdff",
+  "predictions_Platform_HIVECLXSingleCellRNAseqSolution.parquet": "7c0cb46e759d7fb34218e16f6998bc8d52807af9074558d00f309d33323fba52",
+  "predictions_Platform_ParseEvercodeWholeTranscriptomev2.parquet": "58de58e643fe68525b60e1766229181d47e89bd331db0d9ac8ce858b1dce74ea",
+  "predictions_Platform_ScaleBiosinglecellRNAsequencing.parquet": "6c1e5807c532a4dff62b48668145f0e7e94b96ea3598196851205d7bc1626d57",
+  "predictions_Platform_particletemplatedinstantpartitionsequencing.parquet": "b68bbc596c2d8dcc341c7adc954fc999136a956dd781c617645d9b3afe0bf9e9",
+  "predictions_RA.parquet": "201a7b036dc6d624d8046c4a67143943cbb77e0f9b3bcd08265365b5154fe3c9"
+ },
+ "name": "B_M4_predict",
+ "out_dir": "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/attempts/B_M4_predict/out-1-20261006T174121538428Z",
+ "source": {
+  "code_sha256": {
+   "companion/scripts/build_cite.py": "1ba4c48c46edf9ea738f5e07c1d873498fd449a3b0563553191596f06639d9df",
+   "companion/scripts/protein_check.py": "9458409448615ebce2bab0b189ef113c57371d57af647ef27c2c1c2c7442ba59",
+   "companion/scripts/run_matched.py": "adeca9d66edce6d62651f6fe695108921f0d41f447ba5f95e768fed033b4c614",
+   "companion/scripts/score_all.py": "20f457204050bdac2c0d99596c43b9bb3214e9ff974ba24041f50eeab4e54d9f",
+   "companion/src/celltransfer/evaluate.py": "e5fae4e8646821887d4555bc7746ba1bd1b4a259d172197590808d7d215a59a2",
+   "companion/src/celltransfer/methods.py": "914989c507d02ffe04886907b0812fd3c80ac597c8c87a657890923f35cf3c14",
+   "scripts/recover.py": "612aeb7a0cd936a8281a63848c7946192bc268608b611935113ced73af32e4aa",
+   "scripts/resource_guard.py": "4b251743fcd914392db132b6e1b33d0405d081942e1df638960f5125c13021c5"
+  },
+  "dirty": false,
+  "git_rev": "5a0b9aaaf5ee1a92f132ff6fcd437b1b815c583b"
+ }
+}
