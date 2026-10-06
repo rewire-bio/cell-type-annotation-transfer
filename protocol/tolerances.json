@@ -1,0 +1,69 @@
+{
+  "schema": "celltransfer-tolerances/1",
+  "source": "protocol/resume-plan-reviewed.md section 7 (approved: protocol/amendments/2026-10-06-approved-resumption.md)",
+  "note": "Numerical transcription of the approved section 7 only. No tolerance is widened, no tier reassigned and no metric dropped after any comparison is computed.",
+  "close_definition": "close(a,b;abs,rel): both finite and |a-b| <= abs + rel*max(|a|,|b|), or both in the same non-finite state (NaN, None/not attainable, -inf, +inf). A difference in state is a breach.",
+  "T1_exact": {
+    "items": ["sampled_soma_joinid_per_study_role_stratum", "features_and_classes:F_A,F_B,K,K_B,markers_A,markers_B", "features_and_classes_equals_D03", "cell_counts.csv", "score_info:test_donors", "summary_test:f1_classes,test_scorable_natural,unknown_cells", "M4_chosen_C_per_arm", "P1_labels", "bootstrap_weights", "adt_count_tables"],
+    "rule": "identical"
+  },
+  "T2_labels": {
+    "label_methods": ["M1", "M2", "M3", "M4", "M5", "P2"],
+    "conf_methods": ["P1", "P2", "M1", "M2", "M3", "M4", "M5"],
+    "expected_query_files": {"D": 15, "CITE": 4},
+    "max_disagree_fraction": 0.001,
+    "min_disagree_allowed": 1,
+    "allowed_formula": "max(1, floor(0.001*n)) per file",
+    "conf_abs": 1e-05,
+    "conf_rel": 1e-05,
+    "conf_scope": "every cell whose label agrees"
+  },
+  "T2_thresholds": {
+    "fields": ["tau_cov", "tau_err"],
+    "rule": "state identical (finite / -inf / not attainable); no numeric tolerance on finite values; report |delta tau|",
+    "effect_checked_via_M_tier": ["validation_coverage_at_tau_cov", "validation_error_at_tau_cov"]
+  },
+  "T2_protein_gating": {
+    "max_disagree_fraction": 0.001,
+    "min_disagree_allowed": 1,
+    "allowed_formula": "max(1, floor(0.001*n)) per CITE file"
+  },
+  "M_metrics": {
+    "default": {"abs": 0.01, "rel": 0.0},
+    "aurc": {"abs": 0.005, "rel": 0.0, "report_relative_size": true},
+    "calibration": {"abs": 0.01, "rel": 0.0, "fields": ["brier", "ece"], "methods": ["M4", "M5", "M6", "P1", "P2"]},
+    "methods": "all methods including M6, all arms and the practical track",
+    "summary_test_fields": ["coverage@OPcov", "coverage@OPerr", "accepted_error@OPcov", "accepted_error@OPerr", "cross_lineage_share@OPcov", "cross_lineage_share@OPerr", "cross_lineage_rate@OPcov", "cross_lineage_rate@OPerr", "unassigned@OPcov", "unassigned@OPerr", "macro_f1_closed", "unknown_false_accept@OPcov", "unknown_false_accept@OPerr", "unknown_auroc", "lineage_agreement_closed", "coarser_fraction", "outside_fraction", "risk@0.50", "risk@0.60", "risk@0.70", "risk@0.80", "risk@0.90", "risk@0.95", "risk@1.00", "max_coverage"],
+    "summary_test_ci_fields": ["coverage@OPcov_ci95", "accepted_error@OPcov_ci95", "coverage@OPerr_ci95", "accepted_error@OPerr_ci95", "macro_f1_closed_ci95", "unknown_false_accept@OPcov_ci95", "cross_lineage_rate@OPcov_ci95"],
+    "derived": {"unassigned@OPcov": "1 - coverage@OPcov", "unassigned@OPerr": "1 - coverage@OPerr"},
+    "paired_difference_fields": ["mean_diff", "ci95_lo", "ci95_hi"],
+    "threshold_fields": ["validation_coverage_at_tau_cov", "validation_error_at_tau_cov"],
+    "protein_fields": ["agreement_accepted", "agreement_accepted_gateable_preds"]
+  },
+  "S_sign": {
+    "headline_definition": "Mode R paired-difference CI excludes 0 and |mean_diff| > 0.01",
+    "headline_abs_mean_diff_gt": 0.01,
+    "rule": "Mode F mean_diff has the same sign and its CI also excludes 0",
+    "near_zero_note": "A change in CI-exclusion status with |mean_diff| <= 0.01 in both modes is reported as near-zero, not a sign breach"
+  },
+  "diagnostic": {
+    "M6_labels_and_conf": "reported per file, no pass/fail",
+    "M6_heuristic_agreement": 0.97,
+    "M6_heuristic_note": "pre-registered heuristic with no empirical basis: no repeat scANVI CPU run exists"
+  },
+  "descriptive": {
+    "items": ["per_study_test.csv", "per_class_test.csv", "platform.csv", "unknowns_test.csv", "risk_coverage_test.csv", "calibration reliability bins", "calibration brier/ece for M1-M3", "thresholds eligible_cap_validation/validation_cells", "protein gates.json counts", "NaN-replicate counts"],
+    "rule": "max |delta| reported; not gated; small n"
+  },
+  "not_toleranced": {
+    "items": ["runtime", "peak memory"],
+    "flag_ratio": 2.0,
+    "rule": "flag when ratio > 2x (either direction); never a pass/fail numeric equality"
+  },
+  "outcomes": {
+    "reproduced": "reproduced within pre-specified tolerance",
+    "partial": "partially reproduced",
+    "data_level": "not reproduced at the data level",
+    "m6_only_wording": "consistent with non-deterministic CPU training (not verified)"
+  }
+}

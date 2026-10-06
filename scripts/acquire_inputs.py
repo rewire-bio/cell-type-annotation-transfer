@@ -104,12 +104,11 @@ ITEMS: list[Item] = [
         id="sctab-var",
         dest="evidence/probes/P01-census-blood-obs-20261005/sctab_var.parquet",
         kind="url",
-        url=f"{HF_BASE}/var.parquet",
+        url=f"{HF_BASE}/merlin_cxg_2023_05_15_sf-log1p_minimal/var.parquet",
         sha256="eca915f6fb7158ac67c58736b54f78f79c455632c977828d4295deb010317579",
         size=436152,
         max_bytes=16 * 1024**2,
-        url_provenance="INFERRED: access-and-feasibility.md names `var.parquet` (19,331 genes) in mirror rev 9d49621; "
-                       "the exact retrieval URL and whether the probe copy is byte-identical to it were not saved",
+        url_provenance="Exact historical retrieval command recovered from original orchestration/claude-stream.jsonl; pinned mirror revision 9d49621154863948c057db0741452b18dcb78559.",
         hash_provenance="sha256 of the preserved historical probe copy (computed 2026-10-06); not an upstream-published hash",
         licence="as sctab-checkpoint (mirror self-declared MIT; not authoritative)",
         cache_relpath="evidence/probes/P01-census-blood-obs-20261005/sctab_var.parquet",
@@ -326,6 +325,9 @@ def regenerate_census_var(dest: Path, max_bytes: int, compare_to: Path | None = 
         var = census["census_data"]["homo_sapiens"].ms["RNA"].var.read().concat().to_pandas()
     dest.parent.mkdir(parents=True, exist_ok=True)
     part = dest.with_name(dest.name + ".part")
+    expected_logical = "c6f8bc7c79fac6dc074839f47a0fca48d0f09dfaeef23b751647d80908a0c8e2"
+    if logical_var_digest(var) != expected_logical:
+        raise AcquireError("Census feature identities differ from the pinned historical digest")
     var.to_parquet(part)
     if part.stat().st_size > max_bytes:
         part.unlink()
@@ -338,6 +340,8 @@ def regenerate_census_var(dest: Path, max_bytes: int, compare_to: Path | None = 
         info["compare_to"] = str(compare_to)
         info["compare_logical_sha256"] = logical_var_digest(ref)
         info["logical_match"] = info["compare_logical_sha256"] == info["logical_sha256"]
+        if not info["logical_match"]:
+            raise AcquireError("Regenerated Census feature metadata differs from the historical reference")
     return info
 
 

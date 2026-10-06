@@ -1,0 +1,165 @@
+index,label,cl_id,status,target,lineage
+0,B cell,CL:0000236,mapped,B,B lineage
+1,Bergmann glial cell,CL:0000644,outside,,
+2,"CD14-low, CD16-positive monocyte",CL:0002396,mapped,CD16 mono,monocyte
+3,CD14-positive monocyte,CL:0001054,mapped,CD14 mono,monocyte
+4,"CD14-positive, CD16-negative classical monocyte",CL:0002057,mapped,CD14 mono,monocyte
+5,"CD14-positive, CD16-positive monocyte",CL:0002397,mapped,CD14 mono,monocyte
+6,"CD16-negative, CD56-bright natural killer cell, human",CL:0000938,mapped,NK,NK/ILC
+7,"CD16-positive, CD56-dim natural killer cell, human",CL:0000939,mapped,NK,NK/ILC
+8,CD1c-positive myeloid dendritic cell,CL:0002399,mapped,cDC,dendritic
+9,CD4-positive helper T cell,CL:0000492,mapped,CD4 T,T
+10,"CD4-positive, alpha-beta T cell",CL:0000624,mapped,CD4 T,T
+11,"CD4-positive, alpha-beta cytotoxic T cell",CL:0000934,mapped,CD4 T,T
+12,"CD4-positive, alpha-beta memory T cell",CL:0000897,mapped,CD4 T,T
+13,"CD8-alpha-alpha-positive, alpha-beta intraepithelial T cell",CL:0000915,outside,,T
+14,"CD8-positive, alpha-beta T cell",CL:0000625,mapped,CD8 T,T
+15,"CD8-positive, alpha-beta cytotoxic T cell",CL:0000794,mapped,CD8 T,T
+16,"CD8-positive, alpha-beta memory T cell",CL:0000909,mapped,CD8 T,T
+17,IgA plasma cell,CL:0000987,mapped,ASC,B lineage
+18,IgG plasma cell,CL:0000985,mapped,ASC,B lineage
+19,L2/3-6 intratelencephalic projecting glutamatergic cortical neuron,,outside,,
+20,L6b glutamatergic cortical neuron,CL:4023038,outside,,
+21,Schwann cell,CL:0002573,outside,,
+22,T cell,CL:0000084,coarser,,T
+23,T follicular helper cell,CL:0002038,mapped,CD4 T,T
+24,T-helper 17 cell,CL:0000899,mapped,CD4 T,T
+25,T-helper 22 cell,CL:0001042,mapped,CD4 T,T
+26,"activated CD4-positive, alpha-beta T cell",CL:0000896,mapped,CD4 T,T
+27,"activated CD8-positive, alpha-beta T cell",CL:0000906,mapped,CD8 T,T
+28,alpha-beta T cell,CL:0000789,coarser,,T
+29,alternatively activated macrophage,CL:0000890,outside,,
+30,alveolar macrophage,CL:0000583,outside,,
+31,alveolar type 1 fibroblast cell,CL:4028004,outside,,
+32,alveolar type 2 fibroblast cell,CL:4028006,outside,,
+33,amacrine cell,CL:0000561,outside,,
+34,astrocyte,CL:0000127,outside,,
+35,astrocyte of the cerebral cortex,CL:0002605,outside,,
+36,basal cell,CL:0000646,outside,,
+37,basal cell of epithelium of trachea,CL:1000348,outside,,
+38,blood vessel endothelial cell,CL:0000071,outside,,
+39,bronchus fibroblast of lung,CL:2000093,outside,,
+40,capillary endothelial cell,CL:0002144,outside,,
+41,cardiac muscle cell,CL:0000746,outside,,
+42,cardiac neuron,CL:0010022,outside,,
+43,caudal ganglionic eminence derived GABAergic cortical interneuron,CL:4023064,outside,,
+44,"central memory CD4-positive, alpha-beta T cell",CL:0000904,mapped,CD4 T,T
+45,"central memory CD8-positive, alpha-beta T cell",CL:0000907,mapped,CD8 T,T
+46,central nervous system macrophage,CL:0000878,outside,,
+47,chandelier pvalb GABAergic cortical interneuron,CL:4023036,outside,,
+48,ciliated columnar cell of tracheobronchial tree,CL:0002145,outside,,
+49,class switched memory B cell,CL:0000972,mapped,B,B lineage
+50,classical monocyte,CL:0000860,mapped,CD14 mono,monocyte
+51,club cell,CL:0000158,outside,,
+52,conventional dendritic cell,CL:0000990,mapped,cDC,dendritic
+53,corticothalamic-projecting glutamatergic cortical neuron,CL:4023013,outside,,
+54,dendritic cell,CL:0000451,coarser,,dendritic
+55,double negative T regulatory cell,CL:0011024,outside,,T
+56,double negative thymocyte,CL:0002489,coarser,,T
+57,"double-positive, alpha-beta thymocyte",CL:0000809,outside,,T
+58,"effector CD8-positive, alpha-beta T cell",CL:0001050,mapped,CD8 T,T
+59,"effector memory CD4-positive, alpha-beta T cell",CL:0000905,mapped,CD4 T,T
+60,"effector memory CD8-positive, alpha-beta T cell",CL:0000913,mapped,CD8 T,T
+61,"effector memory CD8-positive, alpha-beta T cell, terminally differentiated",CL:0001062,mapped,CD8 T,T
+62,elicited macrophage,CL:0000861,outside,,
+63,endothelial cell,CL:0000115,outside,,
+64,endothelial cell of artery,CL:1000413,outside,,
+65,endothelial cell of lymphatic vessel,CL:0002138,outside,,
+66,enteric smooth muscle cell,CL:0002504,outside,,
+67,enterocyte,CL:0000584,outside,,
+68,enteroendocrine cell,CL:0000164,outside,,
+69,ependymal cell,CL:0000065,outside,,
+70,epithelial cell of proximal tubule,CL:0002306,outside,,
+71,erythroblast,CL:0000765,mapped,erythroid,MK/erythroid
+72,erythrocyte,CL:0000232,mapped,erythroid,MK/erythroid
+73,exhausted T cell,CL:0011025,outside,,T
+74,fallopian tube secretory epithelial cell,CL:4030006,outside,,
+75,fibroblast of cardiac tissue,CL:0002548,outside,,
+76,foveolar cell of stomach,CL:0002179,outside,,
+77,gamma-delta T cell,CL:0000798,mapped,gamma-delta T,T
+78,glutamatergic neuron,CL:0000679,outside,,
+79,goblet cell,CL:0000160,outside,,
+80,granulocyte,CL:0000094,coarser,,granulocyte
+81,granulosa cell,CL:0000501,outside,,
+82,hematopoietic stem cell,CL:0000037,mapped,HSPC,progenitor
+83,immature B cell,CL:0000816,mapped,B,B lineage
+84,immature innate lymphoid cell,CL:0001082,mapped,ILC,NK/ILC
+85,inflammatory macrophage,CL:0000863,outside,,
+86,innate lymphoid cell,CL:0001065,mapped,ILC,NK/ILC
+87,intermediate monocyte,CL:0002393,coarser,,monocyte
+88,intestine goblet cell,CL:0019031,outside,,
+89,intraepithelial lymphocyte,CL:0002496,coarser,,T
+90,keratinocyte,CL:0000312,outside,,
+91,kidney collecting duct intercalated cell,CL:1001432,outside,,
+92,kidney collecting duct principal cell,CL:1001431,outside,,
+93,kidney connecting tubule epithelial cell,CL:1000768,outside,,
+94,kidney distal convoluted tubule epithelial cell,CL:1000849,outside,,
+95,kidney interstitial fibroblast,CL:1000692,outside,,
+96,kidney loop of Henle thick ascending limb epithelial cell,CL:1001106,outside,,
+97,kidney loop of Henle thin ascending limb epithelial cell,CL:1001107,outside,,
+98,kidney loop of Henle thin descending limb epithelial cell,CL:1001111,outside,,
+99,lamp5 GABAergic cortical interneuron,CL:4023011,outside,,
+100,leukocyte,CL:0000738,coarser,,
+101,luminal epithelial cell of mammary gland,CL:0002326,outside,,
+102,lung macrophage,CL:1001603,outside,,
+103,lung pericyte,CL:0009089,outside,,
+104,lymphocyte,CL:0000542,coarser,,
+105,lymphoid lineage restricted progenitor cell,CL:0000838,mapped,HSPC,progenitor
+106,macrophage,CL:0000235,outside,,
+107,mast cell,CL:0000097,outside,,
+108,mature B cell,CL:0000785,mapped,B,B lineage
+109,mature NK T cell,CL:0000814,outside,,T
+110,mature T cell,CL:0002419,coarser,,T
+111,mature alpha-beta T cell,CL:0000791,coarser,,T
+112,mature gamma-delta T cell,CL:0000800,mapped,gamma-delta T,T
+113,megakaryocyte-erythroid progenitor cell,CL:0000050,mapped,HSPC,progenitor
+114,memory B cell,CL:0000787,mapped,B,B lineage
+115,memory T cell,CL:0000813,coarser,,T
+116,mesothelial cell,CL:0000077,outside,,
+117,microglial cell,CL:0000129,outside,,
+118,monocyte,CL:0000576,coarser,,monocyte
+119,mucosal invariant T cell,CL:0000940,mapped,MAIT,T
+120,mucous neck cell,CL:0002181,outside,,
+121,myoepithelial cell of mammary gland,CL:0002324,outside,,
+122,naive B cell,CL:0000788,mapped,B,B lineage
+123,naive T cell,CL:0000898,coarser,,T
+124,"naive thymus-derived CD4-positive, alpha-beta T cell",CL:0000895,mapped,CD4 T,T
+125,"naive thymus-derived CD8-positive, alpha-beta T cell",CL:0000900,mapped,CD8 T,T
+126,nasal mucosa goblet cell,CL:0002480,outside,,
+127,natural killer cell,CL:0000623,mapped,NK,NK/ILC
+128,near-projecting glutamatergic cortical neuron,CL:4023012,outside,,
+129,neuron,CL:0000540,outside,,
+130,neutrophil,CL:0000775,mapped,neutrophil,granulocyte
+131,non-classical monocyte,CL:0000875,mapped,CD16 mono,monocyte
+132,oligodendrocyte,CL:0000128,outside,,
+133,oligodendrocyte precursor cell,CL:0002453,outside,,
+134,paneth cell,CL:0000510,outside,,
+135,pericyte,CL:0000669,outside,,
+136,plasma cell,CL:0000786,mapped,ASC,B lineage
+137,plasmablast,CL:0000980,mapped,ASC,B lineage
+138,plasmacytoid dendritic cell,CL:0000784,mapped,pDC,dendritic
+139,platelet,CL:0000233,mapped,platelet/MK,MK/erythroid
+140,precursor B cell,CL:0000817,mapped,B,B lineage
+141,pro-B cell,CL:0000826,mapped,HSPC,progenitor
+142,promonocyte,CL:0000559,mapped,HSPC,progenitor
+143,pulmonary artery endothelial cell,CL:1001568,outside,,
+144,pvalb GABAergic cortical interneuron,CL:4023018,outside,,
+145,regulatory T cell,CL:0000815,coarser,,T
+146,renal interstitial pericyte,CL:1001318,outside,,
+147,respiratory basal cell,CL:0002633,outside,,
+148,respiratory hillock cell,CL:4030023,outside,,
+149,retina horizontal cell,CL:0000745,outside,,
+150,retinal cone cell,CL:0000573,outside,,
+151,retinal ganglion cell,CL:0000740,outside,,
+152,retinal rod cell,CL:0000604,outside,,
+153,smooth muscle cell,CL:0000192,outside,,
+154,sncg GABAergic cortical interneuron,CL:4023015,outside,,
+155,sst GABAergic cortical interneuron,CL:4023017,outside,,
+156,tracheal goblet cell,CL:1000329,outside,,
+157,tracheobronchial smooth muscle cell,CL:0019019,outside,,
+158,transitional stage B cell,CL:0000818,mapped,B,B lineage
+159,type I pneumocyte,CL:0002062,outside,,
+160,type II pneumocyte,CL:0002063,outside,,
+161,vascular associated smooth muscle cell,CL:0000359,outside,,
+162,vein endothelial cell,CL:0002543,outside,,
+163,vip GABAergic cortical interneuron,,outside,,

@@ -87,6 +87,7 @@ def main():
         name = adtf.name[4:-8]
         adt = pd.read_parquet(adtf)
         cls, used, gates = gate_cells(adt)
+        pd.DataFrame({"barcode": adt.barcode.to_numpy(), "protein_class": cls}).to_parquet(OUT / f"protein_classes_{name}.parquet", index=False)
         gate_info[name] = {"antibodies_used": used, "gates_available": gates, "cells": len(adt),
                            "resolved": int(pd.notna(cls).sum()),
                            "protein_class_counts": pd.Series(cls).value_counts().to_dict()}
