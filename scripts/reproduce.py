@@ -279,15 +279,19 @@ class Repro:
         report = self.run_dir / "compare" / "report.json"
         report.parent.mkdir(parents=True)
         tol = str(self.repo / (self.amendment["tolerances"] if self.amendment else "protocol/tolerances.json"))
-        rec = self.runner([py, str(HERE / "compare_runs.py"), "--original", str(self.baseline), "--reproduction",
-                           str(man), "--tolerances", tol, "--out", str(report)], "compare",
-                          float(self.step_ceil["compare"]), self.repo)
-        self.receipt["comparison"] = {"returncode": rec.get("returncode"), "status": rec["status"],
-                                      "report": str(report)}
-        self.save()
-        if rec.get("returncode") != 0:
-            raise Stop(f"tiered comparison did not pass (exit {rec.get('returncode')}; 1=breach, "
-                       f"3=not assessable); see {report}")
+        # Comparison shares the approved F/H budgets and retry accounting.
+        # Record its result even when the comparison reports a deterministic breach.
+        try:
+            self.step("compare", "compare", lambda o: [py, str(HERE / "compare_runs.py"),
+                      "--original", str(self.baseline), "--reproduction", str(man),
+                      "--tolerances", tol, "--out", str(report)], out=False)
+        finally:
+            steps = [x for x in self.receipt["steps"] if x["name"] == "compare"]
+            if steps:
+                rec = steps[-1]
+                self.receipt["comparison"] = {"returncode": rec.get("returncode"),
+                                              "status": rec["status"], "report": str(report)}
+                self.save()
         paper = self.repo / "paper"
         prot_args = ["--protein", str(prd)] if prd else ["--protein-not-run"]
         self.step("paper_assets", "paper", lambda o: [py, str(HERE / "make_paper_assets.py"), "--score", str(scd)]

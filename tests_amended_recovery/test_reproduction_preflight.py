@@ -32,3 +32,18 @@ class ReproductionPreflight(unittest.TestCase):
         r.paper_used = 1800
         with self.assertRaises(Stop):
             r.step("paper_build", "paper", lambda _: ["synthetic"], mode_f=False, out=False)
+
+    def test_comparison_consumes_remaining_f_budget(self):
+        cfg = json.loads((ROOT / "configs/full.json").read_text())
+        seen = []
+        clock = [0.0]
+        def runner(argv, name, timeout, cwd):
+            seen.append(timeout)
+            clock[0] += 2
+            return {"status": "ok", "returncode": 0}
+        r = Repro(ROOT, cfg, runner=runner, now=lambda: clock[0])
+        r.save = lambda: None
+        r.f_used = r.ceiling_f - 30
+        r.step("compare", "compare", lambda _: ["synthetic"], out=False)
+        self.assertEqual(seen, [30])
+        self.assertEqual(r.f_used, r.ceiling_f - 28)
