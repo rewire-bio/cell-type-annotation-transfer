@@ -67,6 +67,7 @@ class Repro:
         self.now = now
         self.t0 = now()
         self.f_used = 0.0
+        self.pool_used = {}
         self.runner = runner or self._guarded
         self.run_dir = repo / "runs" / f"F-{utc()}"
         cache = repo / ".cache-study"
@@ -102,7 +103,16 @@ class Repro:
             left = min(h_left, f_left)
             if left <= 0:
                 raise Stop(f"budget exhausted before {name} attempt {attempt}")
-            timeout = min(float(self.step_ceil[kind]), left)
+            pool = (name[:1] + "_arm") if name.startswith(("A_M", "B_M")) and not name.endswith("_cite") else ("cite" if name == "cite_build" or name.endswith("_cite") else ("score_protein" if name in ("score", "protein") else None))
+            if name in ("acquire", "data"):
+                pool = "data_acquisition"
+            pool_limit = 3600 if pool == "cite" else (7200 if pool == "data_acquisition" else 9000)
+            if pool:
+                left = min(left, pool_limit - self.pool_used.get(pool, 0.0))
+                if left <= 0:
+                    raise Stop(f"approved pooled budget exhausted: {pool}")
+            explicit = {"compare": 1200, "paper_assets": 1200, "paper_build": 900}
+            timeout = min(float(explicit.get(name, self.step_ceil[kind])), left)
             od = self.run_dir / "out" / f"{name}-{attempt}" if out else None
             argv = argv_fn(od)
             t = self.now()
@@ -110,9 +120,11 @@ class Repro:
             dt_ = self.now() - t
             if mode_f:
                 self.f_used += dt_
+            if pool:
+                self.pool_used[pool] = self.pool_used.get(pool, 0.0) + dt_
             self.receipt["steps"].append({"name": name, "kind": kind, "attempt": attempt, "command": argv,
                                           "status": rec["status"], "returncode": rec.get("returncode"),
-                                          "timeout_s": timeout, "out_dir": str(od) if od else None,
+                                          "wall_seconds": dt_, "pool": pool, "timeout_s": timeout, "out_dir": str(od) if od else None,
                                           "provenance": "recomputed"})
             self.save()
             if rec["status"] == "ok":
