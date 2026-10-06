@@ -1,0 +1,71 @@
+{
+  "checks": [
+    {
+      "arm": "B",
+      "method": "M1",
+      "scored_files_matching_comparison": 22
+    },
+    {
+      "arm": "A-CITE",
+      "method": "M1",
+      "fit_hashes_match_historical_ArmA": true,
+      "new_CITE_predictions_match_receipt": true
+    },
+    {
+      "arm": "B",
+      "method": "M2",
+      "scored_files_matching_comparison": 22
+    },
+    {
+      "arm": "A-CITE",
+      "method": "M2",
+      "fit_hashes_match_historical_ArmA": true,
+      "new_CITE_predictions_match_receipt": true
+    },
+    {
+      "arm": "B",
+      "method": "M3",
+      "scored_files_matching_comparison": 22
+    },
+    {
+      "arm": "A-CITE",
+      "method": "M3",
+      "fit_hashes_match_historical_ArmA": true,
+      "new_CITE_predictions_match_receipt": true
+    },
+    {
+      "arm": "B",
+      "method": "M4",
+      "scored_files_matching_comparison": 16
+    },
+    {
+      "arm": "A-CITE",
+      "method": "M4",
+      "fit_hashes_match_historical_ArmA": true,
+      "new_CITE_predictions_match_receipt": true
+    },
+    {
+      "arm": "B",
+      "method": "M5",
+      "scored_files_matching_comparison": 16
+    },
+    {
+      "arm": "A-CITE",
+      "method": "M5",
+      "fit_hashes_match_historical_ArmA": true,
+      "new_CITE_predictions_match_receipt": true
+    },
+    {
+      "arm": "B",
+      "method": "M6",
+      "scored_files_matching_comparison": 16
+    },
+    {
+      "arm": "A-CITE",
+      "method": "M6",
+      "fit_hashes_match_historical_ArmA": true,
+      "new_CITE_predictions_match_receipt": true
+    }
+  ],
+  "note": "Arm A Census and CITE predictions intentionally differ by query cohort; CITE uses the same verified historical fits. Arm B comparison includes the scoring files plus fitted model evidence."
+}
