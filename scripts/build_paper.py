@@ -14,7 +14,15 @@ BUNDLE = "https://relay.fullyjustified.net/default_bundle_v33.tar"
 
 def main() -> None:
     root = Path(__file__).resolve().parents[1]
-    required = ["paper/generated/metrics.tex", "paper/generated/table.tex", "paper/figures/convergence.pdf"]
+    required = ["paper/main.tex", "paper/references.bib", "paper/artifacts.json"]
+    import json
+    if (root / "paper/artifacts.json").is_file():
+        artifacts = json.loads((root / "paper/artifacts.json").read_text())
+        for name in artifacts["generated_inputs"]:
+            candidate = (root / name).resolve()
+            if not candidate.is_relative_to(root) or not name.startswith(("paper/generated/", "paper/figures/")):
+                raise SystemExit(f"Invalid paper artifact path: {name}")
+            required.append(name)
     for name in required:
         if not (root / name).is_file():
             raise SystemExit(f"Missing generated input {name}; run make analysis first")
@@ -27,10 +35,14 @@ def main() -> None:
     output.mkdir(parents=True, exist_ok=True)
     environment = os.environ.copy()
     environment["SOURCE_DATE_EPOCH"] = "0"
+    environment["XDG_CACHE_HOME"] = str(root / ".cache-study" / "xdg")
     subprocess.run([str(executable), "--web-bundle", BUNDLE, "--untrusted", "--keep-logs", "--outdir", str(output), "main.tex"], cwd=root / "paper", env=environment, check=True)
     pdf = output / "main.pdf"
     if not pdf.is_file() or not pdf.read_bytes().startswith(b"%PDF-"):
         raise SystemExit("Paper build did not produce a valid PDF header")
+    log = output / "main.log"
+    if log.exists() and re.search(r"undefined references|Citation .* undefined|Reference .* undefined", log.read_text(errors="replace"), re.IGNORECASE):
+        raise SystemExit("Paper has unresolved references or citations")
     print(pdf)
 
 
