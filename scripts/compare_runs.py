@@ -8,6 +8,14 @@ The core logic is stdlib-only; parquet/npy/h5ad inputs need pandas+pyarrow/numpy
 which are imported lazily. Exit codes: 0 every gated check passed; 1 gated breach or
 structural failure (missing/duplicate rows, files, metrics); 3 no breach but at least one
 required artifact is unsupported (comparison not possible, so not reproduced); 2 usage error.
+
+Versioned tolerances (protein-replacement amendment, tolerances v2): when
+T2_labels.expected_query_files.CITE is "n_eligible" (or {"from": "eligibility.json"}), the expected CITE
+file count is the number of "eligible" verdicts in the original's hashed eligibility.json (0, 1 or 2) and
+T1 additionally requires: identical eligibility verdicts, eligible input sha256/bytes equal to the pins,
+byte-identical mapping_<name>.csv and byte-identical postqc_barcodes_<name>.txt. All other tiers are
+unchanged. Zero eligible in both modes is reported explicitly ("protein_check": "not run ..."), never as a
+silent protein pass; exit code then reflects the remaining tiers only.
 """
 from __future__ import annotations
 
@@ -20,6 +28,9 @@ import math
 import os
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import result_manifest as RM  # noqa: E402  (stdlib only; shared eligibility contract)
 
 MANIFEST_SCHEMA = "celltransfer-compare-manifest/1"
 REPORT_SCHEMA = "celltransfer-compare-report/1"
@@ -185,7 +196,7 @@ def load_manifest(path) -> dict:
     base = path.parent
     out = dict(m)
     out["_path"] = str(path)
-    for k in ("data", "cite", "protein", "sampled_ids", "bootstrap_weights", "d03_features"):
+    for k in ("data", "cite", "protein", "sampled_ids", "bootstrap_weights", "d03_features", "eligibility"):
         out[k] = _resolve(base, m.get(k))
     if isinstance(m["score"], str):
         out["score"] = {"primary": _resolve(base, m["score"])}
@@ -840,6 +851,69 @@ def resources(rep, o, f, tol):
                     original=a, reproduction=b, ratio=r)
 
 
+# ------------------------------------------------------------------ amendment: dynamic eligibility
+def cite_expectation(tol):
+    """('static', n) for v1; ('dynamic', None) for the v2 eligibility-driven count."""
+    v = tol["T2_labels"]["expected_query_files"]["CITE"]
+    if isinstance(v, bool):
+        raise StructuralError(f"tolerances: invalid CITE expectation {v!r}")
+    if isinstance(v, int):
+        return "static", v
+    if v == "n_eligible" or (isinstance(v, dict) and "eligibility" in str(v.get("from", ""))):
+        return "dynamic", None
+    raise StructuralError(f"tolerances: unrecognised CITE expectation {v!r}")
+
+
+def load_eligibility(m, who):
+    p = m.get("eligibility") or (m["cite"] / RM.ELIGIBILITY_FILE)
+    try:
+        el = RM.parse_eligibility(p)
+    except RM.ManifestError as e:
+        raise StructuralError(f"{who} eligibility: {e}") from e
+    if m.get("eligibility_sha256") and m["eligibility_sha256"] != el["sha256"]:
+        raise StructuralError(f"{who} eligibility.json sha256 differs from the hash recorded in its manifest")
+    return el
+
+
+def _file_sha(p: Path):
+    return hashlib.sha256(Path(p).read_bytes()).hexdigest() if Path(p).is_file() else None
+
+
+def t1_eligibility(rep, o, f, eo, ef):
+    """T1 additions of the amendment (s7). Returns nothing; adds checks."""
+    rep.add("T1", "eligibility_verdicts", "pass" if eo["verdicts"] == ef["verdicts"] else "breach",
+            original=eo["verdicts"], reproduction=ef["verdicts"], n_eligible=[eo["n_eligible"], ef["n_eligible"]])
+    co, cf = eo["first_failing_criterion"], ef["first_failing_criterion"]
+    rep.add("descriptive", "eligibility_first_failing_criterion", "identical" if co == cf else "differs", gated=False,
+            original=co, reproduction=cf)
+    for who, el in (("original", eo), ("reproduction", ef)):
+        for n in el["eligible"]:
+            e, pin = el["files"][n], RM.REPLACEMENT_FILES[n]
+            if e.get("sha256") is None or e.get("bytes") is None:
+                rep.unsupported("T1", f"input_pins:{who}", f"eligibility.json entry {n} lacks sha256/bytes")
+                continue
+            ok = e["sha256"] == pin["sha256"] and int(e["bytes"]) == pin["bytes"]
+            rep.add("T1", f"input_pins:{who}", "pass" if ok else "breach", file=n,
+                    observed={"sha256": e["sha256"], "bytes": e["bytes"]}, pinned=pin)
+    names = sorted(set(eo["eligible"]) | set(ef["eligible"]))
+    for n in sorted(RM.REPLACEMENT_FILES):
+        for check, fname, required in (("mapping_csv", RM.mapping_csv_name(n), n in names),
+                                       ("postqc_barcodes", RM.postqc_barcodes_name(n), n in names)):
+            ho, hf = _file_sha(o["cite"] / fname), _file_sha(f["cite"] / fname)
+            if ho is None and hf is None:
+                if required:
+                    rep.unsupported("T1", check, f"{fname} absent in both modes for eligible file {n}")
+                continue
+            if ho is None or hf is None:
+                rep.add("T1", check, "breach", file=n, error=f"{fname} present in only one mode")
+                continue
+            det = {"sha256": [ho, hf]}
+            if check == "postqc_barcodes":
+                det["n_barcodes"] = [len((o["cite"] / fname).read_text().split()),
+                                     len((f["cite"] / fname).read_text().split())]
+            rep.add("T1", check, "pass" if ho == hf else "breach", file=n, **det)
+
+
 # ------------------------------------------------------------------ outcomes
 def outcomes(rep, tol, score_names):
     labels = tol["outcomes"]
@@ -883,10 +957,26 @@ def run(orig_path, repro_path, tol_path, out_path) -> int:
         rep.structural("score_sets", f"score output sets differ {sorted(o['score'])} vs {sorted(f['score'])}")
     snames = sorted(set(o["score"]) & set(f["score"])) if sorted(o["score"]) == sorted(f["score"]) else []
     t2 = tol["T2_labels"]["expected_query_files"]
+    kind_cite, n_cite = cite_expectation(tol)
+    eo = ef = None
+    protein_note = None
+    amended = [bool(m.get("amendment")) for m in (o, f)]
+    if kind_cite == "dynamic":
+        if amended != [True, True] or o.get("amendment") != f.get("amendment"):
+            raise StructuralError("v2 (eligibility-driven) tolerances require two manifests of the same amendment")
+        eo, ef = load_eligibility(o, "original"), load_eligibility(f, "reproduction")
+        n_cite = eo["n_eligible"]
+    elif any(amended):
+        raise StructuralError("amended manifests must be compared with the versioned (v2) tolerances")
     d_files_o, d_files_f = list_files(o["data"], "released_predictions_"), list_files(f["data"], "released_predictions_")
     c_files_o, c_files_f = list_files(o["cite"], "released_predictions_"), list_files(f["cite"], "released_predictions_")
     files_ok = True
-    for kind, a, b, n in (("D", d_files_o, d_files_f, t2["D"]), ("CITE", c_files_o, c_files_f, t2["CITE"])):
+    if eo is not None:
+        for who, el, got in (("original", eo, c_files_o), ("reproduction", ef, c_files_f)):
+            if got != el["eligible"]:
+                rep.structural("query_files", f"{who}: CITE files {got} != eligible verdicts {el['eligible']}")
+                files_ok = False
+    for kind, a, b, n in (("D", d_files_o, d_files_f, t2["D"]), ("CITE", c_files_o, c_files_f, n_cite)):
         if a != b:
             rep.structural("query_files", f"{kind} query file sets differ: {a} vs {b}")
             files_ok = False
@@ -905,6 +995,8 @@ def run(orig_path, repro_path, tol_path, out_path) -> int:
             t1_cell_counts_and_info(rep, o, f, s)
         t1_m4_chosen_c(rep, o, f)
         t1_bootstrap(rep, o, f)
+        if eo is not None:
+            t1_eligibility(rep, o, f, eo, ef)
         if files_ok:
             t1_adt(rep, o, f, c_files)
             t2_predictions(rep, o, f, tol, d_files, c_files)
@@ -920,7 +1012,23 @@ def run(orig_path, repro_path, tol_path, out_path) -> int:
             descriptive_table(rep, o, f, s, "risk_coverage_test.csv", ["arm", "method", "_ordinal"], ordinal=True)
         rep.add("descriptive", "nan_replicate_counts", "unsupported", gated=False,
                 reason="score_all.py does not write NaN-replicate counts; not compared")
-        protein(rep, o, f, tol, c_files)
+        if eo is not None and (eo["n_eligible"] == 0 or ef["n_eligible"] == 0):
+            if eo["n_eligible"] == ef["n_eligible"] == 0:
+                protein_note = "not run: no eligible replacement file in either mode"
+                for who, m in (("original", o), ("reproduction", f)):
+                    if m.get("protein") is not None or m.get("protein_status") != "not_run":
+                        rep.structural("protein_check", f"{who}: zero eligible files but manifest does not record "
+                                                        f"protein_status 'not_run' with no protein output")
+                rep.add("protein", "protein_check", "not_run", gated=False, reason=protein_note)
+            else:
+                protein_note = "not compared: protein check run in only one mode (eligibility verdicts differ)"
+                rep.structural("protein_check", protein_note)
+        elif o.get("protein") is None or f.get("protein") is None:
+            rep.structural("protein_check", "protein output missing although CITE files are eligible/expected")
+        else:
+            if eo is not None:
+                protein_note = f"run on {eo['n_eligible']} eligible replacement file(s): {eo['eligible']}"
+            protein(rep, o, f, tol, c_files)
         resources(rep, o, f, tol)
     per, overall, breaches, unsup, m6_only = outcomes(rep, tol, snames)
     report = {
@@ -928,7 +1036,11 @@ def run(orig_path, repro_path, tol_path, out_path) -> int:
         "tolerances": {"path": str(tol_path), "sha256": hashlib.sha256(tol_bytes).hexdigest()},
         "original_manifest": str(orig_path), "reproduction_manifest": str(repro_path),
         "result_of_record": "Mode R (original)",
-        "overall": overall,
+        "overall": overall if protein_note is None or not protein_note.startswith("not run")
+        else f"{overall}; protein check {protein_note}",
+        "protein_check": protein_note,
+        "eligibility": None if eo is None else {"original": eo["verdicts"], "reproduction": ef["verdicts"],
+                                                "n_eligible": [eo["n_eligible"], ef["n_eligible"]]},
         "per_arm_method": per,
         "m6_only_breach": m6_only,
         "m6_only_wording": tol["outcomes"]["m6_only_wording"] if m6_only else None,
@@ -941,7 +1053,8 @@ def run(orig_path, repro_path, tol_path, out_path) -> int:
     Path(out_path).parent.mkdir(parents=True, exist_ok=True)
     with open(out_path, "w") as fh:
         json.dump(_json_safe(report), fh, indent=1, default=str)
-    print(json.dumps({"overall": overall, "breaches": len(breaches), "unsupported": len(unsup), "report": str(out_path)}))
+    print(json.dumps({"overall": report["overall"], "breaches": len(breaches), "unsupported": len(unsup),
+                      "protein_check": protein_note, "report": str(out_path)}))
     return 1 if breaches else (3 if unsup else 0)
 
 

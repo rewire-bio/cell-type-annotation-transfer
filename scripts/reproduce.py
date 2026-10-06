@@ -21,6 +21,14 @@ Order (each external step runs via resource_guard.run_guarded, 4 threads, 12 GiB
 No historical derived output is read for steps 3-8; the baseline manifest is only passed to
 compare_runs.py. Mode F wall ceiling 14 h within the 15 h H budget; infrastructure-status retries
 (max 1 per step) count against it; deterministic failures stop. A receipt is written after every step.
+
+Amended (config "amendment": {"id": "2026-10-06-approved-protein-replacement", "tolerances": <v2 path>,
+"cite_builder": "companion/scripts/build_cite_totalvi.py"}): Mode F stays fully fresh (no adoption, no cached
+fits; a mode_f "adopt" key is refused). Step 5 runs the replacement builder (--workspace --data --out) and
+reads its eligibility.json: 0 eligible -> Arm A CITE predictions and protein_check are recorded as not run
+(results.json protein_check.status "not_run"); otherwise they run for the eligible files only, with a 4 GiB
+free-disk start floor for the CITE predictions (M6 query adaptation). The baseline must be an amended Mode R
+manifest and compare_runs.py uses the versioned tolerances file.
 """
 from __future__ import annotations
 
@@ -79,6 +87,17 @@ class Repro:
                         "fresh_execution": True, "config": cfg, "steps": [], "status": "running",
                         "external_cache": None}
         self.python = str(repo / ".venv" / "bin" / "python")
+        self.amendment = cfg.get("amendment")
+        if self.amendment:
+            if self.amendment.get("id") != RM.AMENDMENT_ID:
+                raise Stop(f"amendment id {self.amendment.get('id')!r} is not the approved {RM.AMENDMENT_ID!r}")
+            if self.amendment.get("cite_builder") != REPLACEMENT_BUILDER:
+                raise Stop("amendment.cite_builder must be the approved replacement builder")
+            if not self.amendment.get("tolerances") or Path(self.amendment["tolerances"]).name == "tolerances.json":
+                raise Stop("amendment.tolerances must name the versioned (v2) tolerances file, not v1")
+            if "adopt" in f:
+                raise Stop("Mode F is fully fresh: adoption of cached fits is not allowed")
+            self.receipt["amendment"] = RM.AMENDMENT_ID
 
     # ---------------------------------------------------------------- bookkeeping
     def save(self):
@@ -91,7 +110,7 @@ class Repro:
         g = self.cfg["guard"]
         return RG.run_guarded(argv, attempt_root=self.run_dir / "attempts", name=name, timeout=timeout,
                               extra_env=self.env, cwd=cwd, mem_limit=int(g["mem_limit_gib"] * RG.GiB),
-                              swap_growth_limit=int(4 * RG.GiB), disk_start_min=int((4 if name.endswith("_fit") else 3) * RG.GiB),
+                              swap_growth_limit=int(4 * RG.GiB), disk_start_min=int(disk_floor_gib(name, bool(self.amendment)) * RG.GiB),
                               disk_run_min=int(1.5 * RG.GiB), storage_cap=int(g["storage_cap_gib"] * RG.GiB),
                               threads=int(g["threads"]), disk_path=self.repo,
                               cap_paths=[self.repo / p for p in CAP_DIRS], time_l=True)
@@ -149,6 +168,17 @@ class Repro:
             raise Stop("baseline manifest must be celltransfer-compare-manifest/1 with mode R")
         if any(bp.is_relative_to((self.repo / d).resolve()) for d in CAP_DIRS):
             raise Stop("baseline manifest must not live inside reproduction output paths")
+        if self.amendment:
+            if b.get("amendment") != RM.AMENDMENT_ID:
+                raise Stop("baseline Mode R manifest is not an amended (protein-replacement) manifest")
+            tp = self.repo / self.amendment["tolerances"]
+            if not tp.is_file():
+                raise Stop(f"versioned tolerances file missing: {tp}")
+            if not (self.repo / REPLACEMENT_BUILDER).is_file():
+                raise Stop(f"replacement builder missing: {REPLACEMENT_BUILDER}")
+            self.receipt["tolerances"] = {"path": self.amendment["tolerances"], "sha256": sha256(tp)}
+        elif b.get("amendment"):
+            raise Stop("baseline manifest is amended but the config has no amendment")
         self.receipt["baseline_manifest"] = {"sha256": sha256(bp), "used_for": "comparison-only"}
         self.baseline = bp
         ext = os.environ.get("CELLTRANSFER_EXTERNAL_CACHE")
@@ -188,33 +218,57 @@ class Repro:
                     "--out", str(o)] + extra)
         arms = {a: RM.assemble_arm(self.run_dir / "arms" / a, {m: [preds[a, m], fits[a, m]] for m in METHODS})
                 for a in ("A", "B")}
-        ci = self.step("cite_build", "cite_build", lambda o: [py, f"{sc}/build_cite.py", "--workspace", R,
+        builder = f"{R}/{REPLACEMENT_BUILDER}" if self.amendment else f"{sc}/build_cite.py"
+        ci = self.step("cite_build", "cite_build", lambda o: [py, builder, "--workspace", R,
                                                                "--data", str(D), "--out", str(o)])
-        cp = {m: self.step(f"A_{m}_cite", "cite_predict", lambda o, m=m: rm + [
-            "--data", str(ci), "--arm", "A", "--method", m, "--stage", "predict", "--model-dir",
-            str(fits["A", m]), "--out", str(o)] + checkpoint_hash_args["A", m]) for m in METHODS}
-        tc = self.run_dir / "armA_cite"
-        tc.mkdir()
-        for m in METHODS:
-            os.symlink(cp[m], tc / m)
+        elig = None
+        if self.amendment:
+            elig = RM.parse_eligibility(ci / RM.ELIGIBILITY_FILE)
+            self.receipt["eligibility"] = {"sha256": elig["sha256"], "verdicts": elig["verdicts"],
+                                           "n_eligible": elig["n_eligible"]}
+            self.save()
+        run_cite = elig is None or elig["n_eligible"] > 0
+        tc = None
+        if run_cite:
+            cp = {m: self.step(f"A_{m}_cite", "cite_predict", lambda o, m=m: rm + [
+                "--data", str(ci), "--arm", "A", "--method", m, "--stage", "predict", "--model-dir",
+                str(fits["A", m]), "--out", str(o)] + checkpoint_hash_args["A", m]) for m in METHODS}
+            tc = self.run_dir / "armA_cite"
+            tc.mkdir()
+            for m in METHODS:
+                os.symlink(cp[m], tc / m)
+        else:
+            self.receipt["protein_check"] = {"status": "not_run", "reason": "no eligible replacement file",
+                                             "steps_not_run": [f"A_{m}_cite" for m in METHODS] + ["protein"]}
+            self.save()
         scd = self.step("score", "score", lambda o: [py, f"{sc}/score_all.py", "--workspace", R, "--data", str(D),
                                                       "--matched", f"A={arms['A']}", f"B={arms['B']}", "--reps",
                                                       "1000", "--natural-unknown-scope", "natural", "--out", str(o)])
-        prd = self.step("protein", "protein", lambda o: [py, f"{sc}/protein_check.py", "--workspace", R, "--cite",
-                                                          str(ci), "--matched", f"A={tc}", "--thresholds",
-                                                          str(scd / "thresholds_validation.csv"), "--out", str(o)])
+        prd = None
+        if run_cite:
+            prd = self.step("protein", "protein", lambda o: [py, f"{sc}/protein_check.py", "--workspace", R, "--cite",
+                                                              str(ci), "--matched", f"A={tc}", "--thresholds",
+                                                              str(scd / "thresholds_validation.csv"), "--out", str(o)])
         # results + Mode F manifest (fresh outputs only)
         ev = RM.find_optional_evidence(scd, prd)
         man = self.run_dir / "comparison_manifest.json"
-        RM.write_compare_manifest(man, mode="F", data=D, cite=ci, arms={"A": [arms["A"], tc], "B": [arms["B"]]},
-                                  score={"primary": scd}, protein=prd, fresh=True, d03_features=baseline_d03(self.baseline), **ev)
-        res = RM.aggregate_results(scd, prd)
+        extra, am_kw = None, {}
+        if self.amendment:
+            pc = RM.protein_check_summary(elig, prd)
+            self.receipt["protein_check"] = dict(self.receipt.get("protein_check", {}), status=pc["status"])
+            extra = {"protein_check": pc}
+            am_kw = dict(eligibility=ci / RM.ELIGIBILITY_FILE, amendment=RM.AMENDMENT_ID, protein_status=pc["status"])
+        RM.write_compare_manifest(man, mode="F", data=D, cite=ci,
+                                  arms={"A": [arms["A"]] + ([tc] if tc else []), "B": [arms["B"]]},
+                                  score={"primary": scd}, protein=prd, fresh=True,
+                                  d03_features=baseline_d03(self.baseline), **am_kw, **ev)
+        res = RM.aggregate_results(scd, prd, extra=extra)
         (self.repo / RESULTS).parent.mkdir(parents=True, exist_ok=True)
         RM.write_json(self.repo / RESULTS, res)
         self.receipt["results"] = str(RESULTS)
         report = self.run_dir / "compare" / "report.json"
         report.parent.mkdir(parents=True)
-        tol = str(self.repo / "protocol/tolerances.json")
+        tol = str(self.repo / (self.amendment["tolerances"] if self.amendment else "protocol/tolerances.json"))
         rec = self.runner([py, str(HERE / "compare_runs.py"), "--original", str(self.baseline), "--reproduction",
                            str(man), "--tolerances", tol, "--out", str(report)], "compare",
                           float(self.step_ceil["compare"]), self.repo)
@@ -225,14 +279,24 @@ class Repro:
             raise Stop(f"tiered comparison did not pass (exit {rec.get('returncode')}; 1=breach, "
                        f"3=not assessable); see {report}")
         paper = self.repo / "paper"
-        self.step("paper_assets", "paper", lambda o: [py, str(HERE / "make_paper_assets.py"), "--score", str(scd),
-                                                      "--protein", str(prd), "--comparison", str(report),
-                                                      "--output", str(paper)], mode_f=False, out=False)
+        prot_args = ["--protein", str(prd)] if prd else ["--protein-not-run"]
+        self.step("paper_assets", "paper", lambda o: [py, str(HERE / "make_paper_assets.py"), "--score", str(scd)]
+                  + prot_args + ["--comparison", str(report), "--output", str(paper)], mode_f=False, out=False)
         self.step("paper_build", "paper", lambda o: [py, str(HERE / "build_paper.py")], mode_f=False, out=False)
         if not (self.repo / PDF).is_file():
             raise Stop("paper build reported success but paper/build/main.pdf is missing")
         self.receipt["status"] = "complete"
         self.save()
+
+
+REPLACEMENT_BUILDER = "companion/scripts/build_cite_totalvi.py"
+
+
+def disk_floor_gib(name: str, amended: bool) -> float:
+    """Start floors: fits 4 GiB; amended Arm A CITE predictions (M6 query adaptation, R5 counterpart) 4 GiB."""
+    if name.endswith("_fit") or (amended and name.startswith("A_M") and name.endswith("_cite")):
+        return 4.0
+    return 3.0
 
 
 def baseline_d03(manifest: Path):
@@ -255,7 +319,11 @@ def main(argv=None) -> int:
     if shutil.which("uv") is None:
         print("BLOCKED: uv not on PATH", file=sys.stderr)
         return 3
-    r = Repro(REPO, json.loads(a.config.read_text()))
+    try:
+        r = Repro(REPO, json.loads(a.config.read_text()))
+    except Stop as e:
+        print(f"STOPPED: {e}", file=sys.stderr)
+        return 1
     try:
         r.run(os.environ.get("CELLTRANSFER_BASELINE_MANIFEST"))
     except (Stop, RM.ManifestError) as e:

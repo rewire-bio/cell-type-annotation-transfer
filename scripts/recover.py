@@ -16,6 +16,24 @@ Reproduces the step layout of historical/companion/scripts/queue_main.sh, but:
 
 It does not read prediction-vs-label comparisons itself; scoring is delegated to score_all.py.
 
+Amended continuation (--amendment 2026-10-06-approved-protein-replacement; protocol/amendments/
+protein-replacement-reviewed.md, approved by the user, sha256 pinned below):
+  * NEW run dir only. Completed Arm B M4/M5/M6 fit+predict are ADOPTED (never refit) from an explicit prior
+    recovery_manifest.json (--adopt-from): every adopted output dir must hash-match its receipt exactly, the
+    receipts must match the manifest/assembly (and the --adopt-receipts-dir evidence copies byte-for-byte),
+    the prior source must be clean and its scientific code hashes must equal the current checkout (only
+    scripts/recover.py may differ). Any mismatch blocks; there is no fallback to refitting.
+  * The original run dir is read only; adopted steps keep their original source provenance, receipts and
+    attempt dirs. Stage seconds, pool seconds and attempt statuses are carried forward exactly once
+    (prior stage_seconds_used already contains the earlier --prior-seconds charge; it is not re-added).
+  * R4' = cite_build with companion/scripts/build_cite_totalvi.py --workspace --data --out. R4 attempt 1
+    (HTTP 403) is counted, so exactly one attempt remains; its time (--prior-r4-seconds) counts against the
+    8 h stage ceiling. Any R4' failure ends the replacement (no retry).
+  * eligibility.json (written by the builder) decides 0/1/2 eligible files. Zero eligible: R5/R7 are
+    recorded explicitly as not run (protein_check.status = "not_run"); scoring still runs.
+  * R5 (Arm A CITE predict incl. M6 query adaptation) keeps the shared 30 min pool and starts only with
+    >= 4 GiB free disk (--r5-disk-gib).
+
 Historical manifest format (JSON):
   {"root_layout": {"data": "runs/D05-...", "armA": "runs/T01-matched-armA-...",
                    "armB": "runs/T02-matched-armB-..."},
@@ -35,6 +53,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import resource_guard as RG  # noqa: E402
+import result_manifest as RM  # noqa: E402
 
 GiB = RG.GiB
 STAGE_CEILING_S = 8 * 3600
@@ -55,6 +74,20 @@ STEP_CEILINGS.update({f"A_{m}_cite": 30 * MIN for m in ("M1", "M2", "M3", "M4", 
 POOLS = {"cite_predict": 30 * MIN}
 STEP_POOL = {f"A_{m}_cite": "cite_predict" for m in ALL_M}
 DEFAULT_CAP_RELPATHS = ("companion", "runs", ".cache-study", "paper/build", ".venv", ".tools")
+
+# ---- approved protein-replacement amendment (protocol/amendments/2026-10-06-approved-protein-replacement.md)
+AMENDMENT_ID = RM.AMENDMENT_ID
+AMENDMENT_REVIEWED = "protocol/amendments/protein-replacement-reviewed.md"
+AMENDMENT_SHA256 = "e5ba0c347b66cba1c76dd249e386789c26e1916a95bc9c82a0208a696c89eae1"
+REPLACEMENT_BUILDER = "companion/scripts/build_cite_totalvi.py"
+R4_ATTEMPTS_USED = 1          # C2: the 10x HTTP 403 was R4 attempt 1 of 2; R4' is the last
+COUNTED = "prior-attempt-counted"  # counts toward MAX_ATTEMPTS without being a deterministic-failure verdict
+ADOPTABLE = tuple(f"B_{m}_{k}" for m in RESUME_B for k in ("fit", "predict"))
+# scientific training/prediction code must be byte-identical to the adopted run; only this driver may differ
+ADOPTION_MAY_DIFFER = ("scripts/recover.py",)
+ADOPTION_REQUIRED_CODE = ("companion/scripts/run_matched.py", "companion/src/celltransfer/methods.py",
+                          "companion/src/celltransfer/evaluate.py")
+R5_DISK_GIB = 4.0
 
 
 def sha256_file(p: Path) -> str:
@@ -114,7 +147,7 @@ class Interrupted(RuntimeError):
 CODE_FILES = ("companion/scripts/run_matched.py", "companion/scripts/score_all.py",
               "companion/scripts/build_cite.py", "companion/scripts/protein_check.py",
               "companion/src/celltransfer/methods.py", "companion/src/celltransfer/evaluate.py",
-              "scripts/recover.py", "scripts/resource_guard.py")
+              "scripts/recover.py", "scripts/resource_guard.py", REPLACEMENT_BUILDER)
 
 
 def code_hashes(repo: Path) -> dict:
@@ -132,6 +165,10 @@ def _attempt_start(adir: Path) -> float | None:
         return dt.datetime.strptime(stamp, "%Y%m%dT%H%M%S%fZ").replace(tzinfo=dt.timezone.utc).timestamp()
     except (IndexError, ValueError):
         return None
+
+
+def _cmd_arg(cmd: list, flag: str):
+    return cmd[cmd.index(flag) + 1] if flag in cmd else None
 
 
 def estimate_interrupted_seconds(adir: Path) -> float:
@@ -157,6 +194,15 @@ class Driver:
         self.external_prior_attempts = json.loads(getattr(a, "prior_attempts", "{}"))
         self.external_prior_seconds = float(getattr(a, "prior_seconds", 0))
         self.time_l = not a.no_time_l
+        self.amendment = getattr(a, "amendment", None)
+        self.adopt_from = Path(a.adopt_from).resolve() if getattr(a, "adopt_from", None) else None
+        self.adopt_receipts_dir = (Path(a.adopt_receipts_dir).resolve() if getattr(a, "adopt_receipts_dir", None)
+                                   else None)
+        self.prior_r4_seconds = getattr(a, "prior_r4_seconds", None)
+        self.r5_disk_min = int(getattr(a, "r5_disk_gib", R5_DISK_GIB) * GiB) if self.amendment else 0
+        self.counted_prior = {}     # name -> attempts counted (no status verdict), e.g. R4 attempt 1 (403)
+        self.carried_statuses = {}  # name -> statuses of attempts recorded in the adopted prior run
+        self._adopted = None
         cap = [b / r for b in {self.repo, self.study_root} for r in DEFAULT_CAP_RELPATHS]
         cap += [self.run_dir] + [Path(p) for p in a.cap_path]
         self.guard_kw = dict(mem_limit=int(a.mem_limit_gib * GiB), swap_growth_limit=int(4 * GiB),
@@ -176,6 +222,10 @@ class Driver:
         self.manifest_path = Path(a.historical_manifest).resolve()
         self.manifest = json.loads(self.manifest_path.read_text())
         src = dict(source_revision(self.repo), code_sha256=code_hashes(self.repo))
+        if self.amendment:
+            self.check_amendment_args()
+        elif self.adopt_from or self.adopt_receipts_dir or self.prior_r4_seconds is not None:
+            raise Blocked("--adopt-from/--adopt-receipts-dir/--prior-r4-seconds are only valid with --amendment")
         mp = self.run_dir / "recovery_manifest.json"
         if resume:
             if not mp.is_file():
@@ -187,6 +237,17 @@ class Driver:
             if old.get("git_rev") != src["git_rev"] or old.get("code_sha256") != src["code_sha256"]:
                 raise Blocked("--resume: source revision/code hashes differ from the interrupted run; "
                               "mixing code versions within one Mode R run is not allowed")
+            if self.record.get("amendment", {}).get("id") != self.amendment:
+                raise Blocked("--resume: amendment differs from the interrupted run "
+                              f"({self.record.get('amendment', {}).get('id')!r} vs {self.amendment!r})")
+            if self.amendment:
+                ad = self.record["adoption"]
+                if ad["prior_manifest_sha256"] != sha256_file(self.adopt_from):
+                    raise Blocked("--resume: --adopt-from manifest differs from the one adopted by this run")
+                if float(ad["carried"]["prior_r4_seconds"]) != float(self.prior_r4_seconds):
+                    raise Blocked("--resume: --prior-r4-seconds differs from the value recorded at adoption")
+                self.counted_prior = dict(ad["carried"]["counted_prior_attempts"])
+                self.carried_statuses = {k: list(v) for k, v in ad["carried"]["prior_statuses"].items()}
             self.used_s = float(self.record.get("stage_seconds_used", 0.0))
             self.pool_used = {k: float(v) for k, v in self.record.get("pool_seconds_used", {}).items()}
             known = {s["attempt_dir"] for s in self.record["steps"]}
@@ -217,6 +278,8 @@ class Driver:
                            "ceilings_s": self.ceilings, "pools_s": self.pools, "step_pool": STEP_POOL,
                            "cap_paths": [str(p) for p in self.guard_kw["cap_paths"]], "time_l": self.time_l,
                            "env": self.env, "cached": {}, "steps": [], "assembly": {}, "status": "running"}
+            if self.amendment:
+                self.start_amended_run()
 
     # -------------------------------------------------------------- bookkeeping
     def save(self):
@@ -290,8 +353,10 @@ class Driver:
         """Run up to MAX_ATTEMPTS (counted across resumes); returns (out_dir, receipt)."""
         if self.receipt_path(name).is_file():
             return self.reuse_receipt(name)
-        prior = ["driver-interrupted"] * int(self.external_prior_attempts.get(name, 0)) + self.prior_statuses(name)
-        bad = [s for s in prior if s not in RG.INFRA_STATUSES]
+        prior = (["driver-interrupted"] * int(self.external_prior_attempts.get(name, 0))
+                 + [COUNTED] * int(self.counted_prior.get(name, 0))
+                 + list(self.carried_statuses.get(name, [])) + self.prior_statuses(name))
+        bad = [s for s in prior if s not in RG.INFRA_STATUSES and s != COUNTED]
         if bad:
             raise Blocked(f"{name}: earlier deterministic/non-infrastructure status {bad[0]}")
         mem = sum(s in RG.MEMORY_STATUSES for s in prior)
@@ -312,6 +377,8 @@ class Driver:
             kw = dict(self.guard_kw)
             if kind == "fit":
                 kw["disk_start_min"] = max(kw["disk_start_min"], self.fit_disk_min)
+            if kind == "cite_predict" and self.r5_disk_min:  # amendment s8: R5 (M6 query adaptation) >= 4 GiB
+                kw["disk_start_min"] = max(kw["disk_start_min"], self.r5_disk_min)
             base = self.run_dir / "attempts" / name
             t0 = time.time()
             pending_out = base / f"out-{attempt}-{RG.utc()}"
@@ -378,10 +445,215 @@ class Driver:
         tmp.write_text(json.dumps(obj, indent=1, sort_keys=True, default=str))
         tmp.replace(p)
 
+    # -------------------------------------------------------------- amendment: adoption + carry-forward
+    def check_amendment_args(self):
+        if self.amendment != AMENDMENT_ID:
+            raise Blocked(f"unknown amendment {self.amendment!r}; only {AMENDMENT_ID!r} is approved")
+        rv = self.repo / AMENDMENT_REVIEWED
+        if not rv.is_file() or sha256_file(rv) != AMENDMENT_SHA256:
+            raise Blocked(f"{AMENDMENT_REVIEWED} missing or not the approved text (sha256 {AMENDMENT_SHA256})")
+        if not self.adopt_from:
+            raise Blocked("--amendment requires --adopt-from: no refit of Arm B M4-M6 is authorised")
+        if self.prior_r4_seconds is None or not float(self.prior_r4_seconds) >= 0:
+            raise Blocked("--amendment requires --prior-r4-seconds (measured time of R4 attempt 1, the HTTP 403); "
+                          "it counts against the 8 h stage ceiling and is never estimated by this driver")
+        if self.external_prior_seconds:
+            raise Blocked("--prior-seconds must be 0 with --adopt-from: the adopted manifest's stage_seconds_used "
+                          "already contains earlier charges (double counting refused)")
+        if self.external_prior_attempts:
+            raise Blocked("--prior-attempts must be empty with --adopt-from: attempts are carried from the adopted "
+                          "manifest and R4 attempt 1 is fixed by the amendment (double counting refused)")
+
+    def load_prior(self) -> tuple[dict, str, Path]:
+        if not self.adopt_from.is_file():
+            raise Blocked(f"--adopt-from manifest not found: {self.adopt_from}")
+        sha = sha256_file(self.adopt_from)
+        prior = json.loads(self.adopt_from.read_text())
+        if prior.get("driver") != "scripts/recover.py":
+            raise Blocked("adopted manifest was not written by scripts/recover.py")
+        receipts = {Path(st["receipt"]).parent for st in prior.get("steps", []) if st.get("receipt")}
+        if len(receipts) != 1:
+            raise Blocked(f"adopted manifest receipts are not in exactly one run dir: {sorted(map(str, receipts))}")
+        prior_run = next(iter(receipts)).parent
+        if prior_run.resolve() == self.run_dir.resolve():
+            raise Blocked("adoption must target a NEW run dir; the original run is immutable")
+        live = prior_run / "recovery_manifest.json"
+        if not live.is_file() or json.loads(live.read_text()) != prior:
+            raise Blocked(f"supplied prior manifest does not match the original run's own manifest ({live})")
+        return prior, sha, prior_run
+
+    def start_amended_run(self):
+        """New run: carry time, pool and attempt accounting forward exactly once."""
+        prior, sha, prior_run = self.load_prior()
+        if prior.get("status") not in ("interrupted", "blocked"):
+            raise Blocked(f"adopted run status {prior.get('status')!r}; only a paused/blocked run can be continued")
+        if "stage_seconds_used" not in prior or "pool_seconds_used" not in prior:
+            raise Blocked("adopted manifest lacks stage/pool seconds; time cannot be carried forward")
+        recorded = {st["attempt_dir"] for st in prior["steps"] if st.get("attempt_dir")}
+        statuses, unrecorded, extra_s, extra_pool = {}, [], 0.0, {}
+        for st in prior["steps"]:
+            if "attempt" not in st:  # reused-from-receipt entries are not attempts
+                continue
+            if st["status"] == "ok" and st["name"] not in ADOPTABLE:
+                raise Blocked(f"prior completed step {st['name']} is not adoptable under the amendment; not repeating")
+            statuses.setdefault(st["name"], []).append(st["status"])
+        for adir in sorted((prior_run / "attempts").glob("*/attempt-*")):
+            if str(adir) in recorded:
+                continue
+            aj = adir / "attempt.json"
+            secs = json.loads(aj.read_text()).get("wall_seconds", 0.0) if aj.is_file() else \
+                estimate_interrupted_seconds(adir)
+            stt = json.loads(aj.read_text())["status"] if aj.is_file() else "driver-interrupted"
+            stt = "driver-interrupted" if stt in ("ok", "interrupted") else stt
+            statuses.setdefault(adir.parent.name, []).append(stt)
+            unrecorded.append({"name": adir.parent.name, "attempt_dir": str(adir), "charged_seconds": round(secs, 3)})
+            extra_s += secs
+            if STEP_POOL.get(adir.parent.name):
+                extra_pool[STEP_POOL[adir.parent.name]] = extra_pool.get(STEP_POOL[adir.parent.name], 0.0) + secs
+        if any(n in ADOPTABLE for n in (u["name"] for u in unrecorded)):
+            raise Blocked("prior run has unrecorded attempts of an adoptable step; adoption is ambiguous")
+        prior_stage = float(prior["stage_seconds_used"])
+        self.used_s = prior_stage + extra_s + float(self.prior_r4_seconds)
+        self.pool_used = {k: 0.0 for k in self.pools}
+        for k, v in prior["pool_seconds_used"].items():
+            self.pool_used[k] = self.pool_used.get(k, 0.0) + float(v)
+        for k, v in extra_pool.items():
+            self.pool_used[k] = self.pool_used.get(k, 0.0) + v
+        self.counted_prior = {"cite_build": R4_ATTEMPTS_USED}
+        self.carried_statuses = {k: v for k, v in statuses.items() if k not in ADOPTABLE}
+        self.record["amendment"] = {"id": AMENDMENT_ID, "reviewed": AMENDMENT_REVIEWED,
+                                    "reviewed_sha256": AMENDMENT_SHA256, "cite_builder": REPLACEMENT_BUILDER,
+                                    "r5_disk_start_min_bytes": self.r5_disk_min}
+        self.record["adoption"] = {
+            "prior_manifest": str(self.adopt_from), "prior_manifest_sha256": sha, "prior_run_dir": str(prior_run),
+            "prior_source": prior["source"], "receipts_evidence_dir": str(self.adopt_receipts_dir)
+            if self.adopt_receipts_dir else None,
+            "carried": {"prior_stage_seconds_used": prior_stage,
+                        "prior_stage_seconds_note": "includes the prior run's own --prior-seconds charge; not re-added",
+                        "unrecorded_prior_attempts_charged": unrecorded, "prior_r4_seconds": float(self.prior_r4_seconds),
+                        "r4_attempts_used_before_this_run": R4_ATTEMPTS_USED,
+                        "prior_pool_seconds_used": prior["pool_seconds_used"],
+                        "start_stage_seconds_used": round(self.used_s, 3),
+                        "counted_prior_attempts": self.counted_prior, "prior_statuses": self.carried_statuses}}
+
+    def verify_adoption(self) -> dict:
+        """Read-only re-verification (every run and resume) of the adopted B M4-M6 outputs."""
+        prior, sha, prior_run = self.load_prior()
+        ad = self.record["adoption"]
+        if sha != ad["prior_manifest_sha256"] or str(prior_run) != ad["prior_run_dir"]:
+            raise Blocked("adopted manifest changed since adoption was recorded")
+        psrc = prior.get("source") or {}
+        if psrc.get("dirty") is not False or not psrc.get("git_rev"):
+            raise Blocked("adopted run source is not a clean recorded revision")
+        if prior.get("historical_manifest_sha256") != self.record["historical_manifest_sha256"]:
+            raise Blocked("adopted run used a different historical manifest")
+        if prior.get("historical_layout", {}).get("data") != self.record["historical_layout"]["data"]:
+            raise Blocked("adopted run used a different historical data dir")
+        pcode, ccode = psrc.get("code_sha256", {}), self.record["source"]["code_sha256"]
+        missing = [f for f in ADOPTION_REQUIRED_CODE if f not in pcode]
+        if missing:
+            raise Blocked(f"adopted run did not record hashes for scientific code {missing}")
+        changed = sorted(f for f, h in pcode.items() if f not in ADOPTION_MAY_DIFFER and ccode.get(f) != h)
+        if changed:
+            raise Blocked(f"scientific code differs from the adopted run: {changed}; adoption refused, no refit")
+        asm_b = (prior.get("assembly") or {}).get("armB", {})
+        if self.adopt_receipts_dir:
+            ea = self.adopt_receipts_dir / "assembly.json"
+            if ea.is_file() and json.loads(ea.read_text()) != prior.get("assembly"):
+                raise Blocked("evidence assembly.json differs from the adopted manifest's assembly")
+        out = {}
+        for name in ADOPTABLE:
+            oks = [st for st in prior["steps"] if st["name"] == name and st["status"] == "ok"]
+            if len(oks) != 1:
+                raise Blocked(f"{name}: adopted manifest has {len(oks)} ok attempts (need exactly 1)")
+            st = oks[0]
+            rp = Path(st["receipt"])
+            if not rp.is_file():
+                raise Blocked(f"{name}: receipt missing {rp}")
+            rb = rp.read_bytes()
+            if self.adopt_receipts_dir:
+                ev = self.adopt_receipts_dir / f"{name}.json"
+                if not ev.is_file() or ev.read_bytes() != rb:
+                    raise Blocked(f"{name}: receipt differs from evidence copy {ev}")
+            r = json.loads(rb)
+            for k in ("name", "out_dir", "attempt_dir", "command"):
+                if r.get(k) != (name if k == "name" else st.get(k)):
+                    raise Blocked(f"{name}: receipt field {k} does not match the adopted manifest")
+            if r.get("source") != psrc:
+                raise Blocked(f"{name}: receipt source differs from the adopted run source")
+            aj = Path(st["attempt_dir"]) / "attempt.json"
+            if not aj.is_file() or json.loads(aj.read_text()).get("status") != "ok":
+                raise Blocked(f"{name}: original attempt record missing or not ok ({aj})")
+            od = Path(st["out_dir"])
+            if not r.get("files_sha256"):
+                raise Blocked(f"{name}: receipt lists no files")
+            if not od.is_dir() or dir_hashes(od) != r["files_sha256"]:
+                raise Blocked(f"{name}: adopted output does not hash-match its receipt ({od}); not refitting")
+            if _cmd_arg(st["command"], "--data") != self.record["historical_layout"]["data"]:
+                raise Blocked(f"{name}: adopted command used different --data")
+            out[name] = {"step": st, "receipt": r, "receipt_path": str(rp),
+                         "receipt_sha256": hashlib.sha256(rb).hexdigest()}
+        for m in RESUME_B:
+            fit, pred = out[f"B_{m}_fit"], out[f"B_{m}_predict"]
+            if _cmd_arg(pred["step"]["command"], "--model-dir") != fit["step"]["out_dir"]:
+                raise Blocked(f"B_{m}_predict did not use the adopted B_{m}_fit model dir")
+            a = asm_b.get(m, {})
+            if (a.get("fit_dir") != fit["step"]["out_dir"] or a.get("predictions_dir") != pred["step"]["out_dir"]
+                    or a.get("fit_files_sha256") != fit["receipt"]["files_sha256"]
+                    or a.get("predictions_sha256") != pred["receipt"]["files_sha256"]):
+                raise Blocked(f"B_{m}: adopted assembly entry does not match its receipts")
+            if m == "M6":
+                hp = _cmd_arg(pred["step"]["command"], "--expected-hashes")
+                exp = {k[len("scanvi/"):]: v for k, v in fit["receipt"]["files_sha256"].items()
+                       if k.startswith("scanvi/")}
+                if not hp or not exp or not Path(hp).is_file() or json.loads(Path(hp).read_text()) != exp:
+                    raise Blocked("B_M6: predict checkpoint-hash file missing or differs from the fit receipt")
+        return out
+
+    def record_adopted(self, name: str, a: dict):
+        st = a["step"]
+        entry = {"name": name, "kind": st.get("kind"), "status": "adopted", "attempt": st.get("attempt"),
+                 "out_dir": st["out_dir"], "attempt_dir": st["attempt_dir"], "receipt": a["receipt_path"],
+                 "receipt_sha256": a["receipt_sha256"], "command": st["command"],
+                 "wall_seconds": st.get("wall_seconds"),
+                 "charged": "in carried prior stage_seconds_used (not re-charged)",
+                 "provenance": "recomputed-in-prior-run-adopted", "source": self.record["adoption"]["prior_source"]}
+        old = [e for e in self.record["steps"] if e["name"] == name and e.get("status") == "adopted"]
+        if old:
+            if any({k: v for k, v in e.items() if k != "utc"} != entry for e in old):
+                raise Blocked(f"{name}: adopted record changed on resume")
+            return
+        entry["utc"] = utc()
+        self.record["steps"].append(entry)
+
+    def read_eligibility(self, ci: Path, receipt: dict) -> dict:
+        p = ci / RM.ELIGIBILITY_FILE
+        try:
+            el = RM.parse_eligibility(p)
+        except (RM.ManifestError, OSError, ValueError) as e:
+            raise Blocked(f"R4' output has no valid {RM.ELIGIBILITY_FILE}: {e}") from e
+        if receipt["files_sha256"].get(RM.ELIGIBILITY_FILE) != el["sha256"]:
+            raise Blocked("eligibility.json differs from the hash recorded in the R4' receipt")
+        for n in RM.REPLACEMENT_FILES:
+            need = [f"query_{n}_F.h5ad", f"adt_{n}.parquet", f"released_predictions_{n}.parquet"]
+            have = [f for f in need if (ci / f).exists()]
+            if n in el["eligible"] and have != need:
+                raise Blocked(f"eligible file {n}: R4' outputs missing {sorted(set(need) - set(have))}")
+            if n not in el["eligible"] and have:
+                raise Blocked(f"ineligible file {n}: R4' built query outputs {have}")
+        rec = {"path": str(p), "sha256": el["sha256"], "verdicts": el["verdicts"], "eligible": el["eligible"],
+               "n_eligible": el["n_eligible"], "first_failing_criterion": el["first_failing_criterion"]}
+        self.record["eligibility"] = rec
+        return rec
+
     # -------------------------------------------------------------- plan
     def run(self, dry_run: bool = False):
         lay, (D, TA, TB) = self.layout()
         self.verify_inputs()
+        if self.amendment:
+            self._adopted = self.verify_adoption()
+            self.record["adoption"]["verified_utc"] = utc()
+            self.save()
         py, sc = self.python, self.repo / "companion/scripts"
         rm = [py, str(sc / "run_matched.py"), "--workspace", str(self.repo)]
         if dry_run:
@@ -400,6 +672,9 @@ class Driver:
                               "historical_manifest_sha256": self.record["historical_manifest_sha256"]}
         self.save_assembly()
         for m in RESUME_B:
+            if self._adopted is not None:
+                self.adopt_b(m, armB, asm)
+                continue
             fit, fr = self.step(f"B_{m}_fit", "fit", lambda o, m=m: rm + ["--data", str(D), "--arm", "B",
                                                                        "--method", m, "--stage", "fit", "--out", str(o)],
                                 inputs=[D / "features_and_classes.json", D / "reference_F.h5ad"])
@@ -427,6 +702,8 @@ class Driver:
             self.save_assembly()
         if self.stop_after_matched:
             raise Interrupted("Matched recovery complete; paused before secondary protein data and scoring")
+        if self.amendment:
+            return self.run_amended_secondary(D, TA, armB, lay, py, sc, rm)
         ci, _ = self.step("cite_build", "cite_build",
                           lambda o: [py, str(sc / "build_cite.py"), "--workspace", str(self.repo), "--data", str(D),
                                      "--out", str(o)])
@@ -462,6 +739,92 @@ class Driver:
                   lambda o: [py, str(sc / "protein_check.py"), "--workspace", str(self.repo), "--cite", str(ci),
                              "--matched", f"A={tc}", "--thresholds", str(scd / "thresholds_validation.csv"),
                              "--out", str(o)])
+        self.record["status"] = "complete"
+        self.save()
+
+    def adopt_b(self, m: str, armB: Path, asm: dict):
+        fit, pred = self._adopted[f"B_{m}_fit"], self._adopted[f"B_{m}_predict"]
+        self.record_adopted(f"B_{m}_fit", fit)
+        self.record_adopted(f"B_{m}_predict", pred)
+        fd, pd_ = Path(fit["step"]["out_dir"]), Path(pred["step"]["out_dir"])
+        self.link(pd_, armB / m)
+        ad = self.record["adoption"]
+        asm["armB"][m] = {"provenance": "adopted-recomputed", "fit_dir": str(fd), "fit_info": str(fd / "fit_info.json"),
+                          "fit_receipt": fit["receipt_path"], "fit_receipt_sha256": fit["receipt_sha256"],
+                          "fit_files_sha256": fit["receipt"]["files_sha256"], "predictions_dir": str(pd_),
+                          "predict_receipt": pred["receipt_path"], "predict_receipt_sha256": pred["receipt_sha256"],
+                          "predictions_sha256": pred["receipt"]["files_sha256"], "source": ad["prior_source"],
+                          "adopted_from": {"prior_manifest": ad["prior_manifest"],
+                                           "prior_manifest_sha256": ad["prior_manifest_sha256"],
+                                           "prior_run_dir": ad["prior_run_dir"]},
+                          "adopted_by_source": self.record["source"]}
+        if m == "M4":
+            asm["armB"][m]["note"] = ("chosen_C and validation_macro_f1_by_C are in fit_info.json "
+                                      "(T1 exact comparison; model export uses fit_dir/model.pkl)")
+        self.save_assembly()
+
+    def run_amended_secondary(self, D: Path, TA: Path, armB: Path, lay: dict, py: str, sc: Path, rm: list):
+        asm = self.record["assembly"]
+        builder = self.repo / REPLACEMENT_BUILDER
+        if not builder.is_file():  # checked before launch: never consume the last R4 attempt on a missing file
+            raise Blocked(f"replacement builder missing: {builder}")
+        try:
+            ci, cr = self.step("cite_build", "cite_build",
+                               lambda o: [py, str(builder), "--workspace", str(self.repo), "--data", str(D),
+                                          "--out", str(o)])
+            el = self.read_eligibility(ci, cr)
+        except Blocked as e:
+            self.record["protein_check"] = {"status": "not_run", "reason": f"R4' (final R4 attempt) failed: {e}",
+                                            "n_eligible": None, "label": RM.PROTEIN_LABEL}
+            raise Blocked(f"replacement ended in R4' ({e}); amendment s11 stop wording applies; returning to the user")
+        asm["cite"] = {"provenance": "recomputed", "dir": str(ci), "eligibility": self.record["eligibility"]}
+        self.save_assembly()
+        tc = self.run_dir / "armA_cite"
+        if el["n_eligible"]:
+            tc.mkdir(exist_ok=True)
+            asm.setdefault("armA_cite", {})
+            for m in ALL_M:
+                extra = []
+                if m == "M6":
+                    exp = self.cached_under(f"{lay['armA']}/M6/scanvi")
+                    if not exp:
+                        raise Blocked("no manifest hashes for historical Arm A M6 scanvi checkpoint")
+                    hp = self.write_once_json(self.run_dir / "armA_M6_scanvi_expected_sha256.json", exp)
+                    extra = ["--expected-hashes", str(hp)]
+                o, pr = self.step(f"A_{m}_cite", "cite_predict",
+                                  lambda o, m=m, extra=extra: rm + ["--data", str(ci), "--arm", "A", "--method", m,
+                                                                    "--stage", "predict", "--model-dir", str(TA / m),
+                                                                    "--out", str(o)] + extra,
+                                  inputs=[TA / m / "model.pkl"])
+                self.link(o, tc / m)
+                asm["armA_cite"][m] = {"provenance": "recomputed-predictions-from-cached-fit", "fit_dir": str(TA / m),
+                                       "fit_info": str(TA / m / "fit_info.json"),
+                                       "fit_source_sha256": {k: v for k, v in
+                                                             self.cached_under(f"{lay['armA']}/{m}").items()
+                                                             if k in ("model.pkl", "fit_info.json")
+                                                             or k.startswith("scanvi/")},
+                                       "predictions_dir": str(o), "predictions_sha256": pr["files_sha256"],
+                                       "eligible_files": el["eligible"], "source": self.record["source"]}
+                self.save_assembly()
+        else:
+            self.record["protein_check"] = {
+                "status": "not_run", "reason": "no eligible replacement file (eligibility.json)", "n_eligible": 0,
+                "first_failing_criterion": el["first_failing_criterion"], "label": RM.PROTEIN_LABEL,
+                "steps_not_run": [f"A_{m}_cite" for m in ALL_M] + ["protein"]}
+            self.save()
+        scd, _ = self.step("score", "score",
+                           lambda o: [py, str(sc / "score_all.py"), "--workspace", str(self.repo), "--data", str(D),
+                                      "--matched", f"A={TA}", f"B={armB}", "--reps", "1000",
+                                      "--natural-unknown-scope", "natural", "--out", str(o)],
+                           inputs=[sc / "score_all.py"])
+        if el["n_eligible"]:
+            self.step("protein", "protein",
+                      lambda o: [py, str(sc / "protein_check.py"), "--workspace", str(self.repo), "--cite", str(ci),
+                                 "--matched", f"A={tc}", "--thresholds", str(scd / "thresholds_validation.csv"),
+                                 "--out", str(o)])
+            self.record["protein_check"] = {"status": "run", "n_eligible": el["n_eligible"],
+                                            "eligible_files": el["eligible"], "label": RM.PROTEIN_LABEL,
+                                            "first_failing_criterion": el["first_failing_criterion"]}
         self.record["status"] = "complete"
         self.save()
 
@@ -567,6 +930,14 @@ def main(argv=None) -> int:
     g.add_argument("--resume", action="store_true", help="resume an interrupted run in --run-dir")
     ap.add_argument("--stop-after-matched", action="store_true", help="Operational checkpoint: finish B M4–M6, then pause without scoring")
     ap.add_argument("--watchdog-selftest", action="store_true", help="with --preflight: 1 GiB synthetic check")
+    ap.add_argument("--amendment", default=None, choices=[AMENDMENT_ID],
+                    help="approved protein-replacement continuation (requires --adopt-from, --prior-r4-seconds)")
+    ap.add_argument("--adopt-from", default=None, help="prior recovery_manifest.json whose B M4-M6 are adopted")
+    ap.add_argument("--adopt-receipts-dir", default=None,
+                    help="evidence copies of the prior receipts/assembly; must match byte-for-byte")
+    ap.add_argument("--prior-r4-seconds", type=float, default=None,
+                    help="measured wall time of R4 attempt 1 (HTTP 403); charged to the stage ceiling")
+    ap.add_argument("--r5-disk-gib", type=float, default=R5_DISK_GIB, help="R5 free-disk start floor (amendment s8)")
     a = ap.parse_args(argv)
     run_dir = Path(a.run_dir)
     if not a.resume:

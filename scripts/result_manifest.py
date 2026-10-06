@@ -9,10 +9,23 @@
   relative to the manifest directory (compare_runs.py resolves them against it).
 
 Nothing here computes a scientific value; it only re-reads score_all.py / protein_check.py outputs.
+
+Approved protein replacement (amendment 2026-10-06): ``parse_eligibility`` is the single strict reader of
+the builder's ``eligibility.json`` used by recover.py, experiment.py, reproduce.py and compare_runs.py.
+Integration contract with companion/scripts/build_cite_totalvi.py (owned elsewhere; see
+protocol/amended-recovery-integration.md):
+
+  eligibility.json  {"files": {"<name>": {"verdict": "eligible"|"ineligible",
+                                          "first_failing_criterion": null | <criterion>,
+                                          "sha256": "<input sha256 or null>", "bytes": <int or null>}, ...}}
+                    (a list of {"name": ..., ...} entries is also accepted); exactly the two pinned names.
+  mapping_<name>.csv           frozen symbol->Ensembl mapping table (amendment s5)
+  postqc_barcodes_<name>.txt   post-QC barcode list, one barcode per line (amendment s7 T1 addition)
 """
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import math
 import os
@@ -26,6 +39,34 @@ KEY_COLS = ("arm", "method", "vs", "metric", "file", "study", "role", "stratum",
 # volatile fields that must never enter results.json (harness compares exactly on keys)
 VOLATILE = ("seconds", "time", "utc", "path", "dir", "host", "created", "elapsed", "peak_memory")
 COUNT_FILE = "cell_counts.csv"
+
+AMENDMENT_ID = "2026-10-06-approved-protein-replacement"
+PROTEIN_LABEL = f"descriptive; replacement inputs (amendment {AMENDMENT_ID})"
+ELIGIBILITY_FILE = "eligibility.json"
+VERDICTS = ("eligible", "ineligible")
+# amendment s2.2 pins (binding identity: sha256 and byte count)
+REPLACEMENT_FILES = {
+    "totalvi_pbmc5k_protein_v3": {"file": "pbmc_5k_protein_v3.h5ad", "bytes": 18294964,
+                                  "sha256": "a1bf51e070d24b39627ea4de9b3e489a4637ff795e1061e0733e26c3baec8847"},
+    "totalvi_pbmc10k_protein_v3": {"file": "pbmc_10k_protein_v3.h5ad", "bytes": 24937137,
+                                   "sha256": "5f08b8575febf9e04b209b94eb43f6335f1e33b0985cdcf44adf7320f6243c69"},
+}
+
+
+def mapping_csv_name(name: str) -> str:
+    return f"mapping_{name}.csv"
+
+
+def postqc_barcodes_name(name: str) -> str:
+    return f"postqc_barcodes_{name}.txt"
+
+
+def sha256_path(p) -> str:
+    h = hashlib.sha256()
+    with open(p, "rb") as fh:
+        for b in iter(lambda: fh.read(1 << 20), b""):
+            h.update(b)
+    return h.hexdigest()
 
 
 class ManifestError(RuntimeError):
@@ -198,7 +239,8 @@ def _rel(p, base: Path):
 
 def write_compare_manifest(path: Path, *, mode: str, data, cite, arms: dict, score: dict, protein,
                            fresh: bool, sampled_ids=None, bootstrap_weights=None, protein_classes=None,
-                           d03_features=None, resources=None, provenance=None) -> dict:
+                           d03_features=None, resources=None, provenance=None, eligibility=None,
+                           amendment=None, protein_status=None) -> dict:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     base = path.parent
@@ -210,6 +252,14 @@ def write_compare_manifest(path: Path, *, mode: str, data, cite, arms: dict, sco
         hits = [d for d in dirs if (Path(d) / "M4" / "fit_info.json").is_file()]
         if len(hits) != 1:
             raise ManifestError(f"arm {a}: need exactly one M4/fit_info.json, found {len(hits)}")
+    if amendment is not None:
+        if amendment != AMENDMENT_ID or eligibility is None:
+            raise ManifestError("amended manifest needs the approved amendment id and an eligibility.json")
+        summary = protein_check_summary(parse_eligibility(eligibility), protein)
+        if protein_status != summary["status"]:
+            raise ManifestError(f"protein_status {protein_status!r} != {summary['status']!r} from eligibility.json")
+    elif protein is None or eligibility is not None:
+        raise ManifestError("protein output is required (and eligibility.json is only valid) under the amendment")
     m = {"schema": MANIFEST_SCHEMA, "mode": mode, "fresh_execution": bool(fresh),
          "data": _rel(data, base), "cite": _rel(cite, base),
          "arms": {a: [_rel(d, base) for d in v] for a, v in sorted(arms.items())},
@@ -224,6 +274,11 @@ def write_compare_manifest(path: Path, *, mode: str, data, cite, arms: dict, sco
         # reference check only: the D03 file is never used as reproduction data
         m["d03_features"] = _rel(d03_features, base)
         m["d03_features_role"] = "reference-check-only"
+    if amendment is not None:
+        m["amendment"] = amendment
+        m["eligibility"] = _rel(eligibility, base)
+        m["eligibility_sha256"] = sha256_path(eligibility)
+        m["protein_status"] = protein_status
     if resources:
         m["resources"] = resources
     if provenance:
@@ -247,6 +302,59 @@ def find_optional_evidence(score_dir: Path, protein_dir: Path | None) -> dict:
     if sid.is_file():
         out["sampled_ids"] = sid
     return out
+
+
+def parse_eligibility(path) -> dict:
+    """Strict reader; raises ManifestError on any deviation from the documented contract."""
+    path = Path(path)
+    if not path.is_file():
+        raise ManifestError(f"{ELIGIBILITY_FILE} missing: {path}")
+    raw = path.read_bytes()
+    try:
+        doc = json.loads(raw)
+    except ValueError as e:
+        raise ManifestError(f"{path}: not JSON ({e})") from e
+    files = doc.get("files") if isinstance(doc, dict) else None
+    if isinstance(files, list):
+        if any(not isinstance(e, dict) or "name" not in e for e in files):
+            raise ManifestError(f"{path}: list entries need a 'name'")
+        names = [e["name"] for e in files]
+        if len(set(names)) != len(names):
+            raise ManifestError(f"{path}: duplicate file entries")
+        files = {e["name"]: {k: v for k, v in e.items() if k != "name"} for e in files}
+    if not isinstance(files, dict):
+        raise ManifestError(f"{path}: 'files' must be an object or list")
+    if sorted(files) != sorted(REPLACEMENT_FILES):
+        raise ManifestError(f"{path}: files {sorted(files)} != pinned replacement files {sorted(REPLACEMENT_FILES)}")
+    out = {}
+    for n, e in sorted(files.items()):
+        if not isinstance(e, dict) or e.get("verdict") not in VERDICTS:
+            raise ManifestError(f"{path}: {n}: verdict must be one of {VERDICTS}")
+        crit = e.get("first_failing_criterion")
+        if e["verdict"] == "eligible" and crit not in (None, ""):
+            raise ManifestError(f"{path}: {n}: eligible file with a failing criterion {crit!r}")
+        if e["verdict"] == "ineligible" and crit in (None, ""):
+            raise ManifestError(f"{path}: {n}: ineligible file without first_failing_criterion")
+        out[n] = dict(e, first_failing_criterion=None if e["verdict"] == "eligible" else crit)
+    eligible = [n for n in sorted(out) if out[n]["verdict"] == "eligible"]
+    if isinstance(doc, dict) and "n_eligible" in doc and doc["n_eligible"] != len(eligible):
+        raise ManifestError(f"{path}: n_eligible {doc['n_eligible']} != {len(eligible)} eligible verdicts")
+    return {"sha256": hashlib.sha256(raw).hexdigest(), "files": out, "eligible": eligible,
+            "n_eligible": len(eligible), "verdicts": {n: out[n]["verdict"] for n in sorted(out)},
+            "first_failing_criterion": {n: out[n]["first_failing_criterion"] for n in sorted(out)
+                                        if out[n]["verdict"] != "eligible"}}
+
+
+def protein_check_summary(elig: dict, protein_dir) -> dict:
+    """Explicit, stable results.json entry; zero eligible is 'not_run', never an empty success."""
+    n = elig["n_eligible"]
+    if n == 0 and protein_dir is not None:
+        raise ManifestError("protein outputs present although no replacement file is eligible")
+    if n > 0 and protein_dir is None:
+        raise ManifestError(f"{n} eligible replacement file(s) but no protein_check output")
+    return {"status": "run" if n else "not_run", "n_eligible": n, "eligible_files": list(elig["eligible"]),
+            "ineligible_first_failing_criterion": {k: str(v) for k, v in elig["first_failing_criterion"].items()},
+            "reason": None if n else "no eligible replacement file (eligibility.json)", "label": PROTEIN_LABEL}
 
 
 def write_json(path: Path, obj) -> None:
