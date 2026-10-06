@@ -1,0 +1,33 @@
+{
+  "time_utc": "2026-10-06T20:12:26.048515+00:00",
+  "status": "preexecution_review_artifacts_received_execution_blocked",
+  "designer_job": "00249cc1-c6ce-4f38-9270-cb1f2920eff3",
+  "reviewer_job": "65a40b08-1dbc-41fd-8d00-b5ddada8bdc5",
+  "reviewer_harness_status": "failed: worker returned completed with execution blockers; not relabelled passed",
+  "model": "claude-opus-5-5",
+  "experiment_status": "all B_M4/M5/M6 fits and predictions completed; full run intentionally stopped before CITE/scoring",
+  "disk_free_bytes": 739663872,
+  "disposable_cleanup": "uv cache clean on task-local .cache-study/uv only; no study data/results removed",
+  "requires": [
+    "Concrete reviewed amendment approval",
+    "At least4GiB free before CITE prediction; further space likely needed for full reproduction"
+  ],
+  "artifact_sha256": {
+    "protocol/protein-replacement-review.md": "9956435ed47dc9251f0396cf988a0d3dcc4ebd53c3b48fbf2b85d5ac405cde5a",
+    "protocol/amendments/protein-replacement-reviewed.md": "e5ba0c347b66cba1c76dd249e386789c26e1916a95bc9c82a0208a696c89eae1"
+  },
+  "source_script_provenance": [
+    {
+      "path": "pbmc_10k.py",
+      "url": "https://raw.githubusercontent.com/YosefLab/totalVI_reproducibility/27d65a9c49182f39df0c4325249bc7dc8e663dd0/data/data_filtering_scripts/pbmc_10k/pbmc_10k.py",
+      "sha256": "8eaebcec40269157b718839e25c8ed8721d097ff98233f900234d2b780dfec09",
+      "retention": "local review inputs only; not republished"
+    },
+    {
+      "path": "pbmc_5k_v3.py",
+      "url": "https://raw.githubusercontent.com/YosefLab/totalVI_reproducibility/27d65a9c49182f39df0c4325249bc7dc8e663dd0/data/data_filtering_scripts/pbmc_5k_v3/pbmc_5k_v3.py",
+      "sha256": "b4b7875ca8bae16f8a7b76100c890dfbc3a91c005a535470257065a066896adc",
+      "retention": "local review inputs only; not republished"
+    }
+  ]
+}

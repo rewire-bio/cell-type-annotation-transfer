@@ -1,0 +1,16 @@
+{
+  "audit_type": "metadata-only; no expression scoring",
+  "matching_totalvi_rows": [],
+  "sctab_training_dataset_count": 249,
+  "unmapped_training_ids": [
+    "0c774045-26a7-40f8-9b07-6742d3c771c0",
+    "2ef8f3ce-bbff-447b-9e51-567e5d6c47bd",
+    "87ce26ed-e5d1-44b4-81cc-cc5b709a169f"
+  ],
+  "limitations": [
+    "No donor identifiers in downloaded candidates; donor-level independence cannot be established",
+    "Absence of title/DOI match is insufficient to rule out reuse under other dataset names",
+    "Both 10x source datasets predate CellTypist v2 2022-07-16; chronological exclusion unavailable",
+    "Protein assessment must remain descriptive with overlap unknown until stronger provenance available"
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "retrieved_at": "2026-10-06T18:02:29.228286+00:00",
+  "source": "https://github.com/YosefLab/totalVI_reproducibility",
+  "revision": "27d65a9c49182f39df0c4325249bc7dc8e663dd0",
+  "files": [
+    {
+      "file": "pbmc_5k_protein_v3.h5ad",
+      "sha256": "a1bf51e070d24b39627ea4de9b3e489a4637ff795e1061e0733e26c3baec8847",
+      "bytes": 18294964,
+      "cells": 3994,
+      "genes": 16581,
+      "proteins": [
+        "CD3_TotalSeqB",
+        "CD4_TotalSeqB",
+        "CD8a_TotalSeqB",
+        "CD11b_TotalSeqB",
+        "CD14_TotalSeqB",
+        "CD15_TotalSeqB",
+        "CD16_TotalSeqB",
+        "CD19_TotalSeqB",
+        "CD20_TotalSeqB",
+        "CD25_TotalSeqB",
+        "CD27_TotalSeqB",
+        "CD28_TotalSeqB",
+        "CD34_TotalSeqB",
+        "CD45RA_TotalSeqB",
+        "CD45RO_TotalSeqB",
+        "CD56_TotalSeqB",
+        "CD62L_TotalSeqB",
+        "CD69_TotalSeqB",
+        "CD80_TotalSeqB",
+        "CD86_TotalSeqB",
+        "CD127_TotalSeqB",
+        "CD137_TotalSeqB",
+        "CD197_TotalSeqB",
+        "CD274_TotalSeqB",
+        "CD278_TotalSeqB",
+        "CD335_TotalSeqB",
+        "PD-1_TotalSeqB",
+        "HLA-DR_TotalSeqB",
+        "TIGIT_TotalSeqB"
+      ],
+      "rna_nonnegative_integer": true,
+      "protein_nonnegative_integer": true,
+      "unique_barcodes": true,
+      "protein_shape": [
+        3994,
+        29
+      ]
+    },
+    {
+      "file": "pbmc_10k_protein_v3.h5ad",
+      "sha256": "5f08b8575febf9e04b209b94eb43f6335f1e33b0985cdcf44adf7320f6243c69",
+      "bytes": 24937137,
+      "cells": 6855,
+      "genes": 16727,
+      "proteins": [
+        "CD3_TotalSeqB",
+        "CD4_TotalSeqB",
+        "CD8a_TotalSeqB",
+        "CD14_TotalSeqB",
+        "CD15_TotalSeqB",
+        "CD16_TotalSeqB",
+        "CD56_TotalSeqB",
+        "CD19_TotalSeqB",
+        "CD25_TotalSeqB",
+        "CD45RA_TotalSeqB",
+        "CD45RO_TotalSeqB",
+        "PD-1_TotalSeqB",
+        "TIGIT_TotalSeqB",
+        "CD127_TotalSeqB"
+      ],
+      "rna_nonnegative_integer": true,
+      "protein_nonnegative_integer": true,
+      "unique_barcodes": true,
+      "protein_shape": [
+        6855,
+        14
+      ]
+    }
+  ],
+  "status": "candidate only; no experiment or approval",
+  "caveats": [
+    "Author preprocessing differs from frozen raw-10x pipeline; amendment needed",
+    "Training overlap audit remains outstanding",
+    "Data redistribution licence not established; retain local and use source download references",
+    "5k identity against originally planned nextgem sample requires verification"
+  ],
+  "mapping_feasibility": [
+    {
+      "file": "pbmc_5k_protein_v3.h5ad",
+      "mapping": "exact unique feature_name in pinned G only; metadata feasibility check, not frozen mapping",
+      "G_present": 12957,
+      "G_total": 19331,
+      "F_A_present": 1565,
+      "F_A_total": 2020,
+      "F_B_present": 1576,
+      "F_B_total": 2016
+    },
+    {
+      "file": "pbmc_10k_protein_v3.h5ad",
+      "mapping": "exact unique feature_name in pinned G only; metadata feasibility check, not frozen mapping",
+      "G_present": 13064,
+      "G_total": 19331,
+      "F_A_present": 1603,
+      "F_A_total": 2020,
+      "F_B_present": 1605,
+      "F_B_total": 2016
+    }
+  ]
+}

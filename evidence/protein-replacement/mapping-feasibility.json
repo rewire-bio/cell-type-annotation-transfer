@@ -1,0 +1,22 @@
+[
+  {
+    "file": "pbmc_5k_protein_v3.h5ad",
+    "mapping": "exact unique feature_name in pinned G only; metadata feasibility check, not frozen mapping",
+    "G_present": 12957,
+    "G_total": 19331,
+    "F_A_present": 1565,
+    "F_A_total": 2020,
+    "F_B_present": 1576,
+    "F_B_total": 2016
+  },
+  {
+    "file": "pbmc_10k_protein_v3.h5ad",
+    "mapping": "exact unique feature_name in pinned G only; metadata feasibility check, not frozen mapping",
+    "G_present": 13064,
+    "G_total": 19331,
+    "F_A_present": 1603,
+    "F_A_total": 2020,
+    "F_B_present": 1605,
+    "F_B_total": 2016
+  }
+]
