@@ -1,4 +1,397 @@
 {
   "schema_version": 1,
-  "sources": []
+  "sources": [
+    {
+      "id": "01",
+      "title": "Fischer F, Fischer DS, Mukhin R, Isaev A, Biederstedt E, Villani A-C, Theis FJ. scTab: Scaling cross-tissue single-cell annotation models. *Nat Commun* 15, 6611 (2024). doi:10.1038/s41467-024-51059-5",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11298532/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "01b",
+      "title": "Fischer F et al. scTab \u2014 Supplementary Information (Supp. Figs 1\u20139, Supp. Tables 1\u20136).",
+      "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-024-51059-5/MediaObjects/41467_2024_51059_MOESM1_ESM.pdf",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "02",
+      "title": "theislab/scTab README, branch `devel` (head 5ede7f2, 2024-09-13).",
+      "url": "https://raw.githubusercontent.com/theislab/scTab/devel/README.md",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "02b",
+      "title": "Fischer F. scTab `docs/data.md` \u2014 Data set creation (dated 29.08.2023), branch `devel`.",
+      "url": "https://raw.githubusercontent.com/theislab/scTab/devel/docs/data.md",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "02c",
+      "title": "theislab/scTab `notebooks-tutorials/model_inference.ipynb`, branch `devel`.",
+      "url": "https://raw.githubusercontent.com/theislab/scTab/devel/notebooks-tutorials/model_inference.ipynb",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "02d",
+      "title": "Hugging Face model metadata, `MohamedMabrouk/scTab` (third-party mirror), revision 9d49621154863948c057db0741452b18dcb78559.",
+      "url": "https://huggingface.co/api/models/MohamedMabrouk/scTab",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "03",
+      "title": "Dom\u00ednguez Conde C, Xu C, Jarvis LB, et al., Teichmann SA. Cross-tissue immune cell analysis reveals tissue-specific features in humans. *Science* 376, eabl5197 (2022). doi:10.1126/science.abl5197 (Europe PMC author manuscript PMC7612735)",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7612735/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "04",
+      "title": "CellTypist model registry `models.json` (Wellcome Sanger Institute).",
+      "url": "https://celltypist.cog.sanger.ac.uk/models/models.json",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "04b",
+      "title": "Teichlab/celltypist README, branch `main` (head fe357564a662, 2025-06-25).",
+      "url": "https://raw.githubusercontent.com/Teichlab/celltypist/main/README.md",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "05",
+      "title": "Xu C, Lopez R, Mehlman E, Regier J, Jordan MI, Yosef N. Probabilistic harmonization and annotation of single-cell transcriptomics data with deep generative models. *Mol Syst Biol* 17, e9620 (2021). doi:10.15252/msb.20209620",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7829634/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "06",
+      "title": "Lotfollahi M, Naghipourfar M, Luecken MD, et al., Theis FJ. Mapping single-cell data to reference atlases by transfer learning. *Nat Biotechnol* 40, 121\u2013130 (2022). doi:10.1038/s41587-021-01001-7",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8763644/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "07",
+      "title": "Hao Y, Hao S, Andersen-Nissen E, et al., Satija R. Integrated analysis of multimodal single-cell data. *Cell* 184, 3573 (2021). doi:10.1016/j.cell.2021.04.048",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8238499/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "08",
+      "title": "Azimuth portal home page (HuBMAP / NYGC).",
+      "url": "https://azimuth.hubmapconsortium.org/",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "09",
+      "title": "Sarkar S, Li Z, Molla G, et al., Satija R. Organism-scale annotation with Pan-human Azimuth. *bioRxiv* 2026.07.16.738997 (2026). doi:10.64898/2026.07.16.738997 (via PMC13419436)",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13419436/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "09b",
+      "title": "Pan-human Azimuth documentation site (Satija lab).",
+      "url": "https://satijalab.org/pan_human_azimuth/",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "10",
+      "title": "satijalab/panhumanpy README, branch `main` (head 06b9aba32c11, 2026-07-27); current version 1.0.0 (Orion).",
+      "url": "https://raw.githubusercontent.com/satijalab/panhumanpy/main/README.md",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "11",
+      "title": "CZI Cell Science Program, Abdulla S, Aevermann B, et al. CZ CELLxGENE Discover: a single-cell data platform for scalable exploration, analysis and modeling of aggregated data. *Nucleic Acids Res* 53, D886\u2013D900 (2025). doi:10.1093/nar/gkae1142",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11701654/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "12",
+      "title": "CELLxGENE Census release directory `release.json` (stable = 2025-11-08).",
+      "url": "https://census.cellxgene.cziscience.com/cellxgene-census/v1/release.json",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "12b",
+      "title": "cellxgene-census documentation, 'Census data releases' (LTS list, errata).",
+      "url": "https://chanzuckerberg.github.io/cellxgene-census/cellxgene_census_docsite_data_release_info.html",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "13",
+      "title": "CZ CELLxGENE Discover dataset schema 7.0.0 (`single-cell-curation`, branch `main` head 21898c7df376).",
+      "url": "https://raw.githubusercontent.com/chanzuckerberg/single-cell-curation/main/schema/7.0.0/schema.md",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "14",
+      "title": "Registry of Open Data on AWS: CELLxGENE Discover Census entry.",
+      "url": "https://registry.opendata.aws/biohub-cellxgene-census/",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "15",
+      "title": "Diehl AD, Meehan TF, Bradford YM, et al. The Cell Ontology 2016: enhanced content, modularization, and ontology interoperability. *J Biomed Semantics* 7, 44 (2016). doi:10.1186/s13326-016-0088-7",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4932724/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "16",
+      "title": "obophenotype/cell-ontology GitHub release `v2025-07-30` (release notes and asset list).",
+      "url": "https://api.github.com/repos/obophenotype/cell-ontology/releases/tags/v2025-07-30",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "17",
+      "title": "Abdelaal T, Michielsen L, Cats D, Hoogduin D, Mei H, Reinders MJT, Mahfouz A. A comparison of automatic cell identification methods for single-cell RNA sequencing data. *Genome Biol* 20, 194 (2019). doi:10.1186/s13059-019-1795-z",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6734286/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "18",
+      "title": "Ergen C, Xing G, Xu C, Kim M, Jayasuriya M, McGeever E, Oliveira Pisco A, Streets A, Yosef N. Consensus prediction of cell type labels in single-cell data with popV. *Nat Genet* 56, 2731 (2024). doi:10.1038/s41588-024-01993-3",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11631762/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "19",
+      "title": "Theunissen L, Mortier T, Saeys Y, Waegeman W. Uncertainty-aware single-cell annotation with a hierarchical reject option. *Bioinformatics* 40, btae128 (2024). doi:10.1093/bioinformatics/btae128",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10957513/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "20",
+      "title": "L\u00f3pez-De-Castro M, Garc\u00eda-Galindo A, Gonz\u00e1lez-Gomariz J, Arma\u00f1anzas R. Conformal inference for reliable single cell RNA-seq annotation. *Bioinformatics* 41, btaf521 (2025). doi:10.1093/bioinformatics/btaf521",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12506889/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "21",
+      "title": "Xiong Y-X, Wang M-G, Chen L, Zhang X-F. Cell-type annotation with accurate unseen cell-type identification using multiple references. *PLoS Comput Biol* 19, e1011261 (2023). doi:10.1371/journal.pcbi.1011261",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10335708/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "22",
+      "title": "Cui H, Wang C, Maan H, Pang K, Luo F, Duan N, Wang B. scGPT: toward building a foundation model for single-cell multi-omics using generative AI. *Nat Methods* 21, 1470\u20131480 (2024). doi:10.1038/s41592-024-02201-0",
+      "url": "https://www.nature.com/articles/s41592-024-02201-0",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "22b",
+      "title": "bowang-lab/scGPT README, branch `main` (head cebd6fae655b, 2026-04-27).",
+      "url": "https://raw.githubusercontent.com/bowang-lab/scGPT/main/README.md",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "23",
+      "title": "Kedzierska KZ, Crawford L, Amini AP, Lu AX. Zero-shot evaluation reveals limitations of single-cell foundation models. *Genome Biol* 26, 101 (2025). doi:10.1186/s13059-025-03574-x",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12007350/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "24",
+      "title": "Boiarsky R, Singh N, Buendia A, Getz G, Sontag D. A Deep Dive into Single-Cell RNA Sequencing Foundation Models. *bioRxiv* 2023.10.19.563100. doi:10.1101/2023.10.19.563100",
+      "url": "https://www.biorxiv.org/content/10.1101/2023.10.19.563100v1.full",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "25",
+      "title": "DenAdel A, Hughes M, Thoutam A, Gupta A, Navia AW, Fusi N, Raghavan S, Winter PS, Amini AP, Crawford L. Evaluating the role of pretraining dataset size and diversity on single-cell foundation model performance. *Nat Methods* 23, 1447\u20131457 (2026). doi:10.1038/s41592-026-03120-y (PMC author manuscript PMC13412022)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13412022/",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "25b",
+      "title": "Nature Methods landing page for DenAdel et al. 2026 (citation metadata).",
+      "url": "https://www.nature.com/articles/s41592-026-03120-y",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "26",
+      "title": "Cultrera di Montesano S, D\u2019Ascenzo D, Raghavan S, Amini AP, Winter PS, Crawford L. Improving atlas-scale single-cell annotation models with hierarchical cross-entropy loss. *Nat Comput Sci* 6, 243 (2026). doi:10.1038/s43588-025-00945-z",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13021517/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "27",
+      "title": "Gong Q, Sharma M, Glass MC, et al., Gustafson CE. Multi-omic profiling reveals age-related immune dynamics in healthy adults. *Nature* 648, 696 (2025). doi:10.1038/s41586-025-09686-5",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12711581/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "28",
+      "title": "Binvignat M, Miao BY, Wibrand C, et al. Single-cell RNA-Seq analysis reveals cell subsets and gene signatures associated with rheumatoid arthritis disease activity. *JCI Insight* 9, e178499 (2024). doi:10.1172/jci.insight.178499",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11343607/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "29",
+      "title": "Rabadam G, Wibrand C, Flynn E, et al. Coordinated immune dysregulation in juvenile dermatomyositis revealed by single-cell genomics. *JCI Insight* 9, e176963 (2024). doi:10.1172/jci.insight.176963",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11383589/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "30",
+      "title": "De Simone M, Hoover J, Lau J, et al. A comprehensive analysis framework for evaluating commercial single-cell RNA sequencing technologies. *Nucleic Acids Res* 53, gkae1186 (2025). doi:10.1093/nar/gkae1186",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11754665/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "31",
+      "title": "Yazar S, Alquicira-Hernandez J, Wing K, et al., Powell JE. Single-cell eQTL mapping identifies cell type-specific genetic control of autoimmune disease. *Science* 376, eabf3041 (2022). doi:10.1126/science.abf3041",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI:%2210.1126/science.abf3041%22&format=json&resultType=core",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "32",
+      "title": "Perez RK, Gordon MG, Subramaniam M, et al., Ye CJ. Single-cell RNA-seq reveals cell type\u2013specific molecular and genetic associations to lupus. *Science* 376, eabf1970 (2022). doi:10.1126/science.abf1970 (PMC author manuscript PMC9297655)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9297655/",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "33",
+      "title": "COVID-19 Multi-omics Blood ATlas (COMBAT) Consortium. A blood atlas of COVID-19 defines hallmarks of disease severity and specificity. *Cell* 185, 916 (2022). doi:10.1016/j.cell.2022.01.012",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8776501/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "34",
+      "title": "CZ CELLxGENE Discover collection de2cde16-c8d3-4a6d-80be-1be9e879aaca, 'Human PBMC Glaucoma Atlas \u2013 Immune Tolerance to HSP60 Attenuates Neurodegeneration in Glaucoma' (contact: E. Kriukov); GEO GSE268936.",
+      "url": "https://api.cellxgene.cziscience.com/curation/v1/collections/de2cde16-c8d3-4a6d-80be-1be9e879aaca",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "35",
+      "title": "Stoeckius M, Hafemeister C, Stephenson W, Houck-Loomis B, Chattopadhyay PK, Swerdlow H, Satija R, Smibert P. Simultaneous epitope and transcriptome measurement in single cells. *Nat Methods* 14, 865\u2013868 (2017). doi:10.1038/nmeth.4380 (PMC author manuscript PMC5669064, titled 'Large-scale simultaneous measurement of epitopes and transcriptomes in single cells')",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5669064/",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "37",
+      "title": "Geifman Y, El-Yaniv R. Selective Classification for Deep Neural Networks. *NeurIPS 2017*; arXiv:1705.08500.",
+      "url": "https://arxiv.org/pdf/1705.08500",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "38",
+      "title": "Guo C, Pleiss G, Sun Y, Weinberger KQ. On Calibration of Modern Neural Networks. *ICML 2017*; arXiv:1706.04599.",
+      "url": "https://arxiv.org/pdf/1706.04599",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "39",
+      "title": "Engelmann J, Hetzel L, Palla G, Sikkema L, Luecken M, Theis F. Uncertainty Quantification for Atlas-Level Cell Type Transfer. ICML 2022 Workshop on Computational Biology; arXiv:2211.03793.",
+      "url": "https://arxiv.org/pdf/2211.03793",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "40",
+      "title": "Tan SZK, Puig-Barbe A, Goutte-Gattat D, et al. (35 authors). The Cell Ontology in the age of single-cell omics. arXiv:2506.10037v3.",
+      "url": "https://arxiv.org/pdf/2506.10037v3",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "41",
+      "title": "van der Wijst MGP, Vazquez SE, Hartoularos GC, et al. Type I interferon autoantibodies are associated with systemic immune alterations in patients with COVID-19. *Sci Transl Med* 13, eabh2624 (2021). doi:10.1126/scitranslmed.abh2624",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8601717/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "42",
+      "title": "Rodr\u00edguez-Ubreva J, Arutyunyan A, Bonder MJ, et al. Single-cell Atlas of common variable immunodeficiency shows germinal center-associated epigenetic dysregulation in B-cell responses. *Nat Commun* 13, 1779 (2022). doi:10.1038/s41467-022-29450-x",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8975885/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "43",
+      "title": "Li R, Ferdinand JR, Loudon KW, et al. Mapping single-cell transcriptomes in the intra-tumoral and associated territories of kidney cancer. *Cancer Cell* 40, 1583 (2022). doi:10.1016/j.ccell.2022.11.001",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9767677/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "44",
+      "title": "Heimlich JB, Bhat P, Parker AC, et al., Ferrell PB (last listed author). Multiomic profiling of human clonal hematopoiesis reveals genotype and cell-specific inflammatory pathway activation. *Blood Adv* 8, 3665 (2024). doi:10.1182/bloodadvances.2023011445",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11284682/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "45",
+      "title": "Khosravi A, Khosravi A, Langowski K, Sieczczynski M, Pastuszak K, Supernat A, Zaczek A. When Simpler Models Win: A Calibration Benchmark of scGPT for Cell-Type Annotation. *Research Square* preprint. doi:10.21203/rs.3.rs-10152510/v1",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:PPR1281376%20AND%20SRC:PPR&format=json&resultType=core",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "46",
+      "title": "Hu J, Peng B, Pankajam AV, et al., Zhang Y. Benchmarking single cell transcriptome matching methods for incremental growth of reference atlases. *bioRxiv* 2025.04.10.648034 (via PMC12190912). doi:10.1101/2025.04.10.648034",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12190912/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "47",
+      "title": "Huang Q, Liu Y, Du Y, Garmire LX. Evaluation of Cell Type Annotation R Packages on Single-cell RNA-seq Data. *Genomics Proteomics Bioinformatics* 19, 267\u2013281 (2021). doi:10.1016/j.gpb.2020.07.004",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8602772/fullTextXML",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    },
+    {
+      "id": "48",
+      "title": "Christidis A, Ghazi A, Chawla S, Turaga N, Gentleman R, Geistlinger L. scDiagnostics: systematic assessment of cell type annotation in single-cell transcriptomics data. *bioRxiv* 2026.01.29.701618. doi:10.64898/2026.01.29.701618",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.01.29.701618v1",
+      "retrieved_at": "2026-10-05",
+      "provenance": "Mechanically transcribed from preserved literature/sources.md; historical retrieval, not a fresh verification."
+    }
+  ]
 }
