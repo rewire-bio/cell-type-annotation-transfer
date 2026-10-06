@@ -20,3 +20,6 @@ historical/research/automated-research/
 
 # Retrieval snapshots retained locally until redistribution review.
 historical/evidence/probes/
+
+runs/
+.cache-study/
