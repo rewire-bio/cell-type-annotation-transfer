@@ -1,0 +1,10 @@
+{
+  "time_utc": "2026-10-06T17:37:20.630686+00:00",
+  "cause": "Pipeline missing-manifest test reused real config after historical_manifest became populated; it launched B_M4 fit. Test process was killed and child process group terminated on detection.",
+  "preserved_directory": "runs/unintended-test-launch-20261006",
+  "observed_outputs": "No model.pkl or fit_info.json; no scoring step launched.",
+  "classification": "aborted unintended attempt, not a successful experiment or synthetic validation",
+  "correction": "Test now creates an explicit nonexistent temporary manifest and mocks recover.main to throw if reached.",
+  "remaining_B_M4_attempts": 1,
+  "budget_charge_seconds": 60
+}

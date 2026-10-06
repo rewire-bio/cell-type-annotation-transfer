@@ -16,16 +16,33 @@
       "{output}"
     ],
     "inputs": [
-      "src",
-      "scripts",
+      "companion/src",
+      "companion/pyproject.toml",
+      "companion/env",
+      "companion/scripts/build_data.py",
+      "companion/scripts/build_cite.py",
+      "companion/scripts/run_matched.py",
+      "companion/scripts/score_all.py",
+      "companion/scripts/protein_check.py",
+      "scripts/experiment.py",
+      "scripts/recover.py",
+      "scripts/resource_guard.py",
+      "scripts/result_manifest.py",
+      "scripts/acquire_inputs.py",
+      "scripts/compare_runs.py",
+      "protocol/tolerances.json",
       "uv.lock",
       "pyproject.toml",
       ".python-version",
-      "Makefile",
-      "data/manifest.json"
+      "data/manifest.json",
+      "companion/vendor",
+      "evidence/label-maps",
+      "evidence/recovery-inputs.json"
     ],
     "outputs": [
-      "results.json"
+      "results.json",
+      "comparison_manifest.json",
+      "provenance.json"
     ],
     "results_file": "results.json"
   },
@@ -36,8 +53,14 @@
     ],
     "results_file": "results/full/results.json",
     "paper_file": "paper/build/main.pdf",
-    "abs_tolerance": 1e-10,
-    "rel_tolerance": 1e-08
+    "abs_tolerance": 0.01,
+    "rel_tolerance": 0.0,
+    "tiered_comparison": {
+      "command": "scripts/compare_runs.py",
+      "tolerances": "protocol/tolerances.json",
+      "baseline_manifest_env": "CELLTRANSFER_BASELINE_MANIFEST",
+      "required_exit_code": 0
+    }
   },
   "budgets": {
     "experiment_seconds": 28800,
@@ -45,7 +68,11 @@
     "worker_seconds": 900,
     "max_worker_calls": 20,
     "max_attempts": 2,
-    "max_storage_mb": 7168
+    "max_storage_mb": 7168,
+    "paper_seconds": 1800,
+    "mode_f_seconds": 50400,
+    "threads": 4,
+    "process_group_memory_gib": 12
   },
   "paper": {
     "source": "paper/main.tex",

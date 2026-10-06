@@ -92,6 +92,8 @@ def main():
     test_mask = (obs.role == "test").to_numpy()
     test_obs = obs[test_mask].reset_index(drop=True)
     Wb = E.donor_bootstrap_weights(test_obs, args.reps, 20261005)
+    np.save(OUT / "bootstrap_weights.npy", Wb, allow_pickle=False)
+    test_obs[["study", "donor_id", "soma_joinid"]].to_csv(OUT / "bootstrap_ids.csv", index=False)
     boot = {}
     for (arm, mid), t in sorted(tables.items()):
         K = meta["K_B"] if arm == "B" else meta["K"]
@@ -194,6 +196,8 @@ def main():
                     for k, v in boot[(arm, mid)].items()})
         res["main"] = True
         rows.append(res)
+
+    pd.DataFrame([{ "arm": arm, "method": mid, "metric": metric, "nan_replicates": int(np.isnan(values).sum()) } for (arm, mid), metrics in boot.items() for metric, values in metrics.items()]).to_csv(OUT / "bootstrap_nan_counts.csv", index=False)
 
     # paired differences versus M4 within arm (matched) and versus Arm A M4 (practical)
     diffs = []

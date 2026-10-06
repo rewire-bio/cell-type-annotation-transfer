@@ -15,9 +15,18 @@ into the attempt scratch dir (deleted after the attempt), caches via --env.
 Usage:
   resource_guard.py --attempt-root DIR --name STEP [limits...] -- cmd args...
 Writes DIR/<STEP>/attempt-<n>-<UTC>/{attempt.json,stdout.log,stderr.log,samples.jsonl}.
+Optional --time-l wraps the command in `/usr/bin/time -l` (macOS). After exit the
+"peak memory footprint" line in stderr.log is parsed; > mem limit marks the attempt
+`memory-stop-postrun` (OA-5 item 4). That figure covers the direct child of time only
+(not joblib workers), which is a documented measurement limitation.
+
+Storage cap: cap paths are resolved, nested/duplicate paths are dropped and files are
+counted once per (st_dev, st_ino), so hard links (e.g. uv cache -> venv) and overlapping
+paths are not double-counted; symlinks are not followed.
+
 Exit code: 0 ok; otherwise non-zero with attempt.json "status" in
-{failed, memory-stop, memory-watchdog-rss, swap-stop, disk-start, disk-stop,
- storage-cap, timeout, launch-error}.
+{failed, memory-stop, memory-watchdog-rss, memory-stop-postrun, swap-stop, disk-start,
+ disk-stop, storage-cap, timeout, launch-error}.
 """
 from __future__ import annotations
 
@@ -36,7 +45,9 @@ import time
 from pathlib import Path
 
 GiB = 1 << 30
-INFRA_STATUSES = {"memory-stop", "memory-watchdog-rss", "swap-stop", "disk-stop", "timeout", "launch-error"}
+MEMORY_STATUSES = {"memory-stop", "memory-watchdog-rss", "memory-stop-postrun"}
+INFRA_STATUSES = MEMORY_STATUSES | {"swap-stop", "disk-stop", "timeout", "launch-error", "driver-interrupted"}
+TIME_BIN = "/usr/bin/time"
 
 # ---------------------------------------------------------------- measurement
 
@@ -124,19 +135,68 @@ def free_bytes(path: Path) -> int:
     return shutil.disk_usage(path).free
 
 
+def normalize_cap_paths(paths: list[Path]) -> list[Path]:
+    """Resolve, de-duplicate and drop paths nested inside another cap path."""
+    res = sorted({Path(os.path.realpath(p)) for p in paths}, key=lambda p: len(p.parts))
+    keep: list[Path] = []
+    for p in res:
+        if not any(p == k or k in p.parents for k in keep):
+            keep.append(p)
+    return keep
+
+
+def tree_usage(paths: list[Path]) -> dict:
+    """du-equivalent allocated bytes, each inode counted once; per-path attribution in order."""
+    seen: set[tuple[int, int]] = set()
+    per, total = {}, 0
+    for root in normalize_cap_paths(paths):
+        sub = 0
+        if root.exists():
+            for dp, dns, fns in os.walk(root, followlinks=False):
+                for fn in fns + [d for d in dns if os.path.islink(os.path.join(dp, d))]:
+                    try:
+                        st = os.lstat(os.path.join(dp, fn))
+                    except OSError:
+                        continue
+                    k = (st.st_dev, st.st_ino)
+                    if k in seen:
+                        continue
+                    seen.add(k)
+                    sub += st.st_blocks * 512
+        per[str(root)] = sub
+        total += sub
+    return {"total_bytes": total, "per_path_bytes": per}
+
+
 def tree_bytes(paths: list[Path]) -> int:
-    total = 0
-    for root in paths:
-        if not root.exists():
-            continue
-        for dp, _, fns in os.walk(root, followlinks=False):
-            for fn in fns:
-                try:
-                    st = os.lstat(os.path.join(dp, fn))
-                    total += st.st_blocks * 512
-                except OSError:
-                    pass
-    return total
+    return tree_usage(paths)["total_bytes"]
+
+
+_TIME_KEYS = {"peak memory footprint": "peak_memory_footprint_bytes",
+              "maximum resident set size": "max_rss_bytes"}
+_TIME_RE = re.compile(r"^\s*(\d+)\s+(peak memory footprint|maximum resident set size)\s*$")
+
+
+def parse_time_l(text: str) -> dict:
+    """Parse macOS `/usr/bin/time -l` output (bytes). Missing/malformed -> None values.
+
+    The last occurrence wins (the time report is printed after the child's own stderr)."""
+    out = {v: None for v in _TIME_KEYS.values()}
+    for line in text.splitlines():
+        m = _TIME_RE.match(line)
+        if m:
+            out[_TIME_KEYS[m.group(2)]] = int(m.group(1))
+    out["real_seconds"] = None
+    for line in text.splitlines():
+        m = re.match(r"^\s*([\d.]+)\s+real\b", line)
+        if m:
+            out["real_seconds"] = float(m.group(1))
+    return out
+
+
+def postrun_exceeds(peak: int | None, limit: int) -> bool:
+    """Strictly greater than the limit flags; unknown (None) never flags (recorded separately)."""
+    return peak is not None and peak > limit
 
 
 # ---------------------------------------------------------------- launcher
@@ -175,6 +235,16 @@ def kill_group(pgid: int, root_pid: int, grace: float = 5.0, proc=None) -> None:
             time.sleep(0.1)
 
 
+def group_alive(pgid: int) -> bool:
+    try:
+        os.killpg(pgid, 0)
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+    return True
+
+
 def _alive(pid: int) -> bool:
     try:
         os.kill(pid, 0)
@@ -191,13 +261,16 @@ def run_guarded(cmd: list[str], *, attempt_root: Path, name: str, mem_limit: int
                 storage_cap: int = 7 * GiB, cap_paths: list[Path] | None = None,
                 timeout: float = 3600.0, mem_poll: float = 5.0, disk_poll: float = 30.0,
                 threads: int = 4, extra_env: dict | None = None, cwd: Path | None = None,
-                meta: dict | None = None) -> dict:
+                meta: dict | None = None, time_l: bool = False, time_bin: str = TIME_BIN) -> dict:
     adir, n = new_attempt_dir(attempt_root, name)
     scratch = adir / "scratch"
     scratch.mkdir()
     disk_path = disk_path or attempt_root
-    cap_paths = cap_paths or []
-    rec = {"name": name, "attempt": n, "attempt_dir": str(adir), "command": cmd, "cwd": str(cwd or os.getcwd()),
+    cap_paths = normalize_cap_paths(cap_paths or [])
+    exec_cmd = list(cmd)
+    if time_l:
+        exec_cmd = [time_bin, "-l"] + exec_cmd
+    rec = {"name": name, "attempt": n, "attempt_dir": str(adir), "command": cmd, "exec_command": exec_cmd, "time_l": time_l, "cwd": str(cwd or os.getcwd()),
            "limits": {"mem_limit_bytes": mem_limit, "swap_growth_limit_bytes": swap_growth_limit,
                       "disk_start_min_bytes": disk_start_min, "disk_run_min_bytes": disk_run_min,
                       "storage_cap_bytes": storage_cap, "cap_paths": [str(p) for p in cap_paths],
@@ -231,7 +304,9 @@ def run_guarded(cmd: list[str], *, attempt_root: Path, name: str, mem_limit: int
     rec["free_bytes_start"] = free0
     if free0 < disk_start_min:
         return finish("disk-start")
-    used0 = tree_bytes(cap_paths)
+    u0 = tree_usage(cap_paths)
+    used0 = u0["total_bytes"]
+    rec["cap_usage_start"] = u0
     if cap_paths and used0 > storage_cap:
         return finish("storage-cap")
     swap0 = swap_used_bytes()
@@ -240,13 +315,15 @@ def run_guarded(cmd: list[str], *, attempt_root: Path, name: str, mem_limit: int
     err = open(adir / "stderr.log", "wb")
     samples = open(adir / "samples.jsonl", "w")
     try:
-        proc = subprocess.Popen(cmd, stdout=out, stderr=err, env=env, cwd=cwd, start_new_session=True)
+        proc = subprocess.Popen(exec_cmd, stdout=out, stderr=err, env=env, cwd=cwd, start_new_session=True)
     except OSError as e:
         rec["launch_error"] = repr(e)
         out.close(); err.close(); samples.close()
         return finish("launch-error")
     pgid = proc.pid  # start_new_session -> pid == pgid
     rec["pid"] = pgid
+    # written at launch so a resumed driver can detect an orphaned group after a driver crash
+    (adir / "launch.json").write_text(json.dumps({"pid": pgid, "pgid": pgid, "start_utc": rec["start_utc"]}))
     status = None
     last_disk = 0.0
     try:
@@ -304,6 +381,20 @@ def run_guarded(cmd: list[str], *, attempt_root: Path, name: str, mem_limit: int
         out.close(); err.close(); samples.close()
     if status is None:
         status = "ok" if proc.returncode == 0 else "failed"
+    if time_l:
+        try:
+            tl = parse_time_l((adir / "stderr.log").read_text(errors="replace"))
+        except OSError:
+            tl = {"peak_memory_footprint_bytes": None, "max_rss_bytes": None, "real_seconds": None}
+        tl["scope"] = "direct child of /usr/bin/time only; understates aggregate memory under n_jobs>1"
+        tl["available"] = tl["peak_memory_footprint_bytes"] is not None
+        tl["exceeds_limit"] = postrun_exceeds(tl["peak_memory_footprint_bytes"], mem_limit)
+        rec["postrun_time_l"] = tl
+        if status in ("ok", "failed") and tl["exceeds_limit"]:
+            rec["status_before_postrun"] = status
+            status = "memory-stop-postrun"
+    if cap_paths:
+        rec["cap_usage_end"] = tree_usage(cap_paths)
     rec["swap_used_end_bytes"] = swap_used_bytes()
     return finish(status, proc.returncode)
 
@@ -324,6 +415,7 @@ def main(argv=None) -> int:
     ap.add_argument("--disk-poll", type=float, default=30.0)
     ap.add_argument("--threads", type=int, default=4)
     ap.add_argument("--env", action="append", default=[], help="KEY=VALUE")
+    ap.add_argument("--time-l", action="store_true", help="wrap in /usr/bin/time -l and check post-run peak")
     ap.add_argument("cmd", nargs=argparse.REMAINDER)
     a = ap.parse_args(argv)
     cmd = a.cmd[1:] if a.cmd and a.cmd[0] == "--" else a.cmd
@@ -334,7 +426,7 @@ def main(argv=None) -> int:
                       disk_run_min=int(a.disk_run_gib * GiB), disk_path=Path(a.disk_path) if a.disk_path else None,
                       storage_cap=int(a.storage_cap_gib * GiB), cap_paths=[Path(p) for p in a.cap_path],
                       timeout=a.timeout, mem_poll=a.mem_poll, disk_poll=a.disk_poll, threads=a.threads,
-                      extra_env=dict(e.split("=", 1) for e in a.env))
+                      extra_env=dict(e.split("=", 1) for e in a.env), time_l=a.time_l)
     print(json.dumps({k: rec[k] for k in ("name", "attempt", "attempt_dir", "status", "returncode", "wall_seconds")}))
     return 0 if rec["status"] == "ok" else (2 if rec["status"] in INFRA_STATUSES else 1)
 

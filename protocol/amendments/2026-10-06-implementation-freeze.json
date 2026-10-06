@@ -1,0 +1,17 @@
+{
+  "scope": "Implementation of approved plan; no held-out results inspected. Optional protein deferral remains unapproved.",
+  "hashes": {
+    "companion/scripts/score_all.py": "20f457204050bdac2c0d99596c43b9bb3214e9ff974ba24041f50eeab4e54d9f",
+    "companion/scripts/protein_check.py": "9458409448615ebce2bab0b189ef113c57371d57af647ef27c2c1c2c7442ba59",
+    "scripts/recover.py": "612aeb7a0cd936a8281a63848c7946192bc268608b611935113ced73af32e4aa",
+    "scripts/resource_guard.py": "4b251743fcd914392db132b6e1b33d0405d081942e1df638960f5125c13021c5",
+    "protocol/tolerances.json": "98a41d81c81e37e71cef821320c2f3eeb6f2af9c070263a22a671135f95d5d7b"
+  },
+  "evidence_additions": [
+    "bootstrap_weights.npy and bootstrap cell order",
+    "bootstrap NaN counts",
+    "per-cell protein classes"
+  ],
+  "aborted_fit_attempt": "evidence/unintended-test-launch.json",
+  "core_checkpoint": "An operational stop-after-matched flag permits completed training to be retained while secondary access is unresolved."
+}

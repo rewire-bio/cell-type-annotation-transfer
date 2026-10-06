@@ -1,1 +1,42 @@
-{"mode":"full","stage":"cached-recovery","execution_ready":false}
+{
+  "mode": "full",
+  "stage": "R-cached-recovery+H-full-reproduction",
+  "execution_ready": true,
+  "mode_r": {
+    "historical_manifest": "evidence/recovery-inputs.json",
+    "d03_features": "runs/D03-build-data-full-20261005T213231Z/features_and_classes.json",
+    "stage_ceiling_s": 28800,
+    "mem_limit_gib": 12.0,
+    "prior_attempts": {
+      "B_M4_fit": 1
+    },
+    "prior_seconds": 60
+  },
+  "mode_f": {
+    "stage_ceiling_s": 50400,
+    "max_attempts": 2,
+    "step_ceilings_s": {
+      "env": 1800,
+      "acquire": 5400,
+      "data": 7200,
+      "fit": 4800,
+      "predict": 1200,
+      "cite_build": 1200,
+      "cite_predict": 1800,
+      "score": 7200,
+      "protein": 900,
+      "compare": 1800,
+      "paper": 1800
+    }
+  },
+  "guard": {
+    "threads": 4,
+    "mem_limit_gib": 12.0,
+    "storage_cap_gib": 7.0
+  },
+  "budgets": {
+    "recovery_seconds": 28800,
+    "reproduction_seconds": 54000,
+    "paper_seconds": 1800
+  }
+}
