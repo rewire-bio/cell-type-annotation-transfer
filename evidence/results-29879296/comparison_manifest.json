@@ -1,0 +1,85 @@
+{
+ "amendment": "2026-10-06-approved-protein-replacement",
+ "arms": {
+  "A": [
+   "../../../../historical/runs/T01-matched-armA-20261006T092352Z",
+   "recovery/armA_cite"
+  ],
+  "B": [
+   "compare_arms/B"
+  ]
+ },
+ "bootstrap_weights": "recovery/attempts/score/out-1-20261006T215119633157Z/bootstrap_weights.npy",
+ "cite": "recovery/attempts/cite_build/out-2-20261006T214943871974Z",
+ "d03_features": "../../../../historical/runs/D03-build-data-full-20261005T213231Z/features_and_classes.json",
+ "d03_features_role": "reference-check-only",
+ "data": "../../../../historical/runs/D05-build-data-full-20261006T084048Z",
+ "eligibility": "recovery/attempts/cite_build/out-2-20261006T214943871974Z/eligibility.json",
+ "eligibility_sha256": "a06dbcd8396ee81725f0e1901482c9a808ad53f84cfca8c1423773228e78bba7",
+ "fresh_execution": false,
+ "mode": "R",
+ "protein": "recovery/attempts/protein/out-1-20261006T220041155680Z",
+ "protein_classes": {
+  "totalvi_pbmc10k_protein_v3": "recovery/attempts/protein/out-1-20261006T220041155680Z/protein_classes_totalvi_pbmc10k_protein_v3.parquet",
+  "totalvi_pbmc5k_protein_v3": "recovery/attempts/protein/out-1-20261006T220041155680Z/protein_classes_totalvi_pbmc5k_protein_v3.parquet"
+ },
+ "protein_status": "run",
+ "provenance": {
+  "adopted_from_manifest_sha256": "6606e78ee98b5761814d582a3b1f7c0f87ebaed212d805eef890a6349774bdcb",
+  "adopted_source": {
+   "code_sha256": {
+    "companion/scripts/build_cite.py": "1ba4c48c46edf9ea738f5e07c1d873498fd449a3b0563553191596f06639d9df",
+    "companion/scripts/protein_check.py": "9458409448615ebce2bab0b189ef113c57371d57af647ef27c2c1c2c7442ba59",
+    "companion/scripts/run_matched.py": "adeca9d66edce6d62651f6fe695108921f0d41f447ba5f95e768fed033b4c614",
+    "companion/scripts/score_all.py": "20f457204050bdac2c0d99596c43b9bb3214e9ff974ba24041f50eeab4e54d9f",
+    "companion/src/celltransfer/evaluate.py": "e5fae4e8646821887d4555bc7746ba1bd1b4a259d172197590808d7d215a59a2",
+    "companion/src/celltransfer/methods.py": "914989c507d02ffe04886907b0812fd3c80ac597c8c87a657890923f35cf3c14",
+    "scripts/recover.py": "612aeb7a0cd936a8281a63848c7946192bc268608b611935113ced73af32e4aa",
+    "scripts/resource_guard.py": "4b251743fcd914392db132b6e1b33d0405d081942e1df638960f5125c13021c5"
+   },
+   "dirty": false,
+   "git_rev": "5a0b9aaaf5ee1a92f132ff6fcd437b1b815c583b"
+  },
+  "adopted_steps": [
+   "B_M4_fit",
+   "B_M4_predict",
+   "B_M5_fit",
+   "B_M5_predict",
+   "B_M6_fit",
+   "B_M6_predict"
+  ],
+  "amendment": "2026-10-06-approved-protein-replacement",
+  "cached_files_sha256_verified": 267,
+  "cached_steps": [
+   "data",
+   "armA_M1-M6_fit+predict",
+   "armB_M1-M3_fit+predict"
+  ],
+  "eligibility": {
+   "n_eligible": 2,
+   "sha256": "a06dbcd8396ee81725f0e1901482c9a808ad53f84cfca8c1423773228e78bba7",
+   "verdicts": {
+    "totalvi_pbmc10k_protein_v3": "eligible",
+    "totalvi_pbmc5k_protein_v3": "eligible"
+   }
+  },
+  "historical_manifest_sha256": "12df0f6b2d958085bd921a17784bc413c3faf4cda45c68e0d8f48c0bee93c913",
+  "mode": "R",
+  "protein_check": "run",
+  "recomputed_steps": [
+   "A_M1_cite",
+   "A_M2_cite",
+   "A_M3_cite",
+   "A_M4_cite",
+   "A_M5_cite",
+   "A_M6_cite",
+   "cite_build",
+   "protein",
+   "score"
+  ]
+ },
+ "schema": "celltransfer-compare-manifest/1",
+ "score": {
+  "primary": "recovery/attempts/score/out-1-20261006T215119633157Z"
+ }
+}

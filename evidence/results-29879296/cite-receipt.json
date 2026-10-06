@@ -1,0 +1,152 @@
+{
+ "amendment_sha256": "e5ba0c347b66cba1c76dd249e386789c26e1916a95bc9c82a0208a696c89eae1",
+ "assay": "10x CITE-seq (totalVI-processed)",
+ "eligibility_sha256": "a06dbcd8396ee81725f0e1901482c9a808ad53f84cfca8c1423773228e78bba7",
+ "eligible_files": [
+  "totalvi_pbmc10k_protein_v3",
+  "totalvi_pbmc5k_protein_v3"
+ ],
+ "files": {
+  "totalvi_pbmc10k_protein_v3": {
+   "antibodies": [
+    "CD3_TotalSeqB",
+    "CD4_TotalSeqB",
+    "CD8a_TotalSeqB",
+    "CD14_TotalSeqB",
+    "CD15_TotalSeqB",
+    "CD16_TotalSeqB",
+    "CD56_TotalSeqB",
+    "CD19_TotalSeqB",
+    "CD25_TotalSeqB",
+    "CD45RA_TotalSeqB",
+    "CD45RO_TotalSeqB",
+    "PD-1_TotalSeqB",
+    "TIGIT_TotalSeqB",
+    "CD127_TotalSeqB"
+   ],
+   "bytes": 24937137,
+   "cache_path": "/Users/timrichardson/Documents/projects/personal/blog/rewire.it/workbench/outputs/article-series-opus-20260929/protein-replacement-discovery/pbmc_10k_protein_v3.h5ad",
+   "cells_h5ad": 6855,
+   "cells_qc": 6855,
+   "file": "pbmc_10k_protein_v3.h5ad",
+   "mapping_summary": {
+    "F_A": {
+     "fraction": 0.7910891089108911,
+     "fraction_exact": "1598/2020",
+     "present": 1598,
+     "total": 2020
+    },
+    "F_B": {
+     "fraction": 0.7921626984126984,
+     "fraction_exact": "1597/2016",
+     "present": 1597,
+     "total": 2016
+    },
+    "G": {
+     "fraction": 0.6690290207438829,
+     "fraction_exact": "12933/19331",
+     "present": 12933,
+     "total": 19331
+    },
+    "markers_A": {
+     "fraction": 0.9803921568627451,
+     "fraction_exact": "100/102",
+     "present": 100,
+     "total": 102
+    },
+    "markers_B": {
+     "fraction": 0.9876543209876543,
+     "fraction_exact": "80/81",
+     "present": 80,
+     "total": 81
+    }
+   },
+   "protein_key": "protein_expression",
+   "scTab_genes_present": 12933,
+   "seconds": 8.1,
+   "sha256": "5f08b8575febf9e04b209b94eb43f6335f1e33b0985cdcf44adf7320f6243c69",
+   "source": "cached",
+   "url": null
+  },
+  "totalvi_pbmc5k_protein_v3": {
+   "antibodies": [
+    "CD3_TotalSeqB",
+    "CD4_TotalSeqB",
+    "CD8a_TotalSeqB",
+    "CD11b_TotalSeqB",
+    "CD14_TotalSeqB",
+    "CD15_TotalSeqB",
+    "CD16_TotalSeqB",
+    "CD19_TotalSeqB",
+    "CD20_TotalSeqB",
+    "CD25_TotalSeqB",
+    "CD27_TotalSeqB",
+    "CD28_TotalSeqB",
+    "CD34_TotalSeqB",
+    "CD45RA_TotalSeqB",
+    "CD45RO_TotalSeqB",
+    "CD56_TotalSeqB",
+    "CD62L_TotalSeqB",
+    "CD69_TotalSeqB",
+    "CD80_TotalSeqB",
+    "CD86_TotalSeqB",
+    "CD127_TotalSeqB",
+    "CD137_TotalSeqB",
+    "CD197_TotalSeqB",
+    "CD274_TotalSeqB",
+    "CD278_TotalSeqB",
+    "CD335_TotalSeqB",
+    "PD-1_TotalSeqB",
+    "HLA-DR_TotalSeqB",
+    "TIGIT_TotalSeqB"
+   ],
+   "bytes": 18294964,
+   "cache_path": "/Users/timrichardson/Documents/projects/personal/blog/rewire.it/workbench/outputs/article-series-opus-20260929/protein-replacement-discovery/pbmc_5k_protein_v3.h5ad",
+   "cells_h5ad": 3994,
+   "cells_qc": 3994,
+   "file": "pbmc_5k_protein_v3.h5ad",
+   "mapping_summary": {
+    "F_A": {
+     "fraction": 0.7722772277227723,
+     "fraction_exact": "1560/2020",
+     "present": 1560,
+     "total": 2020
+    },
+    "F_B": {
+     "fraction": 0.7777777777777778,
+     "fraction_exact": "1568/2016",
+     "present": 1568,
+     "total": 2016
+    },
+    "G": {
+     "fraction": 0.6632869484248098,
+     "fraction_exact": "12822/19331",
+     "present": 12822,
+     "total": 19331
+    },
+    "markers_A": {
+     "fraction": 0.9803921568627451,
+     "fraction_exact": "100/102",
+     "present": 100,
+     "total": 102
+    },
+    "markers_B": {
+     "fraction": 0.9876543209876543,
+     "fraction_exact": "80/81",
+     "present": 80,
+     "total": 81
+    }
+   },
+   "protein_key": "protein_expression",
+   "scTab_genes_present": 12822,
+   "seconds": 3.5,
+   "sha256": "a1bf51e070d24b39627ea4de9b3e489a4637ff795e1061e0733e26c3baec8847",
+   "source": "cached",
+   "url": null
+  }
+ },
+ "n_eligible": 2,
+ "outcome": "run",
+ "schema": "celltransfer-totalvi-receipt/1",
+ "schema_errors": []
+}

@@ -1,0 +1,26 @@
+{
+  "synthetic": true,
+  "cells": 50,
+  "real_cell_counts_used": false,
+  "real_names_only": true,
+  "real_unchanged_run_matched_M1_reader": "passed",
+  "scientific_result": false,
+  "command": [
+    "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/.venv/bin/python",
+    "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/companion/scripts/run_matched.py",
+    "--workspace",
+    "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer",
+    "--data",
+    "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/runs/protein-synthetic-e6/queries",
+    "--arm",
+    "A",
+    "--method",
+    "M1",
+    "--stage",
+    "predict",
+    "--model-dir",
+    "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/historical/runs/T01-matched-armA-20261006T092352Z/M1",
+    "--out",
+    "/Users/timrichardson/Documents/projects/personal/blog/cell-type-annotation-transfer/runs/protein-synthetic-e6/M1"
+  ]
+}

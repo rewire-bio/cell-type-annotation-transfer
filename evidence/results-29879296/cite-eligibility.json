@@ -1,0 +1,290 @@
+{
+ "acquisition_sha256": "0a943c3569b2ab359903f484d232b1078db47827d220f6d67c411c6cf2492b80",
+ "amendment": "protocol/amendments/protein-replacement-reviewed.md",
+ "amendment_sha256": "e5ba0c347b66cba1c76dd249e386789c26e1916a95bc9c82a0208a696c89eae1",
+ "approval_record": "protocol/amendments/2026-10-06-approved-protein-replacement.md",
+ "blinding": "written before any query file, released prediction, protein class or agreement value",
+ "builder_sha256": "d26f7315fcc54d5ef5474dd83545a032168f53b00f085a13097e0326a81b86ba",
+ "created_utc": "2026-10-06T21:49:45.187863+00:00",
+ "deviation_log_lines": [],
+ "eligible_files": [
+  "totalvi_pbmc10k_protein_v3",
+  "totalvi_pbmc5k_protein_v3"
+ ],
+ "files": {
+  "totalvi_pbmc10k_protein_v3": {
+   "barcodes_qc_sha256": "6d48832370ba834eb25865c06f5764a0d1dfaf70728494d3b4304fc0c140adcc",
+   "criteria": {
+    "coverage": {
+     "F_A": {
+      "feasibility_exact": "1603/2020",
+      "floor": "3/4",
+      "floor_ok": true,
+      "fraction_exact": "1598/2020",
+      "regression_ok": true
+     },
+     "F_B": {
+      "feasibility_exact": "1605/2016",
+      "floor": "3/4",
+      "floor_ok": true,
+      "fraction_exact": "1597/2016",
+      "regression_ok": true
+     },
+     "G": {
+      "feasibility_exact": "13064/19331",
+      "floor": "3/5",
+      "floor_ok": true,
+      "fraction_exact": "12933/19331",
+      "regression_ok": true
+     },
+     "pass": true
+    },
+    "gate_availability": {
+     "antibodies_found": {
+      "CD14": "CD14_TotalSeqB",
+      "CD16": "CD16_TotalSeqB",
+      "CD19": "CD19_TotalSeqB",
+      "CD20": null,
+      "CD3": "CD3_TotalSeqB",
+      "CD4": "CD4_TotalSeqB",
+      "CD56": "CD56_TotalSeqB",
+      "CD8": "CD8a_TotalSeqB"
+     },
+     "gates_available": [
+      "CD4 T",
+      "CD8 T",
+      "B",
+      "NK",
+      "CD14 mono",
+      "CD16 mono"
+     ],
+     "pass": true
+    },
+    "identity": {
+     "bytes": 24937137,
+     "pass": true,
+     "reason": null,
+     "sha256": "5f08b8575febf9e04b209b94eb43f6335f1e33b0985cdcf44adf7320f6243c69"
+    },
+    "mapping_reference": {
+     "expected_logical_sha256": "c6f8bc7c79fac6dc074839f47a0fca48d0f09dfaeef23b751647d80908a0c8e2",
+     "logical_sha256": "c6f8bc7c79fac6dc074839f47a0fca48d0f09dfaeef23b751647d80908a0c8e2",
+     "pass": true,
+     "path": "runs/data/census_2025-11-08_var.parquet"
+    },
+    "marker_coverage": {
+     "B": {
+      "listed": 10,
+      "mapped": 10,
+      "pass": true
+     },
+     "CD14 mono": {
+      "listed": 10,
+      "mapped": 10,
+      "pass": true
+     },
+     "CD16 mono": {
+      "listed": 10,
+      "mapped": 10,
+      "pass": true
+     },
+     "CD4 T": {
+      "listed": 10,
+      "mapped": 10,
+      "pass": true
+     },
+     "CD8 T": {
+      "listed": 10,
+      "mapped": 10,
+      "pass": true
+     },
+     "NK": {
+      "listed": 10,
+      "mapped": 10,
+      "pass": true
+     },
+     "pass": true
+    },
+    "qc_retention": {
+     "cells_h5ad": 6855,
+     "cells_qc": 6855,
+     "lost": 0,
+     "lost_barcodes": [],
+     "max_lost_allowed": 68,
+     "pass": true
+    },
+    "structure": {
+     "checks": {
+      "barcodes_align": true,
+      "no_IgG": true,
+      "protein_names_in_order": true,
+      "protein_nonnegative_integer": true,
+      "protein_shape": true,
+      "rna_nonnegative_integer": true,
+      "rna_shape": true,
+      "unique_barcodes": true,
+      "var_names_unique": true
+     },
+     "pass": true,
+     "pinned_shape": [
+      6855,
+      16727
+     ],
+     "protein_key": "protein_expression",
+     "protein_shape": [
+      6855,
+      14
+     ],
+     "shape": [
+      6855,
+      16727
+     ]
+    }
+   },
+   "file": "pbmc_10k_protein_v3.h5ad",
+   "first_failing_criterion": null,
+   "mapping_csv_sha256": "814bc4142eeb3f3e7661ed89a265d081b2f8fec550b64a5c96fe39675a0c2f1e",
+   "mapping_json_sha256": "a57e86a7a1adbc1637ea7240ab24fc1ec0f7d4766655d9f610ea931e55b0e8ef",
+   "verdict": "eligible"
+  },
+  "totalvi_pbmc5k_protein_v3": {
+   "barcodes_qc_sha256": "03124ec5b96df39f931d500025f3c439d697eb6da7d3719d4fb7b5e6fb6ccfe1",
+   "criteria": {
+    "coverage": {
+     "F_A": {
+      "feasibility_exact": "1565/2020",
+      "floor": "3/4",
+      "floor_ok": true,
+      "fraction_exact": "1560/2020",
+      "regression_ok": true
+     },
+     "F_B": {
+      "feasibility_exact": "1576/2016",
+      "floor": "3/4",
+      "floor_ok": true,
+      "fraction_exact": "1568/2016",
+      "regression_ok": true
+     },
+     "G": {
+      "feasibility_exact": "12957/19331",
+      "floor": "3/5",
+      "floor_ok": true,
+      "fraction_exact": "12822/19331",
+      "regression_ok": true
+     },
+     "pass": true
+    },
+    "gate_availability": {
+     "antibodies_found": {
+      "CD14": "CD14_TotalSeqB",
+      "CD16": "CD16_TotalSeqB",
+      "CD19": "CD19_TotalSeqB",
+      "CD20": "CD20_TotalSeqB",
+      "CD3": "CD3_TotalSeqB",
+      "CD4": "CD4_TotalSeqB",
+      "CD56": "CD56_TotalSeqB",
+      "CD8": "CD8a_TotalSeqB"
+     },
+     "gates_available": [
+      "CD4 T",
+      "CD8 T",
+      "B",
+      "NK",
+      "CD14 mono",
+      "CD16 mono"
+     ],
+     "pass": true
+    },
+    "identity": {
+     "bytes": 18294964,
+     "pass": true,
+     "reason": null,
+     "sha256": "a1bf51e070d24b39627ea4de9b3e489a4637ff795e1061e0733e26c3baec8847"
+    },
+    "mapping_reference": {
+     "expected_logical_sha256": "c6f8bc7c79fac6dc074839f47a0fca48d0f09dfaeef23b751647d80908a0c8e2",
+     "logical_sha256": "c6f8bc7c79fac6dc074839f47a0fca48d0f09dfaeef23b751647d80908a0c8e2",
+     "pass": true,
+     "path": "runs/data/census_2025-11-08_var.parquet"
+    },
+    "marker_coverage": {
+     "B": {
+      "listed": 10,
+      "mapped": 10,
+      "pass": true
+     },
+     "CD14 mono": {
+      "listed": 10,
+      "mapped": 10,
+      "pass": true
+     },
+     "CD16 mono": {
+      "listed": 10,
+      "mapped": 10,
+      "pass": true
+     },
+     "CD4 T": {
+      "listed": 10,
+      "mapped": 10,
+      "pass": true
+     },
+     "CD8 T": {
+      "listed": 10,
+      "mapped": 10,
+      "pass": true
+     },
+     "NK": {
+      "listed": 10,
+      "mapped": 10,
+      "pass": true
+     },
+     "pass": true
+    },
+    "qc_retention": {
+     "cells_h5ad": 3994,
+     "cells_qc": 3994,
+     "lost": 0,
+     "lost_barcodes": [],
+     "max_lost_allowed": 39,
+     "pass": true
+    },
+    "structure": {
+     "checks": {
+      "barcodes_align": true,
+      "no_IgG": true,
+      "protein_names_in_order": true,
+      "protein_nonnegative_integer": true,
+      "protein_shape": true,
+      "rna_nonnegative_integer": true,
+      "rna_shape": true,
+      "unique_barcodes": true,
+      "var_names_unique": true
+     },
+     "pass": true,
+     "pinned_shape": [
+      3994,
+      16581
+     ],
+     "protein_key": "protein_expression",
+     "protein_shape": [
+      3994,
+      29
+     ],
+     "shape": [
+      3994,
+      16581
+     ]
+    }
+   },
+   "file": "pbmc_5k_protein_v3.h5ad",
+   "first_failing_criterion": null,
+   "mapping_csv_sha256": "5775e4e3cf342c072f46e5ca87a30c50ed3f7826920a3acaefdce849e621e46b",
+   "mapping_json_sha256": "41d65e1d3181132c6333cb0d19fb456ffda8d3c525f999880c08e07458a6a481",
+   "verdict": "eligible"
+  }
+ },
+ "n_eligible": 2,
+ "outcome": "run",
+ "protein_check_sha256": "9458409448615ebce2bab0b189ef113c57371d57af647ef27c2c1c2c7442ba59",
+ "schema": "celltransfer-totalvi-eligibility/1"
+}
