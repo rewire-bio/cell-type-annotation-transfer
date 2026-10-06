@@ -25,3 +25,5 @@ runs/
 .cache-study/
 
 evidence/probes/
+
+paper/generated/asset_provenance.json

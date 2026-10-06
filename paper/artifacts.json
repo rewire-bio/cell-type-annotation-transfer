@@ -1,0 +1,30 @@
+{
+ "schema": "celltransfer-paper-artifacts/1",
+ "generator": "scripts/make_paper_assets.py",
+ "description": "Fixed list of generator outputs required by scripts/build_paper.py; produced by make_paper_assets.py from recorded score/protein/comparison outputs (see protocol/paper-assets-implementation.md).",
+ "provenance": "paper/generated/asset_provenance.json",
+ "generated_inputs": [
+  "paper/generated/asset_preamble.tex",
+  "paper/generated/results_macros.tex",
+  "paper/generated/table_thresholds.tex",
+  "paper/generated/table_operating_points.tex",
+  "paper/generated/table_closed_set.tex",
+  "paper/generated/table_practical_labels.tex",
+  "paper/generated/table_unknowns.tex",
+  "paper/generated/table_unknowns_allstrata.tex",
+  "paper/generated/table_paired_differences.tex",
+  "paper/generated/table_calibration.tex",
+  "paper/generated/table_per_study.tex",
+  "paper/generated/table_platform.tex",
+  "paper/generated/table_cell_counts.tex",
+  "paper/generated/table_bootstrap_nan.tex",
+  "paper/generated/table_protein.tex",
+  "paper/generated/table_reproduction.tex",
+  "paper/generated/asset_provenance.json",
+  "paper/figures/fig_operating_points.pdf",
+  "paper/figures/fig_risk_coverage.pdf",
+  "paper/figures/fig_paired_differences.pdf",
+  "paper/figures/fig_unknowns.pdf",
+  "paper/figures/fig_protein.pdf"
+ ]
+}
