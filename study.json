@@ -40,12 +40,12 @@
     "rel_tolerance": 1e-08
   },
   "budgets": {
-    "experiment_seconds": 120,
-    "reproduction_seconds": 600,
+    "experiment_seconds": 28800,
+    "reproduction_seconds": 54000,
     "worker_seconds": 900,
     "max_worker_calls": 20,
     "max_attempts": 2,
-    "max_storage_mb": 500
+    "max_storage_mb": 7168
   },
   "paper": {
     "source": "paper/main.tex",
