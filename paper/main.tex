@@ -1,0 +1,586 @@
+% Manuscript for recorded run 29879296d87343898100c190308744a1.
+% Every number below is either a generated macro (paper/generated/results_macros.tex,
+% produced by scripts/make_paper_assets.py from the recorded score/protein outputs) or a
+% literal copied from a recorded file; each literal is listed in evidence/claims.json.
+% Build: python scripts/build_paper.py (Tectonic, run from paper/).
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+
+% Generated assets (booktabs, graphicx, \ctres, \ctci) and recorded values.
+\input{generated/asset_preamble.tex}
+\input{generated/results_macros.tex}
+
+\usepackage{adjustbox}
+% Generated tabulars are bare; scale each to fit the text block in both directions.
+\newcommand{\gentable}[1]{\begin{adjustbox}{max width=\textwidth,max totalheight=0.82\textheight}\input{generated/#1}\end{adjustbox}}
+\newcommand{\gd}{$\gamma\delta$~T}
+\newcommand{\runid}{\nolinkurl{29879296d87343898100c190308744a1}}
+\captionsetup{font=small,labelfont=bf}
+
+\title{Annotation transfer and validation-selected abstention for held-out blood single-cell studies: a recorded benchmark of six matched and two released annotators}
+\author{Rewire Bio}
+\date{Manuscript draft, 6 October 2026. Results from recorded run \runid; independent clean reproduction pending.}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent When a new blood or PBMC single-cell study is annotated from a reference, the analyst must decide which annotator to use and which labels to accept. We report a locally frozen protocol that trains six annotators on identical reference cells (the matched track) and runs two released models as distributed (the practical track). All are evaluated on four whole studies held out from the reference. A confidence threshold was fixed on two separate validation studies, at the point that accepted 90\% of validation cells (OP-cov) or kept validation accepted error at or below 5\% (OP-err). Accuracy is agreement with author labels mapped to the Cell Ontology; no labels were adjudicated.
+
+On \ctres{score}{info}{test-donors} test donors and 19{,}018 scorable natural-sample cells, the four learned matched methods had indistinguishable closed-set macro-F1 (logistic regression \ctres{A}{M4}{macro-f1-closed}~\ctci{A}{M4}{macro-f1-closed}; paired differences against it all include zero). At OP-cov, logistic regression accepted \ctres{A}{M4}{coverage-at-OPcov} of test cells with accepted error \ctres{A}{M4}{accepted-error-at-OPcov}. No method reached 0.90 test coverage. Between-study spread was much larger than any interval: logistic-regression accepted error ranged from 0.021 to 0.179 across the four studies. After plasmacytoid dendritic cells, antibody-secreting cells and MAIT cells were removed from the reference, between \ctres{B}{M4}{unknown-false-accept-at-OPcov} and \ctres{B}{M3}{unknown-false-accept-at-OPcov} of those cells were still accepted with a known label, usually the nearest relative.
+
+Intervals are donor-bootstrap intervals within the four fixed studies. They are conditional on fixed validation thresholds and a single training seed, so they say nothing about uncertainty across new studies. The natural-unknown set contained only 20 erythroid cells and supports counts only. The practical track and the protein and platform checks are descriptive. These results come from a recorded run that reused cached and adopted steps; independent clean reproduction has not yet been performed.
+\end{abstract}
+
+\section{Introduction}
+
+Reference-based annotation assigns each query cell the label of the most similar reference population. Large released models now make this a one-line operation. CellTypist ships immune classifiers trained on cross-tissue atlases \citep{dominguezconde2022celltypist,celltypistmodels}, and scTab ships a classifier trained on the 15.2-million-cell training split of a 22.2-million-cell CELLxGENE corpus \citep{fischer2024sctab}. Most published accuracy figures, however, come from donor-level splits inside one data snapshot. The scTab authors chose donor holdout deliberately, as a compromise between random and study-level splits \citep{fischer2024sctab}. When models trained on the scTab corpus were tested on 21 studies added in a later Census release, macro-F1 fell from 80--84\% to 52--57\% \citep{cultrera2026hce}. A new cohort resembles the second setting more than the first.
+
+The second decision, which labels to accept, has received less systematic attention. A rejection option can fail when a whole population is missing from the reference \citep{abdelaal2019}. Hierarchical and partial rejection has been studied within datasets \citep{theunissen2024}. Conformal methods give guarantees that depend on exchangeability between reference and query \citep{lopezdecastro2025}. Method-intrinsic confidences are calibrated differently across methods \citep{ergen2024popv}, and uncertainty for atlas-level transfer has been measured on a single lung atlas \citep{engelmann2022}. Selective-classification theory provides the vocabulary used here: a classifier plus an acceptance rule, evaluated by coverage and selective risk \citep{geifman2017}.
+
+This paper reports one frozen benchmark designed around these two decisions. It holds out whole studies, fixes thresholds on separate validation studies, and evaluates both matched and released annotators at those fixed operating points. We aim to describe what happened under one stated reference, feature set, default configuration and seed. We do not rank methods or make claims about architectures. Section~\ref{sec:design} states the design, Section~\ref{sec:results} the recorded results, Section~\ref{sec:limits} the limitations, and Section~\ref{sec:repro} the reproduction status and commands.
+
+\paragraph{Status of the evidence.} All results come from recorded run \runid, a recovery run in ``Mode R'' (its comparison manifest records \texttt{fresh\_execution: false}). Some steps reuse hash-verified cached outputs, and some were adopted from an earlier recovery run (Section~\ref{sec:provenance}). An independent clean reproduction from raw inputs is budgeted but has not been run. Nothing here should be read as reproduced or verified.
+
+\section{Study design}\label{sec:design}
+
+\subsection{Question and tracks}
+
+The protocol (version~1.0, frozen locally on 2026-10-05 before any validation, test, platform or CITE-seq expression data were downloaded; not externally registered) asks two things: how to choose a reference and annotation workflow for a new blood/PBMC cohort, and when to accept a label. It keeps two tracks separate.
+
+\begin{itemize}
+\item \textbf{Matched track.} Every method is trained by us on identical reference cells, labels and genes. Differences between methods are therefore method effects \emph{under this reference, feature set, default settings and training seed}.
+\item \textbf{Practical track.} Two released artefacts are used as distributed: CellTypist \texttt{Immune\_All\_Low} v2 (P1) \citep{celltypistmodels} and the scTab run5 checkpoint (P2) \citep{fischer2024sctab,sctabrepo}. Their training data, label sets and gene spaces differ from each other and from the matched reference, and their labels pass through our frozen label maps. We therefore draw no conclusion about model architecture from any practical-track result, and the matched track supports none beyond the stated configuration.
+\end{itemize}
+
+\subsection{Data}
+
+All RNA data come from CELLxGENE Census LTS \texttt{2025-11-08} \citep{czi2025cellxgene,censusreleases}. Every pull is filtered to \texttt{is\_primary\_data == True}, \texttt{disease == 'normal'} and \texttt{tissue\_general == 'blood'}, and raw counts are used.
+
+\begin{itemize}
+\item \textbf{Reference (six studies):} Hao 2021 \citep{hao2021seurat}, OneK1K \citep{yazar2022onek1k}, Perez 2022 \citep{perez2022lupus}, van der Wijst 2021 \citep{vanderwijst2021}, COMBAT \citep{combat2022} and the CVID atlas \citep{rodriguezubreva2022cvid}.
+\item \textbf{Validation, used only to set thresholds and M4's regularisation:} the kidney-cancer cohort blood samples \citep{li2022kidney} and a clonal-haematopoiesis study \citep{heimlich2024ch}.
+\item \textbf{Test, each held out as a whole study:} the Human Immune Health Atlas (HIHA) \citep{gong2025hiha}, a rheumatoid-arthritis PBMC study (RA) \citep{binvignat2024ra}, a glaucoma PBMC atlas (Glaucoma) \citep{glaucomacollection} and a juvenile-dermatomyositis CITE-seq study (JDM) \citep{rabadam2024jdm}.
+\item \textbf{Platform panel (descriptive):} one dataset per assay from a single-donor technology comparison \citep{desimone2025platforms}.
+\end{itemize}
+
+\noindent The protocol records that the validation, test and platform studies were absent from scTab's 249 training datasets, share no donor IDs with scTab's donor lookup, and were published after the CellTypist model build (2022-07-16).
+
+Sampling used seed 20261005. For validation and test, the protocol took donors with at least 300 cells, up to 12 per study. It drew a \emph{natural stratum} of 600 cells per donor from all of that donor's cells, preserving composition, and a \emph{rare top-up stratum} of up to 40 further mapped cells per donor and rare class. Unless stated otherwise, every test metric uses the natural stratum only.
+
+The recorded run scored \ctres{score}{info}{test-donors} test donors in total. Per-study donor counts are not part of the evidence bundle used for this paper, and we do not infer them from the cell totals. The realised cell counts per study, stratum and label status are in Table~\ref{tab:counts} (Appendix).
+
+\subsection{Labels, classes and arms}
+
+Author \texttt{cell\_type\_ontology\_term\_id} labels were mapped to target classes with a frozen table built on the Cell Ontology \citep{diehl2016cl}. Only cells with status \texttt{mapped} are used for training or fine-level scoring.
+
+\paragraph{Arm A (full reference).} The known classes $K$ are target classes with at least 100 reference cells from at least two reference studies. There are 14: ASC, B, CD14 mono, CD16 mono, CD4~T, CD8~T, HSPC, ILC, MAIT, NK, cDC, \gd, pDC and platelet/MK. Closed-set macro-F1 averages over the classes with at least 20 natural test cells. In this run that left 11 classes; HSPC (17 natural cells), ILC (17) and platelet/MK (16) fell below the cut-off. Mapped validation or test cells whose class is outside $K$ are \emph{natural unknowns}.
+
+\paragraph{Arm B (removed types).} M1--M6 are retrained after every pDC, ASC and MAIT cell is removed from the reference, and thresholds are re-tuned on validation cells of the remaining classes. Test cells of the three removed classes, from both strata, are \emph{simulated unknowns}. Arm~B macro-F1 averages over 8 classes and is not comparable with Arm~A macro-F1.
+
+\subsection{Annotators}
+
+All matched methods use the same features $F$, chosen on the reference only: 2{,}000 highly variable genes plus the top 10 marker genes per reference class.
+\begin{itemize}
+\item \textbf{M1, marker rule.} Mean z-scored expression of 10 markers per class; confidence is top minus second score.
+\item \textbf{M2, nearest centroid} on 50 reference PCs with cosine similarity; confidence is top minus second similarity.
+\item \textbf{M3, kNN} ($k=15$, cosine); confidence is the vote share of the predicted class.
+\item \textbf{M4, multinomial logistic regression,} with $C\in\{0.01,0.1,1\}$ chosen by validation closed-set macro-F1 (the protocol's only tuning budget); confidence is maximum probability.
+\item \textbf{M5, CellTypist~1.7.1} trained on our reference \citep{dominguezconde2022celltypist}; confidence is maximum one-vs-rest sigmoid probability.
+\item \textbf{M6, scANVI} (scvi-tools 1.4.1) \citep{xu2021scanvi}, with per-study query adaptation on \emph{unlabelled} query cells in the style of scArches \citep{lotfollahi2022scarches}; confidence is maximum probability.
+\end{itemize}
+P1 and P2 receive inputs in their documented form. Released labels are mapped as \texttt{mapped} (scored at the target level), \texttt{coarser} (never counted as accepted at the target level) or \texttt{outside} (a fine-level error if accepted). Pan-Human Azimuth \citep{sarkar2026panhuman} and scGPT \citep{cui2024scgpt} were not run, for the reasons recorded in the protocol's access-and-feasibility notes. The training seed is 0 for all methods; each method was fitted once per arm.
+
+\subsection{Operating points selected on validation}\label{sec:ops}
+
+For each method and arm, thresholds were chosen on validation cells that are mapped and in $K$. As implemented, these cells include both strata (\ctres{A}{M4}{val-validation-cells} cells in Arm~A, \ctres{B}{M4}{val-validation-cells} in Arm~B). The validation mix is therefore enriched for rare classes relative to the test natural stratum.
+
+\begin{itemize}
+\item \textbf{OP-cov:} the threshold $\tau_\mathrm{cov}$ that accepted 90\% of these validation cells. If the method's maximum eligible validation coverage is below 90\%, the protocol accepts every fine-level prediction and reports the shortfall.
+\item \textbf{OP-err:} the lowest threshold whose validation accepted error is at most 5\%; if none exists, it is reported as ``not attainable''.
+\end{itemize}
+
+\noindent Three implementation facts shape how these operating points should be read.
+\begin{enumerate}
+\item \textbf{P2 has no OP-cov threshold.} Only a fraction \ctres{practical}{P2}{val-eligible-cap-validation} of P2's validation predictions were fine-level labels eligible for acceptance (its eligible validation cap), which is below 0.90. By the shortfall rule, $\tau_\mathrm{cov}=-\infty$: P2 at ``OP-cov'' accepts every fine-level prediction and abstains on nothing. (The CSV records this as \texttt{-inf}; \texttt{results.json} serialises it as \texttt{null}.)
+\item \textbf{M3's vote-share confidence takes only 16 values}, and the threshold accepts all cells with confidence $\ge\tau$. Whole tie blocks are therefore accepted together. M3's validation coverage at $\tau_\mathrm{cov}$ was \ctres{A}{M3}{val-validation-coverage-at-tau-cov} in Arm~A and \ctres{B}{M3}{val-validation-coverage-at-tau-cov} in Arm~B instead of 0.900.
+\item \textbf{The bootstrap does not re-estimate thresholds.} They are fixed numbers carried to the test set (Section~\ref{sec:unc}).
+\end{enumerate}
+
+\subsection{Metrics and denominators}
+
+All test metrics use scorable cells: mapped, in $K$, natural stratum. Arm~A has 19{,}018 such cells and Arm~B 18{,}628.
+\begin{itemize}
+\item \textbf{Coverage} is accepted cells divided by scorable cells.
+\item \textbf{Accepted error} is wrong accepted cells divided by accepted cells.
+\item \textbf{Cross-lineage rate} is accepted errors that cross a fixed lineage group, divided by accepted cells. \textbf{Cross-lineage share} is the same errors divided by all accepted errors.
+\item \textbf{Unknown false acceptance} is accepted unknown cells divided by unknown cells. For Arm~A, only natural-stratum unknowns are counted (the approved D-1a scoring correction); for Arm~B, all strata are counted.
+\item \textbf{Per-class recall} uses natural and top-up cells; \textbf{precision} uses natural cells only.
+\item \textbf{Calibration} is reported as the multiclass Brier score and the 15-bin ECE of the maximum probability \citep{guo2017}.
+\end{itemize}
+
+\noindent The risk--coverage curve sorts cells by confidence. In this implementation, AURC is the mean risk multiplied by the final coverage, so the area stops at each method's maximum coverage.
+
+For P2, ``unassigned'' cells at OP-cov are its \texttt{coarser} labels (\ctres{practical}{P2}{coarser-fraction} of test cells), since nothing is abstained.
+
+\subsection{Uncertainty}\label{sec:unc}
+
+Intervals are 95\% percentile intervals from 1{,}000 cluster-bootstrap replicates. Donors are resampled with replacement \emph{within} each of the four test studies, so study membership is fixed. Method differences are paired within replicates against M4, which the frozen protocol named as the comparator before any result existed.
+
+Throughout this paper, every bracketed interval is a \emph{95\% donor-bootstrap percentile interval within the four test studies (\ctres{score}{info}{reps} replicates), conditional on fixed validation thresholds and a single training seed}. The intervals do not include:
+\begin{itemize}
+\item uncertainty from estimating the thresholds;
+\item training-seed variance;
+\item variation across studies, since only four test studies exist and no study-level interval can be computed.
+\end{itemize}
+
+Pooled metrics weight studies by their number of scorable natural cells. In Arm~A these are HIHA 7{,}042, RA 7{,}200, JDM 3{,}000 and Glaucoma 1{,}776, so HIHA and RA together contribute 75\%. Per-study values are therefore given next to pooled values (Table~\ref{tab:perstudy}).
+
+\subsection{Secondary analyses}
+
+\paragraph{Platform.} We report coverage and accepted error at OP-cov for each platform dataset. The panel comes from one donor, so these results are descriptive only.
+
+\paragraph{Protein check.} Accepted RNA predictions at OP-cov are compared with a coarse protein class. The protein class is assigned by six fixed ADT gates (CD4~T, CD8~T, B, NK, CD14 mono, CD16 mono) after per-cell CLR normalisation and a two-component Gaussian mixture per antibody \citep{stoeckius2017citeseq}. The pre-specified 10x files could not be used, and this check ran on replacement inputs under an approved amendment (Section~\ref{sec:amend}).
+
+\subsection{Run provenance}\label{sec:provenance}
+
+\begin{itemize}
+\item \textbf{Cached and hash-verified} (267 files): data build D05, Arm~A M1--M6 fit and predict, and Arm~B M1--M3.
+\item \textbf{Adopted} from an earlier recovery run (\nolinkurl{6ef427915cfa4087a9bdf8646a0c26f7}, clean git revision \nolinkurl{5a0b9aaaf5ee1a92f132ff6fcd437b1b815c583b}): Arm~B M4--M6 fit and predict.
+\item \textbf{Recomputed in this run:} the CITE build, Arm~A CITE predictions for M1--M6, scoring and the protein check.
+\end{itemize}
+
+\noindent The sha256 values recorded in the run provenance for \texttt{score\_all.py}, \texttt{evaluate.py} and \texttt{protein\_check.py} equal those in the coordinator's separate code-check record.
+
+\section{Results}\label{sec:results}
+
+\subsection{Closed-set agreement with author labels}
+
+Table~\ref{tab:closed} gives closed-set macro-F1, computed with no abstention. In Arm~A, the four learned matched methods were within 0.006 of one another:
+\begin{itemize}
+\item M4: \ctres{A}{M4}{macro-f1-closed}~\ctci{A}{M4}{macro-f1-closed};
+\item M3: \ctres{A}{M3}{macro-f1-closed};
+\item M6: \ctres{A}{M6}{macro-f1-closed};
+\item M5: \ctres{A}{M5}{macro-f1-closed}.
+\end{itemize}
+Their paired differences from M4 all include zero: M3 \ctres{A}{M3}{diff-vs-A-M4-macro-f1-closed}~\ctci{A}{M3}{diff-vs-A-M4-macro-f1-closed}, M5 \ctres{A}{M5}{diff-vs-A-M4-macro-f1-closed}~\ctci{A}{M5}{diff-vs-A-M4-macro-f1-closed} and M6 \ctres{A}{M6}{diff-vs-A-M4-macro-f1-closed}~\ctci{A}{M6}{diff-vs-A-M4-macro-f1-closed}. The centroid and marker baselines had lower agreement: M2 \ctres{A}{M2}{macro-f1-closed} (difference \ctres{A}{M2}{diff-vs-A-M4-macro-f1-closed}~\ctci{A}{M2}{diff-vs-A-M4-macro-f1-closed}) and M1 \ctres{A}{M1}{macro-f1-closed} (difference \ctres{A}{M1}{diff-vs-A-M4-macro-f1-closed}~\ctci{A}{M1}{diff-vs-A-M4-macro-f1-closed}). Under this configuration, the data do not separate logistic regression, kNN, CellTypist-trained-on-our-reference and scANVI on closed-set agreement.
+
+The practical-track models were run as distributed, with labels mapped by our frozen tables. P1 had lower closed-set macro-F1 than matched M4, with a paired difference of \ctres{practical}{P1}{diff-vs-A-M4-macro-f1-closed}~\ctci{practical}{P1}{diff-vs-A-M4-macro-f1-closed}. P2 could not be distinguished from M4: \ctres{practical}{P2}{diff-vs-A-M4-macro-f1-closed}~\ctci{practical}{P2}{diff-vs-A-M4-macro-f1-closed}. Some practical deficits are label-map effects. P1's closed-set recall for \gd{} cells was 0.015, while only \ctres{practical}{P1}{coarser-fraction} of P1's predictions were \texttt{coarser}. P1 therefore assigned most \gd{} cells to other mapped classes, which is consistent with how CellTypist's T-cell labels map to our target classes; we did not test this further. Table~\ref{tab:practical} (Appendix) lists the \texttt{coarser} and \texttt{outside} fractions.
+
+\begin{table}[t]
+\centering
+\caption{Closed-set macro-F1 (no abstention), AURC, maximum coverage and cross-lineage error at OP-cov. Arm~A macro-F1 averages over 11 classes and Arm~B over 8, so the two arms cannot be compared on this metric. Intervals: 95\% donor-bootstrap percentile intervals within the four test studies, conditional on fixed thresholds and one training seed. AURC stops at each method's maximum coverage, so P2's AURC (maximum coverage 0.847) is not comparable with the other rows, and M3's AURC depends on row order within confidence ties (Section~\ref{sec:rc}).}
+\label{tab:closed}
+\gentable{table_closed_set.tex}
+\end{table}
+
+\paragraph{Per-study heterogeneity.} Pooled values hide large differences between studies (Table~\ref{tab:perstudy}). For M4 at OP-cov:
+
+\begin{center}
+\small
+\begin{tabular}{lrrr}
+\toprule
+Study & Accepted error & Coverage & Macro-F1 (closed) \\
+\midrule
+HIHA & 0.021 & 0.940 & 0.942 \\
+JDM & 0.056 & 0.906 & 0.886 \\
+Glaucoma & 0.144 & 0.847 & 0.707 \\
+RA & 0.179 & 0.651 & 0.518 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent The pooled M4 accepted error is \ctres{A}{M4}{accepted-error-at-OPcov}~\ctci{A}{M4}{accepted-error-at-OPcov}. The study-to-study range (0.157) is almost nine times the width of that interval. On closed-set macro-F1, every method in both arms and both tracks followed the same ordering at the extremes: HIHA was highest and RA lowest (for example, RA macro-F1 ranged from 0.353 for M1 to 0.518 for M4). We can say only that agreement with RA author labels was lower. Differences in granularity or definitions are plausible explanations, but we did not test them.
+
+The HIHA result needs a separate caution. The HIHA authors report that their expert annotation was guided by CellTypist \texttt{Immune\_All} models and Seurat label transfer \citep{gong2025hiha}. Agreement with HIHA labels therefore partly measures similarity to that labelling pipeline. P1 is one of the guiding models. Yet in this run P1's HIHA macro-F1 (0.842) was below M4's (0.942), so the recorded numbers show no obvious advantage for P1 on HIHA. This does not rule out circularity acting through the Seurat step or through label granularity.
+
+\subsection{Abstention at the validation-selected OP-cov threshold}
+
+Table~\ref{tab:ops} and Figure~\ref{fig:ops} give coverage and accepted error at both operating points. OP-cov is ``the threshold that accepted 90\% of validation cells''. On the test studies, Arm~A coverage at this threshold ranged from 0.798 (M5) to 0.886 (M3), and no method or arm reached 0.900. Validation error at the threshold was higher than test error; for M4 it was \ctres{A}{M4}{val-validation-error-at-tau-cov} on validation against \ctres{A}{M4}{accepted-error-at-OPcov} on test. Both shifts are consistent with the validation mix being enriched for hard, rare classes.
+
+\begin{itemize}
+\item \textbf{M4} accepted \ctres{A}{M4}{coverage-at-OPcov}~\ctci{A}{M4}{coverage-at-OPcov} of test cells with accepted error \ctres{A}{M4}{accepted-error-at-OPcov}~\ctci{A}{M4}{accepted-error-at-OPcov}.
+\item \textbf{M5} accepted \ctres{A}{M5}{coverage-at-OPcov} with error \ctres{A}{M5}{accepted-error-at-OPcov}. Its paired coverage difference from M4 was \ctres{A}{M5}{diff-vs-A-M4-coverage-at-OPcov}~\ctci{A}{M5}{diff-vs-A-M4-coverage-at-OPcov}, and its error difference \ctres{A}{M5}{diff-vs-A-M4-accepted-error-at-OPcov}~\ctci{A}{M5}{diff-vs-A-M4-accepted-error-at-OPcov}.
+\item \textbf{M6} accepted more cells (\ctres{A}{M6}{coverage-at-OPcov}) with higher error (\ctres{A}{M6}{accepted-error-at-OPcov}).
+\item \textbf{M3} accepted \ctres{A}{M3}{coverage-at-OPcov} with error \ctres{A}{M3}{accepted-error-at-OPcov}. Because of ties, M3's threshold accepted \ctres{A}{M3}{val-validation-coverage-at-tau-cov} of validation cells against the nominal 0.900. Its paired error difference from M4 (\ctres{A}{M3}{diff-vs-A-M4-accepted-error-at-OPcov}~\ctci{A}{M3}{diff-vs-A-M4-accepted-error-at-OPcov}) therefore compares two different coverages.
+\end{itemize}
+
+\noindent The M4 and M5 thresholds produced the lowest accepted errors, but at lower coverage than M3 and M6. These are coverage--error trade-offs at fixed thresholds and give no single winner.
+
+For the practical track:
+\begin{itemize}
+\item \textbf{P1} accepted \ctres{practical}{P1}{coverage-at-OPcov} with error \ctres{practical}{P1}{accepted-error-at-OPcov}.
+\item \textbf{P2} accepted \ctres{practical}{P2}{coverage-at-OPcov} with error \ctres{practical}{P2}{accepted-error-at-OPcov}. These describe P2 \emph{with no abstention}: the ``unassigned'' part is its \ctres{practical}{P2}{coarser-fraction} of \texttt{coarser} labels, and no prediction was rejected. The paired P2$-$M4 coverage difference (\ctres{practical}{P2}{diff-vs-A-M4-coverage-at-OPcov}) therefore compares an unthresholded model with a thresholded one.
+\end{itemize}
+
+\begin{table}[t]
+\centering
+\caption{Coverage and accepted error on the test natural stratum at the two validation-selected operating points. ``Not attainable'' means no validation threshold reached accepted error $\le$5\%. P2 has no OP-cov threshold, so its OP-cov row accepts every fine-level label. M3's OP-cov threshold accepted 94.3\% (Arm~A) and 92.4\% (Arm~B) of validation cells because of ties. M4's and P2's OP-err thresholds sit at the probability ceiling. Intervals as in Table~\ref{tab:closed}.}
+\label{tab:ops}
+\gentable{table_operating_points.tex}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/fig_operating_points.pdf}
+\caption{Coverage against accepted error at the validation-selected operating points, drawn from the recorded values and intervals. Practical-track markers are hollow. The P2 point at OP-cov has no threshold (all fine-level labels accepted). The M3 OP-cov point accepted more than 90\% of validation cells because of tied confidences. Intervals are within-study donor-bootstrap intervals and do not describe variation across new studies.}
+\label{fig:ops}
+\end{figure}
+
+\subsection{The stricter OP-err threshold transferred unevenly}
+
+OP-err aimed for accepted error of at most 5\% on validation. On the test studies:
+\begin{itemize}
+\item \textbf{M2} kept \ctres{A}{M2}{coverage-at-OPerr} of cells at \ctres{A}{M2}{accepted-error-at-OPerr} error.
+\item \textbf{P1} kept \ctres{practical}{P1}{coverage-at-OPerr} at \ctres{practical}{P1}{accepted-error-at-OPerr}.
+\item \textbf{M5} kept \ctres{A}{M5}{coverage-at-OPerr} at \ctres{A}{M5}{accepted-error-at-OPerr}.
+\item \textbf{M4} kept \ctres{A}{M4}{coverage-at-OPerr}, with no accepted errors (point and interval \ctci{A}{M4}{accepted-error-at-OPerr}).
+\item \textbf{M1} missed the target, at \ctres{A}{M1}{accepted-error-at-OPerr}~\ctci{A}{M1}{accepted-error-at-OPerr} error.
+\item \textbf{P2} kept \ctres{practical}{P2}{coverage-at-OPerr} of cells, about 47 cells. It accepted none of the RA cells, so its RA accepted error is undefined.
+\item \textbf{M3 and M6:} OP-err was not attainable in either arm.
+\end{itemize}
+M4's and P2's OP-err thresholds (0.99998 and 0.99992) sit at the probability ceiling, so their OP-err results are close to degenerate.
+
+The paired M2$-$M4 coverage difference at OP-err, \ctres{A}{M2}{diff-vs-A-M4-coverage-at-OPerr}~\ctci{A}{M2}{diff-vs-A-M4-coverage-at-OPerr}, is a real measured difference at these fixed thresholds. It reflects how each confidence score ranked validation errors relative to test errors. We do not read it as evidence that centroid classification is generally safer.
+
+\subsection{Risk--coverage}\label{sec:rc}
+
+Figure~\ref{fig:rc} shows the test risk--coverage curves. Risk at a common coverage of 0.80 can be compared across both tracks, because every method reaches it:
+
+\begin{center}
+\small
+\begin{tabular}{lcccccccc}
+\toprule
+& M4 & M6 & M5 & M3$^\dagger$ & P1 & P2 & M2 & M1 \\
+\midrule
+risk@0.80 & \ctres{A}{M4}{risk-at-0.80} & \ctres{A}{M6}{risk-at-0.80} & \ctres{A}{M5}{risk-at-0.80} & \ctres{A}{M3}{risk-at-0.80} & \ctres{practical}{P1}{risk-at-0.80} & \ctres{practical}{P2}{risk-at-0.80} & \ctres{A}{M2}{risk-at-0.80} & \ctres{A}{M1}{risk-at-0.80} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent These values have no interval. $^\dagger$The risk--coverage computation sorts cells with a stable sort and does not average within confidence ties. Inside a tie block the order follows the input row order, which is the order in which studies were concatenated. M3's curve, AURC (\ctres{A}{M3}{aurc}) and risk@$c$ values therefore contain an arbitrary component, and we do not rank M3 on them. Methods with exactly tied probabilities, such as saturated values of 1.0, could be affected in the same way; we did not check this.
+
+P2 cannot reach coverage of 0.90 or more, so its risk at those coverages is ``not reachable''. P1 cannot reach 1.00 (maximum coverage \ctres{practical}{P1}{max-coverage}). Because AURC stops at maximum coverage, P2's AURC (\ctres{practical}{P2}{aurc}) covers only coverage up to \ctres{practical}{P2}{max-coverage}. It cannot be compared with M4's (\ctres{A}{M4}{aurc}) or M6's (\ctres{A}{M6}{aurc}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/fig_risk_coverage.pdf}
+\caption{Risk (accepted error) against coverage on the test natural stratum, from the recorded curves. Practical curves are dashed. The P2 curve ends at coverage 0.847 because 15.3\% of its labels are \texttt{coarser}. Ties are not averaged, so the shape of M3's curve within its 16 tie blocks depends on row order.}
+\label{fig:rc}
+\end{figure}
+
+\subsection{Removed cell types (Arm B)}
+
+Arm~B tested what happens to three specific cell types once they are missing from the reference. There were 2{,}310 test cells of the removed classes: ASC 815, MAIT 748 and pDC 747. Only 390 of them came from the natural stratum; the other 83\% came from the rare top-up stratum. Pooled false acceptance therefore weights the three classes according to the sampling design (about one third each); their natural prevalence plays almost no part.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Arm~B: acceptance of cells whose class (ASC, MAIT or pDC) was removed from the reference (2{,}310 cells, all strata). False acceptance is the fraction of these cells accepted with a known label. AUROC measures how well confidence separates known from removed-type cells; 0.5 is no separation. The most frequent predicted labels are from the recorded per-class unknown table (fraction of that class's cells). Intervals as in Table~\ref{tab:closed}.}
+\label{tab:armb}
+\begin{tabular}{lllll}
+\toprule
+Method & False accept.\ @OP-cov & False accept.\ @OP-err & AUROC & Most frequent label (ASC / MAIT / pDC) \\
+\midrule
+M1 & \ctres{B}{M1}{unknown-false-accept-at-OPcov}~{\scriptsize\ctci{B}{M1}{unknown-false-accept-at-OPcov}} & \ctres{B}{M1}{unknown-false-accept-at-OPerr} & \ctres{B}{M1}{unknown-auroc} & ILC .269 / CD8~T .305 / cDC .767 \\
+M2 & \ctres{B}{M2}{unknown-false-accept-at-OPcov}~{\scriptsize\ctci{B}{M2}{unknown-false-accept-at-OPcov}} & \ctres{B}{M2}{unknown-false-accept-at-OPerr} & \ctres{B}{M2}{unknown-auroc} & B .810 / \gd{} .929 / B .451 \\
+M3 & \ctres{B}{M3}{unknown-false-accept-at-OPcov}~{\scriptsize\ctci{B}{M3}{unknown-false-accept-at-OPcov}} & \ctres{B}{M3}{unknown-false-accept-at-OPerr} & \ctres{B}{M3}{unknown-auroc} & B .866 / \gd{} .914 / cDC .854 \\
+M4 & \ctres{B}{M4}{unknown-false-accept-at-OPcov}~{\scriptsize\ctci{B}{M4}{unknown-false-accept-at-OPcov}} & \ctres{B}{M4}{unknown-false-accept-at-OPerr} & \ctres{B}{M4}{unknown-auroc} & B .899 / \gd{} .639 / cDC .712 \\
+M5 & \ctres{B}{M5}{unknown-false-accept-at-OPcov}~{\scriptsize\ctci{B}{M5}{unknown-false-accept-at-OPcov}} & \ctres{B}{M5}{unknown-false-accept-at-OPerr} & \ctres{B}{M5}{unknown-auroc} & B .852 / \gd{} .595 / cDC .497 \\
+M6 & \ctres{B}{M6}{unknown-false-accept-at-OPcov}~{\scriptsize\ctci{B}{M6}{unknown-false-accept-at-OPcov}} & \ctres{B}{M6}{unknown-false-accept-at-OPerr} & \ctres{B}{M6}{unknown-auroc} & B .639 / \gd{} .797 / HSPC .959 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+At the OP-cov threshold, every matched method accepted most cells of the removed types with a known label (Table~\ref{tab:armb}). The fraction ranged from \ctres{B}{M4}{unknown-false-accept-at-OPcov}~\ctci{B}{M4}{unknown-false-accept-at-OPcov} for M4 to \ctres{B}{M3}{unknown-false-accept-at-OPcov} for M3 and \ctres{B}{M6}{unknown-false-accept-at-OPcov} for M6. The accepted labels were mostly the nearest known relative:
+\begin{itemize}
+\item ASC were called B cells;
+\item MAIT cells were called \gd{} or CD8~T cells;
+\item pDC were called cDC.
+\end{itemize}
+M6 was the exception for pDC, calling 96\% of them HSPC. Known-versus-removed AUROC ranged from \ctres{B}{M5}{unknown-auroc} (M5) to \ctres{B}{M4}{unknown-auroc} (M4). For M3, M5 and M6 it was below 0.5: their confidence was on average \emph{higher} on the removed types than on known cells.
+
+At M4's OP-err threshold, only \ctres{B}{M4}{unknown-false-accept-at-OPerr} of removed-type cells were accepted, but so were only \ctres{B}{M4}{coverage-at-OPerr} of known cells.
+
+These are three near-neighbour immune populations. The result shows that confidence thresholds tuned for coverage do not flag them as unfamiliar. It does not show how these annotators behave for distant or genuinely novel cell types, which were not tested.
+
+\paragraph{Arm~B scANVI changed sharply; we cannot attribute the change.} Arm~B M6 performed markedly worse on known classes than Arm~A M6:
+\begin{itemize}
+\item accepted error at OP-cov rose from \ctres{A}{M6}{accepted-error-at-OPcov} to \ctres{B}{M6}{accepted-error-at-OPcov};
+\item cross-lineage rate rose from \ctres{A}{M6}{cross-lineage-rate-at-OPcov} to \ctres{B}{M6}{cross-lineage-rate-at-OPcov};
+\item RA accepted error rose from 0.220 to 0.516;
+\item closed-set recall fell from 0.922 to 0.614 for CD4~T and from 0.731 to 0.572 for CD8~T;
+\item ECE rose from 0.134 to 0.249;
+\item natural-stratum precision for HSPC and ILC predictions was about 0.003.
+\end{itemize}
+The Arm~A M6 fit is a cached historical fit. The Arm~B fit was made in a different recovery session and adopted. With a single training seed per arm, and both reference training and the 50-epoch unlabelled query adaptation being stochastic, we cannot attribute this change to the class removal. Paired B:M6$-$B:M4 differences are valid within Arm~B but inherit the same caveat. Arm~B macro-F1 values are higher than Arm~A values for several methods (e.g.\ M4 \ctres{B}{M4}{macro-f1-closed} against \ctres{A}{M4}{macro-f1-closed}). These numbers average over different class sets (8 against 11), and the removed classes were among the hardest (ASC closed-set recall about 0.35 in Arm~A). The comparison therefore says nothing about whether removing classes helped.
+
+\subsection{Natural unknowns: 20 erythroid cells, counts only}\label{sec:natunk}
+
+In Arm~A, the natural stratum of the test studies contained 20 mapped cells outside $K$, all of class erythroid. This is one absent class from few donors. In 126 of the 1{,}000 bootstrap replicates there was no unknown cell at all, so its intervals are degenerate. We report counts only and draw no ranking or interval from them.
+
+At OP-cov, the matched methods accepted the following numbers of these 20 cells with a known label:
+\begin{itemize}
+\item M1: 17 (mostly as platelet/MK);
+\item M2: 13 and M3: 11 (mostly as CD4~T);
+\item M4: 3 (most often predicted NK);
+\item M5: 6 (most often predicted HSPC);
+\item M6: 5 (most often predicted platelet/MK).
+\end{itemize}
+
+For P1 and P2 these numbers measure something else. Both released models have erythroid in their label space. The scoring code nevertheless counts any accepted prediction on these cells as a false acceptance, because ``unknown'' is defined against the matched Arm~A class set. In the recorded top-prediction distribution, P1 labelled 16 of the 20 cells erythroid and P2 labelled 18. P2's recorded ``false acceptance'' of 20/20 and P1's of 14/20 at OP-cov therefore mostly count \emph{correct} erythroid calls. We exclude both from any comparison. Rescoring them with erythroid counted as correct would be a new analysis and was not performed. A secondary all-strata version of this analysis (126 cells) is again erythroid only and is not interpreted further.
+
+\subsection{Calibration}
+
+Table~\ref{tab:calib} (Appendix) lists Brier score and ECE. The comparison is meaningful only within the matched probabilistic methods. In Arm~A, ECE was 0.027 for M4, 0.081 for M5 and 0.134 for M6. Brier scores were M4 0.246, M5 0.258 and M6 0.299.
+
+The other rows measure different things:
+\begin{itemize}
+\item \textbf{M3:} its row describes the reliability of kNN vote shares (ECE 0.065); vote shares are uncalibrated scores.
+\item \textbf{M1 and M2:} their scores are uncalibrated by design.
+\item \textbf{P1:} the Brier score uses CellTypist's one-vs-rest sigmoids renormalised to sum to one, while ECE uses the raw maximum sigmoid. P1's Brier (0.303) and ECE (0.121) are computed on different probability objects and cannot be compared with the matched rows.
+\item \textbf{P2:} \texttt{coarser} predictions count as incorrect at their stated confidence.
+\end{itemize}
+
+\subsection{Platform panel: one donor per platform}
+
+Table~\ref{tab:platform} (Appendix) reports the platform panel. It contains 1{,}000 sampled cells per platform dataset, of which 891--971 were scorable, and all come from a single donor. The original study labelled cells with a CellTypist and Seurat consensus \citep{desimone2025platforms}, so P1 agreement on this panel is partly circular. We report the most striking observations without causal explanation:
+\begin{itemize}
+\item P2 accepted 0.194 of cells on Parse Evercode v2 (closed-set accuracy 0.130) and 0.179 on ScaleBio (0.110).
+\item M5's closed-set accuracy was 0.434 on Parse and 0.548 on ScaleBio, and M1's was 0.211 and 0.223.
+\item M2, M3 and M6 had closed-set accuracy between 0.92 and 0.98 on both of those platforms.
+\end{itemize}
+With one donor, these observations cannot separate platform effects from donor or sampling effects.
+
+\subsection{Protein check (descriptive; replacement inputs)}
+
+Label: \emph{descriptive; replacement inputs (amendment 2026-10-06-approved-protein-replacement)}.
+
+The check used two author-processed totalVI files, 10k and 5k (Section~\ref{sec:amend}). Both passed every pre-registered eligibility criterion. The six gates resolved a single protein class for:
+\begin{itemize}
+\item 6{,}375 of 6{,}855 cells (93.0\%) in the 10k file;
+\item 3{,}762 of 3{,}994 cells (94.2\%) in the 5k file.
+\end{itemize}
+Table~\ref{tab:protein} reports results per file, without pooling and without intervals.
+
+Two agreement measures are shown, and neither is an accuracy.
+\begin{itemize}
+\item \textbf{\texttt{agreement\_accepted}} compares fine RNA labels (14 classes) with six coarse protein classes by exact match. A MAIT call on a protein-CD8~T cell, or an ILC call on a protein-NK cell, counts as disagreement. This measure therefore mixes true disagreement with granularity mismatch.
+\item \textbf{\texttt{agreement\_accepted\_gateable\_preds}} keeps only accepted predictions whose RNA label is one of the six gate names. Because it selects on the method's own output, methods that send difficult cells to non-gateable labels are not penalised.
+\end{itemize}
+
+\noindent For example, M4 had 0.904 and 0.978 on the 10k file ($n=6{,}009$ accepted, resolved cells) and 0.912 and 0.950 on the 5k file ($n=3{,}321$). M1 on the 5k file had 0.636 overall but 0.938 on gateable predictions, illustrating the granularity effect.
+
+The denominators differ between methods: from 5{,}027 (P2) to 6{,}331 (P1) cells on the 10k file, and from 3{,}306 (M1) to 3{,}726 (P1) on the 5k file. P2 again accepts every fine-level label ($\tau_\mathrm{cov}=-\infty$). Each method is therefore scored on a different subset of cells, and we draw no method ranking from this check.
+
+Several further limits apply:
+\begin{itemize}
+\item Upstream author filtering may raise agreement.
+\item Donor identity and overlap with the released models' training data are unknown.
+\item About a third of the scTab gene universe, and about a fifth of $F$, was absent and set to zero, which is not neutral after z-scoring.
+\item The CD16-mono protein class had only 46 (10k) and 43 (5k) cells.
+\item The CLR row mean used 14 antibodies in the 10k file and 29 in the 5k file, so gate scales differ between files.
+\end{itemize}
+
+\begin{table}[t]
+\centering
+\caption{Protein check, per file. Descriptive; replacement inputs (amendment 2026-10-06-approved-protein-replacement). ``Accepted \& resolved'' is the per-method denominator of both agreement columns. Fine RNA labels are compared with six coarse protein classes by exact match, so neither column is an accuracy, and different methods are scored on different cells. No pooling, interval or ranking.}
+\label{tab:protein}
+\gentable{table_protein.tex}
+\end{table}
+
+\section{Discussion}
+
+The question was how to choose an annotation workflow for a new blood cohort and when to accept a label. The measured results support four practical statements, each conditional on this reference, configuration, seed and set of four test studies.
+
+\begin{enumerate}
+\item \textbf{Among learned annotators trained on the same reference, the choice of method mattered little for closed-set agreement.} Logistic regression, kNN, CellTypist trained on our reference and scANVI could not be separated. Simpler rules (marker scores, centroids) agreed less with author labels. This is consistent with published reports that simple baselines remain competitive \citep{boiarsky2023,kedzierska2025,denadel2026}.
+\item \textbf{The test study mattered more than the method.} The same model's accepted error ranged from 0.021 to 0.179 across studies, so a pooled number from a benchmark tells an analyst little about their own cohort. The direction matches the published drop in agreement when models move to new studies \citep{cultrera2026hce}.
+\item \textbf{A threshold tuned to accept 90\% of validation cells did not accept 90\% of test cells,} and a threshold tuned for 5\% validation error gave test errors from 0 to 16\% at very different coverages. Thresholds selected on validation data should be re-checked on each new study's own labelled subset if one exists. This interpretation follows from the transfer gaps we measured, but we did not test re-checking.
+\item \textbf{At the coverage-oriented threshold, cells of missing near-neighbour types were mostly accepted with a confident, wrong, related label.} For half of the matched methods, confidence was on average higher on these cells than on known cells. This agrees qualitatively with earlier reports that posterior-based rejection can fail for missing populations \citep{abdelaal2019} and that closed-set annotators force absent types into existing labels \citep{hu2025matching}.
+\end{enumerate}
+
+For released models, the practical track shows what an analyst receives \emph{as distributed and mapped by our tables}. P2's 15.3\% \texttt{coarser} labels and P1's \gd{} label mapping illustrate how label vocabularies, independently of any classifier, shape apparent accuracy.
+
+\section{Limitations}\label{sec:limits}
+
+\begin{itemize}
+\item \textbf{Reference standard.} Accuracy means agreement with author labels mapped to the Cell Ontology; there was no adjudication. If author labels were themselves derived by reference mapping, agreement is inflated for methods that resemble that pipeline. The HIHA authors report CellTypist- and Seurat-guided annotation \citep{gong2025hiha}, and the platform panel used a CellTypist and Seurat consensus \citep{desimone2025platforms}. We did not verify how these labels were finally produced in the Census copies.
+\item \textbf{Four fixed test studies.} Intervals are donor-bootstrap intervals within these studies, conditional on fixed thresholds and one training seed. They do not describe performance on new studies. Pooled values are weighted by cell count and dominated by HIHA and RA.
+\item \textbf{Single training seed.} No training-seed variance is included. This matters most for scANVI, whose Arm~A and Arm~B fits came from different sessions and differed sharply.
+\item \textbf{Thresholds.} The thresholds were fixed on two validation studies whose mix includes the rare top-up stratum. M4's regularisation strength was chosen on the same studies, which is a mild double use of validation data that leaves the test data independent.
+\item \textbf{Ties.} M3's tie handling makes its OP-cov threshold a 94\% (Arm~A) and 92\% (Arm~B) validation operating point, and makes its risk--coverage values depend on row order. Fixing this would require rescoring a primary metric, which needs approval.
+\item \textbf{Natural unknowns.} These were 20 erythroid cells, so the study gives no evidence about natural novel-type detection.
+\item \textbf{Simulated unknowns.} These cover three near-neighbour classes and were mostly top-up cells.
+\item \textbf{Practical track.} Results mix training data, label vocabularies, gene spaces and our frozen label maps.
+\item \textbf{Platform panel.} One donor per platform, with labels of uncertain provenance.
+\item \textbf{Protein check.} Descriptive only: replacement files, author-filtered, zero-filled genes, donor identity and training overlap unknown, fine-versus-coarse label mismatch.
+\item \textbf{Reference composition.} The reference includes in-vitro-activated PBMCs from the CVID study \citep{rodriguezubreva2022cvid}. The exact \texttt{disease == 'normal'} filter may omit some healthy cells, because the Census \texttt{disease} field can hold multiple values \citep{censusreleases}.
+\item \textbf{Runtime and memory.} The protocol lists per-method runtime and peak memory, but this paper does not report them (Section~\ref{sec:repro}).
+\end{itemize}
+
+\section{Reproducibility, data and code}\label{sec:repro}
+
+\paragraph{Status.} The paper reports results from a recorded run with cached and adopted steps; independent clean reproduction is pending. The generated reproduction table below is filled in from the tiered comparison report once a clean reproduction (Mode~F) has been run. At the time of writing, its status reads: \ctres{comparison}{report}{overall}.
+
+\begin{table}[H]
+\centering
+\caption{Tiered reproduction comparison (generated). Without a comparison report, it states that none was supplied.}
+\label{tab:repro}
+\gentable{table_reproduction.tex}
+\end{table}
+
+\paragraph{Commands.} From the repository root:
+\begin{verbatim}
+make env          # uv sync --frozen (locked environment)
+make data         # scripts/acquire_inputs.py acquire --root .
+make test         # pipeline unit tests
+CELLTRANSFER_BASELINE_MANIFEST=<Mode R comparison manifest> \
+  make reproduce  # scripts/reproduce.py --config configs/full.json
+make paper        # scripts/build_paper.py (Tectonic, pinned bundle)
+\end{verbatim}
+\texttt{reproduce.py} runs, in order:
+\begin{enumerate}
+\item acquisition;
+\item the data build;
+\item Arms A and B fit and predict for M1--M6;
+\item the CITE build (the amended totalVI builder);
+\item scoring (\texttt{score\_all.py --reps 1000 --natural-unknown-scope natural});
+\item the protein check;
+\item the comparison against the recorded baseline manifest;
+\item asset generation (\texttt{make\_paper\_assets.py}) and the paper build.
+\end{enumerate}
+For a recorded run, the assets are generated with \texttt{make\_paper\_assets.py --score <score dir> --protein <protein dir> --no-comparison --eligibility <eligibility.json> --output paper}.
+
+\paragraph{Budgets.} The approved budgets are: local compute only; four CPU threads; a 12~GiB memory watchdog; 7~GiB of study storage; at most two attempts per step; 8~h for recovery, 15~h for clean reproduction and 30~min for a paper-only rebuild.
+
+\paragraph{Recorded resource use.} This run's \texttt{/usr/bin/time} records cover only the steps it recomputed, and they measure only the direct child process, so they understate aggregate memory under parallelism:
+\begin{itemize}
+\item scoring: 557~s, with a maximum resident set of about 0.57~GB;
+\item CITE build: 16.2~s, about 5.3~GB.
+\end{itemize}
+Arm~A fit and predict timings are in the historical run records. Arm~B M4--M6 wall times were recorded in the adopted session: M5 fit 564~s and M6 fit 713~s. Each is a single run from a different session, so we make no runtime comparison.
+
+\paragraph{Failures and attempts (all records kept).}
+\begin{itemize}
+\item An early data build was aborted, and a second stopped on a disk-guard timeout before any query data were pulled. The full build D05 used the same code and seed, with resumable checkpoints that were tested for equivalence.
+\item The first Arm~B M4 fit failed for lack of disk space. A pipeline test later launched one unintended Arm~B M4 fit. It was killed on detection without producing a model, and 60~s were charged to the budget. The adopted Arm~B M4 fit is attempt~2.
+\item The only pre-specified 10x CITE-seq file that was requested returned HTTP 403. The replacement CITE build was attempt~2, the last one permitted.
+\item Pan-Human Azimuth and scGPT were not run.
+\end{itemize}
+
+\paragraph{Code and data availability.}
+\begin{itemize}
+\item \textbf{Code} is in this repository: \texttt{companion/} holds the methods, scoring and protein check, and \texttt{scripts/} holds orchestration, the asset generator and the paper build.
+\item \textbf{Scoring code hashes} (sha256) used for this run:
+\begin{itemize}
+\item \texttt{score\_all.py}: \nolinkurl{20f457204050bdac2c0d99596c43b9bb3214e9ff974ba24041f50eeab4e54d9f}
+\item \texttt{evaluate.py}: \nolinkurl{e5fae4e8646821887d4555bc7746ba1bd1b4a259d172197590808d7d215a59a2}
+\item \texttt{protein\_check.py}: \nolinkurl{9458409448615ebce2bab0b189ef113c57371d57af647ef27c2c1c2c7442ba59}
+\end{itemize}
+\item \textbf{Census data} are CC BY 4.0 and are accessed by dataset ID from LTS 2025-11-08 \citep{czi2025cellxgene,censusreleases}.
+\item \textbf{Released models:} CellTypist \texttt{Immune\_All\_Low} v2 \citep{celltypistmodels} and the scTab run5 checkpoint \citep{sctabrepo}.
+\item \textbf{Aggregate results} are in \nolinkurl{evidence/results-29879296/}. Per-cell protein classes and CITE predictions are not published (Section~\ref{sec:amend}).
+\end{itemize}
+
+\section{Protocol amendments and required disclosures}\label{sec:amend}
+
+\paragraph{Natural-unknown scoring (D-1a).} Under the approved resumption plan, Arm~A natural-unknown metrics use natural-stratum cells only, as the frozen protocol's ``natural stratum only'' rule requires.
+
+\paragraph{Protein replacement amendment.} The following disclosures are required by the amendment and are reproduced as worded there, with the realised values filled in.
+
+\begin{enumerate}
+\item The study's protocol (v1.0, frozen locally on 2026-10-05; not externally registered) pre-specified four 10x CITE-seq files. Only the first was requested; it returned HTTP 403 on 2026-10-06. The other three were not requested, so their availability is unknown. Under an amendment approved on 6 October 2026 (amendment file sha256 \nolinkurl{e5ba0c347b66cba1c76dd249e386789c26e1916a95bc9c82a0208a696c89eae1}), we instead used author-processed files from the totalVI reproducibility repository (\url{https://github.com/YosefLab/totalVI_reproducibility}, commit \nolinkurl{27d65a9c49182f39df0c4325249bc7dc8e663dd0}), sha256:
+\begin{itemize}
+\item \texttt{pbmc\_10k\_protein\_v3.h5ad}: \nolinkurl{5f08b8575febf9e04b209b94eb43f6335f1e33b0985cdcf44adf7320f6243c69}
+\item \texttt{pbmc\_5k\_protein\_v3.h5ad}: \nolinkurl{a1bf51e070d24b39627ea4de9b3e489a4637ff795e1061e0733e26c3baec8847}
+\end{itemize}
+Both files were used from previously downloaded bytes that matched these pins (recorded as \texttt{cached}), as the amendment permits.
+\item The 5k file is 10x \texttt{5k\_pbmc\_protein\_v3}, not the pre-specified \texttt{5k\_pbmc\_protein\_v3\_nextgem}. No replacement was used for \texttt{10k\_PBMCs\_TotalSeq\_B\_3p} or the 5$'$ \texttt{vdj\_v1\_hs\_pbmc3}.
+\item Both files were filtered by the totalVI authors (doublet removal, mitochondrial and complexity caps, manually chosen ADT library-size limits, isotype-control removal, gene filtering). These choices cannot be undone. They may raise the agreement compared with unfiltered data.
+\item Genes were mapped from symbols to Ensembl IDs using only the Census 2025-11-08 table. The fraction of matched-track features present was 79.1\% (10k) and 77.2\% (5k) for $F_A$, and 79.2\% and 77.8\% for $F_B$. The fraction of scTab genes present was 66.9\% (10k) and 66.3\% (5k). Absent genes were set to zero, which is not neutral after z-scoring. Differences between methods on these files therefore mix method behaviour with robustness to missing genes.
+\item Donor identity is unknown for both files, so we cannot say whether they come from independent donors. Training overlap with the released models is unknown. Results are descriptive, per file, with no interval and no generalisation or holdout claim. Protein gates are a coarse orthogonal check, not ground truth.
+\item Every CITE result is labelled ``descriptive; replacement inputs (amendment 2026-10-06-approved-protein-replacement)''. Both files were eligible.
+\end{enumerate}
+\noindent Licence: totalVI reproducibility repository: no licence file found (GitHub API, 2026-10-06); terms of the 10x source data not verified by us. The h5ad files, derived query files, ADT tables, per-cell protein classes and per-cell CITE predictions are therefore not redistributed.
+
+\section*{Affiliation, funding and competing interests}
+The author is affiliated with Rewire Bio. Funding and competing-interest statements are to be completed by the author before any submission. The study used publicly released data and models from the groups cited above.
+
+\bibliographystyle{unsrtnat}
+\bibliography{references}
+
+\clearpage
+\appendix
+\section{Additional generated tables}
+
+These tables are generated directly from the recorded outputs. The same conventions apply throughout. Intervals are 95\% donor-bootstrap percentile intervals within the four test studies, conditional on fixed thresholds and one training seed. ``Not attainable'' follows the protocol's OP-err rule. Arm~A and practical-track unknown-false-acceptance entries refer to 20 erythroid cells and must not be compared (Section~\ref{sec:natunk}).
+
+\begin{table}[H]
+\centering
+\caption{Validation thresholds. P2's $\tau_\mathrm{cov}$ is $-\infty$ because its eligible validation coverage cap (0.798) is below 0.90. M3's validation coverage at $\tau_\mathrm{cov}$ exceeds 0.90 because of ties.}
+\label{tab:thresholds}
+\gentable{table_thresholds.tex}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Per-study test values (no interval is computed per study). Pooled values in the main tables weight studies by scorable cell count.}
+\label{tab:perstudy}
+\gentable{table_per_study.tex}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Paired differences against M4 within bootstrap replicates (matched arms against their own arm's M4; practical rows against Arm~A M4, which does not isolate architecture). The \texttt{unknown\_false\_accept} rows for Arm~A and the practical track rest on 20 erythroid cells. Their intervals are degenerate, and the practical rows mostly count correct erythroid calls, so they are not interpreted. P2 OP-cov rows compare an unthresholded model with a thresholded one. M3 OP-cov rows compare different validation coverages.}
+\label{tab:paired}
+\gentable{table_paired_differences.tex}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Calibration. M1 and M2 scores are uncalibrated by design. M3 is vote-share reliability. P1's Brier score and ECE are computed on different probability objects (renormalised versus raw sigmoid). P2 counts \texttt{coarser} predictions as incorrect.}
+\label{tab:calib}
+\gentable{table_calibration.tex}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Practical-track label outcomes after mapping by the frozen label tables.}
+\label{tab:practical}
+\gentable{table_practical_labels.tex}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Platform panel: one donor, one dataset per assay, OP-cov thresholds. Descriptive only, with no interval. Labels came from a CellTypist and Seurat consensus in the original study.}
+\label{tab:platform}
+\gentable{table_platform.tex}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Recorded cell counts by study, role, stratum and label status.}
+\label{tab:counts}
+\gentable{table_cell_counts.tex}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Bootstrap replicates with an undefined value. A count of 1{,}000 for M3 and M6 at OP-err means the operating point was not attainable. A count of 126 for Arm~A and practical unknown false acceptance means those replicates contained no erythroid cell.}
+\label{tab:nan}
+\gentable{table_bootstrap_nan.tex}
+\end{table}
+
+\end{document}
