@@ -15,6 +15,7 @@ import numpy as np
 import pandas as pd
 
 REMOVED_B = ["pDC", "ASC", "MAIT"]
+NATURAL_SCOPE = "natural"
 OBS_COLS = ["soma_joinid", "study", "role", "donor_id", "stratum", "label_status", "target", "assay"]
 
 
@@ -25,7 +26,11 @@ def main():
     ap.add_argument("--matched", nargs="+", required=True, help="ARM=RUN_DIR")
     ap.add_argument("--out", required=True)
     ap.add_argument("--reps", type=int, default=1000)
+    ap.add_argument("--natural-unknown-scope", choices=["natural", "all"], default="natural",
+                    help="D-1a default 'natural' (primary); 'all' reproduces the historical all-strata behaviour")
     args = ap.parse_args()
+    global NATURAL_SCOPE
+    NATURAL_SCOPE = args.natural_unknown_scope
     W, D, OUT = Path(args.workspace), Path(args.data), Path(args.out)
     OUT.mkdir(parents=True, exist_ok=True)
     sys.path.insert(0, str(W / "companion/src"))
@@ -82,6 +87,7 @@ def main():
                 t["p::" + c.split("::", 1)[1]] = rel[c].to_numpy()
         tables[("practical", mid)] = t
 
+    secondary_rows = []
     rows, thr, perclass, calib, rc_rows, platform_rows, unknown_rows = [], [], [], [], [], [], []
     test_mask = (obs.role == "test").to_numpy()
     test_obs = obs[test_mask].reset_index(drop=True)
@@ -117,8 +123,16 @@ def main():
             unk = tt[(tt.label_status == "mapped").to_numpy() & tt.target.isin(REMOVED_B).to_numpy()]
             kind = "simulated"
         else:
-            unk = tt[(tt.label_status == "mapped").to_numpy() & ~tt.target.isin(K).to_numpy()]
-            kind = "natural"
+            # D-1a (protocol/amendments/2026-10-06-approved-resumption.md; protocol.md s6 "natural stratum
+            # only"): primary natural unknowns for Arm A / practical are restricted to the natural stratum.
+            unk_all = tt[(tt.label_status == "mapped").to_numpy() & ~tt.target.isin(K).to_numpy()]
+            unk = unk_all[(unk_all.stratum == "natural").to_numpy()] if NATURAL_SCOPE == "natural" else unk_all
+            kind = "natural" if NATURAL_SCOPE == "natural" else "natural-allstrata"
+            secondary_rows.append({"arm": arm, "method": mid, "analysis": "secondary-sensitivity-all-strata",
+                                   "unknown_cells": int(len(unk_all)),
+                                   "unknown_false_accept@OPcov": E.acceptance(unk_all, tau_cov),
+                                   "unknown_false_accept@OPerr": E.acceptance(unk_all, tau_err),
+                                   "unknown_auroc": E.auroc_known_unknown(tn.conf.to_numpy(), unk_all.conf.to_numpy())})
         res[f"unknown_kind"] = kind
         res["unknown_cells"] = int(len(unk))
         res["unknown_false_accept@OPcov"] = E.acceptance(unk, tau_cov)
@@ -201,6 +215,11 @@ def main():
     pd.concat(rc_rows).to_csv(OUT / "risk_coverage_test.csv", index=False)
     pd.DataFrame(platform_rows).to_csv(OUT / "platform.csv", index=False)
     pd.DataFrame(unknown_rows).to_csv(OUT / "unknowns_test.csv", index=False)
+    # Secondary, pre-specified sensitivity analysis (all strata incl. rare top-up cells); point estimates only.
+    pd.DataFrame(secondary_rows).to_csv(OUT / "unknowns_allstrata_secondary.csv", index=False)
+    json.dump({"natural_unknown_scope": NATURAL_SCOPE, "decision": "D-1a",
+               "amendment": "protocol/amendments/2026-10-06-approved-resumption.md"},
+              open(OUT / "scoring_scope.json", "w"), indent=1)
     pd.DataFrame(diffs).to_csv(OUT / "paired_differences_vs_M4.csv", index=False)
     counts = obs.groupby(["role", "study", "stratum", "label_status"]).size().rename("cells").reset_index()
     counts.to_csv(OUT / "cell_counts.csv", index=False)

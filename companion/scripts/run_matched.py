@@ -21,6 +21,37 @@ import pandas as pd
 REMOVED_B = ["pDC", "ASC", "MAIT"]
 
 
+def sha256_file(p):
+    import hashlib
+    h = hashlib.sha256()
+    with open(p, "rb") as fh:
+        for b in iter(lambda: fh.read(1 << 20), b""):
+            h.update(b)
+    return h.hexdigest()
+
+
+def relocate_scanvi_dir(model_dir, expected_hashes_path, info):
+    """Load the scANVI checkpoint from the supplied model dir, never from the pickled absolute path.
+
+    Records sha256 of every checkpoint file; if an expected-hash JSON is given, any mismatch or
+    missing file is a hard error (deterministic failure)."""
+    sdir = Path(model_dir) / "scanvi"
+    if not sdir.is_dir():
+        raise FileNotFoundError(f"scanvi checkpoint dir missing under supplied model dir: {sdir}")
+    got = {str(p.relative_to(sdir)): sha256_file(p) for p in sorted(sdir.rglob("*")) if p.is_file()}
+    info["scanvi_dir_used"] = str(sdir)
+    info["scanvi_sha256"] = got
+    if expected_hashes_path:
+        exp = json.load(open(expected_hashes_path))
+        bad = {k: (v, got.get(k)) for k, v in exp.items() if got.get(k) != v}
+        if bad:
+            raise RuntimeError(f"scanvi checkpoint hash mismatch: {bad}")
+        info["scanvi_hashes_verified"] = True
+    else:
+        info["scanvi_hashes_verified"] = False
+    return sdir
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--workspace", required=True)
@@ -32,6 +63,8 @@ def main():
     ap.add_argument("--model-dir", default=None, help="predict: load model.pkl from here (default: --out)")
     ap.add_argument("--fixed-c", type=float, default=None, help="smoke tests only: skip validation C choice")
     ap.add_argument("--queries", default="", help="comma-separated study names (default: all query files)")
+    ap.add_argument("--expected-hashes", default=None,
+                    help="predict M6: JSON {relative_path: sha256} for files under MODEL_DIR/scanvi (verified)")
     args = ap.parse_args()
     W, D, OUT = Path(args.workspace), Path(args.data), Path(args.out)
     OUT.mkdir(parents=True, exist_ok=True)
@@ -82,8 +115,13 @@ def main():
             model = models[best]
         M.save(model, OUT / "model.pkl")
     else:
-        model = M.load(Path(args.model_dir or OUT) / "model.pkl")
-        info["model_dir"] = str(Path(args.model_dir or OUT))
+        mdir = Path(args.model_dir or OUT).resolve()
+        model = M.load(mdir / "model.pkl")
+        info["model_dir"] = str(mdir)
+        info["model_pkl_sha256"] = sha256_file(mdir / "model.pkl")
+        if hasattr(model, "dir"):  # M6 ScanviTransfer pickles an absolute checkpoint path from fit time
+            info["scanvi_dir_pickled"] = str(model.dir)
+            model.dir = str(relocate_scanvi_dir(mdir, args.expected_hashes, info))
         want = [q for q in args.queries.split(",") if q]
         per = {}
         for p in sorted(D.glob("query_*_F.h5ad")):
