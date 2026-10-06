@@ -1,0 +1,842 @@
+{
+  "schema_version": 1,
+  "manuscript": "paper/main.tex",
+  "run_id": "29879296d87343898100c190308744a1",
+  "run_status": "recorded Mode R recovery (comparison_manifest.json fresh_execution=false); independent clean reproduction (Mode F) pending; nothing here is verified or reproduced",
+  "conventions": {
+    "pointer": "RFC 6901 JSON pointer into the named JSON file; CSV evidence uses {row: column filters, column: name}",
+    "rendered": "text as it appears in the manuscript (macros render 3 decimals for metrics, 4 for thresholds)",
+    "interval_wording": "95% donor-bootstrap percentile interval within the four test studies (1,000 replicates), conditional on fixed validation thresholds and a single training seed; not generalisation to new studies",
+    "kinds": {
+      "measured": "value recorded by the run",
+      "derived": "arithmetic on recorded values, shown in 'derivation'",
+      "literature": "statement from a source in literature/sources.json",
+      "provenance": "run/acquisition record",
+      "interpretation": "author interpretation; limits stated"
+    }
+  },
+  "claims": [
+    {
+      "id": "C001",
+      "section": "Abstract; Design 2.2",
+      "kind": "measured",
+      "claim": "32 test donors were scored; bootstrap used 1,000 replicates with seed 20261005.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/score_info/test_donors", "value": 32},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/score_info/reps", "value": 1000},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/score_info/seed", "value": 20261005}
+      ],
+      "rendered": ["32", "1{,}000"],
+      "limitations": "Per-study donor counts are not in the evidence bundle and are not inferred from cell caps."
+    },
+    {
+      "id": "C002",
+      "section": "Abstract; Design 2.6",
+      "kind": "measured",
+      "claim": "Scorable natural-stratum test cells: 19,018 in Arm A and practical track; 18,628 in Arm B.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M4/test_scorable_natural", "value": 19018.0},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P1/test_scorable_natural", "value": 19018.0},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M4/test_scorable_natural", "value": 18628.0}
+      ],
+      "rendered": ["19{,}018", "18{,}628"],
+      "limitations": "Cells are reported for scale only and are never the unit of uncertainty."
+    },
+    {
+      "id": "C003",
+      "section": "Design 2.7",
+      "kind": "derived",
+      "claim": "Arm A scorable cells per study: HIHA 7,042, RA 7,200, JDM 3,000, Glaucoma 1,776; HIHA and RA contribute 75% of the pooled weight.",
+      "evidence": [
+        {"file": "evidence/results-29879296/score/per_study_test.csv", "row": {"arm": "A", "method": "M4", "study": "HIHA"}, "column": "cells", "value": 7042.0},
+        {"file": "evidence/results-29879296/score/per_study_test.csv", "row": {"arm": "A", "method": "M4", "study": "RA"}, "column": "cells", "value": 7200.0},
+        {"file": "evidence/results-29879296/score/per_study_test.csv", "row": {"arm": "A", "method": "M4", "study": "JDM"}, "column": "cells", "value": 3000.0},
+        {"file": "evidence/results-29879296/score/per_study_test.csv", "row": {"arm": "A", "method": "M4", "study": "Glaucoma"}, "column": "cells", "value": 1776.0}
+      ],
+      "derivation": "(7042 + 7200) / 19018 = 0.7489",
+      "rendered": ["7{,}042", "7{,}200", "3{,}000", "1{,}776", "75\\%"],
+      "limitations": "Pooled metrics are cell-weighted; per-study values are shown alongside."
+    },
+    {
+      "id": "C004",
+      "section": "Design 2.5",
+      "kind": "measured",
+      "claim": "Validation cells used for thresholds: 13,163 (Arm A and practical) and 12,193 (Arm B); both strata are included.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/thresholds_validation/arm=A|method=M4/validation_cells", "value": 13163.0},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/thresholds_validation/arm=B|method=M4/validation_cells", "value": 12193.0}
+      ],
+      "rendered": ["13{,}163", "12{,}193"],
+      "limitations": "Inclusion of the rare top-up stratum in validation is an implementation fact reported by the methods review (protocol/completed-run-methods-review.md M4)."
+    },
+    {
+      "id": "C005",
+      "section": "Design 2.3",
+      "kind": "measured",
+      "claim": "Arm A macro-F1 averages 11 classes; HSPC (17), ILC (17) and platelet/MK (16) natural test cells fell below the 20-cell cut-off; Arm B averages 8 classes.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M4/f1_classes", "value": 11.0},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M4/f1_classes", "value": 8.0},
+        {"file": "evidence/results-29879296/score/per_class_test.csv", "row": {"arm": "A", "method": "M4", "class": "HSPC"}, "column": "n_natural", "value": 17},
+        {"file": "evidence/results-29879296/score/per_class_test.csv", "row": {"arm": "A", "method": "M4", "class": "ILC"}, "column": "n_natural", "value": 17},
+        {"file": "evidence/results-29879296/score/per_class_test.csv", "row": {"arm": "A", "method": "M4", "class": "platelet/MK"}, "column": "n_natural", "value": 16}
+      ],
+      "rendered": ["11", "17", "16", "8"],
+      "limitations": "Arm A and Arm B macro-F1 are not comparable."
+    },
+    {
+      "id": "C006",
+      "section": "Abstract; Results 3.1",
+      "kind": "measured",
+      "claim": "Arm A closed-set macro-F1: M4 0.694 [0.669, 0.716]; M3 0.692; M6 0.692; M5 0.688; M2 0.629; M1 0.497.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M4/macro_f1_closed", "value": 0.6943348958883646},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M4/macro_f1_closed_ci95_lo", "value": 0.6690405232332585},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M4/macro_f1_closed_ci95_hi", "value": 0.715535085619178},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M3/macro_f1_closed", "value": 0.6920678546703148},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M6/macro_f1_closed", "value": 0.6922775402552779},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M5/macro_f1_closed", "value": 0.6881608132674075},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M2/macro_f1_closed", "value": 0.6285701263762582},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M1/macro_f1_closed", "value": 0.49686171921607214}
+      ],
+      "rendered": ["0.694 [0.669, 0.716]", "0.692", "0.692", "0.688", "0.629", "0.497"],
+      "limitations": "Agreement with author labels mapped to the Cell Ontology; no adjudication; interval wording per conventions."
+    },
+    {
+      "id": "C007",
+      "section": "Abstract; Results 3.1",
+      "kind": "measured",
+      "claim": "Paired macro-F1 differences against M4 include zero for M3, M5 and M6; M2 and M1 are lower.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/paired_differences_vs_M4/arm=A|method=M3|vs=A:M4|metric=macro_f1_closed", "value": {"mean_diff": -0.0021464112186287765, "ci95_lo": -0.010905601208265295, "ci95_hi": 0.006987943814143639}},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/paired_differences_vs_M4/arm=A|method=M5|vs=A:M4|metric=macro_f1_closed", "value": {"mean_diff": -0.006074573081205324, "ci95_lo": -0.014267743565659213, "ci95_hi": 0.0020287219964541456}},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/paired_differences_vs_M4/arm=A|method=M6|vs=A:M4|metric=macro_f1_closed", "value": {"mean_diff": -0.002376178400736296, "ci95_lo": -0.015434513077548897, "ci95_hi": 0.012396713480341777}},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/paired_differences_vs_M4/arm=A|method=M2|vs=A:M4|metric=macro_f1_closed", "value": {"mean_diff": -0.0655813641400533, "ci95_lo": -0.07742343541440058, "ci95_hi": -0.053306681686710676}},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/paired_differences_vs_M4/arm=A|method=M1|vs=A:M4|metric=macro_f1_closed", "value": {"mean_diff": -0.19671811059005664, "ci95_lo": -0.2125579378301618, "ci95_hi": -0.17921837122599285}}
+      ],
+      "rendered": ["-0.002 [-0.011, 0.007]", "-0.006 [-0.014, 0.002]", "-0.002 [-0.015, 0.012]", "-0.066 [-0.077, -0.053]", "-0.197 [-0.213, -0.179]"],
+      "limitations": "Within-study donor bootstrap, fixed thresholds, one seed. No architecture causality; M4 is the protocol comparator, not a winner."
+    },
+    {
+      "id": "C008",
+      "section": "Results 3.1",
+      "kind": "measured",
+      "claim": "Practical track closed-set macro-F1 vs Arm A M4: P1 -0.077 [-0.094, -0.060]; P2 -0.010 [-0.023, 0.003].",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/paired_differences_vs_M4/arm=practical|method=P1|vs=A:M4|metric=macro_f1_closed", "value": {"mean_diff": -0.07682485454934816, "ci95_lo": -0.09446033614319417, "ci95_hi": -0.060051290444516986}},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/paired_differences_vs_M4/arm=practical|method=P2|vs=A:M4|metric=macro_f1_closed", "value": {"mean_diff": -0.010054406488166521, "ci95_lo": -0.022992580561820304, "ci95_hi": 0.002673985478074935}}
+      ],
+      "rendered": ["-0.077 [-0.094, -0.060]", "-0.010 [-0.023, 0.003]"],
+      "limitations": "Released models as distributed and mapped by frozen label tables; differences mix training data, label sets, gene spaces and mapping; no architecture claim."
+    },
+    {
+      "id": "C009",
+      "section": "Results 3.1",
+      "kind": "measured",
+      "claim": "P1 gamma-delta T closed-set recall was 0.015 while P1's coarser fraction was 0.0016 (rendered 0.002).",
+      "evidence": [
+        {"file": "evidence/results-29879296/score/per_class_test.csv", "row": {"arm": "practical", "method": "P1", "class": "gamma-delta T"}, "column": "recall_closed_set", "value": 0.0145413870246085},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P1/coarser_fraction", "value": 0.0015774529393206436}
+      ],
+      "rendered": ["0.015", "0.002"],
+      "limitations": "Attribution to label mapping is interpretation consistent with the numbers; not tested further."
+    },
+    {
+      "id": "C010",
+      "section": "Abstract; Results 3.1",
+      "kind": "measured",
+      "claim": "Per-study M4 at OP-cov: HIHA error 0.021, coverage 0.940, macro-F1 0.942; JDM 0.056, 0.906, 0.886; Glaucoma 0.144, 0.847, 0.707; RA 0.179, 0.651, 0.518.",
+      "evidence": [
+        {"file": "evidence/results-29879296/score/per_study_test.csv", "row": {"arm": "A", "method": "M4", "study": "HIHA"}, "columns": {"accepted_error@OPcov": 0.021456633423995165, "coverage@OPcov": 0.9397898324339676, "macro_f1_closed": 0.9418683026933464}},
+        {"file": "evidence/results-29879296/score/per_study_test.csv", "row": {"arm": "A", "method": "M4", "study": "JDM"}, "columns": {"accepted_error@OPcov": 0.055944055944055944, "coverage@OPcov": 0.9056666666666666, "macro_f1_closed": 0.8857794137492437}},
+        {"file": "evidence/results-29879296/score/per_study_test.csv", "row": {"arm": "A", "method": "M4", "study": "Glaucoma"}, "columns": {"accepted_error@OPcov": 0.14352159468438538, "coverage@OPcov": 0.8474099099099099, "macro_f1_closed": 0.7073430673608798}},
+        {"file": "evidence/results-29879296/score/per_study_test.csv", "row": {"arm": "A", "method": "M4", "study": "RA"}, "columns": {"accepted_error@OPcov": 0.1785028790786948, "coverage@OPcov": 0.65125, "macro_f1_closed": 0.5178155318640164}}
+      ],
+      "rendered": ["0.021", "0.940", "0.942", "0.056", "0.906", "0.886", "0.144", "0.847", "0.707", "0.179", "0.651", "0.518"],
+      "limitations": "No per-study interval is computed. Reason for low RA agreement untested."
+    },
+    {
+      "id": "C011",
+      "section": "Results 3.1",
+      "kind": "derived",
+      "claim": "The M4 per-study accepted-error range (0.157) is almost nine times the width of the pooled interval [0.078, 0.096].",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M4/accepted_error@OPcov_ci95_lo", "value": 0.07831446453928947},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M4/accepted_error@OPcov_ci95_hi", "value": 0.09612046983093023}
+      ],
+      "derivation": "range 0.1785028790786948 - 0.021456633423995165 = 0.1570; width 0.0961205 - 0.0783145 = 0.0178; ratio 8.8",
+      "rendered": ["0.157", "almost nine times"],
+      "limitations": "Descriptive comparison of spread; no study-level inference."
+    },
+    {
+      "id": "C012",
+      "section": "Results 3.1",
+      "kind": "measured",
+      "claim": "On closed-set macro-F1 every method in both arms and both tracks scored highest on HIHA and lowest on RA; RA macro-F1 ranged from 0.353 (M1) to 0.518 (M4) in Arm A.",
+      "evidence": [
+        {"file": "evidence/results-29879296/score/per_study_test.csv", "row": {"study": "HIHA|RA|JDM|Glaucoma", "arm": "A|B|practical"}, "column": "macro_f1_closed", "value": "all 14 arm/method rows: HIHA max, RA min (checked by hand from the CSV)"},
+        {"file": "evidence/results-29879296/score/per_study_test.csv", "row": {"arm": "A", "method": "M1", "study": "RA"}, "column": "macro_f1_closed", "value": 0.35296180674083916}
+      ],
+      "rendered": ["0.353", "0.518"],
+      "limitations": "Only 'lower agreement with RA author labels' is claimed."
+    },
+    {
+      "id": "C013",
+      "section": "Results 3.1; Limitations",
+      "kind": "literature",
+      "claim": "HIHA expert annotation was guided by CellTypist Immune_All models and Seurat label transfer.",
+      "source_id": "27",
+      "bibkey": "gong2025hiha",
+      "doi": "10.1038/s41586-025-09686-5",
+      "location": "literature research.md: 27-paper-hiha-nature2025:136 (expert step :145)",
+      "retrieved_at": "2026-10-05",
+      "limitations": "Which Seurat reference guided labels is unverified; final Census label provenance not verified."
+    },
+    {
+      "id": "C014",
+      "section": "Results 3.1",
+      "kind": "interpretation",
+      "claim": "P1's HIHA macro-F1 (0.842) was below M4's (0.942), so the recorded numbers show no obvious P1 advantage on HIHA; circularity is not ruled out.",
+      "evidence": [
+        {"file": "evidence/results-29879296/score/per_study_test.csv", "row": {"arm": "practical", "method": "P1", "study": "HIHA"}, "column": "macro_f1_closed", "value": 0.8420129324028495},
+        {"file": "evidence/results-29879296/score/per_study_test.csv", "row": {"arm": "A", "method": "M4", "study": "HIHA"}, "column": "macro_f1_closed", "value": 0.9418683026933464}
+      ],
+      "rendered": ["0.842", "0.942"],
+      "limitations": "No interval; does not test circularity."
+    },
+    {
+      "id": "C015",
+      "section": "Abstract; Results 3.2",
+      "kind": "measured",
+      "claim": "At OP-cov, Arm A test coverage ranged from 0.798 (M5) to 0.886 (M3); no method in any arm or track reached 0.900 (max Arm B 0.829, P1 0.883).",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M5/coverage@OPcov", "value": 0.7982963508255337},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M3/coverage@OPcov", "value": 0.8862656430749816},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M1/coverage@OPcov", "value": 0.8291818767446855},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P1/coverage@OPcov", "value": 0.8829529919024083}
+      ],
+      "rendered": ["0.798", "0.886"],
+      "limitations": "OP-cov is the threshold that accepted 90% of validation cells; test coverage is a transfer result."
+    },
+    {
+      "id": "C016",
+      "section": "Abstract; Results 3.2",
+      "kind": "measured",
+      "claim": "M4 at OP-cov: coverage 0.817 [0.776, 0.855], accepted error 0.087 [0.078, 0.096]; validation error at threshold 0.145.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M4/coverage@OPcov", "value": 0.8165422231570092},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M4/coverage@OPcov_ci95_lo", "value": 0.7757616862654686},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M4/coverage@OPcov_ci95_hi", "value": 0.8554530948400497},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M4/accepted_error@OPcov", "value": 0.08674093631270526},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/thresholds_validation/arm=A|method=M4/validation_error_at_tau_cov", "value": 0.14510002532286656}
+      ],
+      "rendered": ["0.817 [0.776, 0.855]", "0.087 [0.078, 0.096]", "0.145"],
+      "limitations": "Interval wording per conventions; thresholds fixed."
+    },
+    {
+      "id": "C017",
+      "section": "Results 3.2",
+      "kind": "measured",
+      "claim": "M5 OP-cov coverage 0.798, error 0.089; paired coverage diff -0.018 [-0.028, -0.008], error diff 0.002 [-0.002, 0.006]. M6 coverage 0.883, error 0.115.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M5/accepted_error@OPcov", "value": 0.08898695824002108},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/paired_differences_vs_M4/arm=A|method=M5|vs=A:M4|metric=coverage@OPcov", "value": {"mean_diff": -0.01792956393957138, "ci95_lo": -0.027674959599971773, "ci95_hi": -0.008248953521251679}},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/paired_differences_vs_M4/arm=A|method=M5|vs=A:M4|metric=accepted_error@OPcov", "value": {"mean_diff": 0.0022531761154532433, "ci95_lo": -0.001732638105750084, "ci95_hi": 0.005910261161625385}},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M6/coverage@OPcov", "value": 0.8829004101377642},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M6/accepted_error@OPcov", "value": 0.11506164016437377}
+      ],
+      "rendered": ["0.798", "0.089", "-0.018 [-0.028, -0.008]", "0.002 [-0.002, 0.006]", "0.883", "0.115"],
+      "limitations": "Trade-offs at fixed thresholds; no winner claimed."
+    },
+    {
+      "id": "C018",
+      "section": "Design 2.5; Results 3.2",
+      "kind": "measured",
+      "claim": "M3 validation coverage at tau_cov was 0.943 (Arm A) and 0.924 (Arm B); M3 test coverage 0.886, error 0.123; paired error diff vs M4 0.036 [0.028, 0.044] compares different coverages.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/thresholds_validation/arm=A|method=M3/validation_coverage_at_tau_cov", "value": 0.9434019600395047},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/thresholds_validation/arm=B|method=M3/validation_coverage_at_tau_cov", "value": 0.9241367998031658},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M3/accepted_error@OPcov", "value": 0.12299021061999407},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/paired_differences_vs_M4/arm=A|method=M3|vs=A:M4|metric=accepted_error@OPcov", "value": {"mean_diff": 0.0363584720492363, "ci95_lo": 0.028320210799574853, "ci95_hi": 0.044075872376561166}}
+      ],
+      "rendered": ["0.943", "0.924", "0.886", "0.123", "0.036 [0.028, 0.044]"],
+      "limitations": "The 16-value vote-share confidence and >= threshold rule (methods review B3) explain the excess validation coverage; not like-for-like."
+    },
+    {
+      "id": "C019",
+      "section": "Design 2.5; Results 3.2",
+      "kind": "measured",
+      "claim": "P2 has no OP-cov threshold: eligible validation cap 0.798 < 0.90, tau_cov serialised null (CSV -inf); at OP-cov P2 accepts all fine-level labels: coverage 0.847, error 0.159, coarser fraction 0.153; paired coverage diff vs M4 +0.031.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/thresholds_validation/arm=practical|method=P2/eligible_cap_validation", "value": 0.7983742307984502},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/thresholds_validation/arm=practical|method=P2/tau_cov", "value": null},
+        {"file": "evidence/results-29879296/protein/protein_agreement.csv", "row": {"file": "totalvi_pbmc10k_protein_v3", "method": "P2"}, "column": "tau_cov", "value": "-inf"},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P2/coverage@OPcov", "value": 0.8470922284151856},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P2/accepted_error@OPcov", "value": 0.15934202358783364},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P2/coarser_fraction", "value": 0.1529077715848144},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/paired_differences_vs_M4/arm=practical|method=P2|vs=A:M4|metric=coverage@OPcov", "value": {"mean_diff": 0.0305501127243042, "ci95_lo": 0.014641101658344268, "ci95_hi": 0.047774709761142724}}
+      ],
+      "rendered": ["0.798", "0.847", "0.159", "0.153", "0.031"],
+      "limitations": "P2 OP-cov describes no abstention; its 'unassigned' part is coarser labels; the paired coverage difference compares an unthresholded with a thresholded model."
+    },
+    {
+      "id": "C020",
+      "section": "Results 3.2",
+      "kind": "measured",
+      "claim": "P1 at OP-cov: coverage 0.883, accepted error 0.146.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P1/coverage@OPcov", "value": 0.8829529919024083},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P1/accepted_error@OPcov", "value": 0.14560505002382088}
+      ],
+      "rendered": ["0.883", "0.146"],
+      "limitations": "Practical track; no architecture claim."
+    },
+    {
+      "id": "C021",
+      "section": "Results 3.3",
+      "kind": "measured",
+      "claim": "At OP-err: M2 coverage 0.416 / error 0.032; P1 0.372 / 0.034; M5 0.065 / 0.010; M4 0.044 / 0.000 [0.000, 0.000]; M1 error 0.164 [0.109, 0.227] (target missed); P2 coverage 0.002 / error 0.043.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M2/coverage@OPerr", "value": 0.4164475759806499},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M2/accepted_error@OPerr", "value": 0.03232323232323232},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P1/coverage@OPerr", "value": 0.3715953307392996},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P1/accepted_error@OPerr", "value": 0.034243667751521156},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M5/coverage@OPerr", "value": 0.06457040698285835},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M5/accepted_error@OPerr", "value": 0.009771986970684038},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M4/coverage@OPerr", "value": 0.04448417288884215},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M4/accepted_error@OPerr", "value": 0.0},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M1/accepted_error@OPerr", "value": 0.16386670338749657},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P2/coverage@OPerr", "value": 0.002471342938269008},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P2/accepted_error@OPerr", "value": 0.0425531914893617}
+      ],
+      "rendered": ["0.416", "0.032", "0.372", "0.034", "0.065", "0.010", "0.044", "0.000", "0.164 [0.109, 0.227]", "0.002", "0.043"],
+      "limitations": "Threshold transfer at fixed thresholds, not a method property. P2 OP-err interval [0.0, 0.104] is not quoted (too few cells)."
+    },
+    {
+      "id": "C022",
+      "section": "Results 3.3",
+      "kind": "derived",
+      "claim": "P2 kept about 47 cells at OP-err and accepted no RA cells (RA accepted error undefined).",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P2/coverage@OPerr", "value": 0.002471342938269008},
+        {"file": "evidence/results-29879296/score/per_study_test.csv", "row": {"arm": "practical", "method": "P2", "study": "RA"}, "columns": {"coverage@OPerr": 0.0, "accepted_error@OPerr": "blank"}}
+      ],
+      "derivation": "0.002471342938269008 x 19018 = 47.0",
+      "rendered": ["about 47 cells"],
+      "limitations": "Near-degenerate operating point."
+    },
+    {
+      "id": "C023",
+      "section": "Results 3.3",
+      "kind": "measured",
+      "claim": "OP-err is not attainable for M3 and M6 in both arms (tau_err null; 1,000/1,000 NaN replicates).",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/thresholds_validation/arm=A|method=M3/tau_err", "value": null},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/thresholds_validation/arm=A|method=M6/tau_err", "value": null},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/thresholds_validation/arm=B|method=M3/tau_err", "value": null},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/thresholds_validation/arm=B|method=M6/tau_err", "value": null},
+        {"file": "evidence/results-29879296/score/bootstrap_nan_counts.csv", "row": {"arm": "A", "method": "M3", "metric": "coverage@OPerr"}, "column": "nan_replicates", "value": 1000}
+      ],
+      "rendered": ["not attainable"],
+      "limitations": "Protocol wording; not missing data."
+    },
+    {
+      "id": "C024",
+      "section": "Results 3.3",
+      "kind": "measured",
+      "claim": "M4 and P2 OP-err thresholds sit at the probability ceiling (0.99998 and 0.99992).",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/thresholds_validation/arm=A|method=M4/tau_err", "value": 0.9999833513992924},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/thresholds_validation/arm=practical|method=P2/tau_err", "value": 0.9999151229858398}
+      ],
+      "rendered": ["0.99998", "0.99992"],
+      "limitations": "Generated macro renders these as 1.0000 and 0.9999; text uses five decimals."
+    },
+    {
+      "id": "C025",
+      "section": "Results 3.3",
+      "kind": "measured",
+      "claim": "Paired M2 - M4 coverage difference at OP-err: 0.373 [0.339, 0.409].",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/paired_differences_vs_M4/arm=A|method=M2|vs=A:M4|metric=coverage@OPerr", "value": {"mean_diff": 0.37278922664746644, "ci95_lo": 0.33881161389872433, "ci95_hi": 0.40914024524390696}}
+      ],
+      "rendered": ["0.373 [0.339, 0.409]"],
+      "limitations": "Real difference at these fixed thresholds; not evidence that centroid classification is generally safer."
+    },
+    {
+      "id": "C026",
+      "section": "Results 3.4",
+      "kind": "measured",
+      "claim": "risk@0.80: M4 0.083, M6 0.085, M5 0.090, M3 0.104, P1 0.117, P2 0.137, M2 0.174, M1 0.370.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M4/risk@0.80", "value": 0.08261583963194216},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M6/risk@0.80", "value": 0.08537627341439369},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M5/risk@0.80", "value": 0.08958264870193888},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M3/risk@0.80", "value": 0.10417351298061124},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P1/risk@0.80", "value": 0.11712126191258626},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P2/risk@0.80", "value": 0.1369043706868222},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M2/risk@0.80", "value": 0.1744988498192573},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M1/risk@0.80", "value": 0.3702924745317121}
+      ],
+      "rendered": ["0.083", "0.085", "0.090", "0.104", "0.117", "0.137", "0.174", "0.370"],
+      "limitations": "No interval. M3 value includes an arbitrary row-order component within tie blocks; not ranked."
+    },
+    {
+      "id": "C027",
+      "section": "Results 3.4",
+      "kind": "measured",
+      "claim": "AURC truncates at max coverage: P2 max coverage 0.847, AURC 0.049; P1 max coverage 0.998; M4 AURC 0.047, M6 0.049, M3 0.065; P2 risk at >=0.90 and P1 at 1.00 are not reachable (null).",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P2/max_coverage", "value": 0.8470922284151856},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P2/aurc", "value": 0.04883873394941737},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P1/max_coverage", "value": 0.9984225470606793},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M4/aurc", "value": 0.047403315590287085},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M6/aurc", "value": 0.049497623969754795},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M3/aurc", "value": 0.065352788288535},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P2/risk@0.90", "value": null},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P1/risk@1.00", "value": null}
+      ],
+      "rendered": ["0.847", "0.049", "0.998", "0.047", "0.049", "0.065"],
+      "limitations": "AURC = mean risk x final coverage (evaluate.aurc, per methods review B2); P2 AURC not comparable; no AURC/risk ranking of M3."
+    },
+    {
+      "id": "C028",
+      "section": "Design 2.5; Results 3.4",
+      "kind": "provenance",
+      "claim": "M3 confidence takes 16 values; thresholds accept conf >= tau; risk-coverage uses a stable argsort without tie averaging, so within-tie order follows input (study) order.",
+      "source": "protocol/completed-run-methods-review.md B3 (reading of companion/src/celltransfer/evaluate.py, sha256 e5fae4e8...)",
+      "limitations": "Code reading reported by the methods reviewer; not re-read by the paper author. Tie effects on other methods with saturated probabilities were not checked."
+    },
+    {
+      "id": "C029",
+      "section": "Results 3.5",
+      "kind": "measured",
+      "claim": "Arm B simulated unknowns: ASC 815, MAIT 748, pDC 747 (2,310 cells); 390 are natural-stratum (83% top-up).",
+      "evidence": [
+        {"file": "evidence/results-29879296/score/unknowns_test.csv", "row": {"arm": "B", "method": "M4", "class": "ASC"}, "column": "cells", "value": 815},
+        {"file": "evidence/results-29879296/score/unknowns_test.csv", "row": {"arm": "B", "method": "M4", "class": "MAIT"}, "column": "cells", "value": 748},
+        {"file": "evidence/results-29879296/score/unknowns_test.csv", "row": {"arm": "B", "method": "M4", "class": "pDC"}, "column": "cells", "value": 747},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M4/unknown_cells", "value": 2310.0}
+      ],
+      "derivation": "natural = 19018 - 18628 = 390 (= 154 ASC + 177 MAIT + 59 pDC natural cells in per_class_test.csv); top-up share = 1920/2310 = 0.831",
+      "rendered": ["815", "748", "747", "2{,}310", "390", "83\\%"],
+      "limitations": "Pooled false acceptance weights classes by sampling design."
+    },
+    {
+      "id": "C030",
+      "section": "Abstract; Results 3.5",
+      "kind": "measured",
+      "claim": "Arm B false acceptance at OP-cov: M4 0.659 [0.632, 0.687], M1 0.734, M2 0.804, M5 0.834, M6 0.890, M3 0.892.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M4/unknown_false_accept@OPcov", "value": 0.6588744588744588},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M4/unknown_false_accept@OPcov_ci95_lo", "value": 0.6315422639250755},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M4/unknown_false_accept@OPcov_ci95_hi", "value": 0.6870905965566635},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M1/unknown_false_accept@OPcov", "value": 0.7337662337662337},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M2/unknown_false_accept@OPcov", "value": 0.8043290043290043},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M5/unknown_false_accept@OPcov", "value": 0.8337662337662337},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M6/unknown_false_accept@OPcov", "value": 0.8896103896103896},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M3/unknown_false_accept@OPcov", "value": 0.8922077922077922}
+      ],
+      "rendered": ["0.659 [0.632, 0.687]", "0.734", "0.804", "0.834", "0.890", "0.892"],
+      "limitations": "Three near-neighbour classes only; no generalisation to novel cell types."
+    },
+    {
+      "id": "C031",
+      "section": "Results 3.5",
+      "kind": "measured",
+      "claim": "Arm B known-vs-removed AUROC: M4 0.650, M1 0.643, M2 0.574, M6 0.496, M3 0.468, M5 0.443 (three below 0.5).",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M4/unknown_auroc", "value": 0.650301180460081},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M1/unknown_auroc", "value": 0.6426906453720926},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M2/unknown_auroc", "value": 0.5739793677441305},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M6/unknown_auroc", "value": 0.4961747757646405},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M3/unknown_auroc", "value": 0.4676400187029347},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M5/unknown_auroc", "value": 0.44264025109526506}
+      ],
+      "rendered": ["0.650", "0.643", "0.574", "0.496", "0.468", "0.443"],
+      "limitations": "No interval recorded for AUROC."
+    },
+    {
+      "id": "C032",
+      "section": "Results 3.5 (Table armb)",
+      "kind": "measured",
+      "claim": "Most frequent predicted labels for removed types are near neighbours (e.g. M4: ASC->B 0.899, MAIT->gamma-delta T 0.639 / CD8 T 0.277, pDC->cDC 0.712); M6 pDC->HSPC 0.959.",
+      "evidence": [
+        {"file": "evidence/results-29879296/score/unknowns_test.csv", "row": {"arm": "B"}, "column": "top_predictions", "value": "M1 ASC ILC .269, MAIT CD8 T .305, pDC cDC .767; M2 B .81, gd .929, B .451; M3 B .866, gd .914, cDC .854; M4 B .899, gd .639 (CD8 T .277), cDC .712; M5 B .852, gd .595, cDC .497; M6 B .639, gd .797, HSPC .959"}
+      ],
+      "rendered": ["table entries with three decimals", "96%"],
+      "limitations": "Fractions of each class's cells; no interval."
+    },
+    {
+      "id": "C033",
+      "section": "Results 3.5",
+      "kind": "measured",
+      "claim": "At M4's Arm B OP-err threshold 0.002 of removed-type cells were accepted, at known-cell coverage 0.084.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M4/unknown_false_accept@OPerr", "value": 0.0021645021645021645},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M4/coverage@OPerr", "value": 0.08422804380502469}
+      ],
+      "rendered": ["0.002", "0.084"],
+      "limitations": "Threshold sits at probability ceiling; near-degenerate."
+    },
+    {
+      "id": "C034",
+      "section": "Results 3.5 (Arm B M6 paragraph)",
+      "kind": "measured",
+      "claim": "Arm B M6 vs Arm A M6: accepted error 0.115 -> 0.211; cross-lineage rate 0.063 -> 0.160; RA error 0.220 -> 0.516; CD4 T recall 0.922 -> 0.614; CD8 T 0.731 -> 0.572; ECE 0.134 -> 0.249; HSPC/ILC precision ~0.003.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M6/accepted_error@OPcov", "value": 0.11506164016437377},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M6/accepted_error@OPcov", "value": 0.2107098217222551},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M6/cross_lineage_rate@OPcov", "value": 0.06348639151926627},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M6/cross_lineage_rate@OPcov", "value": 0.16012104466811394},
+        {"file": "evidence/results-29879296/score/per_study_test.csv", "row": {"arm": "A", "method": "M6", "study": "RA"}, "column": "accepted_error@OPcov", "value": 0.2200245055137406},
+        {"file": "evidence/results-29879296/score/per_study_test.csv", "row": {"arm": "B", "method": "M6", "study": "RA"}, "column": "accepted_error@OPcov", "value": 0.5156110615521855},
+        {"file": "evidence/results-29879296/score/per_class_test.csv", "row": {"arm": "A", "method": "M6", "class": "CD4 T"}, "column": "recall_closed_set", "value": 0.9217951836536122},
+        {"file": "evidence/results-29879296/score/per_class_test.csv", "row": {"arm": "B", "method": "M6", "class": "CD4 T"}, "column": "recall_closed_set", "value": 0.6143274142544393},
+        {"file": "evidence/results-29879296/score/per_class_test.csv", "row": {"arm": "A", "method": "M6", "class": "CD8 T"}, "column": "recall_closed_set", "value": 0.7310461668784414},
+        {"file": "evidence/results-29879296/score/per_class_test.csv", "row": {"arm": "B", "method": "M6", "class": "CD8 T"}, "column": "recall_closed_set", "value": 0.5717916137229987},
+        {"file": "evidence/results-29879296/score/calibration_test.csv", "row": {"arm": "A", "method": "M6"}, "column": "ece", "value": 0.13357975373340591},
+        {"file": "evidence/results-29879296/score/calibration_test.csv", "row": {"arm": "B", "method": "M6"}, "column": "ece", "value": 0.24867098029268542},
+        {"file": "evidence/results-29879296/score/per_class_test.csv", "row": {"arm": "B", "method": "M6", "class": "HSPC"}, "column": "precision_natural", "value": 0.0028763183125599234},
+        {"file": "evidence/results-29879296/score/per_class_test.csv", "row": {"arm": "B", "method": "M6", "class": "ILC"}, "column": "precision_natural", "value": 0.0028328611898017}
+      ],
+      "rendered": ["0.115", "0.211", "0.063", "0.160", "0.220", "0.516", "0.922", "0.614", "0.731", "0.572", "0.134", "0.249", "about 0.003"],
+      "limitations": "Arm A M6 is a cached historical fit; Arm B M6 was fitted in recovery run 6ef42791... and adopted; single seed per arm; cannot be attributed to class removal."
+    },
+    {
+      "id": "C035",
+      "section": "Results 3.5",
+      "kind": "measured",
+      "claim": "Arm B M4 macro-F1 0.758 vs Arm A 0.694 (not comparable; 8 vs 11 classes); Arm A ASC closed-set recall about 0.35 (M4 0.353).",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=B|method=M4/macro_f1_closed", "value": 0.757583177260033},
+        {"file": "evidence/results-29879296/score/per_class_test.csv", "row": {"arm": "A", "method": "M4", "class": "ASC"}, "column": "recall_closed_set", "value": 0.35337423312883437}
+      ],
+      "rendered": ["0.758", "0.694", "about 0.35"],
+      "limitations": "No claim that removing classes helped."
+    },
+    {
+      "id": "C036",
+      "section": "Abstract; Results 3.6",
+      "kind": "measured",
+      "claim": "Arm A natural unknowns are 20 erythroid cells; 126/1,000 bootstrap replicates had no unknown cell.",
+      "evidence": [
+        {"file": "evidence/results-29879296/score/unknowns_test.csv", "row": {"arm": "A", "kind": "natural"}, "columns": {"class": "erythroid", "cells": 20}},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M4/unknown_cells", "value": 20.0},
+        {"file": "evidence/results-29879296/score/bootstrap_nan_counts.csv", "row": {"arm": "A", "method": "M4", "metric": "unknown_false_accept@OPcov"}, "column": "nan_replicates", "value": 126}
+      ],
+      "rendered": ["20", "126"],
+      "limitations": "Counts only; recorded intervals for unknown false acceptance in Arm A and practical track are not quoted."
+    },
+    {
+      "id": "C037",
+      "section": "Results 3.6",
+      "kind": "derived",
+      "claim": "Accepted erythroid cells at OP-cov (of 20): M1 17, M2 13, M3 11, M4 3, M5 6, M6 5; P1 14, P2 20.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M1/unknown_false_accept@OPcov", "value": 0.85},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M2/unknown_false_accept@OPcov", "value": 0.65},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M3/unknown_false_accept@OPcov", "value": 0.55},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M4/unknown_false_accept@OPcov", "value": 0.15},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M5/unknown_false_accept@OPcov", "value": 0.3},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=A|method=M6/unknown_false_accept@OPcov", "value": 0.25},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P1/unknown_false_accept@OPcov", "value": 0.7},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/summary_test/arm=practical|method=P2/unknown_false_accept@OPcov", "value": 1.0}
+      ],
+      "derivation": "fraction x 20 cells",
+      "rendered": ["17", "13", "11", "3", "6", "5", "14/20", "20/20"],
+      "limitations": "No ranking, no interval. Practical rows mostly count correct erythroid calls and are excluded from comparison."
+    },
+    {
+      "id": "C038",
+      "section": "Results 3.6",
+      "kind": "measured",
+      "claim": "Recorded top-prediction distribution on the 20 erythroid cells: P1 erythroid 0.8 (16 cells), P2 erythroid 0.9 (18 cells); matched: M1 platelet/MK 0.9, M2 CD4 T 0.8, M3 CD4 T 0.95, M4 NK 0.7, M5 HSPC 0.65, M6 platelet/MK 0.75.",
+      "evidence": [
+        {"file": "evidence/results-29879296/score/unknowns_test.csv", "row": {"arm": "practical", "method": "P1"}, "column": "top_predictions", "value": "{\"erythroid\": 0.8, \"CD4 T\": 0.1, \"NK\": 0.05}"},
+        {"file": "evidence/results-29879296/score/unknowns_test.csv", "row": {"arm": "practical", "method": "P2"}, "column": "top_predictions", "value": "{\"erythroid\": 0.9, \"platelet/MK\": 0.1}"},
+        {"file": "evidence/results-29879296/score/unknowns_test.csv", "row": {"arm": "A", "method": "M4"}, "column": "top_predictions", "value": "{\"NK\": 0.7, \"platelet/MK\": 0.15, \"gamma-delta T\": 0.05}"}
+      ],
+      "rendered": ["16", "18"],
+      "limitations": "Rescoring erythroid as correct would be a new, unapproved analysis and was not done."
+    },
+    {
+      "id": "C039",
+      "section": "Results 3.6",
+      "kind": "measured",
+      "claim": "The all-strata secondary natural-unknown analysis has 126 cells (erythroid only) and is not interpreted.",
+      "evidence": [
+        {"file": "evidence/results-29879296/score/unknowns_allstrata_secondary.csv", "row": {"arm": "A", "method": "M4"}, "column": "unknown_cells", "value": 126}
+      ],
+      "rendered": ["126"],
+      "limitations": "Erythroid-only per methods review B1; point estimates not quoted."
+    },
+    {
+      "id": "C040",
+      "section": "Results 3.7",
+      "kind": "measured",
+      "claim": "Arm A calibration: ECE M4 0.027, M5 0.081, M6 0.134; Brier M4 0.246, M5 0.258, M6 0.299; M3 vote-share ECE 0.065; P1 Brier 0.303 / ECE 0.121.",
+      "evidence": [
+        {"file": "evidence/results-29879296/score/calibration_test.csv", "row": {"arm": "A", "method": "M4"}, "columns": {"brier": 0.24627017323605058, "ece": 0.02713205174644543}},
+        {"file": "evidence/results-29879296/score/calibration_test.csv", "row": {"arm": "A", "method": "M5"}, "columns": {"brier": 0.25800995946699384, "ece": 0.08096898480673208}},
+        {"file": "evidence/results-29879296/score/calibration_test.csv", "row": {"arm": "A", "method": "M6"}, "columns": {"brier": 0.29853170384587246, "ece": 0.13357975373340591}},
+        {"file": "evidence/results-29879296/score/calibration_test.csv", "row": {"arm": "A", "method": "M3"}, "columns": {"ece": 0.06501910470782075}},
+        {"file": "evidence/results-29879296/score/calibration_test.csv", "row": {"arm": "practical", "method": "P1"}, "columns": {"brier": 0.3032295228707046, "ece": 0.12131042406628943}}
+      ],
+      "rendered": ["0.027", "0.081", "0.134", "0.246", "0.258", "0.299", "0.065", "0.303", "0.121"],
+      "limitations": "Only matched probabilistic methods comparable; M3 is vote-share reliability; P1 Brier and ECE on different probability objects (renormalised vs raw sigmoid, per historical protocol-deviations item 3 and methods review M6); P2 counts coarser as incorrect."
+    },
+    {
+      "id": "C041",
+      "section": "Results 3.8",
+      "kind": "measured",
+      "claim": "Platform panel (one donor): 891-971 scorable cells per platform; P2 coverage Parse 0.194 (closed-set accuracy 0.130), ScaleBio 0.179 (0.110); M5 closed-set accuracy Parse 0.434, ScaleBio 0.548; M1 0.211, 0.223; M2, M3, M6 0.92-0.98 on both.",
+      "evidence": [
+        {"file": "evidence/results-29879296/score/platform.csv", "row": {"arm": "practical", "method": "P2", "platform": "Platform_ParseEvercodeWholeTranscriptomev2"}, "columns": {"coverage": 0.1941638608305275, "closed_set_accuracy": 0.13019079685746351}},
+        {"file": "evidence/results-29879296/score/platform.csv", "row": {"arm": "practical", "method": "P2", "platform": "Platform_ScaleBiosinglecellRNAsequencing"}, "columns": {"coverage": 0.1793478260869565, "closed_set_accuracy": 0.10978260869565218}},
+        {"file": "evidence/results-29879296/score/platform.csv", "row": {"arm": "A", "method": "M5", "platform": "Platform_ParseEvercodeWholeTranscriptomev2"}, "column": "closed_set_accuracy", "value": 0.43434343434343436},
+        {"file": "evidence/results-29879296/score/platform.csv", "row": {"arm": "A", "method": "M5", "platform": "Platform_ScaleBiosinglecellRNAsequencing"}, "column": "closed_set_accuracy", "value": 0.5478260869565217},
+        {"file": "evidence/results-29879296/score/platform.csv", "row": {"arm": "A", "method": "M1", "platform": "Platform_ParseEvercodeWholeTranscriptomev2"}, "column": "closed_set_accuracy", "value": 0.21099887766554434},
+        {"file": "evidence/results-29879296/score/platform.csv", "row": {"arm": "A", "method": "M1", "platform": "Platform_ScaleBiosinglecellRNAsequencing"}, "column": "closed_set_accuracy", "value": 0.22282608695652173},
+        {"file": "evidence/results-29879296/score/platform.csv", "row": {"arm": "A", "method": "M2", "platform": "Platform_ParseEvercodeWholeTranscriptomev2"}, "column": "closed_set_accuracy", "value": 0.9248035914702581},
+        {"file": "evidence/results-29879296/score/platform.csv", "row": {"arm": "A", "method": "M3", "platform": "Platform_ParseEvercodeWholeTranscriptomev2"}, "column": "closed_set_accuracy", "value": 0.9764309764309764},
+        {"file": "evidence/results-29879296/score/platform.csv", "row": {"arm": "A", "method": "M6", "platform": "Platform_ParseEvercodeWholeTranscriptomev2"}, "column": "closed_set_accuracy", "value": 0.9438832772166106},
+        {"file": "evidence/results-29879296/score/platform.csv", "row": {"arm": "A", "method": "M2", "platform": "Platform_ScaleBiosinglecellRNAsequencing"}, "column": "closed_set_accuracy", "value": 0.9456521739130435},
+        {"file": "evidence/results-29879296/score/platform.csv", "row": {"arm": "A", "method": "M3", "platform": "Platform_ScaleBiosinglecellRNAsequencing"}, "column": "closed_set_accuracy", "value": 0.9695652173913043},
+        {"file": "evidence/results-29879296/score/platform.csv", "row": {"arm": "A", "method": "M6", "platform": "Platform_ScaleBiosinglecellRNAsequencing"}, "column": "closed_set_accuracy", "value": 0.95},
+        {"file": "evidence/results-29879296/score/platform.csv", "row": {"arm": "A"}, "column": "cells", "value": "min 891 (Parse), max 971 (Asteria)"}
+      ],
+      "rendered": ["891--971", "0.194", "0.130", "0.179", "0.110", "0.434", "0.548", "0.211", "0.223", "0.92 and 0.98"],
+      "limitations": "One donor; descriptive; no causal explanation; labels from a CellTypist+Seurat consensus (source 30)."
+    },
+    {
+      "id": "C042",
+      "section": "Results 3.8; Limitations",
+      "kind": "literature",
+      "claim": "The platform study labelled cells by a CellTypist and Seurat label-transfer consensus.",
+      "source_id": "30",
+      "bibkey": "desimone2025platforms",
+      "doi": "10.1093/nar/gkae1186",
+      "location": "literature research.md: 30-paper-scrnaseq-technologies-nar2025:108-109,163",
+      "retrieved_at": "2026-10-05",
+      "limitations": "Whether Census holds pre- or post-relabelling labels is unverified (historical/evidence/protocol-deviations.md item 8)."
+    },
+    {
+      "id": "C043",
+      "section": "Results 3.9",
+      "kind": "measured",
+      "claim": "Protein gates resolved 6,375/6,855 cells (93.0%) in 10k and 3,762/3,994 (94.2%) in 5k; CD16-mono protein class 46 and 43 cells; both files eligible.",
+      "evidence": [
+        {"file": "evidence/results-29879296/protein/gates.json", "pointer": "/totalvi_pbmc10k_protein_v3/resolved", "value": 6375},
+        {"file": "evidence/results-29879296/protein/gates.json", "pointer": "/totalvi_pbmc10k_protein_v3/cells", "value": 6855},
+        {"file": "evidence/results-29879296/protein/gates.json", "pointer": "/totalvi_pbmc5k_protein_v3/resolved", "value": 3762},
+        {"file": "evidence/results-29879296/protein/gates.json", "pointer": "/totalvi_pbmc5k_protein_v3/cells", "value": 3994},
+        {"file": "evidence/results-29879296/protein/gates.json", "pointer": "/totalvi_pbmc10k_protein_v3/protein_class_counts/CD16 mono", "value": 46},
+        {"file": "evidence/results-29879296/protein/gates.json", "pointer": "/totalvi_pbmc5k_protein_v3/protein_class_counts/CD16 mono", "value": 43},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/protein_check/n_eligible", "value": 2}
+      ],
+      "derivation": "6375/6855 = 0.930; 3762/3994 = 0.942",
+      "rendered": ["6{,}375 of 6{,}855 (93.0\\%)", "3{,}762 of 3{,}994 (94.2\\%)", "46", "43"],
+      "limitations": "descriptive; replacement inputs (amendment 2026-10-06-approved-protein-replacement)."
+    },
+    {
+      "id": "C044",
+      "section": "Results 3.9",
+      "kind": "measured",
+      "claim": "Protein agreement (both metrics with denominators): M4 10k 0.904 / 0.978 (n=6,009); M4 5k 0.912 / 0.950 (n=3,321); M1 5k 0.636 / 0.938 (n=3,306); denominators range 5,027 (P2) to 6,331 (P1) on 10k and 3,306 (M1) to 3,726 (P1) on 5k.",
+      "evidence": [
+        {"file": "evidence/results-29879296/results.json", "pointer": "/protein_agreement/arm=A|method=M4|file=totalvi_pbmc10k_protein_v3", "value": {"agreement_accepted": 0.9041437843235147, "agreement_accepted_gateable_preds": 0.9780378037803781, "n_accepted_resolved": 6009.0}},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/protein_agreement/arm=A|method=M4|file=totalvi_pbmc5k_protein_v3", "value": {"agreement_accepted": 0.9117735621800662, "agreement_accepted_gateable_preds": 0.9498117942283564, "n_accepted_resolved": 3321.0}},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/protein_agreement/arm=A|method=M1|file=totalvi_pbmc5k_protein_v3", "value": {"agreement_accepted": 0.6364186327888687, "agreement_accepted_gateable_preds": 0.9380294248773964, "n_accepted_resolved": 3306.0}},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/protein_agreement/arm=practical|method=P2|file=totalvi_pbmc10k_protein_v3/n_accepted_resolved", "value": 5027.0},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/protein_agreement/arm=practical|method=P1|file=totalvi_pbmc10k_protein_v3/n_accepted_resolved", "value": 6331.0},
+        {"file": "evidence/results-29879296/results.json", "pointer": "/protein_agreement/arm=practical|method=P1|file=totalvi_pbmc5k_protein_v3/n_accepted_resolved", "value": 3726.0}
+      ],
+      "rendered": ["0.904", "0.978", "6{,}009", "0.912", "0.950", "3{,}321", "0.636", "0.938", "3{,}306", "5{,}027", "6{,}331", "3{,}726"],
+      "limitations": "Exact string match of 14 fine RNA labels against 6 coarse protein classes; neither metric is an accuracy; different cells per method; no ranking, pooling or interval; P2 tau_cov = -inf."
+    },
+    {
+      "id": "C045",
+      "section": "Results 3.9; Amendment disclosure 4",
+      "kind": "provenance",
+      "claim": "Realised mapping: F_A present 1598/2020 (79.1%) 10k and 1560/2020 (77.2%) 5k; F_B 1597/2016 (79.2%) and 1568/2016 (77.8%); scTab genes G 12933/19331 (66.9%) and 12822/19331 (66.3%). CLR antibodies 14 (10k) and 29 (5k).",
+      "evidence": [
+        {"file": "evidence/results-29879296/cite-receipt.json", "pointer": "/files/totalvi_pbmc10k_protein_v3/mapping_summary/F_A/fraction", "value": 0.7910891089108911},
+        {"file": "evidence/results-29879296/cite-receipt.json", "pointer": "/files/totalvi_pbmc5k_protein_v3/mapping_summary/F_A/fraction", "value": 0.7722772277227723},
+        {"file": "evidence/results-29879296/cite-receipt.json", "pointer": "/files/totalvi_pbmc10k_protein_v3/mapping_summary/F_B/fraction", "value": 0.7921626984126984},
+        {"file": "evidence/results-29879296/cite-receipt.json", "pointer": "/files/totalvi_pbmc5k_protein_v3/mapping_summary/F_B/fraction", "value": 0.7777777777777778},
+        {"file": "evidence/results-29879296/cite-receipt.json", "pointer": "/files/totalvi_pbmc10k_protein_v3/mapping_summary/G/fraction", "value": 0.6690290207438829},
+        {"file": "evidence/results-29879296/cite-receipt.json", "pointer": "/files/totalvi_pbmc5k_protein_v3/mapping_summary/G/fraction", "value": 0.6632869484248098},
+        {"file": "evidence/results-29879296/cite-receipt.json", "pointer": "/files/totalvi_pbmc10k_protein_v3/antibodies", "value": "14 entries"},
+        {"file": "evidence/results-29879296/cite-receipt.json", "pointer": "/files/totalvi_pbmc5k_protein_v3/antibodies", "value": "29 entries"}
+      ],
+      "rendered": ["79.1\\%", "77.2\\%", "79.2\\%", "77.8\\%", "66.9\\%", "66.3\\%", "14", "29"],
+      "limitations": "Zero-filled genes are not neutral after z-scoring."
+    },
+    {
+      "id": "C046",
+      "section": "Amendment disclosures",
+      "kind": "provenance",
+      "claim": "Amendment approved 6 October 2026 (sha256 e5ba0c34...89eae1); replacement files from totalVI_reproducibility commit 27d65a9c...; file sha256 pins; both used from cached bytes (url null).",
+      "evidence": [
+        {"file": "evidence/results-29879296/cite-receipt.json", "pointer": "/amendment_sha256", "value": "e5ba0c347b66cba1c76dd249e386789c26e1916a95bc9c82a0208a696c89eae1"},
+        {"file": "protocol/amendments/2026-10-06-approved-protein-replacement.md", "pointer": "line 3", "value": "On 6 October 2026 ... SHA-256 e5ba0c347b66cba1c76dd249e386789c26e1916a95bc9c82a0208a696c89eae1"},
+        {"file": "evidence/results-29879296/cite-receipt.json", "pointer": "/files/totalvi_pbmc10k_protein_v3/sha256", "value": "5f08b8575febf9e04b209b94eb43f6335f1e33b0985cdcf44adf7320f6243c69"},
+        {"file": "evidence/results-29879296/cite-receipt.json", "pointer": "/files/totalvi_pbmc5k_protein_v3/sha256", "value": "a1bf51e070d24b39627ea4de9b3e489a4637ff795e1061e0733e26c3baec8847"},
+        {"file": "evidence/results-29879296/cite-receipt.json", "pointer": "/files/totalvi_pbmc10k_protein_v3/source", "value": "cached"},
+        {"file": "evidence/results-29879296/cite-receipt.json", "pointer": "/files/totalvi_pbmc5k_protein_v3/source", "value": "cached"},
+        {"file": "protocol/amendments/protein-replacement-reviewed.md", "pointer": "section 2.2", "value": "commit 27d65a9c49182f39df0c4325249bc7dc8e663dd0"}
+      ],
+      "rendered": ["full hashes in Section 7"],
+      "limitations": "Licence: no licence file found (GitHub API, 2026-10-06); 10x terms not verified."
+    },
+    {
+      "id": "C047",
+      "section": "Design 2.9; Reproducibility",
+      "kind": "provenance",
+      "claim": "Mode R recovery (fresh_execution false); 267 cached files hash-verified (data, Arm A M1-M6, Arm B M1-M3); Arm B M4-M6 adopted from run 6ef42791... (git 5a0b9aaa..., clean); CITE build, Arm A CITE predictions, score and protein recomputed.",
+      "evidence": [
+        {"file": "evidence/results-29879296/comparison_manifest.json", "pointer": "/fresh_execution", "value": false},
+        {"file": "evidence/results-29879296/comparison_manifest.json", "pointer": "/provenance/cached_files_sha256_verified", "value": 267},
+        {"file": "evidence/results-29879296/comparison_manifest.json", "pointer": "/provenance/adopted_steps", "value": ["B_M4_fit", "B_M4_predict", "B_M5_fit", "B_M5_predict", "B_M6_fit", "B_M6_predict"]},
+        {"file": "evidence/results-29879296/comparison_manifest.json", "pointer": "/provenance/adopted_source/git_rev", "value": "5a0b9aaaf5ee1a92f132ff6fcd437b1b815c583b"},
+        {"file": "evidence/results-29879296/comparison_manifest.json", "pointer": "/provenance/recomputed_steps", "value": ["A_M1_cite", "A_M2_cite", "A_M3_cite", "A_M4_cite", "A_M5_cite", "A_M6_cite", "cite_build", "protein", "score"]}
+      ],
+      "rendered": ["267", "6ef427915cfa4087a9bdf8646a0c26f7", "5a0b9aaaf5ee1a92f132ff6fcd437b1b815c583b"],
+      "limitations": "Directory equivalence recovery/armB vs compare_arms/B and armA_cite vs T01 not confirmed by the paper author (methods review minor 5)."
+    },
+    {
+      "id": "C048",
+      "section": "Design 2.9; Reproducibility",
+      "kind": "provenance",
+      "claim": "Recorded sha256 for score_all.py, evaluate.py and protein_check.py in run provenance equal the coordinator code-check record.",
+      "evidence": [
+        {"file": "evidence/results-29879296/provenance.json", "pointer": "/provenance/adopted_source/code_sha256/companion~1scripts~1score_all.py", "value": "20f457204050bdac2c0d99596c43b9bb3214e9ff974ba24041f50eeab4e54d9f"},
+        {"file": "evidence/results-29879296/coordinator-code-check.json", "pointer": "/companion~1scripts~1score_all.py", "value": "20f457204050bdac2c0d99596c43b9bb3214e9ff974ba24041f50eeab4e54d9f"},
+        {"file": "evidence/results-29879296/coordinator-code-check.json", "pointer": "/companion~1src~1celltransfer~1evaluate.py", "value": "e5fae4e8646821887d4555bc7746ba1bd1b4a259d172197590808d7d215a59a2"},
+        {"file": "evidence/results-29879296/coordinator-code-check.json", "pointer": "/companion~1scripts~1protein_check.py", "value": "9458409448615ebce2bab0b189ef113c57371d57af647ef27c2c1c2c7442ba59"}
+      ],
+      "rendered": ["full hashes in Section 6"],
+      "limitations": "Equality of recorded values only; the paper author did not hash files on disk."
+    },
+    {
+      "id": "C049",
+      "section": "Reproducibility",
+      "kind": "provenance",
+      "claim": "Recorded resource use: score 557.02 s real, max RSS 572,080,128 bytes; CITE build 16.21 s, max RSS 5,299,748,864 bytes; adopted B_M5_fit wall 564.399 s; B_M6_fit wall 712.686 s.",
+      "evidence": [
+        {"file": "evidence/results-29879296/provenance.json", "pointer": "/steps/13/postrun_time_l", "value": {"real_seconds": 557.02, "max_rss_bytes": 572080128}},
+        {"file": "evidence/results-29879296/provenance.json", "pointer": "/steps/6/postrun_time_l", "value": {"real_seconds": 16.21, "max_rss_bytes": 5299748864}},
+        {"file": "evidence/results-29879296/provenance.json", "pointer": "/steps/2/wall_seconds", "value": 564.399},
+        {"file": "evidence/results-29879296/provenance.json", "pointer": "/steps/4/wall_seconds", "value": 712.686}
+      ],
+      "rendered": ["557~s", "0.57~GB", "16.2~s", "5.3~GB", "564~s", "713~s"],
+      "limitations": "Direct child process only; single runs from different sessions; no runtime comparison; protocol's per-method runtime/memory table not reported."
+    },
+    {
+      "id": "C050",
+      "section": "Reproducibility (failures)",
+      "kind": "provenance",
+      "claim": "Unintended Arm B M4 fit launched by a pipeline test was killed on detection with no model; 60 s charged; adopted B_M4_fit is attempt 2; CITE build is attempt 2.",
+      "evidence": [
+        {"file": "evidence/unintended-test-launch.json", "pointer": "/budget_charge_seconds", "value": 60},
+        {"file": "evidence/unintended-test-launch.json", "pointer": "/observed_outputs", "value": "No model.pkl or fit_info.json; no scoring step launched."},
+        {"file": "evidence/results-29879296/provenance.json", "pointer": "/steps/0/attempt", "value": 2},
+        {"file": "evidence/results-29879296/provenance.json", "pointer": "/steps/6/attempt", "value": 2}
+      ],
+      "rendered": ["60~s", "attempt~2"],
+      "limitations": "Earlier failures (D02 abort, D03 disk-guard stop, first B_M4 disk failure) are from historical/evidence/protocol-deviations.md and README.md."
+    },
+    {
+      "id": "C051",
+      "section": "Reproducibility",
+      "kind": "measured",
+      "claim": "Reproduction comparison status is rendered from the generated macro (currently 'not available'; no comparison report supplied).",
+      "evidence": [
+        {"file": "evidence/paper-inputs/results_macros.tex", "pointer": "ctv@comparison@report@overall", "value": "\\textit{not available}"}
+      ],
+      "rendered": ["\\ctres{comparison}{report}{overall}"],
+      "limitations": "Reproduction pending; never stated as passed."
+    },
+    {
+      "id": "C052",
+      "section": "Introduction",
+      "kind": "literature",
+      "claim": "scTab used donor-level splits by design (compromise between random and study holdout); corpus 22,189,056 cells, training split 15.2 M.",
+      "source_id": "01",
+      "bibkey": "fischer2024sctab",
+      "doi": "10.1038/s41467-024-51059-5",
+      "location": "01-paper-sctab-natcommun2024:35,78,80",
+      "retrieved_at": "2026-10-05"
+    },
+    {
+      "id": "C053",
+      "section": "Introduction; Discussion",
+      "kind": "literature",
+      "claim": "Testing scTab-corpus models on 21 newly added studies dropped macro-F1 from 80-84% to 52-57%.",
+      "source_id": "26",
+      "bibkey": "cultrera2026hce",
+      "doi": "10.1038/s43588-025-00945-z",
+      "location": "26-paper-hce-natcomputsci2025:30,34",
+      "retrieved_at": "2026-10-05"
+    },
+    {
+      "id": "C054",
+      "section": "Introduction; Discussion",
+      "kind": "literature",
+      "claim": "Rejection can fail when a population is missing (Abdelaal); hierarchical rejection within datasets (Theunissen); conformal relies on exchangeability (Lopez-De-Castro); method certainties calibrated differently (popV); UQ on one lung atlas (Engelmann); selective classification definitions (Geifman); closed-set annotators match absent types to existing labels (Hu).",
+      "sources": [
+        {"source_id": "17", "bibkey": "abdelaal2019", "location": "17-paper-abdelaal2019-genomebiol:148-149"},
+        {"source_id": "19", "bibkey": "theunissen2024", "location": "19-paper-hierarchical-reject-bioinformatics2024:21,74"},
+        {"source_id": "20", "bibkey": "lopezdecastro2025", "location": "20-paper-conformal-annotation-bioinformatics2025:112"},
+        {"source_id": "18", "bibkey": "ergen2024popv", "location": "18-paper-popv-natgenet2024:41"},
+        {"source_id": "39", "bibkey": "engelmann2022", "location": "39-paper-engelmann-uq-atlas-cell-type-transfer-2022:55-56"},
+        {"source_id": "37", "bibkey": "geifman2017", "location": "37-paper-geifman-selective-classification-neurips2017:21"},
+        {"source_id": "46", "bibkey": "hu2025matching", "location": "46-paper-hu-matching-benchmark-2025:85"}
+      ],
+      "retrieved_at": "2026-10-05"
+    },
+    {
+      "id": "C055",
+      "section": "Discussion",
+      "kind": "literature",
+      "claim": "Simple baselines remain competitive with foundation models for annotation.",
+      "sources": [
+        {"source_id": "24", "bibkey": "boiarsky2023", "location": "24-preprint-boiarsky-deep-dive-scfm-biorxiv2023:73"},
+        {"source_id": "23", "bibkey": "kedzierska2025", "location": "23-paper-kedzierska-zeroshot-genomebiol2025:38"},
+        {"source_id": "25", "bibkey": "denadel2026", "location": "25-paper-denadel-pretraining-size-natmethods2026-pmc:159"}
+      ],
+      "retrieved_at": "2026-10-05"
+    },
+    {
+      "id": "C056",
+      "section": "Limitations",
+      "kind": "literature",
+      "claim": "The CVID reference includes in-vitro activated PBMCs; Census disease field may hold multiple values under schema 2.4.0.",
+      "sources": [
+        {"source_id": "42", "bibkey": "rodriguezubreva2022cvid", "location": "42-paper-cvid-atlas-natcommun2022:87,104"},
+        {"source_id": "12b", "bibkey": "censusreleases", "location": "12b-docs-census-data-release-info:94"}
+      ],
+      "retrieved_at": "2026-10-05"
+    },
+    {
+      "id": "C057",
+      "section": "Discussion",
+      "kind": "interpretation",
+      "claim": "Validation-selected thresholds should be re-checked on each new study's labelled subset if one exists.",
+      "basis": ["C015", "C016", "C021"],
+      "limitations": "Recommendation follows from measured transfer gaps; re-checking was not tested."
+    },
+    {
+      "id": "C058",
+      "section": "Design 2.1",
+      "kind": "provenance",
+      "claim": "Protocol v1.0 frozen locally 2026-10-05 before validation/test/platform/CITE expression data were downloaded; not externally registered; D-1a natural-stratum scoring correction approved in the resumption record.",
+      "evidence": [
+        {"file": "protocol.md", "pointer": "line 3", "value": "Version 1.0, frozen 2026-10-05 before any validation, test, platform or CITE-seq expression data were downloaded or scored."},
+        {"file": "protocol/amendments/2026-10-06-approved-resumption.md", "pointer": "line 5", "value": "including the frozen-protocol natural-stratum scoring correction (D-1a)"}
+      ],
+      "limitations": "Prior metadata-only inspection is disclosed in protocol.md."
+    }
+  ]
+}
