@@ -21,7 +21,7 @@ class TestAdoptionSuccess(PriorRunFixture):
         expect += [("score_all.py", ""), ("protein_check.py", "")]
         self.assertEqual(scripts, expect)  # no Arm B fit or predict was launched
         b = calls[0]
-        self.assertEqual(b[1:], ["--workspace", str(self.ws), "--data", str(self.hist / self.lay["data"]),
+        self.assertEqual(b[1:], ["r4prime", "--workspace", str(self.ws), "--data", str(self.hist / self.lay["data"]),
                                  "--out", b[-1]])
         man = self.manifest()
         self.assertEqual(man["status"], "complete")

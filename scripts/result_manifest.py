@@ -12,15 +12,11 @@ Nothing here computes a scientific value; it only re-reads score_all.py / protei
 
 Approved protein replacement (amendment 2026-10-06): ``parse_eligibility`` is the single strict reader of
 the builder's ``eligibility.json`` used by recover.py, experiment.py, reproduce.py and compare_runs.py.
-Integration contract with companion/scripts/build_cite_totalvi.py (owned elsewhere; see
-protocol/amended-recovery-integration.md):
-
-  eligibility.json  {"files": {"<name>": {"verdict": "eligible"|"ineligible",
-                                          "first_failing_criterion": null | <criterion>,
-                                          "sha256": "<input sha256 or null>", "bytes": <int or null>}, ...}}
-                    (a list of {"name": ..., ...} entries is also accepted); exactly the two pinned names.
-  mapping_<name>.csv           frozen symbol->Ensembl mapping table (amendment s5)
-  postqc_barcodes_<name>.txt   post-QC barcode list, one barcode per line (amendment s7 T1 addition)
+It delegates to the authoritative helpers of companion/scripts/build_cite_totalvi.py (imported by path,
+never modified): ``read_eligibility`` / ``expected_cite_files`` (hashed record + ``eligibility.json.sha256``
+sidecar, schema ``celltransfer-totalvi-eligibility/1``) and ``t1_replacement_checks`` (exact T1 items).
+Builder artefacts in the R4' directory: ``acquisition.json``, ``eligibility.json`` (+ ``.sha256``),
+``mapping_<name>.csv``, ``barcodes_qc_<name>.txt``. See protocol/amended-recovery-integration.md.
 """
 from __future__ import annotations
 
@@ -58,7 +54,27 @@ def mapping_csv_name(name: str) -> str:
 
 
 def postqc_barcodes_name(name: str) -> str:
-    return f"postqc_barcodes_{name}.txt"
+    """Post-QC barcode list written by the builder (``barcodes_qc_<name>.txt``)."""
+    return f"barcodes_qc_{name}.txt"
+
+
+BUILDER_REL = "companion/scripts/build_cite_totalvi.py"
+_BUILDER = None
+
+
+def builder():
+    """The approved replacement builder module, imported by path from this repository (read-only use)."""
+    global _BUILDER
+    if _BUILDER is None:
+        import importlib.util
+        import sys
+        p = Path(__file__).resolve().parents[1] / BUILDER_REL
+        spec = importlib.util.spec_from_file_location("build_cite_totalvi", p)
+        mod = importlib.util.module_from_spec(spec)
+        sys.modules.setdefault("build_cite_totalvi", mod)
+        spec.loader.exec_module(mod)
+        _BUILDER = sys.modules["build_cite_totalvi"] if sys.modules["build_cite_totalvi"] is not mod else mod
+    return _BUILDER
 
 
 def sha256_path(p) -> str:
@@ -305,44 +321,32 @@ def find_optional_evidence(score_dir: Path, protein_dir: Path | None) -> dict:
 
 
 def parse_eligibility(path) -> dict:
-    """Strict reader; raises ManifestError on any deviation from the documented contract."""
+    """Strict reader via the builder's ``expected_cite_files``/``read_eligibility``.
+
+    ``path`` is ``<R4' dir>/eligibility.json`` (or the R4' directory). Raises ManifestError when the record or
+    its ``.sha256`` sidecar is missing, tampered or inconsistent, or when its file names are not the builder pins.
+    """
     path = Path(path)
-    if not path.is_file():
-        raise ManifestError(f"{ELIGIBILITY_FILE} missing: {path}")
-    raw = path.read_bytes()
+    d = path if path.is_dir() else path.parent
+    B = builder()
     try:
-        doc = json.loads(raw)
-    except ValueError as e:
-        raise ManifestError(f"{path}: not JSON ({e})") from e
-    files = doc.get("files") if isinstance(doc, dict) else None
-    if isinstance(files, list):
-        if any(not isinstance(e, dict) or "name" not in e for e in files):
-            raise ManifestError(f"{path}: list entries need a 'name'")
-        names = [e["name"] for e in files]
-        if len(set(names)) != len(names):
-            raise ManifestError(f"{path}: duplicate file entries")
-        files = {e["name"]: {k: v for k, v in e.items() if k != "name"} for e in files}
-    if not isinstance(files, dict):
-        raise ManifestError(f"{path}: 'files' must be an object or list")
-    if sorted(files) != sorted(REPLACEMENT_FILES):
-        raise ManifestError(f"{path}: files {sorted(files)} != pinned replacement files {sorted(REPLACEMENT_FILES)}")
-    out = {}
-    for n, e in sorted(files.items()):
-        if not isinstance(e, dict) or e.get("verdict") not in VERDICTS:
-            raise ManifestError(f"{path}: {n}: verdict must be one of {VERDICTS}")
-        crit = e.get("first_failing_criterion")
-        if e["verdict"] == "eligible" and crit not in (None, ""):
-            raise ManifestError(f"{path}: {n}: eligible file with a failing criterion {crit!r}")
-        if e["verdict"] == "ineligible" and crit in (None, ""):
-            raise ManifestError(f"{path}: {n}: ineligible file without first_failing_criterion")
-        out[n] = dict(e, first_failing_criterion=None if e["verdict"] == "eligible" else crit)
-    eligible = [n for n in sorted(out) if out[n]["verdict"] == "eligible"]
-    if isinstance(doc, dict) and "n_eligible" in doc and doc["n_eligible"] != len(eligible):
-        raise ManifestError(f"{path}: n_eligible {doc['n_eligible']} != {len(eligible)} eligible verdicts")
-    return {"sha256": hashlib.sha256(raw).hexdigest(), "files": out, "eligible": eligible,
-            "n_eligible": len(eligible), "verdicts": {n: out[n]["verdict"] for n in sorted(out)},
-            "first_failing_criterion": {n: out[n]["first_failing_criterion"] for n in sorted(out)
-                                        if out[n]["verdict"] != "eligible"}}
+        exp = B.expected_cite_files(d)
+        rec = B.read_eligibility(d)
+    except (B.EligibilityRecordError, OSError, ValueError, KeyError, TypeError) as e:
+        raise ManifestError(f"{d / ELIGIBILITY_FILE}: {type(e).__name__}: {e}") from e
+    files = rec.get("files")
+    if not isinstance(files, dict) or sorted(files) != sorted(B.NAMES):
+        raise ManifestError(f"{d}: eligibility files {sorted(files or [])} != builder pins {sorted(B.NAMES)}")
+    for n, e in files.items():
+        if e.get("verdict") not in VERDICTS:
+            raise ManifestError(f"{d}: {n}: verdict must be one of {VERDICTS}")
+        if (e["verdict"] == "eligible") != (e.get("first_failing_criterion") is None):
+            raise ManifestError(f"{d}: {n}: verdict and first_failing_criterion disagree")
+    eligible = list(exp["eligible_files"])
+    return {"sha256": exp["eligibility_sha256"], "files": files, "eligible": eligible,
+            "n_eligible": exp["n_eligible"], "verdicts": {n: files[n]["verdict"] for n in sorted(files)},
+            "first_failing_criterion": {n: files[n]["first_failing_criterion"] for n in sorted(files)
+                                        if files[n]["verdict"] != "eligible"}}
 
 
 def protein_check_summary(elig: dict, protein_dir) -> dict:

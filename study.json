@@ -37,7 +37,11 @@
       "data/manifest.json",
       "companion/vendor",
       "evidence/label-maps",
-      "evidence/recovery-inputs.json"
+      "evidence/recovery-inputs.json",
+      "companion/scripts/build_cite_totalvi.py",
+      "protocol/tolerances-v2.json",
+      "protocol/amendments/2026-10-06-approved-protein-replacement.md",
+      "protocol/amendments/protein-replacement-reviewed.md"
     ],
     "outputs": [
       "results.json",
@@ -57,7 +61,7 @@
     "rel_tolerance": 0.0,
     "tiered_comparison": {
       "command": "scripts/compare_runs.py",
-      "tolerances": "protocol/tolerances.json",
+      "tolerances": "protocol/tolerances-v2.json",
       "baseline_manifest_env": "CELLTRANSFER_BASELINE_MANIFEST",
       "required_exit_code": 0
     }

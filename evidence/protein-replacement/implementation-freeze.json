@@ -1,0 +1,26 @@
+{
+  "time_utc": "2026-10-06T21:49:38.713676+00:00",
+  "sha256": {
+    "companion/scripts/build_cite_totalvi.py": "d26f7315fcc54d5ef5474dd83545a032168f53b00f085a13097e0326a81b86ba",
+    "companion/scripts/protein_check.py": "9458409448615ebce2bab0b189ef113c57371d57af647ef27c2c1c2c7442ba59",
+    "protocol/tolerances-v2.json": "c335e6a9403b1353bcb1f5b187edb92e4868f8124e31946a20b07a6710c90edb",
+    "protocol/amendments/protein-replacement-reviewed.md": "e5ba0c347b66cba1c76dd249e386789c26e1916a95bc9c82a0208a696c89eae1",
+    "tests_protein_replacement/_support.py": "830581bba23d9d14471804e66bccf4f639f9aa5e4c5b9930aa26a3e5402bcf75",
+    "tests_protein_replacement/test_flow.py": "759b9be14eb8ce908f3cac1caf626063e0ef1a725c069f8de5cded9feaab6ea7",
+    "tests_protein_replacement/test_pins_mapping.py": "cb78ebbbd7def00a442b544ab2ecf4705f44380db28c786b37c79d9254ec568b",
+    "tests_amended_recovery/test_builder_integration.py": "0367ddce0593a8bda9a5a9030bf3d44073be3ea35972b66511219e19010d9973",
+    "tests_amended_recovery/test_attempt_accounting.py": "c2acf1426de841ea11a89135e1fdec5c3dad65895fe7549e222ca9a29827f1e4",
+    "tests_amended_recovery/_support.py": "2936d696aea665f52719127e9864cfcf54a913b66e86e2c203d6f4808d681000",
+    "tests_amended_recovery/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests_amended_recovery/test_adoption.py": "b3cdc074b308f1fac5c8c26d14cb46968cf85f3a3c83fadd83a57f5d71efd240"
+  },
+  "checks": {
+    "builder_tests": 57,
+    "integration_tests": 51,
+    "comparison_regressions": 31,
+    "synthetic_E6_reader": "runs/protein-synthetic-e6/receipt.json"
+  },
+  "r4_prior_seconds": 7.752,
+  "r4_receipt": "runs/preflight-resources/pin-cite-inputs/attempt-1-20261006T172750093431Z/attempt.json",
+  "free_bytes": 8927367168
+}

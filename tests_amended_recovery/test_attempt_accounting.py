@@ -150,7 +150,7 @@ class TestEligibilityDrivenSteps(PriorRunFixture):
         pc = man["protein_check"]
         self.assertEqual((pc["status"], pc["n_eligible"]), ("not_run", 0))
         self.assertEqual(sorted(pc["steps_not_run"]), sorted([f"A_{m}_cite" for m in R.ALL_M] + ["protein"]))
-        self.assertEqual(pc["first_failing_criterion"], {n: "4" for n in NAMES})
+        self.assertEqual(pc["first_failing_criterion"], {n: {"number": 4, "name": "coverage"} for n in NAMES})
         self.assertFalse((self.d / "run" / "armA_cite").exists())
 
     def test_one_eligible(self):

@@ -7,10 +7,11 @@
     "d03_features": "runs/D03-build-data-full-20261005T213231Z/features_and_classes.json",
     "stage_ceiling_s": 28800,
     "mem_limit_gib": 12.0,
-    "prior_attempts": {
-      "B_M4_fit": 1
+    "adopt": {
+      "prior_manifest": "evidence/completed-matched-recovery/recovery_manifest.json",
+      "receipts_dir": "evidence/completed-matched-recovery"
     },
-    "prior_seconds": 60
+    "prior_r4_seconds": 7.752
   },
   "mode_f": {
     "stage_ceiling_s": 50400,
@@ -38,5 +39,9 @@
     "recovery_seconds": 28800,
     "reproduction_seconds": 54000,
     "paper_seconds": 1800
+  },
+  "amendment": {
+    "id": "2026-10-06-approved-protein-replacement",
+    "cite_builder": "companion/scripts/build_cite_totalvi.py"
   }
 }

@@ -51,18 +51,40 @@ def snapshot(root: Path) -> dict:
     return out
 
 
-def eligibility_doc(spec: dict) -> dict:
-    """spec: {name: "eligible" | "ineligible:<criterion>"}; pinned sha256/bytes recorded for eligible files."""
+BUILDER = ROOT / "companion/scripts/build_cite_totalvi.py"
+
+
+def write_builder_records(out: Path, spec: dict, B=None, tamper: str | None = None) -> None:
+    """Write SYNTHETIC R4' records in the exact builder schema (celltransfer-totalvi-eligibility/1).
+
+    spec: {name: "eligible" | "ineligible:<criterion number>"}. Uses the builder's own canonical_json /
+    write_atomic so the hashed record and sidecar are byte-compatible with read_eligibility.
+    """
+    B = B or RM.builder()
+    out = Path(out)
+    acq = {"status": "complete", "files": {n: {"source": "cached", "identity": {
+        "pass": True, "sha256": B.PINS[n]["sha256"], "bytes": B.PINS[n]["bytes"]}} for n in B.NAMES}}
+    B.write_atomic(out / "acquisition.json", B.canonical_json(acq))
     files = {}
-    for n in NAMES:
+    for n in B.NAMES:
         v = spec.get(n, "eligible")
+        B.write_atomic(out / f"mapping_{n}.csv", f"index,var_name,status,eid,census_eids\n0,SYN,{n},,\n".encode())
         if v == "eligible":
-            files[n] = {"verdict": "eligible", "first_failing_criterion": None,
-                        "sha256": RM.REPLACEMENT_FILES[n]["sha256"], "bytes": RM.REPLACEMENT_FILES[n]["bytes"]}
+            files[n] = {"verdict": "eligible", "first_failing_criterion": None}
+            B.write_atomic(out / f"barcodes_qc_{n}.txt", f"syn_{n}_0\nsyn_{n}_1\n".encode())
+            for f in (f"query_{n}_F.h5ad", f"adt_{n}.parquet", f"released_predictions_{n}.parquet"):
+                (out / f).write_text("synthetic " + n)
         else:
-            files[n] = {"verdict": "ineligible", "first_failing_criterion": v.split(":", 1)[1],
-                        "sha256": None, "bytes": None}
-    return {"files": files}
+            k = int(v.split(":", 1)[1])
+            files[n] = {"verdict": "ineligible", "first_failing_criterion": {"number": k, "name": B.CRITERIA[k]}}
+    elig = sorted(n for n, r in files.items() if r["verdict"] == "eligible")
+    rec = {"schema": "celltransfer-totalvi-eligibility/1", "files": files, "eligible_files": elig,
+           "n_eligible": len(elig), "outcome": "run" if elig else "not_run"}
+    d = B.write_atomic(out / "eligibility.json", B.canonical_json(rec))
+    if tamper != "no_sidecar":
+        B.write_atomic(out / "eligibility.json.sha256", f"{d}  eligibility.json\n".encode())
+    if tamper == "bytes":
+        (out / "eligibility.json").write_bytes((out / "eligibility.json").read_bytes() + b" ")
 
 
 class Scratch(unittest.TestCase):
@@ -210,22 +232,13 @@ open(st / "calls.log", "a").write(json.dumps(a) + "\\n")
 if {fail_on!r} and {fail_on!r} in tag: sys.exit(5)
 if {sleep_on!r} and {sleep_on!r} in tag: time.sleep(30)
 if script == "build_cite_totalvi.py":
+    assert a[1] == "r4prime" and a[2] == "--workspace" and "--data" in a, a
     spec = json.loads((st / "elig.json").read_text())
     if spec.get("__missing__"):
         sys.exit(0)
-    names = {NAMES!r}; pins = {json.dumps({n: RM.REPLACEMENT_FILES[n] for n in NAMES})!r}
-    pins = json.loads(pins); files = {{}}
-    for n in names:
-        v = spec.get(n, "eligible")
-        if v == "eligible":
-            files[n] = {{"verdict": "eligible", "first_failing_criterion": None, "sha256": pins[n]["sha256"],
-                        "bytes": pins[n]["bytes"]}}
-            for f in ("query_%s_F.h5ad", "adt_%s.parquet", "released_predictions_%s.parquet",
-                      "mapping_%s.csv", "postqc_barcodes_%s.txt"):
-                (out / (f % n)).write_text("synthetic " + n)
-        else:
-            files[n] = {{"verdict": "ineligible", "first_failing_criterion": v.split(":", 1)[1]}}
-    (out / "eligibility.json").write_text(json.dumps({{"files": files}}))
+    sys.path.insert(0, {str(HERE)!r}); sys.path.insert(0, {str(ROOT / "scripts")!r})
+    import _support
+    _support.write_builder_records(out, spec, tamper=spec.get("__tamper__"))
 if script == "score_all.py": (out / "thresholds_validation.csv").write_text("x")
 if "predict" in tag: (out / "predictions_x.parquet").write_text("p")
 '''

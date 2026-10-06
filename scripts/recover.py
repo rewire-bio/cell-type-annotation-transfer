@@ -26,7 +26,7 @@ protein-replacement-reviewed.md, approved by the user, sha256 pinned below):
   * The original run dir is read only; adopted steps keep their original source provenance, receipts and
     attempt dirs. Stage seconds, pool seconds and attempt statuses are carried forward exactly once
     (prior stage_seconds_used already contains the earlier --prior-seconds charge; it is not re-added).
-  * R4' = cite_build with companion/scripts/build_cite_totalvi.py --workspace --data --out. R4 attempt 1
+  * R4' = cite_build with companion/scripts/build_cite_totalvi.py r4prime --workspace --data --out [--cache-dir]. R4 attempt 1
     (HTTP 403) is counted, so exactly one attempt remains; its time (--prior-r4-seconds) counts against the
     8 h stage ceiling. Any R4' failure ends the replacement (no retry).
   * eligibility.json (written by the builder) decides 0/1/2 eligible files. Zero eligible: R5/R7 are
@@ -188,6 +188,7 @@ class Driver:
         self.run_dir = Path(a.run_dir).resolve()
         self.python = a.python
         self.stop_after_matched = getattr(a, "stop_after_matched", False)
+        self.builder_cache_dir = getattr(a, "builder_cache_dir", None)
         self.ceilings = dict(STEP_CEILINGS, **json.loads(a.ceilings or "{}"))
         self.pools = dict(POOLS, **json.loads(a.pools or "{}"))
         self.stage_ceiling = a.stage_ceiling
@@ -626,6 +627,10 @@ class Driver:
         entry["utc"] = utc()
         self.record["steps"].append(entry)
 
+    def builder_cache_args(self) -> list:
+        """Optional verified cached input bytes for the builder (labelled 'cached' in its acquisition.json)."""
+        return ["--cache-dir", str(Path(self.builder_cache_dir).resolve())] if self.builder_cache_dir else []
+
     def read_eligibility(self, ci: Path, receipt: dict) -> dict:
         p = ci / RM.ELIGIBILITY_FILE
         try:
@@ -634,7 +639,7 @@ class Driver:
             raise Blocked(f"R4' output has no valid {RM.ELIGIBILITY_FILE}: {e}") from e
         if receipt["files_sha256"].get(RM.ELIGIBILITY_FILE) != el["sha256"]:
             raise Blocked("eligibility.json differs from the hash recorded in the R4' receipt")
-        for n in RM.REPLACEMENT_FILES:
+        for n in sorted(el["files"]):
             need = [f"query_{n}_F.h5ad", f"adt_{n}.parquet", f"released_predictions_{n}.parquet"]
             have = [f for f in need if (ci / f).exists()]
             if n in el["eligible"] and have != need:
@@ -770,8 +775,8 @@ class Driver:
             raise Blocked(f"replacement builder missing: {builder}")
         try:
             ci, cr = self.step("cite_build", "cite_build",
-                               lambda o: [py, str(builder), "--workspace", str(self.repo), "--data", str(D),
-                                          "--out", str(o)])
+                               lambda o: [py, str(builder), "r4prime", "--workspace", str(self.repo),
+                                          "--data", str(D), "--out", str(o)] + self.builder_cache_args())
             el = self.read_eligibility(ci, cr)
         except Blocked as e:
             self.record["protein_check"] = {"status": "not_run", "reason": f"R4' (final R4 attempt) failed: {e}",
@@ -938,6 +943,8 @@ def main(argv=None) -> int:
     ap.add_argument("--prior-r4-seconds", type=float, default=None,
                     help="measured wall time of R4 attempt 1 (HTTP 403); charged to the stage ceiling")
     ap.add_argument("--r5-disk-gib", type=float, default=R5_DISK_GIB, help="R5 free-disk start floor (amendment s8)")
+    ap.add_argument("--builder-cache-dir", default=None,
+                    help="passed to build_cite_totalvi.py r4prime --cache-dir (verified cached bytes, no GET)")
     a = ap.parse_args(argv)
     run_dir = Path(a.run_dir)
     if not a.resume:

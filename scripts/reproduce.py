@@ -24,7 +24,7 @@ compare_runs.py. Mode F wall ceiling 14 h within the 15 h H budget; infrastructu
 
 Amended (config "amendment": {"id": "2026-10-06-approved-protein-replacement", "tolerances": <v2 path>,
 "cite_builder": "companion/scripts/build_cite_totalvi.py"}): Mode F stays fully fresh (no adoption, no cached
-fits; a mode_f "adopt" key is refused). Step 5 runs the replacement builder (--workspace --data --out) and
+fits; a mode_f "adopt" key is refused). Step 5 runs the replacement builder (r4prime --workspace --data --out) and
 reads its eligibility.json: 0 eligible -> Arm A CITE predictions and protein_check are recorded as not run
 (results.json protein_check.status "not_run"); otherwise they run for the eligible files only, with a 4 GiB
 free-disk start floor for the CITE predictions (M6 query adaptation). The baseline must be an amended Mode R
@@ -219,8 +219,9 @@ class Repro:
         arms = {a: RM.assemble_arm(self.run_dir / "arms" / a, {m: [preds[a, m], fits[a, m]] for m in METHODS})
                 for a in ("A", "B")}
         builder = f"{R}/{REPLACEMENT_BUILDER}" if self.amendment else f"{sc}/build_cite.py"
-        ci = self.step("cite_build", "cite_build", lambda o: [py, builder, "--workspace", R,
-                                                               "--data", str(D), "--out", str(o)])
+        cite_cmd = (lambda o: [py, builder, "r4prime", "--workspace", R, "--data", str(D), "--out", str(o)]) \
+            if self.amendment else (lambda o: [py, builder, "--workspace", R, "--data", str(D), "--out", str(o)])
+        ci = self.step("cite_build", "cite_build", cite_cmd)
         elig = None
         if self.amendment:
             elig = RM.parse_eligibility(ci / RM.ELIGIBILITY_FILE)

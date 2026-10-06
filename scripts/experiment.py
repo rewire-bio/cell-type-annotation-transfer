@@ -70,6 +70,9 @@ def amended_recover_args(cfg: dict) -> list[str]:
     out = ["--amendment", am["id"], "--adopt-from", rel(ad["prior_manifest"]), "--prior-r4-seconds", str(float(r4))]
     if ad.get("receipts_dir"):
         out += ["--adopt-receipts-dir", rel(ad["receipts_dir"])]
+    cache = os.environ.get("CELLTRANSFER_CITE_CACHE")
+    if cache:
+        out += ["--builder-cache-dir", str(Path(cache).resolve())]
     return out
 
 

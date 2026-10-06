@@ -12,8 +12,8 @@ required artifact is unsupported (comparison not possible, so not reproduced); 2
 Versioned tolerances (protein-replacement amendment, tolerances v2): when
 T2_labels.expected_query_files.CITE is "n_eligible" (or {"from": "eligibility.json"}), the expected CITE
 file count is the number of "eligible" verdicts in the original's hashed eligibility.json (0, 1 or 2) and
-T1 additionally requires: identical eligibility verdicts, eligible input sha256/bytes equal to the pins,
-byte-identical mapping_<name>.csv and byte-identical postqc_barcodes_<name>.txt. All other tiers are
+T1 additionally requires the items of build_cite_totalvi.t1_replacement_checks: input sha256 equal to the pins,
+identical verdicts, byte-identical mapping_<name>.csv and byte-identical barcodes_qc_<name>.txt. All other tiers are
 unchanged. Zero eligible in both modes is reported explicitly ("protein_check": "not run ..."), never as a
 silent protein pass; exit code then reflects the remaining tiers only.
 """
@@ -859,8 +859,9 @@ def cite_expectation(tol):
         raise StructuralError(f"tolerances: invalid CITE expectation {v!r}")
     if isinstance(v, int):
         return "static", v
-    if v == "n_eligible" or (isinstance(v, dict) and "eligibility" in str(v.get("from", ""))):
-        return "dynamic", None
+    if v == "n_eligible" or (isinstance(v, dict) and (v.get("rule") == "n_eligible"
+                                                      or "eligibility" in str(v.get("from", "")))):
+        return "dynamic", None  # protocol/tolerances-v2.json: {"rule": "n_eligible", "allowed_values": [0, 1, 2]}
     raise StructuralError(f"tolerances: unrecognised CITE expectation {v!r}")
 
 
@@ -880,38 +881,21 @@ def _file_sha(p: Path):
 
 
 def t1_eligibility(rep, o, f, eo, ef):
-    """T1 additions of the amendment (s7). Returns nothing; adds checks."""
-    rep.add("T1", "eligibility_verdicts", "pass" if eo["verdicts"] == ef["verdicts"] else "breach",
-            original=eo["verdicts"], reproduction=ef["verdicts"], n_eligible=[eo["n_eligible"], ef["n_eligible"]])
+    """T1 additions of the amendment (s7), computed by the builder's authoritative ``t1_replacement_checks``
+    (input sha256 == pins from acquisition.json, identical verdicts + first failing criterion, byte-identical
+    mapping_<name>.csv and barcodes_qc_<name>.txt). A missing/tampered record is a breach, never a skip."""
+    B = RM.builder()
+    try:
+        items = B.t1_replacement_checks(Path(o["cite"]), Path(f["cite"]))
+    except (OSError, ValueError, KeyError, TypeError) as e:
+        rep.add("T1", "replacement_records", "breach", error=f"{type(e).__name__}: {e}")
+        return
+    for it in items:
+        det = {k: v for k, v in it.items() if k not in ("tier", "item", "file", "status")}
+        rep.add("T1", it["item"], it["status"], file=it.get("file"), **det)
     co, cf = eo["first_failing_criterion"], ef["first_failing_criterion"]
     rep.add("descriptive", "eligibility_first_failing_criterion", "identical" if co == cf else "differs", gated=False,
             original=co, reproduction=cf)
-    for who, el in (("original", eo), ("reproduction", ef)):
-        for n in el["eligible"]:
-            e, pin = el["files"][n], RM.REPLACEMENT_FILES[n]
-            if e.get("sha256") is None or e.get("bytes") is None:
-                rep.unsupported("T1", f"input_pins:{who}", f"eligibility.json entry {n} lacks sha256/bytes")
-                continue
-            ok = e["sha256"] == pin["sha256"] and int(e["bytes"]) == pin["bytes"]
-            rep.add("T1", f"input_pins:{who}", "pass" if ok else "breach", file=n,
-                    observed={"sha256": e["sha256"], "bytes": e["bytes"]}, pinned=pin)
-    names = sorted(set(eo["eligible"]) | set(ef["eligible"]))
-    for n in sorted(RM.REPLACEMENT_FILES):
-        for check, fname, required in (("mapping_csv", RM.mapping_csv_name(n), n in names),
-                                       ("postqc_barcodes", RM.postqc_barcodes_name(n), n in names)):
-            ho, hf = _file_sha(o["cite"] / fname), _file_sha(f["cite"] / fname)
-            if ho is None and hf is None:
-                if required:
-                    rep.unsupported("T1", check, f"{fname} absent in both modes for eligible file {n}")
-                continue
-            if ho is None or hf is None:
-                rep.add("T1", check, "breach", file=n, error=f"{fname} present in only one mode")
-                continue
-            det = {"sha256": [ho, hf]}
-            if check == "postqc_barcodes":
-                det["n_barcodes"] = [len((o["cite"] / fname).read_text().split()),
-                                     len((f["cite"] / fname).read_text().split())]
-            rep.add("T1", check, "pass" if ho == hf else "breach", file=n, **det)
 
 
 # ------------------------------------------------------------------ outcomes
