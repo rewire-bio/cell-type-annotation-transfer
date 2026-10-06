@@ -1,0 +1,8 @@
+{
+  "time_utc": "2026-10-06T17:29:32.984971+00:00",
+  "url": "https://cf.10xgenomics.com/samples/cell-exp/3.0.0/pbmc_10k_protein_v3/pbmc_10k_protein_v3_filtered_feature_bc_matrix.h5",
+  "status": 403,
+  "request": "ordinary urllib.request.urlopen, no identity changes or bypass",
+  "log": "runs/preflight-resources/pin-cite-inputs/attempt-1-20261006T172750093431Z/stderr.log",
+  "effect": "Secondary protein check unavailable; no protein data acquired; core matched annotation work can proceed. Full study/reproduction remains incomplete."
+}
