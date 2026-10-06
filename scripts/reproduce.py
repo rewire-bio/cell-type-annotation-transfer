@@ -76,6 +76,7 @@ class Repro:
         self.t0 = now()
         self.f_used = 0.0
         self.pool_used = {}
+        self.paper_used = 0.0
         self.runner = runner or self._guarded
         self.run_dir = repo / "runs" / f"F-{utc()}"
         cache = repo / ".cache-study"
@@ -87,7 +88,11 @@ class Repro:
                         "fresh_execution": True, "config": cfg, "steps": [], "status": "running",
                         "external_cache": None}
         self.python = str(repo / ".venv" / "bin" / "python")
-        self.amendment = cfg.get("amendment")
+        self.amendment = dict(cfg["amendment"]) if cfg.get("amendment") else None
+        # The full-run config predates this reproduction-only key. Its approved
+        # replacement amendment pins v2; preserve the original run config bytes.
+        if self.amendment is not None:
+            self.amendment.setdefault("tolerances", "protocol/tolerances-v2.json")
         if self.amendment:
             if self.amendment.get("id") != RM.AMENDMENT_ID:
                 raise Stop(f"amendment id {self.amendment.get('id')!r} is not the approved {RM.AMENDMENT_ID!r}")
@@ -120,6 +125,8 @@ class Repro:
             h_left = self.ceiling_h - (self.now() - self.t0)
             f_left = self.ceiling_f - self.f_used if mode_f else h_left
             left = min(h_left, f_left)
+            if not mode_f:
+                left = min(left, float(self.cfg["budgets"]["paper_seconds"]) - self.paper_used)
             if left <= 0:
                 raise Stop(f"budget exhausted before {name} attempt {attempt}")
             pool = (name[:1] + "_arm") if name.startswith(("A_M", "B_M")) and not name.endswith("_cite") else ("cite" if name == "cite_build" or name.endswith("_cite") else ("score_protein" if name in ("score", "protein") else None))
@@ -139,6 +146,8 @@ class Repro:
             dt_ = self.now() - t
             if mode_f:
                 self.f_used += dt_
+            else:
+                self.paper_used += dt_
             if pool:
                 self.pool_used[pool] = self.pool_used.get(pool, 0.0) + dt_
             self.receipt["steps"].append({"name": name, "kind": kind, "attempt": attempt, "command": argv,
@@ -282,7 +291,8 @@ class Repro:
         paper = self.repo / "paper"
         prot_args = ["--protein", str(prd)] if prd else ["--protein-not-run"]
         self.step("paper_assets", "paper", lambda o: [py, str(HERE / "make_paper_assets.py"), "--score", str(scd)]
-                  + prot_args + ["--comparison", str(report), "--output", str(paper)], mode_f=False, out=False)
+                  + prot_args + (["--eligibility", str(ci / RM.ELIGIBILITY_FILE)] if self.amendment else [])
+                  + ["--comparison", str(report), "--output", str(paper)], mode_f=False, out=False)
         self.step("paper_build", "paper", lambda o: [py, str(HERE / "build_paper.py")], mode_f=False, out=False)
         if not (self.repo / PDF).is_file():
             raise Stop("paper build reported success but paper/build/main.pdf is missing")
