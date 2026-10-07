@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "execution_ready": true,
+  "version": "m5-seed0-v2",
+  "proposal": "evidence/reviews/m5-seed-repair-proposal.md",
+  "execution_note": "evidence/reviews/m5-seed-repair-execution-note.md",
+  "guard": {
+    "threads": 4,
+    "mem_limit_gib": 12,
+    "storage_cap_gib": 7
+  },
+  "step_ceilings_s": {
+    "fit": 4800,
+    "predict": 1200,
+    "cite_predict": 1800,
+    "score": 7200,
+    "protein": 900,
+    "compare": 1200,
+    "paper": 1800,
+    "env": 1800
+  },
+  "stage_seconds": {
+    "canonical": 21900,
+    "reproduction": 26700
+  },
+  "package_versions": {
+    "celltypist": "1.7.1",
+    "scikit-learn": "1.5.2",
+    "numpy": "1.26.4",
+    "scipy": "1.13.1",
+    "joblib": "1.6.0"
+  },
+  "celltypist_train_sha256": "2c15d177f7b5a1b82e37aa6ec125f7c2ff709f823a0e71d054fb8766eeb1bff0",
+  "historical_m5_identity": {
+    "A": {
+      "genes_sha256": "dac509c1da5b3a01aeb2f4ffb8e67d2a43a0b8eb87dd914ad2ffb231891a247b",
+      "classes_sha256": "a50a4fc6af49e9098daae13b0f957d3669cdb2492ffaa2778d56b3b24195b2ba",
+      "scaler_mean_sha256": "1ee5179d30ed9bb42538ed0c948c0285dde8276c8606636c4ada73bc7c3c5155",
+      "scaler_scale_sha256": "f6a32e4ab58ef9f2286528088f7066ea3767899461d487c87328778fc6496909",
+      "scaler_var_sha256": "b44ffa640992c5d351e39becd1348b3bb5af2c2b996950ee8525ecd935194555"
+    },
+    "B": {
+      "genes_sha256": "967b7a885741a9f841f65d022578e0db8c1f8dcc498335e26db9edbe0bb445c8",
+      "classes_sha256": "d6dc00c03d9a0dc090609b6bbee0e26abd49d25e195f79ea5e79a110171c3874",
+      "scaler_mean_sha256": "fbf36d22b4fdcb5cc81a5a6a8794a514eddddad3e50259ecac947bf78e9ddc8c",
+      "scaler_scale_sha256": "9143edac5f5de242531ff5f49e41369d39fe331cb3c8f0dfbfef5e81451de28c",
+      "scaler_var_sha256": "1ff73e4e3f700c0f2e0f1000b943bcc1c9f49ea228fed461fd60a7448e7669ec"
+    }
+  },
+  "identity": {
+    "scientific_files": {
+      "companion/src/celltransfer/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "companion/src/celltransfer/census_data.py": "1ad9436e6df311eefcef65541f9c96a266ea301976392419e9f475e4477d6ac2",
+      "companion/src/celltransfer/cli.py": "6d8c10f2ff95e2e3fd6bb2c9b7186f57daa5e19cd9e1eb863491df7f35d07e0e",
+      "companion/src/celltransfer/evaluate.py": "e5fae4e8646821887d4555bc7746ba1bd1b4a259d172197590808d7d215a59a2",
+      "companion/src/celltransfer/label_maps.py": "cb677c69d767021184639ecad45cce3a7b8f18d9e87af81f41d73bfa1bd8dd63",
+      "companion/src/celltransfer/ontology.py": "83fe9e28d54026842114c79f35aa5282dc30b39f6ce07c72fb15789ad63a6d1b",
+      "companion/src/celltransfer/released.py": "e19069a5ba0dfc7700994a59f968140ff6aaa185635d20f3676153e1f907fa12",
+      "companion/pyproject.toml": "6de70fde6b21de27fc8f4083c88a5daccfd1eda37e49f6fad225fa3760e788a5",
+      "companion/env/requirements-core.in": "d02d93d17243a8a42a9a46c5a54bfc2deb0224bd1321725758fbf299656ad950",
+      "companion/env/requirements-core.lock.txt": "86781c10a75fdecdd77133b0ca5f9e46d25049fb0840d4a5d865dab5f2100071",
+      "companion/env/requirements-full.lock.txt": "438f98b330f7d6071c5f0348c7148b40d79134fca7e7a1cf412d04615596aaea",
+      "companion/env/requirements-scvi.in": "bd28ee346690f89de705547375ba7601052dc46470bbf6126357bc1e8e94ec70",
+      "companion/scripts/build_data.py": "a3d267e8a347ea9222062cc87af566cde1ad209cded1aabdd24e251588439591",
+      "companion/scripts/build_cite.py": "1ba4c48c46edf9ea738f5e07c1d873498fd449a3b0563553191596f06639d9df",
+      "companion/scripts/run_matched.py": "adeca9d66edce6d62651f6fe695108921f0d41f447ba5f95e768fed033b4c614",
+      "companion/scripts/score_all.py": "20f457204050bdac2c0d99596c43b9bb3214e9ff974ba24041f50eeab4e54d9f",
+      "companion/scripts/protein_check.py": "9458409448615ebce2bab0b189ef113c57371d57af647ef27c2c1c2c7442ba59",
+      "scripts/experiment.py": "2d83caba2767f56933d96ab0787407c42c2c4ecf4f8d73150175fde005a53904",
+      "scripts/recover.py": "4d7693e526bfe3eb5a75fdc1ea1cbe935aa3d0e5d397b0dda0cc5c900868cb79",
+      "scripts/resource_guard.py": "4b251743fcd914392db132b6e1b33d0405d081942e1df638960f5125c13021c5",
+      "scripts/result_manifest.py": "89c4c01ad91a07dff0d71907bccadab19c167fade1b95949564ae276e199dd5a",
+      "scripts/acquire_inputs.py": "22996bccbaf954566879d8f5c360c84fa14676ede2a5aa43fe86c83a29dcd9c3",
+      "scripts/compare_runs.py": "31d5b2ca4aa5051cfc4115f4e6f019bfd7b1152faa037923a86640c3972283f4",
+      "protocol/tolerances.json": "98a41d81c81e37e71cef821320c2f3eeb6f2af9c070263a22a671135f95d5d7b",
+      "uv.lock": "05fa7e7342a3fc4aaa60752f314f9f0b991ab7548dbfc75c16f7f718df71b67f",
+      "pyproject.toml": "67ef1ed6401912021814d1179e1f161c54e52607a83e570a4e858ad27f3c8367",
+      ".python-version": "f7401ec58a777fe2a730f8805ab7f63ff80f064930c616b18efe3a475daf57fd",
+      "data/manifest.json": "d59051fac4bcc418c70545f4d09fca0ee4649c413c7aedd7309241173aabdcdc",
+      "companion/vendor/sctab_cellnet/LICENSE": "c10a30764345fa3311b341f72159417aa558bbf64b58db2046a6df8d282cf180",
+      "companion/vendor/sctab_cellnet/PROVENANCE.txt": "77c315396ad50dcca0b140174fc90c6158bb2805c2a06a3d67129b5ee7be6b67",
+      "companion/vendor/sctab_cellnet/cellnet/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "companion/vendor/sctab_cellnet/cellnet/tabnet/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "companion/vendor/sctab_cellnet/cellnet/tabnet/sparsemax.py": "588a742593697188d65a96b4675e43ae0b6ace614be902f7370379e157df5aae",
+      "companion/vendor/sctab_cellnet/cellnet/tabnet/tab_network.py": "94a951baeb0058129ea7aa8e3cd9d9b791c99f7aab70c23e021b13475a0ca020",
+      "companion/vendor/sctab_cellnet/cellnet/utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "companion/vendor/sctab_cellnet/cellnet/utils/data_loading.py": "d11ea15ade40eddb79f6db367401622b764b36f90d526e143bed20c9855c488e",
+      "evidence/label-maps/celltypist_immune_all_low_v2.csv": "f4b2f9a46dc6b60b2bae80a46c262f75a569f0f2207146992695b3156ed7c1ea",
+      "evidence/label-maps/census_blood_author_labels.csv": "888b3522812e47688a9a908861ef6c263a068d62698794c8eb398381e82e151b",
+      "evidence/label-maps/sctab_164_labels.csv": "fb19d4153ce622759d578e11daf6767279fc54df79053ab549c663d6a0356006",
+      "evidence/recovery-inputs.json": "12df0f6b2d958085bd921a17784bc413c3faf4cda45c68e0d8f48c0bee93c913",
+      "companion/scripts/build_cite_totalvi.py": "d26f7315fcc54d5ef5474dd83545a032168f53b00f085a13097e0326a81b86ba",
+      "protocol/tolerances-v2.json": "c335e6a9403b1353bcb1f5b187edb92e4868f8124e31946a20b07a6710c90edb",
+      "protocol/amendments/2026-10-06-approved-protein-replacement.md": "757ea2aea79df13aaf6037bca0dc5132d58d58985c3066eb414cfbf9ac738b14",
+      "protocol/amendments/protein-replacement-reviewed.md": "e5ba0c347b66cba1c76dd249e386789c26e1916a95bc9c82a0208a696c89eae1",
+      "configs/full.json": "0e6e99676858c152c8d22c4ddecfdda0668c4e7f1bb8a6030a24b41189950814"
+    },
+    "original_methods": "evidence/reviews/m5-original-methods-1e95aac.py",
+    "original_methods_sha256": "914989c507d02ffe04886907b0812fd3c80ac597c8c87a657890923f35cf3c14",
+    "seeded_methods_sha256": "d2cb0cdef8a25cdc98df43ffdff3c9fcf6040972cab51b8ad5416be7da2f167e"
+  },
+  "mode": "full",
+  "python_version": "3.11.13"
+}

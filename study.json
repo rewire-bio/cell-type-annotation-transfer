@@ -9,7 +9,9 @@
       "run",
       "--frozen",
       "python",
-      "scripts/experiment.py",
+      "scripts/m5_seed_repair.py",
+      "--stage",
+      "canonical",
       "--config",
       "{config}",
       "--output",
@@ -41,7 +43,11 @@
       "companion/scripts/build_cite_totalvi.py",
       "protocol/tolerances-v2.json",
       "protocol/amendments/2026-10-06-approved-protein-replacement.md",
-      "protocol/amendments/protein-replacement-reviewed.md"
+      "protocol/amendments/protein-replacement-reviewed.md",
+      "scripts/m5_seed_repair.py",
+      "scripts/build_m5_repair_inventory.py",
+      "configs/m5-seed-repair.json",
+      "evidence/reviews/m5-original-methods-1e95aac.py"
     ],
     "outputs": [
       "results.json",

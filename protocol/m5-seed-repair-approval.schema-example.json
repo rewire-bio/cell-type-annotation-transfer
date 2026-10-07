@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "status": "prepared-not-approved",
+  "repair_id": "m5-seed0-v2",
+  "version": "m5-seed0-v2",
+  "stage": "canonical-or-reproduction",
+  "option": "R",
+  "approved_by": "COORDINATOR_TO_RECORD",
+  "user_reply": "COORDINATOR_TO_RECORD_EXACT_APPROVED_REPLY",
+  "original_run_id": "29879296d87343898100c190308744a1",
+  "parent_reproduction_id": "78542e9d412548edbfe42b38d452f7a8",
+  "fit_invocations": 4,
+  "score_invocations": 2,
+  "worker_call_cap": 24,
+  "total_seconds": 53970.0,
+  "prior_seconds": 7085.069447749978,
+  "ledger_choice": "existing-cumulative",
+  "protocol_hash": "EXACT_CURRENT_PROTOCOL_HASH",
+  "target_protocol_hash": "SAME_EXACT_CURRENT_PROTOCOL_HASH",
+  "target_science_hash": "EXACT_CURRENT_SCIENCE_HASH",
+  "proposal_sha256": "EXACT_PROPOSAL_SHA256",
+  "execution_note_sha256": "EXACT_EXECUTION_NOTE_SHA256",
+  "repair_config_sha256": "ACTIVE_REPAIR_CONFIG_SHA256",
+  "inventory_payload_sha256": {
+    "canonical-or-reproduction": "CANONICAL_PAYLOAD_SHA256"
+  },
+  "canonical_manifest_sha256": "REPRODUCTION_ONLY_AFTER_CANONICAL_COMPLETES"
+}

@@ -282,6 +282,8 @@ class Repro:
                                   arms={"A": [arms["A"]] + ([tc] if tc else []), "B": [arms["B"]]},
                                   score={"primary": scd}, protein=prd, fresh=True,
                                   d03_features=baseline_d03(self.baseline), **am_kw, **ev)
+        if json.loads(self.baseline.read_text()).get("provenance", {}).get("version") == "m5-seed0-v2":
+            extra["result_version"] = "m5-seed0-v2"
         res = RM.aggregate_results(scd, prd, extra=extra)
         (self.repo / RESULTS).parent.mkdir(parents=True, exist_ok=True)
         RM.write_json(self.repo / RESULTS, res)
@@ -338,6 +340,19 @@ def sha256(p: Path) -> str:
 
 
 def main(argv=None) -> int:
+    if os.environ.get("RESEARCH_ADOPTION_STAGE"):
+        if os.environ["RESEARCH_ADOPTION_STAGE"] != "reproduction":
+            print("STOPPED: make reproduce requires reproduction adoption stage", file=sys.stderr)
+            return 1
+        from m5_seed_repair import main as repair_main
+        saved = sys.argv
+        try:
+            sys.argv = [str(REPO / "scripts/m5_seed_repair.py"), "--stage", "reproduction",
+                        "--config", str(REPO / "configs/m5-seed-repair.json"),
+                        "--output", str(REPO / "results/m5-seed0-v2/reproduction")]
+            return repair_main()
+        finally:
+            sys.argv = saved
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--config", type=Path, default=REPO / "configs/full.json")
     a = ap.parse_args(argv)

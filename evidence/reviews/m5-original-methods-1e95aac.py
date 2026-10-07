@@ -151,7 +151,7 @@ class CellTypistRetrained:
         self.genes = list(genes)
         X = lognorm(adata[:, self.genes].X, adata.obs.total_counts_all)
         self.model = celltypist.train(X, labels=adata.obs.target.to_numpy(), genes=np.array(self.genes),
-                                      check_expression=False, use_SGD=False, feature_selection=False, n_jobs=4, random_state=0)
+                                      check_expression=False, use_SGD=False, feature_selection=False, n_jobs=4)
         self.classes = list(self.model.cell_types)
         return self
 
