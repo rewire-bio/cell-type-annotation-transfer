@@ -144,3 +144,13 @@ def test_retry_command_identity_refused(setup):
     with pytest.raises(R.Stop,match='Retry command identity'):
         r.step('B_M6_fit','fit',lambda o:['different',str(o)])
     assert not calls
+
+
+def test_receipt_hash_bound_without_copying(setup):
+    _,_,_,inv,ip,_=setup
+    inv['copy_roots'].remove(inv['receipt'])
+    ip.write_text(json.dumps(inv))
+    r=create(setup)
+    assert not (r.repo/inv['receipt']).exists()
+    assert r.receipt['continuation']['receipt_sha256'] == inv['receipt_sha256']
+    assert r.receipt['continuation']['parent_steps'] == r.old['steps']
