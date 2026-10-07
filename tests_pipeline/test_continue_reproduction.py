@@ -154,3 +154,109 @@ def test_receipt_hash_bound_without_copying(setup):
     assert not (r.repo/inv['receipt']).exists()
     assert r.receipt['continuation']['receipt_sha256'] == inv['receipt_sha256']
     assert r.receipt['continuation']['parent_steps'] == r.old['steps']
+
+
+@pytest.fixture
+def descendant(setup):
+    parent,repo,cfg,inv,ip,ancestor=setup
+    cfg['mode_f']['step_ceilings_s']['cite_build']=1200
+    logical='/descendant/check'
+    steps=[]
+    names=['env','acquire','data']+[f'{a}_{m}_{stage}' for a in ('A','B') for m in R.METHODS for stage in ('fit','predict')]
+    roots=['.venv','runs/data']
+    for name in names:
+        kind='env' if name=='env' else ('acquire' if name=='acquire' else ('data' if name=='data' else name.rsplit('_',1)[1]))
+        od=None if name in ('env','acquire') else logical+'/runs/'+('F-child' if name.startswith('B_M6') else 'F-old')+'/out/'+name+'-1'
+        argv=['uv','sync','--frozen'] if name=='env' else [logical+'/.venv/bin/python', name]
+        if od:
+            argv+=['--out',od]
+            rel=Path(od).relative_to(logical).as_posix()
+            write(parent/rel/'result','result '+name)
+            roots.append(rel)
+        if name in ('A_M6_predict','B_M6_predict'):
+            side='runs/'+('F-old' if name.startswith('A') else 'F-child')+'/'+name[:4]+'_checkpoint_sha256.json'
+            write(parent/side,'{"model.pt":"abc"}')
+            roots.append(side)
+            argv+=['--expected-hashes',logical+'/'+side]
+        fresh=name.startswith('B_M6')
+        steps.append({'name':name,'kind':kind,'status':'ok','attempt':1,'command':argv,'out_dir':od,
+                      'pool':'B_arm' if fresh else ('data_acquisition' if name in ('data','acquire') else None),
+                      'wall_seconds':40 if fresh and kind=='fit' else (50 if fresh else 0),
+                      'executed':fresh,'prior_wall_seconds':30 if not fresh else 0})
+    failed={'name':'cite_build','kind':'cite_build','status':'failed','attempt':1,
+            'command':[logical+'/.venv/bin/python','cite_build','--out',logical+'/runs/F-child/out/cite_build-1'],
+            'out_dir':logical+'/runs/F-child/out/cite_build-1','pool':'cite','wall_seconds':16}
+    steps.append(failed)
+    old={'mode':'F','fresh_execution':True,'config':cfg,'steps':steps,'prior_seconds_reserved':30,
+         'h_seconds_used':780,'f_seconds_used':779,'continuation':{'parent_id':'parent-id','parent_steps':ancestor['steps']}}
+    rel='runs/F-child/generation_receipt.json'
+    write(parent/rel,json.dumps(old))
+    roots.append(rel)
+    inv.update(parent_id='child-id',receipt=rel,receipt_sha256=C.digest(parent/rel),
+               completed_steps=names,copy_roots=roots)
+    inv['files']={p.relative_to(parent).as_posix():C.digest(p) for p in parent.rglob('*') if p.is_file() and not p.is_symlink()}
+    ip.write_text(json.dumps(inv))
+    mp=Path(os.environ['RESEARCH_REPRODUCTION_PARENT_MANIFEST'])
+    mp.write_text(json.dumps({'id':'child-id','status':'failed','protocol_hash':'ph','code_revision':'childrev',
+                             'lineage':[{'parent_id':'parent-id'}],'parent_reproduction_id':'parent-id'}))
+    return setup
+
+
+def test_descendant_reuses_all_12_fits_and_preserves_pools(descendant):
+    calls=[]
+    r=create(descendant,lambda *args:calls.append(args))
+    assert r.retry_step=='cite_build'
+    assert r.f_used==780
+    assert r.pool_used==pytest.approx({'data_acquisition':50,'B_arm':613.801,'cite':16})
+    for old in r.completed:
+        if '--expected-hashes' in old['command']:
+            p=Path(old['command'][old['command'].index('--expected-hashes')+1]).relative_to(r.logical_parent)
+            write(r.run_dir/Path(p).name,(r.repo/p).read_text())
+        r.step(old['name'],old['kind'],lambda out,old=old:r.normalized(old['command']),out=old['out_dir'] is not None)
+    assert not calls
+    assert len([x for x in r.receipt['steps'] if x['name'].endswith('_fit')])==12
+    assert all(x['executed'] is False for x in r.receipt['steps'])
+    with pytest.raises(R.Stop,match='Unapproved extra fit'): r.step('B_M6_fit','fit',lambda out:[])
+
+
+def test_descendant_cite_only_remaining_attempt(descendant):
+    calls=[]
+    def runner(*args):
+        calls.append(args)
+        return {'status':'timeout','returncode':None}
+    r=create(descendant,runner);r.cursor=len(r.completed)
+    with pytest.raises(R.Stop):
+        r.step('cite_build','cite_build',lambda out:[r.python,'cite_build','--out',str(out)])
+    assert len(calls)==1
+    assert r.receipt['steps'][-1]['total_attempt']==2
+    with pytest.raises(R.Stop,match='allowance exhausted'):
+        r.step('cite_build','cite_build',lambda out:[])
+    assert len(calls)==1
+
+
+def test_descendant_guarded_missing_input_repair(descendant,monkeypatch):
+    import acquire_inputs as acquisition
+    items=[acquisition.ITEMS_BY_ID[k] for k in ('sctab-hparams','sctab-var')]
+    # Fake pinned input bytes keep this test independent of network/data/models.
+    from dataclasses import replace
+    for item in items:
+        content=('input '+item.id).encode()
+        monkeypatch.setitem(acquisition.ITEMS_BY_ID,item.id,replace(item,sha256=__import__('hashlib').sha256(content).hexdigest()))
+    calls=[]
+    def runner(argv,name,timeout,cwd):
+        calls.append((argv,name,timeout))
+        for item in items:
+            write(cwd/item.dest,'input '+item.id)
+        write(cwd/'runs/data/retrieval-manifest.json','new repair receipt')
+        return {'status':'ok','returncode':0}
+    r=create(descendant,runner)
+    original=write(r.repo/'runs/data/retrieval-manifest.json','copied original acquisition')
+    r.repair_acquisition()
+    assert len(calls)==1 and calls[0][1]=='acquire'
+    assert calls[0][0][-5:]==['--only','sctab-hparams','sctab-var','--attempts','1']
+    assert original.read_text()=='copied original acquisition'
+    assert (r.run_dir/'repair_acquisition/repair-retrieval-manifest.json').read_text()=='new repair receipt'
+    assert r.receipt['steps'][-1]['executed'] is True
+    assert r.receipt['steps'][-1]['name']=='repair_acquire'
+    assert len(r.receipt['continuation']['repair_acquisition']['outputs_sha256'])==2
+    assert not any((r.parent/item.dest).exists() for item in items)

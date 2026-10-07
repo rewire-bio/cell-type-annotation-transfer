@@ -78,7 +78,7 @@ class ContinuedRepro(base.Repro):
         approval = json.loads((repo / 'evidence/reviews/disk-continuation-approval.json').read_text())
         plan = repo / 'evidence/reviews/disk-continuation-plan.md'
         if (self.inventory.get('schema_version') != 1 or
-            approval.get('parent_id') != manifest.get('id') or
+            approval.get('parent_id') not in ({manifest.get('id')} | {x.get('parent_id') for x in manifest.get('lineage', [])}) or
             self.inventory.get('parent_id') != manifest.get('id') or
             approval.get('protocol_hash') != manifest.get('protocol_hash') or
             not approval.get('approved_by') or not approval.get('user_reply') or
@@ -97,10 +97,23 @@ class ContinuedRepro(base.Repro):
             raise base.Stop('Parent is not the same clean Mode F configuration')
         steps = self.old['steps']
         failed = [s for s in steps if s['status'] != 'ok']
-        if (len(failed) != 2 or any(s['name'] != 'B_M6_fit' for s in failed) or
-            [s['attempt'] for s in failed] != [1, 2] or
-            any(s['status'] not in (base.RG.INFRA_STATUSES | {'disk-start'}) for s in failed) or steps[-2:] != failed):
-            raise base.Stop('Parent does not have only the approved exhausted B_M6 fit')
+        self.retry_step = 'B_M6_fit'
+        disk_parent = (len(failed) == 2 and all(s['name'] == 'B_M6_fit' for s in failed)
+                       and [s['attempt'] for s in failed] == [1, 2]
+                       and all(s['status'] in (base.RG.INFRA_STATUSES | {'disk-start'}) for s in failed)
+                       and steps[-2:] == failed)
+        cite_parent = (len(failed) == 1 and failed[0]['name'] == 'cite_build'
+                       and failed[0]['attempt'] == 1 and failed[0]['kind'] == 'cite_build'
+                       and steps[-1:] == failed and self.old.get('continuation')
+                       and manifest.get('parent_reproduction_id') == self.old['continuation']['parent_id'])
+        if not disk_parent and not cite_parent:
+            raise base.Stop('Parent does not have only the approved exhausted B_M6 fit or first cite attempt')
+        if cite_parent:
+            self.retry_step = 'cite_build'
+            expected = ['env', 'acquire', 'data'] + [f'{a}_{m}_{stage}' for a in ('A', 'B')
+                        for m in base.METHODS for stage in ('fit', 'predict')]
+            if [x['name'] for x in steps[:-1]] != expected or any(x['status'] != 'ok' for x in steps[:-1]):
+                raise base.Stop('Cite continuation requires all 27 completed fresh steps')
         self.completed = [s for s in steps if s['status'] == 'ok']
         if self.inventory['completed_steps'] != [s['name'] for s in self.completed]:
             raise base.Stop('Inventory completed-step prefix differs')
@@ -117,10 +130,11 @@ class ContinuedRepro(base.Repro):
             raise base.Stop('Invalid/exhausted continuation runtime')
         self.t0 = started - used
         self.f_used = used
-        self.pool_used = {}
-        for s in steps:
-            if s.get('pool'):
-                self.pool_used[s['pool']] = self.pool_used.get(s['pool'], 0.0) + float(s['wall_seconds'])
+        self.pool_used = dict(self.old.get('continuation', {}).get('carried_pool_usage', {}))
+        ancestry = [] if self.pool_used else self.old.get('continuation', {}).get('parent_steps', [])
+        for step in ancestry + steps:
+            if step.get('pool') and step.get('executed', True):
+                self.pool_used[step['pool']] = self.pool_used.get(step['pool'], 0.0) + float(step['wall_seconds'])
         # Validate before copying, then validate the independent destination copy.
         validate_inventory(self.parent, self.inventory)
         failed_roots = [str(Path(s['out_dir']).relative_to(self.logical_parent)) for s in failed]
@@ -146,7 +160,8 @@ class ContinuedRepro(base.Repro):
                             continuation={'parent_id': manifest['id'], 'parent_source': manifest['code_revision'],
                                           'inventory_sha256': digest(inv_path), 'receipt_sha256': digest(receipt_path),
                                           'prior_seconds_charged': used, 'copy_validation_seconds': overhead,
-                                          'parent_steps': steps, 'copy_roots': self.inventory['copy_roots']})
+                                          'parent_steps': steps, 'carried_pool_usage': dict(self.pool_used),
+                                          'retry_step': self.retry_step, 'copy_roots': self.inventory['copy_roots']})
         self.retry_used = False
 
     def save(self):
@@ -159,12 +174,57 @@ class ContinuedRepro(base.Repro):
         for value in argv:
             if value == self.logical_parent or value.startswith(self.logical_parent + '/'):
                 value = str(self.repo) + value[len(self.logical_parent):]
-            # The checkpoint sidecar is re-created in the new run control directory.
-            old_hp = str(self.repo / self.old_control / 'A_M6_checkpoint_sha256.json')
-            if value == old_hp:
-                value = str(self.run_dir / 'A_M6_checkpoint_sha256.json')
+            # Both checkpoint controls are reconstructed, including inherited old-run paths.
+            p = Path(value)
+            if p.name in ('A_M6_checkpoint_sha256.json', 'B_M6_checkpoint_sha256.json'):
+                if not p.is_relative_to(self.repo):
+                    raise base.Stop('Checkpoint argument outside normalized checkout')
+                value = str(self.run_dir / p.name)
             result.append(value)
         return result
+
+    def preflight(self, baseline):
+        super().preflight(baseline)
+        if self.retry_step == 'cite_build':
+            self.repair_acquisition()
+
+    def repair_acquisition(self):
+        """Restore only omitted pinned acquisition inputs, under existing acquisition budget."""
+        import acquire_inputs as acquisition
+        items = [acquisition.ITEMS_BY_ID[k] for k in ('sctab-hparams', 'sctab-var')]
+        repair = self.run_dir / 'repair_acquisition'
+        repair.mkdir(parents=True, exist_ok=True)
+        old_manifest = self.repo / 'runs/data/retrieval-manifest.json'
+        before = old_manifest.read_bytes() if old_manifest.is_file() else None
+        if before is not None:
+            (repair / 'original-retrieval-manifest.json').write_bytes(before)
+        argv = [self.python, str(self.repo / 'scripts/acquire_inputs.py'), 'acquire', '--root', str(self.repo),
+                '--repo', str(self.repo), '--only', 'sctab-hparams', 'sctab-var', '--attempts', '1']
+        attempts = self.max_attempts
+        self.max_attempts = 1
+        first = len(self.receipt['steps'])
+        try:
+            super().step('acquire', 'acquire', lambda _: argv, out=False)
+            outputs = {}
+            for item in items:
+                p = safe_path(self.repo, item.dest)
+                if p.is_symlink() or not p.is_file() or digest(p) != item.sha256:
+                    raise base.Stop(f'Repaired pinned input differs: {item.id}')
+                outputs[item.dest] = digest(p)
+            self.receipt['continuation']['repair_acquisition'] = {
+                'executed': True, 'command': argv, 'outputs_sha256': outputs,
+                'provenance': 'restored-pinned-third-party-inputs-in-new-checkout'}
+        finally:
+            self.max_attempts = attempts
+            for rec in self.receipt['steps'][first:]:
+                rec.update(name='repair_acquire', executed=True, provenance='repair-pinned-input-acquisition')
+            if old_manifest.is_file():
+                (repair / 'repair-retrieval-manifest.json').write_bytes(old_manifest.read_bytes())
+            if before is not None:
+                old_manifest.write_bytes(before)
+            elif old_manifest.is_file():
+                old_manifest.unlink()
+            self.save()
 
     def step(self, name, kind, argv_fn, mode_f=True, out=True):
         self.f_used = max(self.f_used, self.now() - self.t0 - self.paper_used)
@@ -183,7 +243,9 @@ class ContinuedRepro(base.Repro):
                 raise base.Stop(f'Reused command identity differs: {name}')
             if '--expected-hashes' in argv:
                 hp = Path(argv[argv.index('--expected-hashes') + 1])
-                bound = self.repo / self.old_control / hp.name
+                old_arg = old['command'][old['command'].index('--expected-hashes') + 1]
+                bound_rel = Path(old_arg).relative_to(self.logical_parent)
+                bound = self.repo / bound_rel
                 if not bound.is_file() or digest(hp) != digest(bound):
                     raise base.Stop('M6 checkpoint sidecar differs from hash-bound parent')
             self.receipt['steps'].append(dict(old, command=argv, out_dir=str(od) if od else None,
@@ -193,10 +255,11 @@ class ContinuedRepro(base.Repro):
             self.cursor += 1
             self.save()
             return od
-        if name == 'B_M6_fit':
+        if name == self.retry_step:
             if self.retry_used:
-                raise base.Stop('Additional B_M6 fit allowance exhausted')
-            if kind != 'fit' or not mode_f or not out:
+                raise base.Stop('Additional guarded continuation allowance exhausted')
+            expected_kind = 'fit' if name == 'B_M6_fit' else 'cite_build'
+            if kind != expected_kind or not mode_f or not out:
                 raise base.Stop('Approved retry must be the normal guarded fit')
             self.retry_used = True
             source = self.old['steps'][-1]
@@ -206,7 +269,7 @@ class ContinuedRepro(base.Repro):
                 old_out = str(self.repo / Path(source['out_dir']).relative_to(self.logical_parent))
                 expected = [str(od) if value == old_out else value for value in expected]
                 if argv != expected:
-                    raise base.Stop('Retry command identity differs from parent B_M6 fit')
+                    raise base.Stop('Retry command identity differs from parent failed step')
                 return argv
             attempts = self.max_attempts
             self.max_attempts = 1
@@ -216,7 +279,7 @@ class ContinuedRepro(base.Repro):
                 self.max_attempts = attempts
                 for rec in self.receipt['steps']:
                     if rec['name'] == name:
-                        rec.update(total_attempt=3, executed=True, continuation_attempt=1)
+                        rec.update(total_attempt=3 if name == 'B_M6_fit' else 2, executed=True, continuation_attempt=1)
                 self.save()
         if name.endswith('_fit'):
             raise base.Stop(f'Unapproved extra fit retry: {name}')

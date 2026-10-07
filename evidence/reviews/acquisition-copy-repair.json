@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-07T09:43:19.882573+00:00",
+  "kind": "engineering-copy-repair",
+  "parent_reproduction_id": "7860abd5206648fb87b5e5f30e16946d",
+  "failure": "cite_build attempt1 missing declared thirdparty acquisition metadata omitted by continuationcopy",
+  "preserved": "all12freshfits/predictions andbothfailedrecords unchanged",
+  "repair": "guardedreacquisition of2pinnedmetadatafiles innewcleancheckout only; nextcitebuild onlyremainingattempt2",
+  "new_model_fits": 0,
+  "scientific_design": "unchanged",
+  "protocol_hash": "0f8cc011ee63ba013faae07328d4ecea24c3ec0661cef510ffb5cd45feb198e4",
+  "science_hash": "b5097a7eab01657419456773f2e5ca03570cd62a1547940a0ebcbd5de978021a",
+  "authorization_basis": "existing userapproved continuationanddownstream2attemptbudget; noadditionalfit ornewprotocol requested",
+  "missing_inputs": [
+    "evidence/probes/P00-metadata-20261005/hf-hparams.yaml",
+    "evidence/probes/P01-census-blood-obs-20261005/sctab_var.parquet"
+  ],
+  "cumulative_parent_seconds": 6024.20210949998,
+  "ancestor_inventory_sha256": "b75e09c57363d900b0727d63b63c11f4531e73ae196824be64c553cb9f17442c"
+}
