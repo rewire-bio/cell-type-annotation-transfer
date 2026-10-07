@@ -1,0 +1,232 @@
+{
+  "approval_id": "750f4b44d2dc4d0a993c2ebfd261065b",
+  "attempt": 1,
+  "code_revision": "116cb9f57dee689da34d143376ce0799ddc00983",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "scripts/experiment.py",
+    "--config",
+    "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/configs/full.json",
+    "--output",
+    "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/runs/29879296d87343898100c190308744a1/output"
+  ],
+  "config": {
+    "amendment": {
+      "cite_builder": "companion/scripts/build_cite_totalvi.py",
+      "id": "2026-10-06-approved-protein-replacement"
+    },
+    "budgets": {
+      "paper_seconds": 1800,
+      "recovery_seconds": 28800,
+      "reproduction_seconds": 54000
+    },
+    "execution_ready": true,
+    "guard": {
+      "mem_limit_gib": 12.0,
+      "storage_cap_gib": 7.0,
+      "threads": 4
+    },
+    "mode": "full",
+    "mode_f": {
+      "max_attempts": 2,
+      "stage_ceiling_s": 50400,
+      "step_ceilings_s": {
+        "acquire": 5400,
+        "cite_build": 1200,
+        "cite_predict": 1800,
+        "compare": 1800,
+        "data": 7200,
+        "env": 1800,
+        "fit": 4800,
+        "paper": 1800,
+        "predict": 1200,
+        "protein": 900,
+        "score": 7200
+      }
+    },
+    "mode_r": {
+      "adopt": {
+        "prior_manifest": "evidence/completed-matched-recovery/recovery_manifest.json",
+        "receipts_dir": "evidence/completed-matched-recovery"
+      },
+      "d03_features": "runs/D03-build-data-full-20261005T213231Z/features_and_classes.json",
+      "historical_manifest": "evidence/recovery-inputs.json",
+      "mem_limit_gib": 12.0,
+      "prior_r4_seconds": 7.752,
+      "stage_ceiling_s": 28800
+    },
+    "stage": "R-cached-recovery+H-full-reproduction"
+  },
+  "config_path": "configs/full.json",
+  "coordinator_pid": 50273,
+  "duration_seconds": 663.5447502079987,
+  "environment": {
+    "cpu_count": 10,
+    "machine": "arm64",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.11.13 (main, Jul 11 2025, 22:26:10) [Clang 20.1.4 ]"
+  },
+  "exit_code": 0,
+  "failure": null,
+  "finished_at": "2026-10-06T22:00:47.180244+00:00",
+  "id": "29879296d87343898100c190308744a1",
+  "inputs": {
+    "datasets": {
+      "census_metadata_logical_sha256": "c6f8bc7c79fac6dc074839f47a0fca48d0f09dfaeef23b751647d80908a0c8e2",
+      "datasets": [
+        {
+          "license": "Mirror self-declares MIT (HF tag; not authoritative). Official scTab README states MIT for the code repository only; checkpoint licence from the scTab authors is not recorded.",
+          "path": "runs/data/downloads/sctab_val_f1_macro_epoch41.ckpt",
+          "provenance": "historical runs/data/downloads/fetch1.sh (exact URL used 2026-10-05); historical runs/data/downloads/fetch1.log (shasum -a 256 after download 2026-10-05T17:41Z)",
+          "sha256": "573b911f30f7a70d33a13d1e4e28d596827e389ac0fe55dbfe30952ece70f56c",
+          "source": "https://huggingface.co/MohamedMabrouk/scTab/resolve/9d49621154863948c057db0741452b18dcb78559/val_f1_macro_epoch%3D41_val_f1_macro%3D0.847.ckpt"
+        },
+        {
+          "license": "as sctab-checkpoint (mirror self-declared MIT; not authoritative)",
+          "path": "evidence/probes/P00-metadata-20261005/hf-hparams.yaml",
+          "provenance": "INFERRED: access-and-feasibility.md names `hparams.yaml` in mirror rev 9d49621; the exact retrieval URL was not saved; sha256 of the preserved historical probe copy (computed 2026-10-06); not an upstream-published hash",
+          "sha256": "e53f93c42017b20021c70ce0251d8a6bcc19a5dc6374cea1c6019a4003dfbf94",
+          "source": "https://huggingface.co/MohamedMabrouk/scTab/resolve/9d49621154863948c057db0741452b18dcb78559/hparams.yaml"
+        },
+        {
+          "license": "as sctab-checkpoint (mirror self-declared MIT; not authoritative)",
+          "path": "evidence/probes/P01-census-blood-obs-20261005/sctab_var.parquet",
+          "provenance": "Exact historical retrieval command recovered from original orchestration/claude-stream.jsonl; pinned mirror revision 9d49621154863948c057db0741452b18dcb78559.; sha256 of the preserved historical probe copy (computed 2026-10-06); not an upstream-published hash",
+          "sha256": "eca915f6fb7158ac67c58736b54f78f79c455632c977828d4295deb010317579",
+          "source": "https://huggingface.co/MohamedMabrouk/scTab/resolve/9d49621154863948c057db0741452b18dcb78559/merlin_cxg_2023_05_15_sf-log1p_minimal/var.parquet"
+        },
+        {
+          "license": "unknown (access-and-feasibility.md: 'to verify'); source Dominguez Conde et al. 2022 https://doi.org/10.1126/science.abl5197",
+          "path": "runs/data/models/celltypist/Immune_All_Low.pkl",
+          "provenance": "historical probes/P00-metadata-20261005/celltypist-models.json (models.json, v2, 2022-07-16); historical runs/data/models/celltypist/SHA256SUMS (2026-10-05)",
+          "sha256": "290874d35dac039d4c9218c343fde4aac1077709b72a331ce7266f6828c36502",
+          "source": "https://celltypist.cog.sanger.ac.uk/models/Pan_Immune_CellTypist/v2/Immune_All_Low.pkl"
+        },
+        {
+          "license": "unknown (access-and-feasibility.md: 'to verify')",
+          "path": "runs/data/models/celltypist/Immune_All_High.pkl",
+          "provenance": "historical probes/P00-metadata-20261005/celltypist-models.json; historical runs/data/models/celltypist/SHA256SUMS (2026-10-05)",
+          "sha256": "a715fec36c2c421f7c4e31cf4cb4bea883eedab7fd7b20a4b76f091c22660448",
+          "source": "https://celltypist.cog.sanger.ac.uk/models/Pan_Immune_CellTypist/v2/Immune_All_High.pkl"
+        },
+        {
+          "license": "CC BY 4.0 (access-and-feasibility.md table; upstream licence file not re-inspected here)",
+          "path": "runs/data/ontology/cl-basic-v2025-07-30.obo",
+          "provenance": "INFERRED from the GitHub release tag v2025-07-30 named in access-and-feasibility.md; the exact retrieval URL was not saved; historical runs/data/ontology/cl-basic-v2025-07-30.obo.sha256 (2026-10-05)",
+          "sha256": "ba24e2439bceb2608ae47adb9496d79675e717058259677305dd260f478ba07d",
+          "source": "https://github.com/obophenotype/cell-ontology/releases/download/v2025-07-30/cl-basic.obo"
+        }
+      ]
+    },
+    "experiment": {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "scripts/experiment.py",
+        "--config",
+        "{config}",
+        "--output",
+        "{output}"
+      ],
+      "inputs": [
+        "companion/src",
+        "companion/pyproject.toml",
+        "companion/env",
+        "companion/scripts/build_data.py",
+        "companion/scripts/build_cite.py",
+        "companion/scripts/run_matched.py",
+        "companion/scripts/score_all.py",
+        "companion/scripts/protein_check.py",
+        "scripts/experiment.py",
+        "scripts/recover.py",
+        "scripts/resource_guard.py",
+        "scripts/result_manifest.py",
+        "scripts/acquire_inputs.py",
+        "scripts/compare_runs.py",
+        "protocol/tolerances.json",
+        "uv.lock",
+        "pyproject.toml",
+        ".python-version",
+        "data/manifest.json",
+        "companion/vendor",
+        "evidence/label-maps",
+        "evidence/recovery-inputs.json",
+        "companion/scripts/build_cite_totalvi.py",
+        "protocol/tolerances-v2.json",
+        "protocol/amendments/2026-10-06-approved-protein-replacement.md",
+        "protocol/amendments/protein-replacement-reviewed.md"
+      ],
+      "outputs": [
+        "results.json",
+        "comparison_manifest.json",
+        "provenance.json"
+      ],
+      "results_file": "results.json"
+    },
+    "files": {
+      ".python-version": "f7401ec58a777fe2a730f8805ab7f63ff80f064930c616b18efe3a475daf57fd",
+      "companion/env/requirements-core.in": "d02d93d17243a8a42a9a46c5a54bfc2deb0224bd1321725758fbf299656ad950",
+      "companion/env/requirements-core.lock.txt": "86781c10a75fdecdd77133b0ca5f9e46d25049fb0840d4a5d865dab5f2100071",
+      "companion/env/requirements-full.lock.txt": "438f98b330f7d6071c5f0348c7148b40d79134fca7e7a1cf412d04615596aaea",
+      "companion/env/requirements-scvi.in": "bd28ee346690f89de705547375ba7601052dc46470bbf6126357bc1e8e94ec70",
+      "companion/pyproject.toml": "6de70fde6b21de27fc8f4083c88a5daccfd1eda37e49f6fad225fa3760e788a5",
+      "companion/scripts/build_cite.py": "1ba4c48c46edf9ea738f5e07c1d873498fd449a3b0563553191596f06639d9df",
+      "companion/scripts/build_cite_totalvi.py": "d26f7315fcc54d5ef5474dd83545a032168f53b00f085a13097e0326a81b86ba",
+      "companion/scripts/build_data.py": "a3d267e8a347ea9222062cc87af566cde1ad209cded1aabdd24e251588439591",
+      "companion/scripts/protein_check.py": "9458409448615ebce2bab0b189ef113c57371d57af647ef27c2c1c2c7442ba59",
+      "companion/scripts/run_matched.py": "adeca9d66edce6d62651f6fe695108921f0d41f447ba5f95e768fed033b4c614",
+      "companion/scripts/score_all.py": "20f457204050bdac2c0d99596c43b9bb3214e9ff974ba24041f50eeab4e54d9f",
+      "companion/src/celltransfer/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "companion/src/celltransfer/census_data.py": "1ad9436e6df311eefcef65541f9c96a266ea301976392419e9f475e4477d6ac2",
+      "companion/src/celltransfer/cli.py": "6d8c10f2ff95e2e3fd6bb2c9b7186f57daa5e19cd9e1eb863491df7f35d07e0e",
+      "companion/src/celltransfer/evaluate.py": "e5fae4e8646821887d4555bc7746ba1bd1b4a259d172197590808d7d215a59a2",
+      "companion/src/celltransfer/label_maps.py": "cb677c69d767021184639ecad45cce3a7b8f18d9e87af81f41d73bfa1bd8dd63",
+      "companion/src/celltransfer/methods.py": "914989c507d02ffe04886907b0812fd3c80ac597c8c87a657890923f35cf3c14",
+      "companion/src/celltransfer/ontology.py": "83fe9e28d54026842114c79f35aa5282dc30b39f6ce07c72fb15789ad63a6d1b",
+      "companion/src/celltransfer/released.py": "e19069a5ba0dfc7700994a59f968140ff6aaa185635d20f3676153e1f907fa12",
+      "companion/vendor/sctab_cellnet/LICENSE": "c10a30764345fa3311b341f72159417aa558bbf64b58db2046a6df8d282cf180",
+      "companion/vendor/sctab_cellnet/PROVENANCE.txt": "77c315396ad50dcca0b140174fc90c6158bb2805c2a06a3d67129b5ee7be6b67",
+      "companion/vendor/sctab_cellnet/cellnet/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "companion/vendor/sctab_cellnet/cellnet/tabnet/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "companion/vendor/sctab_cellnet/cellnet/tabnet/sparsemax.py": "588a742593697188d65a96b4675e43ae0b6ace614be902f7370379e157df5aae",
+      "companion/vendor/sctab_cellnet/cellnet/tabnet/tab_network.py": "94a951baeb0058129ea7aa8e3cd9d9b791c99f7aab70c23e021b13475a0ca020",
+      "companion/vendor/sctab_cellnet/cellnet/utils/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "companion/vendor/sctab_cellnet/cellnet/utils/data_loading.py": "d11ea15ade40eddb79f6db367401622b764b36f90d526e143bed20c9855c488e",
+      "configs/full.json": "0e6e99676858c152c8d22c4ddecfdda0668c4e7f1bb8a6030a24b41189950814",
+      "data/manifest.json": "d59051fac4bcc418c70545f4d09fca0ee4649c413c7aedd7309241173aabdcdc",
+      "evidence/label-maps/celltypist_immune_all_low_v2.csv": "f4b2f9a46dc6b60b2bae80a46c262f75a569f0f2207146992695b3156ed7c1ea",
+      "evidence/label-maps/census_blood_author_labels.csv": "888b3522812e47688a9a908861ef6c263a068d62698794c8eb398381e82e151b",
+      "evidence/label-maps/sctab_164_labels.csv": "fb19d4153ce622759d578e11daf6767279fc54df79053ab549c663d6a0356006",
+      "evidence/recovery-inputs.json": "12df0f6b2d958085bd921a17784bc413c3faf4cda45c68e0d8f48c0bee93c913",
+      "protocol/amendments/2026-10-06-approved-protein-replacement.md": "757ea2aea79df13aaf6037bca0dc5132d58d58985c3066eb414cfbf9ac738b14",
+      "protocol/amendments/protein-replacement-reviewed.md": "e5ba0c347b66cba1c76dd249e386789c26e1916a95bc9c82a0208a696c89eae1",
+      "protocol/tolerances-v2.json": "c335e6a9403b1353bcb1f5b187edb92e4868f8124e31946a20b07a6710c90edb",
+      "protocol/tolerances.json": "98a41d81c81e37e71cef821320c2f3eeb6f2af9c070263a22a671135f95d5d7b",
+      "pyproject.toml": "67ef1ed6401912021814d1179e1f161c54e52607a83e570a4e858ad27f3c8367",
+      "scripts/acquire_inputs.py": "22996bccbaf954566879d8f5c360c84fa14676ede2a5aa43fe86c83a29dcd9c3",
+      "scripts/compare_runs.py": "31d5b2ca4aa5051cfc4115f4e6f019bfd7b1152faa037923a86640c3972283f4",
+      "scripts/experiment.py": "2d83caba2767f56933d96ab0787407c42c2c4ecf4f8d73150175fde005a53904",
+      "scripts/recover.py": "4d7693e526bfe3eb5a75fdc1ea1cbe935aa3d0e5d397b0dda0cc5c900868cb79",
+      "scripts/resource_guard.py": "4b251743fcd914392db132b6e1b33d0405d081942e1df638960f5125c13021c5",
+      "scripts/result_manifest.py": "89c4c01ad91a07dff0d71907bccadab19c167fade1b95949564ae276e199dd5a",
+      "uv.lock": "05fa7e7342a3fc4aaa60752f314f9f0b991ab7548dbfc75c16f7f718df71b67f"
+    }
+  },
+  "mode": "full",
+  "outputs": {
+    "comparison_manifest.json": "a2c40cca28e84b905e0b2de89daf151549682cb7c6f3efcb0232a50ea6a1ad8c",
+    "provenance.json": "38123d14596db0f8360207774c35b025580b2e381915b8858d11c43a4c3e206a",
+    "results.json": "367d36e6c0217fa138d4f9650b49cec0155f0d75b3eecfdceeb83b84052e0551"
+  },
+  "protocol_hash": "0f8cc011ee63ba013faae07328d4ecea24c3ec0661cef510ffb5cd45feb198e4",
+  "retry_of": null,
+  "schema_version": 1,
+  "science_hash": "b5097a7eab01657419456773f2e5ca03570cd62a1547940a0ebcbd5de978021a",
+  "started_at": "2026-10-06T21:49:43.402115+00:00",
+  "status": "completed"
+}

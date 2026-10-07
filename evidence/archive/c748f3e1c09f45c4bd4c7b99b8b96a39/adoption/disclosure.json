@@ -1,0 +1,161 @@
+{
+  "actual_new_M5_fit_steps": 4,
+  "disclosure": "Reservations and successful execution steps are validated separately. Raw data/checkpoints and full failed comparison reports remain in the unchanged private archive with original hashes.",
+  "driver_fit_reservations": 4,
+  "driver_score_reservations": 2,
+  "immutable_dependency_files": 606,
+  "independent_execution": "M5 recomputed independently; declared unaffected outputs adopted from failed fresh execution",
+  "newly_executed_successful_fit_steps_in_completed_receipts": 1,
+  "retained_canonical_A_fit": {
+    "files": {
+      ".research/runs/3f18e178b78d4d75b595174cfa00cf99/output/m5-seed0-v2/out/A_M5_fit-1/fit_info.json": "4ad4b804d309a54b016d180e0fb6a0f96961702b931bb79375fb80d544f2dd62",
+      ".research/runs/3f18e178b78d4d75b595174cfa00cf99/output/m5-seed0-v2/out/A_M5_fit-1/model.pkl": "111e03c33dc7f8062fbb5106af155720852e2b95a0a067ad08c80836977ef11b"
+    },
+    "source_run": "3f18e178b78d4d75b595174cfa00cf99",
+    "source_step_sha256": "7e52e4a650571bf4c0a82aa870db2efdcad1ffac9d8103a518825ebc626e802f"
+  },
+  "retained_failed_parent_status": "failed",
+  "retained_independent_execution": {
+    "format_note": {
+      "path": "evidence/reviews/m5-paper-layout-repair/format-note.json",
+      "sha256": "4a8ebbfdbb9e09c1f8e6c292157de4e122522bd2196852f3a22d353e91786730"
+    },
+    "formatting_only": true,
+    "original_execution": {
+      "format_note": null,
+      "formatting_only": false,
+      "original_execution": {
+        "failed_manifest_sha256": "7d222651d38934acca2a8c4821f9b522e11211afe1a86e6be630492f0d7d91eb",
+        "failed_receipt_sha256": "2dc8a128232c3a96315c8cb12cd5ec0f9a6b817694f8ebb08f883bd956a9ad4c",
+        "retained_files": {
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_cite-1/predict_info.json": "084a1bce6338f62c209bc92c014d9b98d9c7c13b733eb04706f2823a2f0d0ee2",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_cite-1/predictions_totalvi_pbmc10k_protein_v3.parquet": "650c817ab0eef56223c7df53bad98058a53cf186e4b9490bc7ebf8f46e84d734",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_cite-1/predictions_totalvi_pbmc5k_protein_v3.parquet": "5a6accb4aeb09c3dce49996a0eb892389a17763a2f123ffa8a726b2d6c46209a",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_fit-1/fit_info.json": "4ffcd770e1eabd19eaa71d57a9044e5c359a859a05062ef2516acb36310d23ce",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_fit-1/model.pkl": "5c3d0f67c65f93dd9a2362ab5691a72589d54cc35b7755602445b9b419a09830",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_predict-1/predict_info.json": "ffc7e967a3d1b5ed965297a2c3d9d808b255165b8cc61d459a5b1062307f107f",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_predict-1/predictions_ClonalHaem.parquet": "e7353f8fef070fafa7b897a67b51a6a03a50fe8ea0276d55db9f9afeb845b45e",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_predict-1/predictions_Glaucoma.parquet": "76e35a63e360c2f648951d6c9f38d4eea276df49f1770c01d9284bca8f6702c6",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_predict-1/predictions_HIHA.parquet": "10b2b2dca6131b567312ee48f1a0231ac7fac3f1163bfa7c3c1f503ce7671097",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_predict-1/predictions_JDM.parquet": "4faff313072c71777a60d068b3c637b4a96dc2a3dd79e6d73014e45187625f2d",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_predict-1/predictions_KidneyBlood.parquet": "170d1c0bf88b551ef01ef069883595715b400223e8eb59524f4441ccd78310e0",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_predict-1/predictions_Platform_10x3v3.parquet": "3593e2ca7d0f415f8c60ccc6480673514268134e04e9ca49f408d4b3016cd13e",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_predict-1/predictions_Platform_10x5v2.parquet": "b882aacdd3ed2e15c3c2e67627fcd8fe63c39d0a9a0e403f4dc9e025bfe7cc76",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_predict-1/predictions_Platform_10xgeneexpressionflex.parquet": "dd10c549b1c782963f4b0ecd7e9393fa25f4d72c2d10b18d8474bbe34d2a57fd",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_predict-1/predictions_Platform_AsteriascRNAseqkit.parquet": "9f82de6b21ccc9f0951088bc337f140d8f110cc7b25bebe2ac096e5e0c183875",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_predict-1/predictions_Platform_BDRhapsodyWholeTranscriptomeAnalysis.parquet": "5c1b7035f1e50a51a301b26d2178f9cf8949c6fc6ec2c5ec300da367470a417d",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_predict-1/predictions_Platform_HIVECLXSingleCellRNAseqSolution.parquet": "e73d6f9261a3c837dc3dc926537fea3c26e9951be2e6d7a3426e644df365d47b",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_predict-1/predictions_Platform_ParseEvercodeWholeTranscriptomev2.parquet": "6e0ce2618f88364ccba56043e348d185bf9713c4091c736d6b1f4e308b5f3800",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_predict-1/predictions_Platform_ScaleBiosinglecellRNAsequencing.parquet": "83a2ae6e0ebfa576bdf10f8549c2b0f58b230b455a7002f9fb8ef5050d5309f8",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_predict-1/predictions_Platform_particletemplatedinstantpartitionsequencing.parquet": "8fe9fc81580cb14cdbfa47050a5e900f8246f61337ab5d7ef84dbb2dbc2c09fb",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/A_M5_predict-1/predictions_RA.parquet": "106aed563fdfcbabb625702c7e9fd6a88b7ca7059be7af8843d894de5ea6ec8d",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_fit-1/fit_info.json": "9e9d96d34e91f7e865195a39dd017836ddfc7785792f84a992b077288090342b",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_fit-1/model.pkl": "fad495bd0f7bbf988c3c4788f4199da631790d268ae5529fcbb356c5b75e224d",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_predict-1/predict_info.json": "82ddb47c8c8468ac36e80a6aa398bf700471b54b84dc56e3c7b040d9cca5b663",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_predict-1/predictions_ClonalHaem.parquet": "f3695a0c62c75dfec26d550015cc78a43e776f97c31caa455a42f338b396c9f7",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_predict-1/predictions_Glaucoma.parquet": "79513a6d28666af8f7023af6039c553c6ef86f6e488763521d2433fabc6a59bd",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_predict-1/predictions_HIHA.parquet": "5df0374459230cc03aa97e3dd348a014a5374cd520e80a1eac2e2cb7cdb5f096",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_predict-1/predictions_JDM.parquet": "4646eecbfed14873f8678157aa4553480fbe61bbe05fff86e16e58d88409e2fe",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_predict-1/predictions_KidneyBlood.parquet": "e09f31ce819a638f9643950b33d3f41040a209aeec04691d3981bfb911a96fac",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_predict-1/predictions_Platform_10x3v3.parquet": "88920c8ed736412f53a306a654ad85930c76e3cb9a3725138eea332f41a16685",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_predict-1/predictions_Platform_10x5v2.parquet": "45649d87aa893c011780daaa1c4e3f94991aad6b35166181e0a4b7929e59ae46",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_predict-1/predictions_Platform_10xgeneexpressionflex.parquet": "2ae0720f9c7b37edafc2b9b40c3a9731ce5c1eec524982c1888fce2a18a63abd",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_predict-1/predictions_Platform_AsteriascRNAseqkit.parquet": "2dfbc20e3faa7b6bf5c2e3b201e57fad1b5e60b021824622cacdf4007b4112f9",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_predict-1/predictions_Platform_BDRhapsodyWholeTranscriptomeAnalysis.parquet": "910e4bc7985ad54da9b35738fc9fb1338ba58e0f1c30aff2607ae5176865f4b7",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_predict-1/predictions_Platform_HIVECLXSingleCellRNAseqSolution.parquet": "83fdf728401beaf3e1dd13ffbeb2c6b3e403c950c7c5b762fc8ccf9e9cebd2d4",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_predict-1/predictions_Platform_ParseEvercodeWholeTranscriptomev2.parquet": "f222c54190a621c34b509591babb1d498b57a7cd95b97166f1e05eb340dd05e0",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_predict-1/predictions_Platform_ScaleBiosinglecellRNAsequencing.parquet": "88b35dfed5eff40e919da7e42f6dd61f0ebf4a5c8c53e5ac4162304d82fa1010",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_predict-1/predictions_Platform_particletemplatedinstantpartitionsequencing.parquet": "85545a124b91529bf029fa4ce76e358c2ec8933690ff38b8429f9a736e02f405",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/B_M5_predict-1/predictions_RA.parquet": "cc780bbfb11600d5143419a280c3f209b57c033a51382530411e9de41d9097de",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/protein-1/gates.json": "ea8b7011586cf77d7bfb72354742dd1c90c9caa5a209e502dd411b6b517172e5",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/protein-1/protein_agreement.csv": "b09c2033dec77cfab93aaeb25200402567a7e8ec5dbd7803376d4a1661623df6",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/protein-1/protein_classes_totalvi_pbmc10k_protein_v3.parquet": "fc83d2fca053b2e7e3d8b7b6693d6aea3165ffdc4fa7633a95e3a9714d7755f2",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/protein-1/protein_classes_totalvi_pbmc5k_protein_v3.parquet": "7fb553271095797bf85e63add7593941258c1e0f712000043fa27973be69f2d3",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/score-1/bootstrap_ids.csv": "f52fb5db6163d2c8d99d9cd4a11c49570422c855511735b8769aac81088f3495",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/score-1/bootstrap_nan_counts.csv": "cb64efb461394c18e4f4dcf59e55eac379fa993872f23c932ae2def32f5a7344",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/score-1/bootstrap_weights.npy": "79375c467cfce0d082471347c9f1b49666027dd870fc85eb719c2debd9aaf5f3",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/score-1/calibration_test.csv": "caa365717a3122f114fc9b78c2f6078980583ac1bc2db1685481b46b1af374d0",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/score-1/cell_counts.csv": "bd8dbdf9c9e999a37f7e5a16b634933a8e313080153c04d63d2a512ecf6bf536",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/score-1/paired_differences_vs_M4.csv": "01c65206ca9d7e46abb5b6baca22c752874fe5b878c76a0c19daeba0115c204d",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/score-1/per_class_test.csv": "6e6ffa69edda3f91db0aa292b9e96186ff71c7f27a97e4ca43f37e918776023a",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/score-1/per_study_test.csv": "c9041caea5ae1c8887bd09495e4e20f9cbc85bc7861dc630d02bd0cf38183e59",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/score-1/platform.csv": "a84051b26b670f8df9dd5b753593b32b4a5df0450fed1678f4ebf543bbb1592a",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/score-1/risk_coverage_test.csv": "6ce651a77e272cbb565ad3dbde02723208d4d8a27f08f0fa8c16134c11fdf0ce",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/score-1/score_info.json": "dd34b101e9288a950c985770048d8ad8beb5f737d9bffbcd2c8cfcd57b7a9fd9",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/score-1/scoring_scope.json": "b6bf902766b509097d24108346b015254182b5f98db46a55d3b90756b5f8b70f",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/score-1/summary_test.csv": "d5ce729151ea91a7fc8d7fe47d8ff935aff54cf350077abf0270d9bf30a1bd48",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/score-1/thresholds_validation.csv": "f1ac14fd5d3299939973b68a82f4b5b7141b540ebf2ed3ea5e43b5c9df55c859",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/score-1/unknowns_allstrata_secondary.csv": "8d599777133583bc63236c4e59e0c4c3142436c10e231c31b7461b08f76323cb",
+          ".research/reproductions/c056e758da6842f59e611930ec06bb17/checkout/results/m5-seed0-v2/reproduction/m5-seed0-v2/out/score-1/unknowns_test.csv": "33a5d43fcd5832dc341f2e92528c9cf4d30cf425372708d6577e6be720167a5f"
+        },
+        "retained_steps": [
+          "env",
+          "A_M5_fit",
+          "A_M5_predict",
+          "B_M5_fit",
+          "B_M5_predict",
+          "A_M5_cite",
+          "score",
+          "protein"
+        ],
+        "source_reproduction": "c056e758da6842f59e611930ec06bb17",
+        "source_step_sha256": {
+          "A_M5_cite": "887adca77f6245b6b41a0b9ecac572ed4b98c2f3254970d617591fde890a4f44",
+          "A_M5_fit": "621549acd2f70c35f7d44b3c59615d480607138a9249283e53dc0cc92466335f",
+          "A_M5_predict": "26493c286b7bb92e0da3fd2515c368db63bc3c0b02a0986bc6b9d09a90d85aac",
+          "B_M5_fit": "331d10d6c0f208bb4b50bbade0feb3a43c0503374dc12ebb3a4944df9fda8dfb",
+          "B_M5_predict": "f1727ee2ed1b378e1f3c177dba1c7d00cb75bcc1edea989dcf8cb253102fb859",
+          "env": "496292d065f1937a963948c5ffe47da8a09a11f73db7d39c5471924c137f6641",
+          "protein": "642cae70afbf787f2070814e2074d4c79951909c3c0d7e88a52a3320146ed5bb",
+          "score": "fdad55d54d17099071900d6eaebc372577bb4f5a42cc20476666aac8d0b3976e"
+        }
+      },
+      "paper_change": {
+        "new_sha256": "037881e634a8a02a648e48a1e274ca2aa4e85ecba6d725733250998c433a88e8",
+        "old_sha256": "1a6f46ae19c03808fa171666ce8ec502630245528fd418cf7c046bbf9f26a657",
+        "path": "paper/main.tex"
+      },
+      "parent_manifest_sha256": "69448695c8da06b39658dfe25416b2d478417259c93c3a952c0e5321f64b5e62",
+      "parent_receipt_sha256": "80aec2cba81d669a4ad00f8527f374d60907e345986b8c245f0e0cb75ac7b0d2",
+      "prior_paper_review": {
+        "path": "evidence/reviews/final-paper-m5-seed0-v2.md",
+        "sha256": "9a50721ff3654bdeaf07bacd66c28f363d3b7d7753a365fbbfbe24a99df02814"
+      },
+      "retained_steps": [
+        "env",
+        "A_M5_fit",
+        "A_M5_predict",
+        "B_M5_fit",
+        "B_M5_predict",
+        "A_M5_cite",
+        "score",
+        "protein"
+      ],
+      "source_reproduction": "2e1c5df1e88948cea0d9cfb29a9ad522"
+    },
+    "paper_change": {
+      "new_sha256": "3d06fc1491597f5319becd3d496a4b661a518749835e6b13d5fce62a7eca2217",
+      "old_sha256": "037881e634a8a02a648e48a1e274ca2aa4e85ecba6d725733250998c433a88e8",
+      "path": "paper/main.tex"
+    },
+    "parent_manifest_sha256": "6fe0b55337ef99e3962bf51938d9efd5ac3a3b678cf21d15391becb14888234f",
+    "parent_receipt_sha256": "975709891ec56cb8a980e354fc73270c72cba1a6176f263c3a34b425b4c7f37e",
+    "prior_paper_review": {
+      "path": "evidence/reviews/final-paper-m5-seed0-v2.md",
+      "sha256": "9a50721ff3654bdeaf07bacd66c28f363d3b7d7753a365fbbfbe24a99df02814"
+    },
+    "retained_steps": [
+      "env",
+      "A_M5_fit",
+      "A_M5_predict",
+      "B_M5_fit",
+      "B_M5_predict",
+      "A_M5_cite",
+      "score",
+      "protein"
+    ],
+    "source_reproduction": "55363789dd714acc90a073defde48623"
+  },
+  "schema_version": 1,
+  "scope": "approved paper-only rebuild; all scientific steps retained without invocation"
+}

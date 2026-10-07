@@ -1,0 +1,13 @@
+{
+  "adoption_parent": "78542e9d412548edbfe42b38d452f7a8",
+  "code_revision": "fd4588c2b58eee214fea76b1874be1a37df1f0da",
+  "cumulative_seconds": 19998.17157474796,
+  "disclosure": "Failed attempts retain their original status. Selective adoption, when present, recomputes M5 independently and reuses declared immutable unaffected outputs. Complete cache/data inventories and original logs remain local.",
+  "duration_total": 19998.17157474796,
+  "execution_scope": "approved paper-only rebuild; all scientific steps retained without invocation",
+  "lineage": [],
+  "original_run_id": "448f32386dfe45588fefa84c5d486703",
+  "prior_seconds": 19616.42664328996,
+  "reproduction_id": "56fa2cab73c045e8865aca59309c0770",
+  "schema_version": 1
+}

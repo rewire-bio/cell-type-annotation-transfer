@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "transformations": [
+    {
+      "original_path": "workers.json",
+      "original_sha256": "ea71025c4d825757639fbf49a55dfe2c8f04d5c870ada1c789829ba182f38cc1",
+      "public_action": "sanitized-derivative",
+      "public_path": "workers.json",
+      "public_sha256": "ccdea7a9fd084eae5e3737721dc9d783cc279dfe36448c73c36dd4a574e750e5",
+      "size_bytes": 91025,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "runs/448f32386dfe45588fefa84c5d486703/output/provenance.json",
+      "original_sha256": "3d9ca345e650be589c85d25f56ee6f50b1cb8afdcba304aa79f7e2664bc964c3",
+      "public_action": "sanitized-derivative",
+      "public_path": "original/provenance.json",
+      "public_sha256": "fe7e49aa1ccc465178f2d5a635b3a5dd641808c04f8414738bd58d89983fb701",
+      "size_bytes": 70386,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "runs/448f32386dfe45588fefa84c5d486703/manifest.json",
+      "original_sha256": "60cfbe955c5b9516532750c3873653e16f558528551403a087bf0b545e2dd516",
+      "public_action": "sanitized-derivative",
+      "public_path": "original/run-manifest.json",
+      "public_sha256": "af26be4be72c5c8b88e7dc622f6e0faf7f6091f9502af792b7a4376f34358071",
+      "size_bytes": 20980,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "<CHECKPOINT>/results/m5-seed0-v2/reproduction/generation_receipt.json",
+      "original_sha256": "8f84f595fb64341474f89eeda3ae89dde4f05487206c78c349cdb4672bc5ed68",
+      "public_action": "sanitized-derivative",
+      "public_path": "fresh/generation_receipt.json",
+      "public_sha256": "795a3dd7493d23d7cfacac659d78fc362ee75c96a3749905820854d85901125f",
+      "size_bytes": 154095,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "<CHECKPOINT>/results/m5-seed0-v2/reproduction/compare/report.json",
+      "original_sha256": "8b6c2ab6be1cdbfd9c45102b4a2e314d0c317b5498d8b5be3393962eeb22de3c",
+      "public_action": "sanitized-derivative",
+      "public_path": "fresh/comparison/report.json",
+      "public_sha256": "2df97cd7e1ba80f0ef674a34e282c864fb96a20b273b93ed013aad4724df3886",
+      "size_bytes": 572571,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "runs/29879296d87343898100c190308744a1/output/provenance.json",
+      "original_sha256": "38123d14596db0f8360207774c35b025580b2e381915b8858d11c43a4c3e206a",
+      "public_action": "sanitized-derivative",
+      "public_path": "historical-original/provenance.json",
+      "public_sha256": "8d8f431755eceab8ca00b3dc09c3b5b2e28a67781e5f4ba61ff3fa771fe6c62b",
+      "size_bytes": 44341,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "runs/29879296d87343898100c190308744a1/manifest.json",
+      "original_sha256": "fc29753072016ebf371d6131d8156a02d5fb2783a0284710b786b1ce17e32551",
+      "public_action": "sanitized-derivative",
+      "public_path": "historical-original/run-manifest.json",
+      "public_sha256": "a7e30c2387e66d05361f72ecf8a37b63030076b1b0ad8aff1d10b9524a150d2a",
+      "size_bytes": 13569,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "reproductions/56fa2cab73c045e8865aca59309c0770/adoption-inventory.json",
+      "original_sha256": "3752eadb8f043fceb98c973429e2a059c141eeb9687086eab06f7decb0a4a246",
+      "public_action": "sanitized-derivative",
+      "public_path": "adoption/adoption-inventory.json",
+      "public_sha256": "b7653c62aa05af5e38d1cc3f18531ea0d3aaec214e9d7574da39c3748d78cc9d",
+      "size_bytes": 170234,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "runs/448f32386dfe45588fefa84c5d486703/output/generation_receipt.json",
+      "original_sha256": "3d9ca345e650be589c85d25f56ee6f50b1cb8afdcba304aa79f7e2664bc964c3",
+      "public_action": "sanitized-derivative",
+      "public_path": "adoption/canonical-generation-receipt.json",
+      "public_sha256": "fe7e49aa1ccc465178f2d5a635b3a5dd641808c04f8414738bd58d89983fb701",
+      "size_bytes": 70386,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "runs/c098a3420d0a4c99b6d2b8d65c667af7/manifest.json",
+      "original_sha256": "6a3405b9ed52f563eda5274a750578650af8a307610c1d1b4600c13ccd9a9c82",
+      "public_action": "sanitized-derivative",
+      "public_path": "lineage/failed-canonical/c098a3420d0a4c99b6d2b8d65c667af7/manifest.json",
+      "public_sha256": "49d333b1c9f94a139220c1020c8ee6df4762afad5dbfd8c27d64b1c6fbd93bdb",
+      "size_bytes": 20719,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "runs/3f18e178b78d4d75b595174cfa00cf99/manifest.json",
+      "original_sha256": "1b81d39a266b769b21003dcb85e0eaee433acd53166c3e04ac0faf3f89681495",
+      "public_action": "sanitized-derivative",
+      "public_path": "lineage/failed-canonical/3f18e178b78d4d75b595174cfa00cf99/manifest.json",
+      "public_sha256": "190db9069f7954e74e72274bfdad018d457d6674300d886b2bd7f720b7c1ba56",
+      "size_bytes": 20781,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "runs/3f18e178b78d4d75b595174cfa00cf99/output/generation_receipt.json",
+      "original_sha256": "048f0851453afe612e32ecc7640f7adcdc8a77ced689d2be41c65b77bbaaad8d",
+      "public_action": "sanitized-derivative",
+      "public_path": "lineage/failed-canonical/3f18e178b78d4d75b595174cfa00cf99/generation_receipt.json",
+      "public_sha256": "37f60ffa86327dd531b484f1aa5c9c31e2fe9da5d1d63489473d93736d0ac20d",
+      "size_bytes": 59924,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "adoption-dependencies/2dc8a128232c3a96315c8cb12cd5ec0f9a6b817694f8ebb08f883bd956a9ad4c",
+      "original_sha256": "2dc8a128232c3a96315c8cb12cd5ec0f9a6b817694f8ebb08f883bd956a9ad4c",
+      "public_action": "sanitized-derivative",
+      "public_path": "lineage/failed-independent/c056e758da6842f59e611930ec06bb17/generation_receipt.json",
+      "public_sha256": "55caf31c59bf25a69f568aa01b8c895925d921a8bdbe7fb157736134ba5cb1da",
+      "size_bytes": 79762,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "adoption-dependencies/80aec2cba81d669a4ad00f8527f374d60907e345986b8c245f0e0cb75ac7b0d2",
+      "original_sha256": "80aec2cba81d669a4ad00f8527f374d60907e345986b8c245f0e0cb75ac7b0d2",
+      "public_action": "sanitized-derivative",
+      "public_path": "lineage/completed-independent/2e1c5df1e88948cea0d9cfb29a9ad522/generation_receipt.json",
+      "public_sha256": "57c041a561f361e0dcb469690eb5beff92145cb847aec2829e3ef4610a778ef2",
+      "size_bytes": 100152,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "adoption-dependencies/975709891ec56cb8a980e354fc73270c72cba1a6176f263c3a34b425b4c7f37e",
+      "original_sha256": "975709891ec56cb8a980e354fc73270c72cba1a6176f263c3a34b425b4c7f37e",
+      "public_action": "sanitized-derivative",
+      "public_path": "lineage/completed-independent/55363789dd714acc90a073defde48623/generation_receipt.json",
+      "public_sha256": "b5e61f772f17d83a9df27c7eb374a9aa2124b3a86fd768852246ce0ffceb5266",
+      "size_bytes": 126991,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "adoption-dependencies/5906c12775a5a54befd11f9ad4eb388916453c4defb231214921b4912af9be40",
+      "original_sha256": "5906c12775a5a54befd11f9ad4eb388916453c4defb231214921b4912af9be40",
+      "public_action": "sanitized-derivative",
+      "public_path": "lineage/receipts/f580381d8d02fe56.json",
+      "public_sha256": "49c2b47190fd03c39b183e95796559e6800d06861ddb40fff7f221b6e6a6fddf",
+      "size_bytes": 150419,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "adoption-dependencies/80aec2cba81d669a4ad00f8527f374d60907e345986b8c245f0e0cb75ac7b0d2",
+      "original_sha256": "80aec2cba81d669a4ad00f8527f374d60907e345986b8c245f0e0cb75ac7b0d2",
+      "public_action": "sanitized-derivative",
+      "public_path": "lineage/receipts/6a039a54d2740dca.json",
+      "public_sha256": "57c041a561f361e0dcb469690eb5beff92145cb847aec2829e3ef4610a778ef2",
+      "size_bytes": 100152,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "adoption-dependencies/975709891ec56cb8a980e354fc73270c72cba1a6176f263c3a34b425b4c7f37e",
+      "original_sha256": "975709891ec56cb8a980e354fc73270c72cba1a6176f263c3a34b425b4c7f37e",
+      "public_action": "sanitized-derivative",
+      "public_path": "lineage/receipts/e636437c477555b4.json",
+      "public_sha256": "b5e61f772f17d83a9df27c7eb374a9aa2124b3a86fd768852246ce0ffceb5266",
+      "size_bytes": 126991,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "adoption-dependencies/cb911ffc609678cf2ba4ad2f65e418c4efe8b447b7ef0b2a15c5e11692aa96c1",
+      "original_sha256": "cb911ffc609678cf2ba4ad2f65e418c4efe8b447b7ef0b2a15c5e11692aa96c1",
+      "public_action": "sanitized-derivative",
+      "public_path": "lineage/receipts/652adf6701fa3aae.json",
+      "public_sha256": "1944958b2edecb5365ec3a0ecccc3c87d5d7eb9c37958b9a67d3439d64ee524c",
+      "size_bytes": 43107,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "adoption-dependencies/3e1160c1f64fab2fa6b7dbe001580446d92759d84ca89924e1fa79d0f6a61eb7",
+      "original_sha256": "3e1160c1f64fab2fa6b7dbe001580446d92759d84ca89924e1fa79d0f6a61eb7",
+      "public_action": "sanitized-derivative",
+      "public_path": "lineage/receipts/e6787366b42133e0.json",
+      "public_sha256": "c663bae48bc183f582c1880693b8a495076ddc46f3a4c15ee2d3335b7e84dfe7",
+      "size_bytes": 165897,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "adoption-dependencies/e1349684074207141531ab9e29302996ef87b4218049c152920b05e95cc90d46",
+      "original_sha256": "e1349684074207141531ab9e29302996ef87b4218049c152920b05e95cc90d46",
+      "public_action": "sanitized-derivative",
+      "public_path": "lineage/receipts/062df0a913188be1.json",
+      "public_sha256": "72b978ace9cfa5ade4ef9a1fc281b0f4b231441b6cb34b649cc04ffdcac18e6d",
+      "size_bytes": 117127,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "adoption-dependencies/2dc8a128232c3a96315c8cb12cd5ec0f9a6b817694f8ebb08f883bd956a9ad4c",
+      "original_sha256": "2dc8a128232c3a96315c8cb12cd5ec0f9a6b817694f8ebb08f883bd956a9ad4c",
+      "public_action": "sanitized-derivative",
+      "public_path": "lineage/receipts/441864ca1f0eac09.json",
+      "public_sha256": "55caf31c59bf25a69f568aa01b8c895925d921a8bdbe7fb157736134ba5cb1da",
+      "size_bytes": 79762,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "adoption-dependencies/048f0851453afe612e32ecc7640f7adcdc8a77ced689d2be41c65b77bbaaad8d",
+      "original_sha256": "048f0851453afe612e32ecc7640f7adcdc8a77ced689d2be41c65b77bbaaad8d",
+      "public_action": "sanitized-derivative",
+      "public_path": "lineage/receipts/07bc1ce89a79e138.json",
+      "public_sha256": "37f60ffa86327dd531b484f1aa5c9c31e2fe9da5d1d63489473d93736d0ac20d",
+      "size_bytes": 59924,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "adoption-dependencies/3d9ca345e650be589c85d25f56ee6f50b1cb8afdcba304aa79f7e2664bc964c3",
+      "original_sha256": "3d9ca345e650be589c85d25f56ee6f50b1cb8afdcba304aa79f7e2664bc964c3",
+      "public_action": "sanitized-derivative",
+      "public_path": "lineage/receipts/3d9146f2900c9f5d.json",
+      "public_sha256": "fe7e49aa1ccc465178f2d5a635b3a5dd641808c04f8414738bd58d89983fb701",
+      "size_bytes": 70386,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "adoption-dependencies/048f0851453afe612e32ecc7640f7adcdc8a77ced689d2be41c65b77bbaaad8d",
+      "original_sha256": "048f0851453afe612e32ecc7640f7adcdc8a77ced689d2be41c65b77bbaaad8d",
+      "public_action": "sanitized-derivative",
+      "public_path": "lineage/receipts/07bc1ce89a79e138.json",
+      "public_sha256": "37f60ffa86327dd531b484f1aa5c9c31e2fe9da5d1d63489473d93736d0ac20d",
+      "size_bytes": 59924,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    },
+    {
+      "original_path": "adoption-dependencies/975709891ec56cb8a980e354fc73270c72cba1a6176f263c3a34b425b4c7f37e",
+      "original_sha256": "975709891ec56cb8a980e354fc73270c72cba1a6176f263c3a34b425b4c7f37e",
+      "public_action": "sanitized-derivative",
+      "public_path": "lineage/receipts/e636437c477555b4.json",
+      "public_sha256": "b5e61f772f17d83a9df27c7eb374a9aa2124b3a86fd768852246ce0ffceb5266",
+      "size_bytes": 126991,
+      "transformation": "Replace absolute study-root and user home prefixes; scientific values and statuses unchanged"
+    }
+  ]
+}

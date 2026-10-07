@@ -1,0 +1,47 @@
+{
+ "amendment": "2026-10-06-approved-protein-replacement",
+ "arms": {
+  "A": [
+   "arms/A",
+   "armA_cite"
+  ],
+  "B": [
+   "arms/B"
+  ]
+ },
+ "bootstrap_weights": "m5-seed0-v2/continued/score/bootstrap_weights.npy",
+ "cite": "m5-seed0-v2/adopted/.research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/runs/F-20261007T103704949889Z/out/cite_build-1",
+ "d03_features": "../../../../../../../historical/runs/D03-build-data-full-20261005T213231Z/features_and_classes.json",
+ "d03_features_role": "reference-check-only",
+ "data": "m5-seed0-v2/adopted/.research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/runs/F-20261007T072328186948Z/out/data-1",
+ "eligibility": "m5-seed0-v2/adopted/.research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/runs/F-20261007T103704949889Z/out/cite_build-1/eligibility.json",
+ "eligibility_sha256": "2135e734239ba8279c00d14b2084e9e42d67f5ead77ccf970ea01c6ef87d4167",
+ "fresh_execution": true,
+ "mode": "F",
+ "protein": "m5-seed0-v2/continued/protein",
+ "protein_classes": {
+  "totalvi_pbmc10k_protein_v3": "m5-seed0-v2/continued/protein/protein_classes_totalvi_pbmc10k_protein_v3.parquet",
+  "totalvi_pbmc5k_protein_v3": "m5-seed0-v2/continued/protein/protein_classes_totalvi_pbmc5k_protein_v3.parquet"
+ },
+ "protein_status": "run",
+ "provenance": {
+  "M5_execution": "independent seed0 process",
+  "adopted_source_run": "78542e9d412548edbfe42b38d452f7a8",
+  "adopted_unaffected_methods": [
+   "M1",
+   "M2",
+   "M3",
+   "M4",
+   "M6"
+  ],
+  "adoption_inventory_sha256": "5657a42706d0f0b1fb20c34b9942e0b85f9e38e5f684d5b20858f6a18900db0f",
+  "fresh_scope": "M5 only; unaffected outputs independently fitted in failed fresh parent",
+  "source_parent": "78542e9d412548edbfe42b38d452f7a8",
+  "stage": "reproduction",
+  "version": "m5-seed0-v2"
+ },
+ "schema": "celltransfer-compare-manifest/1",
+ "score": {
+  "primary": "m5-seed0-v2/continued/score"
+ }
+}

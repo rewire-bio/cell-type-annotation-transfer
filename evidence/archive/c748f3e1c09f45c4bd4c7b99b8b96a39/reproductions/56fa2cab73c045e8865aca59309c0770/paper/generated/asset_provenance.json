@@ -1,0 +1,251 @@
+{
+ "contract": {
+  "checked": true,
+  "path": "paper/artifacts.json",
+  "sha256": "bf209e68acfc4ecc81f24e5cb11c2481ba18f556a8911805c7f914eac437158b"
+ },
+ "environment": {
+  "matplotlib": "3.9.2",
+  "numpy": "1.26.4",
+  "python": "3.11.13"
+ },
+ "generator": {
+  "path": "scripts/make_paper_assets.py",
+  "result_manifest_sha256": "89c4c01ad91a07dff0d71907bccadab19c167fade1b95949564ae276e199dd5a",
+  "sha256": "e41335f588eb76964fa7463d5f7c05ba1754e2566974d34696a7e11a336241c8"
+ },
+ "inputs": [
+  {
+   "bytes": 10289,
+   "file": "summary_test.csv",
+   "path": "results/m5-seed0-v2/reproduction/m5-seed0-v2/continued/score/summary_test.csv",
+   "role": "score",
+   "sha256": "d5ce729151ea91a7fc8d7fe47d8ff935aff54cf350077abf0270d9bf30a1bd48",
+   "status": "read"
+  },
+  {
+   "bytes": 1358,
+   "file": "thresholds_validation.csv",
+   "path": "results/m5-seed0-v2/reproduction/m5-seed0-v2/continued/score/thresholds_validation.csv",
+   "role": "score",
+   "sha256": "f1ac14fd5d3299939973b68a82f4b5b7141b540ebf2ed3ea5e43b5c9df55c859",
+   "status": "read"
+  },
+  {
+   "bytes": 7241,
+   "file": "paired_differences_vs_M4.csv",
+   "path": "results/m5-seed0-v2/reproduction/m5-seed0-v2/continued/score/paired_differences_vs_M4.csv",
+   "role": "score",
+   "sha256": "01c65206ca9d7e46abb5b6baca22c752874fe5b878c76a0c19daeba0115c204d",
+   "status": "read"
+  },
+  {
+   "bytes": 10836,
+   "file": "calibration_test.csv",
+   "path": "results/m5-seed0-v2/reproduction/m5-seed0-v2/continued/score/calibration_test.csv",
+   "role": "score",
+   "sha256": "caa365717a3122f114fc9b78c2f6078980583ac1bc2db1685481b46b1af374d0",
+   "status": "read"
+  },
+  {
+   "bytes": 10815,
+   "file": "per_study_test.csv",
+   "path": "results/m5-seed0-v2/reproduction/m5-seed0-v2/continued/score/per_study_test.csv",
+   "role": "score",
+   "sha256": "c9041caea5ae1c8887bd09495e4e20f9cbc85bc7861dc630d02bd0cf38183e59",
+   "status": "read"
+  },
+  {
+   "bytes": 126685,
+   "file": "risk_coverage_test.csv",
+   "path": "results/m5-seed0-v2/reproduction/m5-seed0-v2/continued/score/risk_coverage_test.csv",
+   "role": "score",
+   "sha256": "6ce651a77e272cbb565ad3dbde02723208d4d8a27f08f0fa8c16134c11fdf0ce",
+   "status": "read"
+  },
+  {
+   "bytes": 21456,
+   "file": "platform.csv",
+   "path": "results/m5-seed0-v2/reproduction/m5-seed0-v2/continued/score/platform.csv",
+   "role": "score",
+   "sha256": "a84051b26b670f8df9dd5b753593b32b4a5df0450fed1678f4ebf543bbb1592a",
+   "status": "read"
+  },
+  {
+   "bytes": 2978,
+   "file": "cell_counts.csv",
+   "path": "results/m5-seed0-v2/reproduction/m5-seed0-v2/continued/score/cell_counts.csv",
+   "role": "score",
+   "sha256": "bd8dbdf9c9e999a37f7e5a16b634933a8e313080153c04d63d2a512ecf6bf536",
+   "status": "read"
+  },
+  {
+   "bytes": 229,
+   "file": "score_info.json",
+   "path": "results/m5-seed0-v2/reproduction/m5-seed0-v2/continued/score/score_info.json",
+   "role": "score",
+   "sha256": "dd34b101e9288a950c985770048d8ad8beb5f737d9bffbcd2c8cfcd57b7a9fd9",
+   "status": "read"
+  },
+  {
+   "bytes": 2831,
+   "file": "bootstrap_nan_counts.csv",
+   "path": "results/m5-seed0-v2/reproduction/m5-seed0-v2/continued/score/bootstrap_nan_counts.csv",
+   "role": "score",
+   "sha256": "cb64efb461394c18e4f4dcf59e55eac379fa993872f23c932ae2def32f5a7344",
+   "status": "read"
+  },
+  {
+   "bytes": 835,
+   "file": "unknowns_allstrata_secondary.csv",
+   "path": "results/m5-seed0-v2/reproduction/m5-seed0-v2/continued/score/unknowns_allstrata_secondary.csv",
+   "role": "score",
+   "sha256": "8d599777133583bc63236c4e59e0c4c3142436c10e231c31b7461b08f76323cb",
+   "status": "read"
+  },
+  {
+   "bytes": 131,
+   "file": "scoring_scope.json",
+   "path": "results/m5-seed0-v2/reproduction/m5-seed0-v2/continued/score/scoring_scope.json",
+   "role": "score",
+   "sha256": "b6bf902766b509097d24108346b015254182b5f98db46a55d3b90756b5f8b70f",
+   "status": "read"
+  },
+  {
+   "bytes": 2027,
+   "file": "protein_agreement.csv",
+   "path": "results/m5-seed0-v2/reproduction/m5-seed0-v2/continued/protein/protein_agreement.csv",
+   "role": "protein",
+   "sha256": "b09c2033dec77cfab93aaeb25200402567a7e8ec5dbd7803376d4a1661623df6",
+   "status": "read"
+  },
+  {
+   "bytes": 1099,
+   "file": "gates.json",
+   "path": "results/m5-seed0-v2/reproduction/m5-seed0-v2/continued/protein/gates.json",
+   "role": "protein",
+   "sha256": "ea8b7011586cf77d7bfb72354742dd1c90c9caa5a209e502dd411b6b517172e5",
+   "status": "read"
+  },
+  {
+   "bytes": 7285,
+   "file": "eligibility.json",
+   "path": "results/m5-seed0-v2/reproduction/m5-seed0-v2/adopted/.research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/runs/F-20261007T103704949889Z/out/cite_build-1/eligibility.json",
+   "role": "eligibility",
+   "sha256": "2135e734239ba8279c00d14b2084e9e42d67f5ead77ccf970ea01c6ef87d4167",
+   "status": "read"
+  },
+  {
+   "bytes": 83,
+   "file": "eligibility.json.sha256",
+   "path": "results/m5-seed0-v2/reproduction/m5-seed0-v2/adopted/.research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/runs/F-20261007T103704949889Z/out/cite_build-1/eligibility.json.sha256",
+   "role": "eligibility",
+   "sha256": "0dc0a71efc87ef7bb2713a0f34decc37f3a44cd19b848ee477a3895a38eec668",
+   "status": "read"
+  },
+  {
+   "bytes": 572571,
+   "file": "report.json",
+   "path": "results/m5-seed0-v2/reproduction/compare/report.json",
+   "role": "comparison",
+   "sha256": "8b6c2ab6be1cdbfd9c45102b4a2e314d0c317b5498d8b5be3393962eeb22de3c",
+   "status": "read"
+  }
+ ],
+ "notes": [
+  "Values re-formatted from recorded outputs only; no metric is computed here.",
+  "Intervals drawn only where recorded (*_ci95 columns, paired ci95_lo/ci95_hi)."
+ ],
+ "options": {
+  "comparison": "provided",
+  "eligibility": "provided",
+  "protein": "run"
+ },
+ "outputs": [
+  {
+   "path": "paper/generated/asset_preamble.tex",
+   "sha256": "bce1857a439d945d349f6da99433aa77d9df0822d4d86e6e2f8544d941d832b3"
+  },
+  {
+   "path": "paper/generated/results_macros.tex",
+   "sha256": "9193acd673aea4a3c64ffc5f949778ed73e7719db8e7b44963b57fe380070d4d"
+  },
+  {
+   "path": "paper/generated/table_thresholds.tex",
+   "sha256": "9391f34699ad6cffde3fd314eb7ec79d9f8f50eb99fc60f035479d91b239a554"
+  },
+  {
+   "path": "paper/generated/table_operating_points.tex",
+   "sha256": "0f3c7da69b2770e24a3f13794dd90efac180aa75a9a8bfb1c60bba35c329fc11"
+  },
+  {
+   "path": "paper/generated/table_closed_set.tex",
+   "sha256": "0a692437114c8493346e1b07402e8296bd44d9669e50d95fb1aac1258f10316f"
+  },
+  {
+   "path": "paper/generated/table_practical_labels.tex",
+   "sha256": "e6fb6ea533eec6c278d3cd4e9461e879236d6b1ef1295db4daf5acc06a538e82"
+  },
+  {
+   "path": "paper/generated/table_unknowns.tex",
+   "sha256": "b762637ad04239a0b3beb0f29077ebfc3de5babdb18e75e4c2c15f12e12a9496"
+  },
+  {
+   "path": "paper/generated/table_unknowns_allstrata.tex",
+   "sha256": "e44597f2076ee703db865a9aafd40f48e54366301d257e067bef09d37822f197"
+  },
+  {
+   "path": "paper/generated/table_paired_differences.tex",
+   "sha256": "52c1608d1ea576c3af74f8dcfa3b26fc0c5d9789e162d8f87592f65fdb9a4657"
+  },
+  {
+   "path": "paper/generated/table_calibration.tex",
+   "sha256": "a3e930b30906fa3dd409430e59b02cc688bc2175d22113ba8b845b1ede094116"
+  },
+  {
+   "path": "paper/generated/table_per_study.tex",
+   "sha256": "6995a02000504512f9f6cd198392431080b771b9b0352c4cd07ee042d63ef6bd"
+  },
+  {
+   "path": "paper/generated/table_platform.tex",
+   "sha256": "ad67778ec0d2b48d909c03c888c9d5806264a3346135c0035682290cf9584eab"
+  },
+  {
+   "path": "paper/generated/table_cell_counts.tex",
+   "sha256": "d0b8aa4ea6cfeeb115277e5122ba9350ec17f861ac73335f68ac67abb3791889"
+  },
+  {
+   "path": "paper/generated/table_bootstrap_nan.tex",
+   "sha256": "e2905ee890cbb0930c7df24854fb98cf1501aafd658fbd39fcebcc30318ac0a3"
+  },
+  {
+   "path": "paper/generated/table_protein.tex",
+   "sha256": "5a55d7b862553aca7cdc263c879273943fbb0b4f57441bd68d740bf70d60172e"
+  },
+  {
+   "path": "paper/generated/table_reproduction.tex",
+   "sha256": "a5fc59e1d84794d446ed13b398517911ad3d31151d4a3195beeec8e9ed2e61b2"
+  },
+  {
+   "path": "paper/figures/fig_operating_points.pdf",
+   "sha256": "28a6b3fab7f43ec78733136e191cfcf4962c9e42b710c98cf737e8bb9398f64d"
+  },
+  {
+   "path": "paper/figures/fig_risk_coverage.pdf",
+   "sha256": "8a7685d6df1b4ff2c03c527fedc55b63129fedc480aeb8096ebd7056fc21d14f"
+  },
+  {
+   "path": "paper/figures/fig_paired_differences.pdf",
+   "sha256": "9a9d35b3589442b71e613775bbb7fb007157d147d652bc2774413b9a88e25e27"
+  },
+  {
+   "path": "paper/figures/fig_unknowns.pdf",
+   "sha256": "ad10089357015c38508808e59f2f6a5e91191df6ff372b84f87f21a030e23b67"
+  },
+  {
+   "path": "paper/figures/fig_protein.pdf",
+   "sha256": "d40f180da4a360a1ec8055cc4645d6870499c4427b4ed2493f161a893398f250"
+  }
+ ],
+ "schema": "celltransfer-paper-assets/1"
+}

@@ -1,0 +1,14 @@
+{
+  "counts": {
+    "checks": 1523,
+    "gated_breaches_or_structural": 54,
+    "unsupported": 0
+  },
+  "disclosure": "Mechanical summary of preserved original failed comparison; full report retained privately unchanged.",
+  "failure_count": 54,
+  "original_bytes": 26158936,
+  "original_sha256": "2a663866746ee682b93cadcfaebba56715dbb6cf308bc78bdd86301f689d6dc8",
+  "overall": "partially reproduced",
+  "schema_version": 1,
+  "source_path": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/runs/F-20261007T103704949889Z/compare/report.json"
+}

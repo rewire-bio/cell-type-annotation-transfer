@@ -1,0 +1,12 @@
+{
+  "actual_export_is_not_new_verification": true,
+  "gaps": [
+    "Full private raw files, checkpoints, environments and original logs are retained locally.",
+    "Cache/raw source inventory is represented by original hashes and completed-step names; public subset cannot independently validate omitted bytes.",
+    "Absolute path replacement does not constitute a complete privacy or redistribution review; inspect report/approval text before public release."
+  ],
+  "reproduction_id": "56fa2cab73c045e8865aca59309c0770",
+  "schema_version": 1,
+  "source_verification_status": "verified",
+  "verification_id": "c748f3e1c09f45c4bd4c7b99b8b96a39"
+}

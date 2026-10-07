@@ -1,0 +1,7 @@
+{
+  "approval_id": "83db6810a99640f4939c14f08cb2ab83",
+  "approved_at": "2026-10-06T17:38:20.090859+00:00",
+  "protocol_hash": "fe96018a864aa7cba6e57049aff60bfb6c36264c447e404ea6d72db392733b30",
+  "reviewer": "Tim Richardson (explicit approval; implementation frozen without scope change)",
+  "schema_version": 1
+}

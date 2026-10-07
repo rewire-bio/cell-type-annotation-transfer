@@ -1,0 +1,9 @@
+arm,method,analysis,unknown_cells,unknown_false_accept@OPcov,unknown_false_accept@OPerr,unknown_auroc
+A,M1,secondary-sensitivity-all-strata,126,0.8174603174603174,0.15079365079365079,0.5972001044958243
+A,M2,secondary-sensitivity-all-strata,126,0.5476190476190477,0.0873015873015873,0.7911446048605582
+A,M3,secondary-sensitivity-all-strata,126,0.5873015873015873,,0.8238986624200632
+A,M4,secondary-sensitivity-all-strata,126,0.30158730158730157,0.0,0.8348978494892891
+A,M5,secondary-sensitivity-all-strata,126,0.31746031746031744,0.007936507936507936,0.8113086683125594
+A,M6,secondary-sensitivity-all-strata,126,0.3412698412698413,,0.8831885665543253
+practical,P1,secondary-sensitivity-all-strata,126,0.9047619047619048,0.15079365079365079,0.5806919342911561
+practical,P2,secondary-sensitivity-all-strata,126,1.0,0.0,0.5004116818319153

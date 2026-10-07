@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "kind": "mechanical_formatting_repair_note",
+  "recorded_at": "2026-10-07T17:43:05.323493+00:00",
+  "parent_reproduction": "55363789dd714acc90a073defde48623",
+  "parent_manifest_sha256": "6fe0b55337ef99e3962bf51938d9efd5ac3a3b678cf21d15391becb14888234f",
+  "parent_pdf_sha256": "8fb86d3e25710ac63f2fd8ae6b70ec17866ce22d8d6db1115a6e6576022cc2b1",
+  "old_paper_sha256": "037881e634a8a02a648e48a1e274ca2aa4e85ecba6d725733250998c433a88e8",
+  "new_paper_sha256": "3d06fc1491597f5319becd3d496a4b661a518749835e6b13d5fce62a7eca2217",
+  "finding": "Actual completed parent PDF has one47.29216pt overfull hbox at main.tex532--533, caused by inline environment variable identifiers.",
+  "scope": "Exactly six verb wrappers replaced by nolinkurl wrappers; variable identifiers and all other source bytes unchanged. No scientific writing or experiment changes.",
+  "preview": {
+    "status": "mechanical_layout_preview_only",
+    "scientific_invocations": 0,
+    "visible_pdf_text_normalized_equal": true,
+    "normalization": "Remove standalone page-number lines, remove end-line word hyphenation, remove whitespace; normalize the single known lexical compound harness-set (line-hyphenation differs)",
+    "original_text_sha256": "89ff716682bf923ebf5cc3ea8c63085ddf2117d4b50a7bd7a5f397934b01ee14",
+    "candidate_text_sha256": "89ff716682bf923ebf5cc3ea8c63085ddf2117d4b50a7bd7a5f397934b01ee14",
+    "candidate_pdf_sha256": "cf3cbf988f2ef3a4af0dd86d115e815e2160597bf5430fc8ef2c0bac4063a13b",
+    "overfull_boxes": 0,
+    "pages": 33,
+    "visual_check": "Page20 rendered and inspected: corrected paragraph within margins; name wrapping retained"
+  },
+  "approval_basis": "Existing user authorisation to complete the PDF and bounded text repair; routine typesetting correction within unchanged resources and 26-worker ceiling. This note does not claim a new user reply or completed scientific review.",
+  "new_worker_calls": 0,
+  "new_fits": 0,
+  "new_predictions": 0,
+  "new_scores": 0,
+  "new_protein_executions": 0,
+  "remaining_harness_rebuild_status": "not yet executed"
+}

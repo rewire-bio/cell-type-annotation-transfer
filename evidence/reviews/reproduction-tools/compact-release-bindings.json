@@ -1,0 +1,37 @@
+{
+  "archive_sha256": "37793da3eafe3a47fa7829aeb39c2c30fdacb436baa3ec765a3ad0243bc2c5fa",
+  "auxiliary_directory": "evidence/reviews/reproduction-tools",
+  "auxiliary_files": {
+    "compact_cli.py": "f4c5a52be90d5bcc54337642868fb9c48d8dad5cc65a5bf22dfb78a36d0d017d",
+    "compact_compare_continuation.py": "73e7e3f458237d13cdfaf2eeafaec7b1cf8e5b0e6946865c957f66a11c2a59cb",
+    "compact_reference.py": "701afaba1f3170b8d2a622928344ec73c7181ae24b8cac94d58fa0773a0786d4"
+  },
+  "canonical_comparison_manifest_sha256": "9f7aedd33310ee69e426002cd54acbcc5e3f2833bc0cc3fb8de041e6f1a85683",
+  "canonical_manifest_sha256": "60cfbe955c5b9516532750c3873653e16f558528551403a087bf0b545e2dd516",
+  "package_files": {
+    "arms/A/M4/fit_info.json": "37f93fcc9424e49bc172bc98aca38255c00805641aa7dc9d39f0cfab39cf1ab8",
+    "arms/B/M4/fit_info.json": "a7915d961d7de90e1c96f29fdf49527171fecade3be6bfb1436634f198c2e9a7",
+    "checksums.json": "e239e4157119e721c7d2af7c023db3d2af3aedba615bef04344ad03e5147d5dd",
+    "cite/coverage.json": "678e1e7afc3cfc37e05dc475923f095590be02e56efb5651c0300a44add4283d",
+    "cite/eligibility.json": "a06dbcd8396ee81725f0e1901482c9a808ad53f84cfca8c1423773228e78bba7",
+    "cite/features_and_classes.json": "0472df1f9a59546595569e40fbf13a8097ca21f9c0ba9f6c30b23b1da91071f6",
+    "compact-reference.json": "4e313ab65adcf474b76578e45dd9394745dfb5fa0f0ec6755746dc0849f65e57",
+    "comparison_manifest.json": "f925b9fc3d682e5582307ddaf3d79ab2caa51f32501cafbad539801d215fab9b",
+    "d03_features.json": "b179d5700f9a0fa40290862b4c74857cec766c91a6df4ae4ff238a39ae231c76",
+    "protein/gates.json": "ea8b7011586cf77d7bfb72354742dd1c90c9caa5a209e502dd411b6b517172e5",
+    "protein/protein_agreement.csv": "b09c2033dec77cfab93aaeb25200402567a7e8ec5dbd7803376d4a1661623df6"
+  },
+  "public_fresh_clone_status": "not executed or validated",
+  "record_sha256": "4e313ab65adcf474b76578e45dd9394745dfb5fa0f0ec6755746dc0849f65e57",
+  "schema": "celltransfer-compact-release-bindings/1",
+  "scientific_files": {
+    "configs/full.json": "0e6e99676858c152c8d22c4ddecfdda0668c4e7f1bb8a6030a24b41189950814",
+    "protocol/tolerances-v2.json": "c335e6a9403b1353bcb1f5b187edb92e4868f8124e31946a20b07a6710c90edb",
+    "scripts/build_paper.py": "7f3ddcc1f1230e5955814372ab49943a530e1e657596eaa21382f564b0d1f2e7",
+    "scripts/compare_runs.py": "31d5b2ca4aa5051cfc4115f4e6f019bfd7b1152faa037923a86640c3972283f4",
+    "scripts/make_paper_assets.py": "e41335f588eb76964fa7463d5f7c05ba1754e2566974d34696a7e11a336241c8",
+    "scripts/resource_guard.py": "4b251743fcd914392db132b6e1b33d0405d081942e1df638960f5125c13021c5"
+  },
+  "verification_id": "09244c0692294ecf89f501cbebf02097",
+  "verified_source_commit": "fd4588c2b58eee214fea76b1874be1a37df1f0da"
+}

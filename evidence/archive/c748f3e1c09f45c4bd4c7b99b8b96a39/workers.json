@@ -1,0 +1,1320 @@
+{
+  "workers": [
+    {
+      "configuration_sha256": "a71bee53dcd5c9e91b2d893092a0ede15212dd714edf93f4de70ee1c3a38cf8d",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifacts": [],
+        "attempt": 1,
+        "blockers": [
+          "Worker exceeded its wall-clock budget"
+        ],
+        "exit_code": 143,
+        "finished_at": 1791325652.289827,
+        "job_id": "14c1ab32-1d97-451e-baf2-7bfc89d9c1b7",
+        "owner_pid": 53433,
+        "pid": 53439,
+        "previous_job": null,
+        "revision": "69207f08784ac1aaae0eeef2cba0d7a21753f38d",
+        "role": "paper-author",
+        "started_at": 1791324751.727217,
+        "status": "failed",
+        "validation": [],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/14c1ab32-1d97-451e-baf2-7bfc89d9c1b7/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "4dce5a2b8f2ceb72572a45af52ffa6ab499dc29c920039bb05debdaa0191ceba",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifact_sha256": {
+          "protocol/completed-run-methods-review.md": "798ab8c3de11edd1e31c6149c42eb6391415446ade106d355d6439d63a4279f6"
+        },
+        "artifacts": [
+          "protocol/completed-run-methods-review.md"
+        ],
+        "attempt": 1,
+        "blockers": [],
+        "changed_files": [
+          "protocol/completed-run-methods-review.md"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791324468.742823,
+        "job_id": "1981e20c-7de9-4b48-9162-85cc70ada0d0",
+        "owner_pid": 52207,
+        "pid": 52213,
+        "previous_job": null,
+        "revision": "5befceda37568dd0f9be53770284a86835f1de2d",
+        "role": "methods-reviewer",
+        "session_id": "41c1eb35-f754-4f2d-ab53-55859a8ab809",
+        "started_at": 1791324111.346118,
+        "status": "completed",
+        "validation": [
+          "Read all 11 listed inputs plus the evidence/results-29879296 score tables (per_study, per_class, unknowns, unknowns_allstrata_secondary, bootstrap_nan_counts, calibration, platform), comparison_manifest.json, cite-receipt.json, protein/gates.json, and the approval records for the D-1a resumption and the protein replacement. No input files were modified.",
+          "Hand cross-checks were consistent. P2 max_coverage 0.84709 equals 1 minus coarser_fraction 0.15291. The M5 minus M4 coverage@OPcov difference (0.7983 \u2212 0.8165) matches mean_diff \u22120.0179. Validation n of 13,163 equals 13,273 mapped validation cells minus 110 outside K. Every matched method has max_coverage 1.0, so no predictions are missing. Arm A minus Arm B scorable natural cells is 390, against 2,310 simulated unknowns.",
+          "Code reading confirmed several behaviours. AURC is truncated at max_coverage. Risk-coverage ordering within tied scores follows row order, not tie-averaged risk. OP-cov keeps whole tie blocks, so M3 reaches 0.943 validation coverage. The unknown-acceptance bootstrap drops replicates that contain no unknown cell (126 of 1,000). Protein agreement compares fine-level labels to gate names by exact string match. calibration() renormalises P1's sigmoid outputs for Brier but uses the raw value for ECE.",
+          "Not done, because no shell was available: recomputing the sha256 of score_all.py, evaluate.py and protein_check.py against provenance.json, and checking per-donor counts. The report lists both for the coordinator.",
+          "No experiments, rescoring, approvals or verification claims were made. Independent clean reproduction (Mode F) is recorded in the report as outstanding and not a scientific failure."
+        ],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/1981e20c-7de9-4b48-9162-85cc70ada0d0/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "720c75eedb5a46e09090ed92fe3f0319fae53d00ae937bcbfe0aaa9454fbbeef",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifact_sha256": {
+          "evidence/reviews/m5-reproduction-failure-review.md": "543bfff9f9ae842e545d95ba4c5d9aec8f9f245bd5d2202f26c3377aa103793d",
+          "evidence/reviews/m5-seed-repair-proposal.md": "f4a8035dd18ff02455c9a727dfa429735112a16dab7b6736dfdc4c11d8d35b9e"
+        },
+        "artifacts": [
+          "evidence/reviews/m5-reproduction-failure-review.md",
+          "evidence/reviews/m5-seed-repair-proposal.md"
+        ],
+        "attempt": 1,
+        "blockers": [
+          "FAIL: the clean-reproduction comparison for reproduction 78542e9d412548edbfe42b38d452f7a8 (source 1e95aac) against run 29879296d87343898100c190308744a1 exited 1 ('partially reproduced'): 1,523 checks, 54 gated breaches, all M5 (17 label, 32 confidence, 5 Arm A natural-unknown M-tier). Report sha256 2a663866746ee682b93cadcfaebba56715dbb6cf308bc78bdd86301f689d6dc8. The gate requires exit 0. The PDF and blog gates remain blocked.",
+          "Protocol deviation (not yet logged in the inspected inputs): protocol.md section 3 specifies training seed 0, but M5 called celltypist.train with no random_state, and the saved estimators have random_state=None with the stochastic SAG solver. paper/main.tex L129 ('training seed is 0 for all methods') and the related seed wording (L89, L167, L460, claim I01 limitation) are inaccurate for historical M5. This needs a deviation log entry and a paper correction whichever option is chosen.",
+          "The cause is not proven to be unique: no seed-controlled fit has been run. Runtime and version provenance of the original Arm A fit is incomplete (historical uv.lock and environment not recorded). Some per-class SAG sub-problems reach max_iter=500.",
+          "Next action: the coordinator presents evidence/reviews/m5-seed-repair-proposal.md to the user. The user must explicitly approve or reject: Option R (seed-0 correction of the M5 result of record, versioned, original and failed outputs preserved) or Option H; the one-line methods.py change; a new reviewed driver mode for M5-only selective adoption (the current continue_reproduction.py cannot do it); four M5 fit invocations plus two score stages, with a worst case of 48,600 s within a 54,000 s hard ceiling, on either a new ledger or the remaining 47,847 s with paper steps moved to H-paper; 4 threads, 12 GiB, 7 GiB unchanged; the stopping conditions; and a worker-call extension from 22 to 24. No experiment may start before that approval record exists and pre-execution validations V1-V5 pass."
+        ],
+        "changed_files": [
+          "evidence/reviews/m5-reproduction-failure-review.md",
+          "evidence/reviews/m5-seed-repair-proposal.md"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791371111.442611,
+        "job_id": "2b84bd4c-41a3-481b-bc2e-c0d3e5a684e4",
+        "owner_pid": 54689,
+        "pid": 54719,
+        "previous_job": null,
+        "revision": "67b294619a3107133dd02629cf7ff700b03d4d2e",
+        "role": "methods-reviewer",
+        "session_id": "9ade0561-a83b-49ec-aa20-7031f89b80e1",
+        "started_at": 1791370772.913205,
+        "status": "blocked",
+        "validation": [
+          "Read evidence/reviews/m5-failure-78542e9d412548edbfe42b38d452f7a8/comparison-failure-summary.json in full (L1-3177). Counted 54 breaches: 17 label (A 8, B 9), 32 confidence (A 17/17 files, B 15/15 files) and 5 M-tier (all A:M5 natural-unknown metrics). All are M5. Confidence arrays were read only as summarised in that file; the omitted rows were not read.",
+          "Read engineering-diagnostic.json in full. In both arms, original and fresh M5 models have solver=sag, random_state=null, n_jobs=4, max_iter=500. n_iter_ maximum is 500 in all four fits. Reference CSR, labels, library sizes and features/classes hashes are equal. Scalers, genes and classes are equal. coef_ and intercept_ differ (A max 0.0667, B max 0.0453).",
+          "Grep and Read of companion/src/celltransfer/methods.py: L153-154 celltypist.train passes no random_state. M4 L133 and PCA L71 pass random_state=0. M6 L190 and L209 set scvi seed 0.",
+          "Grep of protocol.md: L60 says 'Seeds: 0 for model training'. Grep of paper/main.tex: L129 says 'The training seed is 0 for all methods' and L376 says 'M5: 6'. Both conflict with the observed random_state=None or with the fresh draw (3/20).",
+          "Compared original and fresh summary_test.csv and the A:M5 rows of paired_differences_vs_M4.csv. Non-natural-unknown M5 metrics differ by less than 0.01. Natural-unknown false acceptance went from 0.30 to 0.15 (20 cells) and AUROC from 0.803 to 0.826.",
+          "Read scripts/continue_reproduction.py L66-328. It replays only a completed prefix in step order, allows only B_M6_fit or cite_build as the retry step, and raises 'Unapproved extra fit retry' for any other fit. So the current driver cannot do M5-only selective re-execution; a new reviewed driver mode is required.",
+          "Read reproduction-manifest.json (status failed, exit 2, 7085.07 s used, runtime_budget_seconds 47847.31 remaining) and the generation-receipt step records (score 611 s, compare returncode 1), plus tolerances-v2.json, resume-plan-reviewed.md, reproduction-retry-plan.md, operational-approval.json (max_worker_calls 22), study.json and final-methods-r2.md.",
+          "No Bash, fits, predictions, scoring, comparisons, or edits to inputs, implementation, paper or ledger were performed. The only files written are the two owned outputs."
+        ],
+        "worktree": "<STUDY_ROOT>/.research/workers/2b84bd4c-41a3-481b-bc2e-c0d3e5a684e4/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "fa6f797ed3c186900341784818174b9084632e28039e17038e603a04404cbb14",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifacts": [],
+        "attempt": 1,
+        "blockers": [
+          "Output ownership violation: scripts/__pycache__/resource_guard.cpython-311.pyc"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791307811.871844,
+        "job_id": "31a1485b-b2c1-445b-8273-aabd147d0e75",
+        "owner_pid": 64831,
+        "pid": 64837,
+        "previous_job": null,
+        "revision": "7ace3c7d60bd66423f8e9f221bfc5308e07423c9",
+        "role": "research-engineer",
+        "started_at": 1791307092.587146,
+        "status": "failed",
+        "validation": [],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/31a1485b-b2c1-445b-8273-aabd147d0e75/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "cc332d0b735bba1d2e971b008562af6d82aeae4ba71be925bd075be59e392759",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifacts": [],
+        "attempt": 1,
+        "blockers": [
+          "Completed workers require artifacts, validation evidence, and no blockers"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791306127.591291,
+        "job_id": "3cc2d1c4-c9b9-4123-860f-54a05ce9ccb7",
+        "owner_pid": 56158,
+        "pid": 56164,
+        "previous_job": null,
+        "revision": "02091eaa768876c7074d0d46526c61350b37ee09",
+        "role": "research-designer",
+        "started_at": 1791305802.028192,
+        "status": "failed",
+        "validation": [],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/3cc2d1c4-c9b9-4123-860f-54a05ce9ccb7/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "ab860e6f22a4f4e247f1a4cef4841b2669c76cfc9d04edc960518fa9f0b443f5",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.292 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifact_sha256": {
+          "paper/main.tex": "037881e634a8a02a648e48a1e274ca2aa4e85ecba6d725733250998c433a88e8"
+        },
+        "artifacts": [
+          "paper/main.tex"
+        ],
+        "attempt": 1,
+        "blockers": [],
+        "changed_files": [
+          "paper/main.tex"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791391440.7886138,
+        "job_id": "3f55a928-a3c0-42f7-9148-008996f2f9fb",
+        "owner_pid": 42977,
+        "pid": 42998,
+        "previous_job": null,
+        "revision": "09e822bec3124d7ca9ae75f5411252ad60902940",
+        "role": "paper-author",
+        "session_id": "82abc913-1704-46d3-a5bb-e02ef39e550f",
+        "started_at": 1791391261.363668,
+        "status": "completed",
+        "validation": [
+          "Started from paper/main.tex. A grep of its stale B1-B3 strings matched the frozen evidence/reviews/m5-author25-inputs/main.tex at the same lines (487, 604, 637). I did not hash-compare the full file.",
+          "B1: replaced 'Two of the four permitted M5 fits have now been used'. The paper now gives canonical Arm A in 3f18, canonical Arm B in 448f, and reproduction A and B in c056. Source: invocation-ledger.json, which records four fit and two score reservations.",
+          "B2: retitled the limitation 'Internal reproduction of the corrected M5 results' and removed the duplicated 'Even when a comparison report exists' sentence.",
+          "B3: rewrote the Section 6 Status paragraph and the Section 7 'What remains unresolved' bullets in the past tense. Grep for 'pending', 'planned', 'later gate', 'anticipate', 'will be', 'have now been' and 'Two of the four' now matches only: the unchanged generated \\Reprostatus fallback branches (lines 67-68); the statement that public full-baseline portability is still pending; and, from the B1 edit, 'used two of the four' in Section 7, which now refers to the canonical stage's fits only.",
+          "B4: added c056 and 2e1c to the 'Failures and attempts' list and to a new Section 7 paragraph, 'Reproduction attempts'. c056: exit 2; all eight steps executed with return code 0; blocker 'CELLTRANSFER_BASELINE_MANIFEST'; 4,055.4 s (c056 manifest, its receipt and runtime-ledger.json). 2e1c: exit 0; env_setup, compare, paper_assets and paper_build executed; the retained steps carry executed:false; 2,079.1 s (2e1c manifest and generation-receipt.json).",
+          "B5: added the recorded baseline binding: the comparison manifest of run 448f under .research/runs/448f.../output/. Added the actual continuation command from the 2e1c manifest 'command' field, and listed the harness environment variables read in scripts/m5_seed_repair.py lines 196-204 and scripts/continue_m5_comparison.py. The commands are labelled as internal recovery driver invocations, not standalone commands. A separate paragraph says public full-baseline portability is still pending. Budgets state 16,624.054019914955 s cumulative through 2e1c; any later paper-only rebuild is excluded from that total.",
+          "B6: explained the d9786526 to b5a5e34c change from evidence/reviews/final-paper-B6-source-binding.json: the five scientific and paper files are byte-identical, the added mechanical helper and its test changed the hash, and the comparison is a mechanical disclosure rather than a scientific review. The paper also says this manuscript's text was revised after 2e1c.",
+          "No measured value, generated macro, table input, claim, citation, threshold, seed, tolerance or historical value was changed. All new numbers are copied from receipts and manifests (wall times, durations, cumulative seconds, IDs, hashes).",
+          "Not run: no LaTeX compile, test, training, inference, scoring or comparison. Compiling and the separate final review are later coordinator and reviewer tasks. I make no claim of verification."
+        ],
+        "worktree": "<STUDY_ROOT>/.research/workers/3f55a928-a3c0-42f7-9148-008996f2f9fb/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "7cc7b070c8184a12eefd54bfc2e2f319ffd800ed463a9cb6c606884a98b9c497",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.292 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifact_sha256": {
+          "evidence/reviews/final-methods-m5-seed0-v2.md": "59a1ab3c24ff73774d079bf3b6eba1823358a92952b6993bbac820f0a5c9763c",
+          "evidence/reviews/final-paper-m5-seed0-v2.md": "9a50721ff3654bdeaf07bacd66c28f363d3b7d7753a365fbbfbe24a99df02814"
+        },
+        "artifacts": [
+          "evidence/reviews/final-methods-m5-seed0-v2.md",
+          "evidence/reviews/final-paper-m5-seed0-v2.md"
+        ],
+        "attempt": 1,
+        "blockers": [
+          "Paper B1 (PDF p.23, main.tex L604): 'Two of the four permitted M5 fits have now been used' is false in the final build. All four were used (3f18 A, 448f B, c056 A, c056 B).",
+          "Paper B2 (PDF p.17, main.tex L487): the Limitations heading still says 'Pending reproduction of the corrected M5 results', while its body reports the completed comparison passed. The text also contains a redundant 'Even when a comparison report exists\u2026' sentence.",
+          "Paper B3 (PDF p.24 L637-638; p.18 L501): stale planning prose. It says the reproduction 'is planned to refit M5', gives the 'If that comparison does not pass\u2026' stopping rule, and calls the gates 'separate later gates'. All of these are presented as current next to the completed outcome.",
+          "Paper B4 (PDF pp.18-24, main.tex L556-564 and Section 7): the failed reproduction c056 (exit 2, operational stop on the missing CELLTRANSFER_BASELINE_MANIFEST after all fits and scoring) and the comparison-only continuation 2e1c are not disclosed. The 'Failures and attempts (all records kept)' list omits them.",
+          "Paper B5 (PDF p.19-20, main.tex L530-547): reproducibility instructions do not match the executed path. The M5 reproduction command lacks the CELLTRANSFER_BASELINE_MANIFEST binding, and the continuation command scripts/continue_m5_comparison.py is absent. The Budgets paragraph omits the reproduction-stage charges (c056 4,055.4 s; 2e1c 2,079.1 s; cumulative 16,624.1 s).",
+          "Paper B6 (verification item): the approvals and adoption inventory bind frozen_manuscript_hash d9786526\u2026, but the completed 2e1c manifest records manuscript_hash b5a5e34c\u2026. The coordinator must show what the hash covers, or that the compiled main.tex and references.bib are unchanged from the bound version.",
+          "These are text-only corrections that change no science, but the 24-call ceiling is exhausted (this was call 24). A repair plus re-review needs renewed user approval, which this reviewer does not grant."
+        ],
+        "changed_files": [
+          "evidence/reviews/final-methods-m5-seed0-v2.md",
+          "evidence/reviews/final-paper-m5-seed0-v2.md"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791389807.177971,
+        "job_id": "4f467d21-43a6-40fd-b81c-679e40865001",
+        "owner_pid": 23013,
+        "pid": 23026,
+        "previous_job": null,
+        "revision": "98584b1b5e7938722872908a6126d703f62635b2",
+        "role": "methods-reviewer",
+        "session_id": "1c5219b0-0c1e-415b-beaa-a45fa76e139f",
+        "started_at": 1791389308.908017,
+        "status": "blocked",
+        "validation": [
+          "Methods review verdict: PASS. Paper/PDF review verdict: FAIL. Each verdict comes from one local Claude Opus model review session; no human review and no second independent reviewer session are claimed.",
+          "No commands, tests, fits, scoring, comparisons, compiles or web retrievals were run. Only Read, Grep, Glob and Write were used, and Write only for the two owned report files.",
+          "Rendered paper.pdf (sha 20b85f9c\u2026): all 31 pages viewed as images; paper/main.tex read in full (702 lines).",
+          "Comparison report: overall 'reproduced within pre-specified tolerance', 1521 checks, 0 gated breaches, 0 unsupported gated checks, failures []. Searches found no per-cell agreement below 1.0 and no non-zero confidence difference.",
+          "Invocation ledger holds exactly 4 fit and 2 score reservations. They match 3f18 A_M5_fit, 448f B_M5_fit and score, and c056 A/B fits and score in the receipts. The 2e1c receipt has 8 retained steps (executed false, source step hashes) and 4 executed steps: env_setup, compare, paper_assets and paper_build.",
+          "c056 manifest shows status failed, exit 2; its receipt shows status stopped with blocker 'CELLTRANSFER_BASELINE_MANIFEST'. It is preserved and not relabelled. c098 manifest shows failed, exit 143, with receipt still 'running' and steps []. 3f18 shows failed/stopped.",
+          "methods.py L153-154 adds random_state=0 to celltypist.train; the preserved original lacks it. Science hash 8abf7524\u2026 and protocol hash d3bbc2c0\u2026 are equal in c056 and 2e1c. Tolerance file sha c335e6a9\u2026 is unchanged.",
+          "All 27 measurement values in evidence/claims.json (35 claims) exactly match the reproduction packet's summary_test, paired_differences, thresholds_validation, protein_agreement and score_info.",
+          "The reproduction score and protein files used to build the PDF are byte-identical to the canonical 448f outputs (hashes cross-checked against evidence/reviews/m5-canonical-448f\u2026/bundle-index.json).",
+          "Not inspected: parquet, pickle, npy and h5ad files; the per-cell confidence arrays beyond searches; per_class, calibration and cell_counts CSVs; private originals; harness source; external citation re-retrieval."
+        ],
+        "worktree": "<STUDY_ROOT>/.research/workers/4f467d21-43a6-40fd-b81c-679e40865001/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "e4bc37dca8a692c2cddd756cb9542b391b2c0a7c8bb6287fa64f02d67cac510d",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifact_sha256": {
+          "companion/scripts/run_matched.py": "adeca9d66edce6d62651f6fe695108921f0d41f447ba5f95e768fed033b4c614",
+          "companion/scripts/score_all.py": "cda729f0c035a3961a63fe2989f44acbdde6ec3112dd15c95fed044ca44116c5",
+          "protocol/implementation-report.md": "53b0fc648edf14630be3d263b5d5078c0c984b36518eb90625c240ad4762075a",
+          "scripts/recover.py": "f59f25cc0d7ba911c2540ec37d0960a17a9af848d670e6aef7dc1d18fff1069f",
+          "scripts/resource_guard.py": "e40f46c5db5a90165b90584725c566b086c73b7eb6ba6a2364ef219a39d1acd2",
+          "tests/test_guard_and_recover.py": "387bf47d55595480d3fbf5978e796ce3c007eae89018b4b23f109c1311730446",
+          "tests/test_scoring_fixes.py": "11ac4e942dec9df9abe9fb39ee7d9a7c220d5df9a1caf2d0b65996bc0d8a99d4"
+        },
+        "artifacts": [
+          "companion/scripts/score_all.py",
+          "companion/scripts/run_matched.py",
+          "scripts/resource_guard.py",
+          "scripts/recover.py",
+          "tests/test_guard_and_recover.py",
+          "tests/test_scoring_fixes.py",
+          "protocol/implementation-report.md"
+        ],
+        "attempt": 1,
+        "blockers": [
+          "D-1a has no numerical test yet. The real score_all.py has not been run on a synthetic obs fixture because that needs the companion venv (numpy, pandas, anndata), and it did not fit in the 900 s worker budget.",
+          "There is no hash manifest for the historical runs. evidence/migration-manifest.json only covers historical/ code. recover.py needs a manifest of {root_layout: {data, armA, armB}, files: [{path, sha256}]} over the preserved D05, T01 and T02 runs (including T01/M6/scanvi), generated by someone with local access.",
+          "recover.py does not yet include R0-R2: venv/cache measurement, the K top-up report, and the required 1 GiB synthetic watchdog check using the production launcher. It also does not apply the per-R-step ceilings from plan section 6. It uses per-kind caps plus the 8 h stage ceiling.",
+          "OA-5 item 4 is not implemented: marking an attempt failed when the post-run /usr/bin/time -l peak footprint is above 12 GiB.",
+          "Not checked: the CELLTYPIST_FOLDER variable used to redirect the cache. Not done: verifying hashes of the four 10x CITE downloads before use.",
+          "Still needed before R6: record the sha256 of score_all.py in an amendment, create protocol/tolerances.json, integrate study.json and the Makefile, and get coordinator verification."
+        ],
+        "changed_files": [
+          "companion/scripts/run_matched.py",
+          "companion/scripts/score_all.py",
+          "protocol/implementation-report.md",
+          "scripts/recover.py",
+          "scripts/resource_guard.py",
+          "tests/test_guard_and_recover.py",
+          "tests/test_scoring_fixes.py"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791307037.7055721,
+        "job_id": "5c50097c-dfb1-476d-b390-2909b1d665b1",
+        "owner_pid": 59448,
+        "pid": 59455,
+        "previous_job": null,
+        "revision": "7dc729db88b96af03536c390b713da450851126a",
+        "role": "research-engineer",
+        "session_id": "4e3150c2-39e3-49eb-9674-bdb17ec34c4d",
+        "started_at": 1791306680.4271932,
+        "status": "blocked",
+        "validation": [
+          "Ran `PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests` with the system python3 on darwin 25.6: 20 tests ran in about 18 s, all passed.",
+          "Resource-guard tests (synthetic): a 400 MiB allocator against a 100 MiB test threshold was stopped with status memory-stop via phys_footprint. A child that left the process group (setsid) and allocated 300 MiB was counted in the memory total and killed. A timeout killed the process group and kept the negative return code. Disk-start, disk-running and storage-cap stops all fired. A failed attempt and the next attempt kept separate, immutable attempt dirs. Threads were set to 4, the temp dir pointed to the attempt's scratch dir, and the scratch dir was deleted. The CLI returned exit code 2 for infrastructure stops.",
+          "Recovery-driver tests (fake python interpreter, no science run): steps ran in the expected order (B M4-M6 fit/predict, then CITE build, A M1-M6 CITE predict, scoring, protein check). Scoring got --reps 1000 and --natural-unknown-scope natural. M6 got an --expected-hashes file matching the manifest and the historical Arm A --model-dir. Arm B was assembled as M1..M6 symlinks. A deterministic failure was not retried and its attempt was kept. A timeout was retried once and both attempts were kept. The stage ceiling counted retry time and stopped as blocked. A hash mismatch or a file missing from the manifest blocked before anything launched.",
+          "M6 relocation tests: the checkpoint was loaded from the supplied model-dir/scanvi, a hash mismatch raised, and a missing dir raised. D-1a checks are static only (default scope is natural, the all-strata secondary output is written, Arm B simulated unknowns are unchanged).",
+          "`git diff -- historical` is empty. `python3 scripts/verify_migration.py` reports checked 613, changed 0, missing 570 and exits 1. The missing files are the ones the public snapshot excludes, not regressions.",
+          "Did not run the existing queue, any real study experiment or any scoring. No predictions were inspected against labels. Bytecode caches made during the check were removed."
+        ],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/5c50097c-dfb1-476d-b390-2909b1d665b1/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "176dd08845947cb1a5477263555761938cc2651361e89abe2ad5b62236dd4a39",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifact_sha256": {
+          "companion/scripts/build_cite_totalvi.py": "d26f7315fcc54d5ef5474dd83545a032168f53b00f085a13097e0326a81b86ba",
+          "protocol/protein-replacement-implementation.md": "a64f3f163bb076f07052d5a8446c3c3a908d0311687e05f117a60372daa557e1",
+          "protocol/tolerances-v2.json": "c335e6a9403b1353bcb1f5b187edb92e4868f8124e31946a20b07a6710c90edb",
+          "tests_protein_replacement/.gitignore": "bc364c470108d6af9fa8ffd35b1a6a535e5ec8315ce8585ea0d6edc07f2f0875",
+          "tests_protein_replacement/_support.py": "830581bba23d9d14471804e66bccf4f639f9aa5e4c5b9930aa26a3e5402bcf75",
+          "tests_protein_replacement/run_tests.sh": "6da3129140db5e9553d7d22a3994ac748d6d8eebc4df2e16ca2d4d73cc2b9ffb",
+          "tests_protein_replacement/test_flow.py": "759b9be14eb8ce908f3cac1caf626063e0ef1a725c069f8de5cded9feaab6ea7",
+          "tests_protein_replacement/test_pins_mapping.py": "cb78ebbbd7def00a442b544ab2ecf4705f44380db28c786b37c79d9254ec568b"
+        },
+        "artifacts": [
+          "companion/scripts/build_cite_totalvi.py",
+          "tests_protein_replacement/_support.py",
+          "tests_protein_replacement/test_pins_mapping.py",
+          "tests_protein_replacement/test_flow.py",
+          "tests_protein_replacement/run_tests.sh",
+          "tests_protein_replacement/.gitignore",
+          "protocol/tolerances-v2.json",
+          "protocol/protein-replacement-implementation.md"
+        ],
+        "attempt": 1,
+        "blockers": [],
+        "changed_files": [
+          "companion/scripts/build_cite_totalvi.py",
+          "protocol/protein-replacement-implementation.md",
+          "protocol/tolerances-v2.json",
+          "tests_protein_replacement/.gitignore",
+          "tests_protein_replacement/_support.py",
+          "tests_protein_replacement/run_tests.sh",
+          "tests_protein_replacement/test_flow.py",
+          "tests_protein_replacement/test_pins_mapping.py"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791321446.8495302,
+        "job_id": "607c5ddb-d47c-45e5-bb20-cddcbbdb55e2",
+        "owner_pid": 33736,
+        "pid": 33742,
+        "previous_job": null,
+        "revision": "2bc2066af9086172d2dbdd39d5069e7300501807",
+        "role": "research-engineer",
+        "session_id": "66ba7d2f-8210-46bf-946f-db3406d4bdb6",
+        "started_at": 1791320702.469484,
+        "status": "completed",
+        "validation": [
+          "shasum -a 256 protocol/amendments/protein-replacement-reviewed.md -> e5ba0c347b66cba1c76dd249e386789c26e1916a95bc9c82a0208a696c89eae1. This matches the approval record (also asserted in tests).",
+          "sh tests_protein_replacement/run_tests.sh <root .venv python, used read-only; PYTHONDONTWRITEBYTECODE=1; caches in tests_protein_replacement/_tmp> -> Ran 57 tests, OK, 0 skipped.",
+          "sh tests_protein_replacement/run_tests.sh python3 (bare interpreter, no numpy) -> Ran 57, OK (skipped=32, dependency missing).",
+          "Tests use synthetic arrays and bytes only, with a recording mock opener and mock P1/P2 predictors. No network, no real data file, and no model or pipeline is run.",
+          "What the tests cover: hash and size mismatch fails closed; HTML type or body and LFS pointer are rejected; 403, timeout and non-200 end R4' with no further request; byte cap; cached bytes with zero requests; cache mismatch with no GET fallback.",
+          "Mapping tests: every status, make-unique groups, collisions, case-sensitivity, version stripping, deterministic CSV.",
+          "Exact-rational boundaries: F_A floor 1515/2020; 5k regression passes at 1545 and fails at 1544 (F_A), passes at 12764 and fails at 12763 (G); QC 5k passes at 3955/3994 and fails at 3954; 10k passes at 6787/6855 and fails at 6786.",
+          "Eligibility record: eligibility.json and its .sha256 are written before any query, released-prediction or adt output. No prediction module is imported during eligibility. Each criterion 1-7 stops its file when it fails; a reference-digest failure stops both files. No predictor is called when n_eligible == 0. Tampered records or inputs block the build.",
+          "Build tests: schema and row alignment; raw counts preserved; P1 receives all h5ad symbols and P2 the zero-filled G-ordered matrix. The unchanged protein_check.py main() reads the synthetic builder outputs (structure only).",
+          "Tolerances v2 differs from v1 only in schema/source/note, T1 items and expected_query_files.CITE (diff test). v1 file sha256 98a41d81...5d7b is unchanged and recorded in v2.",
+          "python3 companion/scripts/build_cite_totalvi.py plan -> printed pins, no network and no writes.",
+          "git status: only the owned paths are new. build_cite.py, protein_check.py, tolerances.json, recover.py, reproduce.py and compare_runs.py are unmodified (git diff empty). tests_protein_replacement/_tmp is empty after the runs.",
+          "Not done here: E6-synthetic with real var names and run_matched predict, E8 hashes, disk guard, R4', R5, R7. No result values exist."
+        ],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/607c5ddb-d47c-45e5-bb20-cddcbbdb55e2/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "e5bf36444c7742849e233ed7bdcf26026040a64669b1a8f02332c3e858f9843c",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifacts": [],
+        "attempt": 1,
+        "blockers": [
+          "Completed workers require artifacts, validation evidence, and no blockers"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791326246.751542,
+        "job_id": "6b4be57b-5780-4cdf-82e5-fc6f2a2c96fb",
+        "owner_pid": 56086,
+        "pid": 56092,
+        "previous_job": null,
+        "revision": "94756e98123663fec60a3bf55e17423a4cdae7f9",
+        "role": "methods-reviewer",
+        "started_at": 1791326125.037735,
+        "status": "failed",
+        "validation": [],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/6b4be57b-5780-4cdf-82e5-fc6f2a2c96fb/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "fcc016de5adc5430324baa6ea1acab8d4733a1945bc3cf143b8b5a53fed5f97d",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifact_sha256": {
+          "evidence/claims-history/m5-seed0-v2-supersession.json": "29bfd8ed2733e1fe07544004c8caa97307f641e275b67899c41420133effc1f5",
+          "evidence/claims.json": "ba363057245b148d693a0c0e379f86b26708c9eb73e5c198e89f77e45af64ffa",
+          "evidence/protocol-deviations-m5-seed0-v2.md": "9d3c35247e6cbf405d2eccad95cc7c726d614019e364ab9c89905f52971a8d82",
+          "paper/main.tex": "1a6f46ae19c03808fa171666ce8ec502630245528fd418cf7c046bbf9f26a657"
+        },
+        "artifacts": [
+          "paper/main.tex",
+          "evidence/claims.json",
+          "evidence/claims-history/m5-seed0-v2-supersession.json",
+          "evidence/protocol-deviations-m5-seed0-v2.md"
+        ],
+        "attempt": 1,
+        "blockers": [],
+        "changed_files": [
+          "evidence/claims-history/m5-seed0-v2-supersession.json",
+          "evidence/claims.json",
+          "evidence/protocol-deviations-m5-seed0-v2.md",
+          "paper/main.tex"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791380460.9527721,
+        "job_id": "745f6071-399d-411d-ae6a-8d51282b5c1c",
+        "owner_pid": 20074,
+        "pid": 20081,
+        "previous_job": null,
+        "revision": "a17113abc053c28a10433c879533b9985c596dbf",
+        "role": "paper-author",
+        "session_id": "49baa94f-e843-42c6-8133-9742018fee33",
+        "started_at": 1791379882.925765,
+        "status": "completed",
+        "validation": [
+          "No commands, parsers, LaTeX builds, tests or experiments were run. The tools available were read and edit only. Every check below was done by reading files by hand.",
+          "evidence/claims.json now uses only the original harness schema: top-level keys `claims` and `full_inventory`; kinds measurement, literature and interpretation; per-claim fields id, kind, status, text, run_id, result_pointer and value, or source_ids, or based_on and limitations.",
+          "All 27 measurement claims (M01\u2013M06 and M09\u2013M29) are kept with run_id 448f32386dfe45588fefa84c5d486703 and the same result_pointer and value as draft22. The non-schema per-claim fields `version` and `supersedes` were removed; that information is now under `version_labels` in the supersession file.",
+          "L01\u2013L04 and I02\u2013I05 are kept unchanged.",
+          "P01\u2013P03, H01\u2013H04 and I06 were moved out of the active ledger into the supersession file's `relocated_records`. Each keeps its original text, source file path, sha256 where one is recorded (generation receipt original 3d9ca345\u2026/public fe7e49\u2026; report 2a663866\u2026) and a status of 'recorded'. None was relabelled as literature or given a result pointer into the current run.",
+          "Current M5 values were checked by reading the supplied tables in evidence/reviews/m5-author23-inputs/canonical/. From unknowns_test.csv: Arm B M5 ASC\u2192B .853, MAIT\u2192\u03b3\u03b4 T .595, pDC\u2192B .509 (cDC .455); Arm A M5 erythroid most often HSPC (0.6); M1/M2/M3/M4/M6 counts 17/13/11/3/5; P1 and P2 erythroid labels 0.8 and 0.9. From platform.csv: Arm A M5 Parse accuracy 0.434 and coverage 0.469, ScaleBio 0.552 and 0.604. M1, P2 and M2/M3/M6 platform values match the existing text.",
+          "The draft's statement that pDC were mostly predicted cDC has been corrected from the same table: M2 and the corrected M5 predicted pDC most often as B (0.451 and 0.509).",
+          "Historical unseeded M5 values (6/3 of 20; platform accuracy 0.548; 1.2\u20133.0% label changes; unseeded per-class labels) now appear only in the dated historical subsection of Section 'M5 seed correction and versioning', sourced to failure review E1, E2 and NB2.",
+          "c098 was checked against the supplied manifest and receipt. The manifest records status failed, exit 143, duration 302.68 s and failure 'storage budget exceeded'. The receipt has steps: []. The storage-accounting fix (active working prefixes, cap still 7 GiB) is cited to the storage recovery approval. The M6 sidecar path change is described as a separate preflight repair.",
+          "3f18 was checked against the supplied receipt. The env and A_M5_fit steps ran (A_M5_fit ok, 744.05 s), then it stopped on the blocker 'Scaler/genes/classes changed'. The dtype+shape+bytes encoding fix and keeping the Arm A fit without refitting are cited to the postfit continuation approval.",
+          "The runtime ledger breakdown matches the manifests: 7,085.07 + 302.68 = 7,387.75; 8,575.48 \u2212 7,387.75 = 1,187.73 s for 3f18; 8,575.48 + 1,914.12 = 10,489.60 (448f manifest cumulative 10,489.604708539962).",
+          "The original 58-literal inventory (sha256 314aee11\u2026) was not edited. Its historical-only status, path, hash and frozen copy are recorded in the supersession file under `historical_paper_claim_inventory`, and are referenced from claims.json `full_inventory` and from the paper.",
+          "Only existing generated macro keys are used. make_paper_assets.py has no macros for unknown-label or platform values, so those stay as literals, labelled with their source CSV.",
+          "The limits on donor bootstrap, the 20 natural unknowns, preprocessing, training overlap, platform, protein and the absence of human review are kept. The reproduction comparison and compile are described as separate later gates that are still pending, with no outcome predicted. The \\Reprostatus macro switches automatically once a real report exists."
+        ],
+        "worktree": "<STUDY_ROOT>/.research/workers/745f6071-399d-411d-ae6a-8d51282b5c1c/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "f03f4a1ee8797b795448ddef7912ea5d9ed18cdcdeca1eff6f0a9febb2090eeb",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifact_sha256": {
+          "protocol/amended-recovery-integration.md": "79cdcf05bd4ca907efd80dd2554fc1f2605d6c7829e53c6e577bdd0afb005dfe",
+          "scripts/compare_runs.py": "31d5b2ca4aa5051cfc4115f4e6f019bfd7b1152faa037923a86640c3972283f4",
+          "scripts/recover.py": "4d7693e526bfe3eb5a75fdc1ea1cbe935aa3d0e5d397b0dda0cc5c900868cb79",
+          "scripts/reproduce.py": "841be9f30f517cd426174d3af68db0ef4cf4fc7714c9a8e5b660011e1d8c82d3",
+          "scripts/result_manifest.py": "89c4c01ad91a07dff0d71907bccadab19c167fade1b95949564ae276e199dd5a",
+          "tests_amended_recovery/_support.py": "2936d696aea665f52719127e9864cfcf54a913b66e86e2c203d6f4808d681000",
+          "tests_amended_recovery/test_adoption.py": "b3cdc074b308f1fac5c8c26d14cb46968cf85f3a3c83fadd83a57f5d71efd240",
+          "tests_amended_recovery/test_attempt_accounting.py": "c2acf1426de841ea11a89135e1fdec5c3dad65895fe7549e222ca9a29827f1e4",
+          "tests_amended_recovery/test_builder_integration.py": "0367ddce0593a8bda9a5a9030bf3d44073be3ea35972b66511219e19010d9973"
+        },
+        "artifacts": [
+          "scripts/recover.py",
+          "scripts/reproduce.py",
+          "scripts/compare_runs.py",
+          "scripts/result_manifest.py",
+          "tests_amended_recovery/_support.py",
+          "tests_amended_recovery/test_adoption.py",
+          "tests_amended_recovery/test_attempt_accounting.py",
+          "tests_amended_recovery/test_builder_integration.py",
+          "protocol/amended-recovery-integration.md"
+        ],
+        "attempt": 1,
+        "blockers": [
+          "mode_r.prior_r4_seconds (measured wall time of R4 attempt 1, HTTP 403) could not be determined. evidence/completed-matched-recovery/recovery_manifest.json has no cite_build step (stage_seconds_used 1826.824 covers only the matched recovery). A read-only search of <root>/runs and <root>/historical/runs found no 403 receipt with a duration. The value was not invented. A human must supply it from the original receipt, or approve a conservative substitute such as the 1200 s cite_build ceiling; the substitute would be a protocol decision.",
+          "configs/full.json was not changed, as instructed. To activate the amendment, a human must set amendment.{id,cite_builder}, mode_r.adopt.prior_manifest=evidence/completed-matched-recovery/recovery_manifest.json and the optional receipts_dir, and mode_r.prior_r4_seconds, and must remove mode_r.prior_attempts and mode_r.prior_seconds. Details are in protocol/amended-recovery-integration.md."
+        ],
+        "changed_files": [
+          "protocol/amended-recovery-integration.md",
+          "scripts/compare_runs.py",
+          "scripts/recover.py",
+          "scripts/reproduce.py",
+          "scripts/result_manifest.py",
+          "tests_amended_recovery/_support.py",
+          "tests_amended_recovery/test_adoption.py",
+          "tests_amended_recovery/test_attempt_accounting.py",
+          "tests_amended_recovery/test_builder_integration.py"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791322012.5194392,
+        "job_id": "7e4ac903-18f7-4a9c-b252-6075cbb75334",
+        "owner_pid": 43042,
+        "pid": 43048,
+        "previous_job": null,
+        "revision": "fab7a92ee0f35368eadbb7d7339a3c34d23ea7c1",
+        "role": "research-engineer",
+        "session_id": "2156fab3-2923-4f00-88b2-18481ccdee30",
+        "started_at": 1791321701.613792,
+        "status": "blocked",
+        "validation": [
+          "<root>/.venv/bin/python -B -m unittest discover -s tests_amended_recovery -t . -p 'test_*.py' -> Ran 51 tests, OK (the original 38 plus 13 new synthetic integration tests). Under system python3 without numpy, the original 38 also pass; the real-builder class is then skipped.",
+          "sh tests_protein_replacement/run_tests.sh <root>/.venv/bin/python -> Ran 57 tests, OK (builder unchanged).",
+          "<root>/.venv/bin/python -B -m unittest discover -s tests_comparison -> Ran 31 tests, OK (regression check after the compare_runs/result_manifest changes).",
+          "The new tests run the real builder's acquire/eligibility/build with a fake opener, synthetic census/loader and mocked predictors. They cover dynamic n_eligible of 0, 1 and 2, and check that protocol/tolerances-v2.json is read as dynamic.",
+          "T1 breach tests: verdict difference, tampered barcodes_qc, changed mapping csv, non-pinned acquisition sha256, and a missing sidecar or tampered record (structural failure or eligibility_record breach).",
+          "recover.py tests: the r4prime argv is used, --cache-dir is forwarded, and a tampered record or missing sidecar ends BLOCKED with no Arm A CITE step.",
+          "git status: only the owned files were modified or added. Test scratch directories (_tmp) were removed. No configs/study files, network or model runs were touched.",
+          "scripts/experiment.py is unchanged: its amended config validation (amendment.id/cite_builder, mode_r.adopt.prior_manifest, mode_r.prior_r4_seconds, refusal of prior_seconds/prior_attempts) already matched the builder."
+        ],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/7e4ac903-18f7-4a9c-b252-6075cbb75334/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "38a5f4a62e90097be5fd6af9b1df2740f5f15b9f2f802215d8037dd874c9cd6b",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifact_sha256": {
+          "protocol/input-acquisition.md": "f8c9cc14a64b90c4286506c7c5c666e60ef4565106330757be608dd7365e21f3",
+          "scripts/acquire_inputs.py": "63e4f9e0eeaeff3232676d5bf8ee34175a3a76a4b35b40396288fae11e0a9a22",
+          "tests_acquisition/test_acquire_inputs.py": "e76eb124be887fc66d2d57880b338414bf2081eba17d174b178b5a3214708f3f"
+        },
+        "artifacts": [
+          "scripts/acquire_inputs.py",
+          "protocol/input-acquisition.md",
+          "tests_acquisition/test_acquire_inputs.py"
+        ],
+        "attempt": 1,
+        "blockers": [
+          "The source URLs for hf-hparams.yaml (HF mirror rev 9d49621 /hparams.yaml), sctab_var.parquet (/var.parquet) and cl-basic.obo (GitHub release v2025-07-30) are INFERRED, not recorded. Their pinned hashes come from the historical local copies, not from upstream-published values. A first live run will either confirm them or fail closed. If it fails, a human decision is needed: use the labelled cached-third-party fallback or revise the pins.",
+          "The Census var table has no recorded generation command and no recorded logical digest. pandas/pyarrow were unavailable to this worker, so the historical logical digest could not be computed. The helper regenerates the table from Census 2025-11-08 with cellxgene-census==1.18.0, but the logical comparison only takes place if --census-compare <historical parquet> is supplied at run time.",
+          "Licences are unknown for the CellTypist Immune_All v2 models and for the scTab checkpoint as distributed by its authors (the HF mirror's MIT tag is self-declared and not authoritative). The CC BY 4.0 entries for Census and Cell Ontology are still marked 'to verify' in the saved records. No licence was fabricated.",
+          "The 10x CITE-seq .h5 inputs used by build_cite.py have URLs but no recorded SHA-256 pins in the inspected sources, so they are not in the helper's registry. Adding them needs hashes from a recorded retrieval.",
+          "The helper has not been executed against any live source. Live acquisition must run under the approved resource guard once the protocol is approved."
+        ],
+        "changed_files": [
+          "protocol/input-acquisition.md",
+          "scripts/acquire_inputs.py",
+          "tests_acquisition/test_acquire_inputs.py"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791306989.625144,
+        "job_id": "8a958c47-39e8-4ee7-aaf2-2d0b0d3bf7b8",
+        "owner_pid": 59960,
+        "pid": 59967,
+        "previous_job": null,
+        "revision": "74814b1ebe04f0e4d0f697e13d4e6a9d63719f2b",
+        "role": "research-engineer",
+        "session_id": "30f75956-5373-4e69-9248-d91ad4d915b0",
+        "started_at": 1791306784.681291,
+        "status": "blocked",
+        "validation": [
+          "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests_acquisition -v -> Ran 23 tests, OK (skipped=1: the logical-digest test was skipped because pandas is not installed in system python3). Retrieval was mocked, so no network was used.",
+          "python3 scripts/acquire_inputs.py acquire --root tests_acquisition/.tmp/cli --dry-run -> rc=0. 10 items were all 'planned', and the only file written was runs/data/retrieval-plan.json under the root. The temp dir was then removed.",
+          "python3 scripts/acquire_inputs.py list -> prints the pinned registry as JSON with no writes.",
+          "Pins were cross-checked against historical records read-only. Checkpoint URL and sha256 573b911f... come from fetch1.sh/fetch1.log. CellTypist URLs come from celltypist-models.json and their hashes from SHA256SUMS. The CL sha256 comes from the .obo.sha256 file. The sha256 values for hparams.yaml, sctab_var.parquet and the label maps were computed with shasum from local copies on 2026-10-06. test_repo_label_maps_match_pins passes.",
+          "git status shows only the three owned paths as new. No protected or historical file was modified. No downloads, Census access or experiments were run."
+        ],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/8a958c47-39e8-4ee7-aaf2-2d0b0d3bf7b8/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "74dc2522e2b9c2a7219bb2a4a5191bf150a9078e135472fd713621837f0e78b8",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifact_sha256": {
+          "paper/artifacts.json": "bf209e68acfc4ecc81f24e5cb11c2481ba18f556a8911805c7f914eac437158b",
+          "protocol/paper-assets-implementation.md": "81bffd91b95a94dd9bfeaad9ed633285c2bda5fc279dd10b0384d3f85049eb7c",
+          "scripts/make_paper_assets.py": "e41335f588eb76964fa7463d5f7c05ba1754e2566974d34696a7e11a336241c8",
+          "tests_paper_assets/_fixtures.py": "2ccb59d31a645638c9e7677e8a7ca48a6f9216343e37d5fe0fad4028062ab070",
+          "tests_paper_assets/run_tests.sh": "709e973e799be3ac6f1b367bbb4c843d2c9648ead265bb68ccbc85934ec4e50f",
+          "tests_paper_assets/test_make_paper_assets.py": "dfd4bd30bf9ddb632ce7ee692cae64a8d385ed74ac4487220c4961079424e6fb"
+        },
+        "artifacts": [
+          "scripts/make_paper_assets.py",
+          "paper/artifacts.json",
+          "tests_paper_assets/_fixtures.py",
+          "tests_paper_assets/test_make_paper_assets.py",
+          "tests_paper_assets/run_tests.sh",
+          "protocol/paper-assets-implementation.md"
+        ],
+        "attempt": 1,
+        "blockers": [],
+        "changed_files": [
+          "paper/artifacts.json",
+          "protocol/paper-assets-implementation.md",
+          "scripts/make_paper_assets.py",
+          "tests_paper_assets/_fixtures.py",
+          "tests_paper_assets/run_tests.sh",
+          "tests_paper_assets/test_make_paper_assets.py"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791324477.237068,
+        "job_id": "91a5a19f-0738-4772-a7f6-c86cd5a9023e",
+        "owner_pid": 51683,
+        "pid": 51689,
+        "previous_job": null,
+        "revision": "116cb9f57dee689da34d143376ce0799ddc00983",
+        "role": "research-engineer",
+        "session_id": "d7e17424-6d9c-4d85-aff6-61a1e5f21306",
+        "started_at": 1791323805.222812,
+        "status": "completed",
+        "validation": [
+          "sh tests_paper_assets/run_tests.sh <main-checkout>/.venv/bin/python (Python 3.11.13, matplotlib 3.9.2, numpy 1.26.4, used read-only) -> 'Ran 35 tests ... OK'. All fixtures are tiny synthetic CSV/JSON with fabricated values. Covered: LaTeX escaping; known formatting cases (0.91234->0.912, CI [0.8506, 0.95049]->[0.851, 0.950], -0.0123->$-$0.012, 1234->1{,}234); 'not attainable' when tau_err is empty; tau_cov=-inf shown as all eligible accepted plus the recorded cap; NaN shown as 'undef.'; matched vs practical blocks and identities kept; provenance sha256/bytes match the files on disk; byte-identical outputs across two roots and on a rerun; protein not-run and no-comparison paths; eligibility consistent, contradictory and tampered cases; refusal of inputs, symlinks and output outside --root; missing required input, duplicate rows, unknown arm, score_info mismatch, wrong report schema, artifacts.json contract mismatch, and an empty protein table all exit 2 with nothing written to generated/ or figures/.",
+          "Offline LaTeX smoke compile inside the tests: local TeX Live xelatex with -no-shell-escape compiled every table, figure and macro, and an undefined \\ctres key raised an error. This is NOT the pinned Tectonic build, which is not installed here and would need network access.",
+          "CLI end to end, invoked the way reproduce.py step 10 calls it, on a fixture root: exit 0, 22 assets written. '--comparison /etc/hosts' gave exit 2 ('outside --root'). The build_paper.py artifact-path checks (prefix, inside root, file exists) pass for all 22 paper/artifacts.json entries.",
+          "Figures were looked at by eye (operating points, paired forest plot, unknowns, protein, risk-coverage). Recorded intervals are drawn literally from lo to hi and are never re-centred.",
+          "~/.matplotlib was not modified (timestamps checked). git status shows only the owned new files. tests_paper_assets/_tmp was removed after validation.",
+          "Not done: scripts/build_paper.py was not run (paper/main.tex and paper/references.bib do not exist yet). The generator has not been run on any real recorded output, and the active run was not inspected."
+        ],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/91a5a19f-0738-4772-a7f6-c86cd5a9023e/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "79463dbf6c8adbf0fb004440b725a4a3a129df618fb05443d3d878ec9c22c07b",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifact_sha256": {
+          "evidence/reviews/final-paper-r2.md": "ba8b150a6087016c65dd055b4eb7ad309a02824c26aca228ffa20ad39d5aa9bd"
+        },
+        "artifacts": [
+          "evidence/reviews/final-paper-r2.md"
+        ],
+        "attempt": 1,
+        "blockers": [],
+        "changed_files": [
+          "evidence/reviews/final-paper-r2.md"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791326654.54612,
+        "job_id": "a801463b-fab8-4a39-80f5-f82aff4c6d25",
+        "owner_pid": 57011,
+        "pid": 57017,
+        "previous_job": null,
+        "revision": "fa095bb935c0d423392375fee8ba1e3df887e1a3",
+        "role": "methods-reviewer",
+        "session_id": "61343ccc-92f2-4301-b5ee-29e827ab127c",
+        "started_at": 1791326559.2794912,
+        "status": "completed",
+        "validation": [
+          "Verdict: PASS (model methods review, not human review). All 3 paper-r1 blockers (B1 false 'excludes point estimate', B2 CLI rendering, B3 study vs method) and methods-r1 F1/F2 are resolved in paper/main.tex, evidence/claims.json and the rendered preview PDF. Methods-r1 non-blocking items 1-7 and the abstract wording fix are also present.",
+          "Read paper/main.tex in full (605 lines), protocol/paper-final-corrections.md, final-paper-r1.md, final-methods-r1.md, and evidence/claims.json (M16 corrected and I03 limitation rewritten).",
+          "Read evidence/reviews/paper-preview.pdf in chunks (pp. 1-12, 13-24, 25). The PDF has 25 pages, not 24 (page 26 is out of range). Table 9 is on p. 25. No unresolved references. The preview reflects the corrected source.",
+          "Rendering check: p. 17 shows 'score_all.py --reps 1000 --natural-unknown-scope natural', '--no-comparison' and '--comparison <report.json>' with spaces and double hyphens intact. p. 2 filter expressions keep their spaces.",
+          "Checked against results.json: Arm A accepted_error@OPcov is M3 0.1230, M5 0.0890, M6 0.1151 vs M4 0.0867 (max gap 0.0363, supports '<=0.036'). P2-M4 OP-cov coverage: mean_diff 0.03055 vs point-estimate difference 0.0306 (consistent with the 'at most 0.001' statement).",
+          "Table 9 lists only unknown_false_accept@OPcov (126) and M3/M6 OP-err (1,000) undefined replicates and no macro-F1 rows, consistent with the corrected F2 text.",
+          "Non-blocking residuals recorded in the report: mid-token breaks in \\nolinkurl paths and hashes, small figure fonts, and 'degenerate' vs 'uninformative' wording in \u00a73.6. The independent Mode F reproduction is a separate pending gate, correctly disclosed in the paper and not counted against the verdict. No analyses run, no inputs edited, paper not rebuilt by this reviewer."
+        ],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/a801463b-fab8-4a39-80f5-f82aff4c6d25/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "68f61582b4369b5d8647c88bf656625448c77e491eaf3293befa129583086195",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifact_sha256": {
+          "evidence/claims.json": "93e0c47fd0a5cac1e4b0f6a3b05adb289467e0d54c7c29c2f603cf5b9f90339a",
+          "paper/main.tex": "3ebd83e4e3593a08b967187a7341dea45a062dd279a33a41b439cce0374b3ba4",
+          "protocol/paper-final-corrections.md": "3c3616919354d1fa5a286a5293b064f418402cbb6c467d7b25dbb5323cda8179"
+        },
+        "artifacts": [
+          "paper/main.tex",
+          "evidence/claims.json",
+          "protocol/paper-final-corrections.md"
+        ],
+        "attempt": 1,
+        "blockers": [],
+        "changed_files": [
+          "evidence/claims.json",
+          "paper/main.tex",
+          "protocol/paper-final-corrections.md"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791326465.241018,
+        "job_id": "c0e607f6-d8fe-414c-9764-83ce082c62f4",
+        "owner_pid": 56467,
+        "pid": 56473,
+        "previous_job": null,
+        "revision": "7ced026c525f8fb83f2f5e800dcb12aa1e1a3028",
+        "role": "paper-author",
+        "session_id": "45a94ae5-775e-486d-bdc3-15b1cfac3b56",
+        "started_at": 1791326329.568699,
+        "status": "completed",
+        "validation": [
+          "Grep of paper/main.tex for 'exclude the point', 'on average', 'pre-registered', 'any interval', \\nolinkurl containing spaces, and \\texttt containing '--': nothing left. The one remaining hit is the intended 'not conditional on the class being present'.",
+          "Read evidence/results-29879296/results.json for Arm A accepted_error@OPcov: M1 0.395, M2 0.193, M3 0.123, M4 0.0867, M5 0.0890, M6 0.115. This confirms the new scoping claim that M3, M5 and M6 are within 0.036 of M4.",
+          "Grep of companion code: score_all.py line 111 fixes classes_f1 once; line 192 computes weighted bootstrap macro-F1 over those classes; evaluate.py line 91 uses f1_score(zero_division=0). This confirms that a class missing from a replicate is scored 0 and the replicate is kept, as the corrected text now says.",
+          "Re-read claims.json lines 18-29: M16 and I03 are still well-formed JSON. M16's value 0.10526315867900848 and result_pointer are unchanged; only the text and limitations wording changed.",
+          "Not run: the paper build (make paper / Tectonic). No shell tool was available. All new \\verb uses sit in body text or enumerate items, not inside macro arguments, but compilation has not been checked.",
+          "Not changed: evidence/paper-claim-inventory.json, the figure generator, figures, and the dynamic \\reprostatus macros."
+        ],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/c0e607f6-d8fe-414c-9764-83ce082c62f4/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "4acbfd88a6d81decd94eff081b7cd2fe650f1f9fc69c8478a957cf46424c301b",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifact_sha256": {
+          "protocol/comparison-implementation.md": "c1595acddecd8da1e2cf5ecf014116bed82a046e544b3ab1138a28f00dafcf52",
+          "protocol/tolerances.json": "98a41d81c81e37e71cef821320c2f3eeb6f2af9c070263a22a671135f95d5d7b",
+          "scripts/compare_runs.py": "9ae4d7daaf37f5911f3ccf380c5bd88e1d213ff4b58131b738ec9d95dfb40156",
+          "tests_comparison/test_core.py": "add8c44d9d8fcb0a78edf8ae34029d2559f544c4c4c6b958b35afa4cab8983ed",
+          "tests_comparison/test_integration.py": "f049b37dfb1c3176ac3fff033919f883abac8f0786b5f9bb8c94c6a94d99208e"
+        },
+        "artifacts": [
+          "scripts/compare_runs.py",
+          "protocol/tolerances.json",
+          "tests_comparison/test_core.py",
+          "tests_comparison/test_integration.py",
+          "protocol/comparison-implementation.md"
+        ],
+        "attempt": 1,
+        "blockers": [
+          "T1 bootstrap weights cannot be compared exactly: companion/scripts/score_all.py never saves the donor bootstrap weight matrix. The comparator needs a bootstrap_weights .npy from each mode, which requires a scoring-wrapper change outside my ownership. Until then the comparator reports it as 'unsupported' and exits 3 (not assessable).",
+          "T2 per-cell protein gating cannot be compared: companion/scripts/protein_check.py writes only class counts (gates.json), not per-cell classes. A per-CITE-file barcode/protein_class table is needed from each mode.",
+          "The T1 check that features_and_classes equals D03 needs a d03_features path in the manifests. The T1 sampled soma_joinid check needs either a sampled_ids table or anndata available to read the h5ad files.",
+          "Harness integration is still open for the coordinator: wire compare_runs.py into study.json and the Makefile as a separate required verify gate (resume-plan-reviewed \u00a76), write real Mode R and Mode F manifests to the documented schema, and choose the score-entry names for the D-1a natural-stratum primary and the all-strata secondary outputs.",
+          "score_all.py does not output NaN-replicate counts, so this descriptive (non-gated) item is reported as unavailable."
+        ],
+        "changed_files": [
+          "protocol/comparison-implementation.md",
+          "protocol/tolerances.json",
+          "scripts/compare_runs.py",
+          "tests_comparison/test_core.py",
+          "tests_comparison/test_integration.py"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791307254.206862,
+        "job_id": "c10a47bb-1f6c-4634-9657-b5d58be0a60a",
+        "owner_pid": 60478,
+        "pid": 60485,
+        "previous_job": null,
+        "revision": "74814b1ebe04f0e4d0f697e13d4e6a9d63719f2b",
+        "role": "research-engineer",
+        "session_id": "4b09ed3b-1230-484d-a3df-fc34aedde436",
+        "started_at": 1791306840.501083,
+        "status": "blocked",
+        "validation": [
+          "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests_comparison -> 31 tests run: 11 core tests OK; 20 integration tests skipped (no pandas in system python; shows the core imports with stdlib only)",
+          "PYTHONDONTWRITEBYTECODE=1 <LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.venv/bin/python -m unittest discover -s tests_comparison -> Ran 31 tests, OK (only ResourceWarnings about unclosed json file handles)",
+          "Fixtures are entirely synthetic with expected values worked out by hand. They cover: tolerance boundaries (M 0.0078125 passes / 0.0125 fails; AURC 0.00488 passes / 0.0051 fails; conf 1.5e-5 passes / 2e-5 fails; max(1, floor(0.001n)) allowance); NaN/None/inf state changes; label, CI, tau-state and chosen-C changes; sampled-id and study-join changes; missing and duplicate rows/files; the sign rule and near-zero note; per-cell protein gating; ADT and bootstrap exactness; descriptive and >2x resource flags; rejection of cached/non-fresh inputs; CLI exit codes",
+          "git status --short shows only the owned outputs as new files; the tests write only under tests_comparison/_tmp and remove it",
+          "Note: compare_runs.py changed on disk after I wrote it (now 963 lines; it was edited externally or reformatted). The test suite passed against that current version, but I did not review the diff line by line",
+          "No real runs, scoring or historical predictions were read or executed. This is not a scientific verification"
+        ],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/c10a47bb-1f6c-4634-9657-b5d58be0a60a/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "f65534d521d1a0f314e7452dce93c3d9296e1db5d96aad56738cd2fe24b08425",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifacts": [],
+        "attempt": 1,
+        "blockers": [
+          "Completed workers require artifacts, validation evidence, and no blockers"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791379475.544717,
+        "job_id": "c1b4bdaf-fe86-4dc2-b833-2e04156b217c",
+        "owner_pid": 15852,
+        "pid": 15859,
+        "previous_job": null,
+        "revision": "c3fa30dd95eefdca7ca5801782fd01f22042d61e",
+        "role": "paper-author",
+        "started_at": 1791378813.34741,
+        "status": "failed",
+        "validation": [],
+        "worktree": "<STUDY_ROOT>/.research/workers/c1b4bdaf-fe86-4dc2-b833-2e04156b217c/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "0f5c66192ff1c9135004d1348026d9e490d32632667f76676f7dc6d9a8c8a2cc",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5",
+        "claude-haiku-4-5-20251001"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifacts": [],
+        "attempt": 1,
+        "blockers": [
+          "Completed workers require artifacts, validation evidence, and no blockers"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791326309.5525188,
+        "job_id": "c28bcbe6-34d2-4200-8f57-38c2aeac47fc",
+        "owner_pid": 56050,
+        "pid": 56056,
+        "previous_job": null,
+        "revision": "94756e98123663fec60a3bf55e17423a4cdae7f9",
+        "role": "methods-reviewer",
+        "started_at": 1791326110.045002,
+        "status": "failed",
+        "validation": [],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/c28bcbe6-34d2-4200-8f57-38c2aeac47fc/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "60d6c63c17becd5ab4c3411d333a8ef077fbd396f0f57bab7bc0d686cf0e78e6",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifact_sha256": {
+          "evidence/reviews/final-methods-r2.md": "46b80f0b9084758058ea860f84a433189816f4002d7e4e7972299bcc182080b1"
+        },
+        "artifacts": [
+          "evidence/reviews/final-methods-r2.md"
+        ],
+        "attempt": 1,
+        "blockers": [],
+        "changed_files": [
+          "evidence/reviews/final-methods-r2.md"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791326614.2274601,
+        "job_id": "c4ea647a-3bc1-4e7d-ae32-54e4cea301be",
+        "owner_pid": 56921,
+        "pid": 56927,
+        "previous_job": null,
+        "revision": "fa095bb935c0d423392375fee8ba1e3df887e1a3",
+        "role": "methods-reviewer",
+        "session_id": "a469205f-a3be-4351-b7c9-b36695e7f3f7",
+        "started_at": 1791326548.474323,
+        "status": "completed",
+        "validation": [
+          "Read claims.json M15/M16/I03: M16 now says 0.105 is below 0.15 and the interval contains the point estimate; value and pointer unchanged; I03 says no recorded interval excluded its point estimate -> F1 resolved",
+          "Grep main.tex for 'exclude': the only remaining hits are 'in principle ... none did' (L183), 'excluding HIHA' (L460) and 'We exclude both' (L380); the false claim is gone",
+          "Code check: score_all.py L111 fixes classes_f1 once; L192 bootstraps by weights; evaluate.py L91 uses f1_score(labels=classes, zero_division=0); L193 gives NaN when no unknown cell. Paper L180-183/L461 and I03 match this -> F2 resolved",
+          "Read score_all.py L211: mean_diff=np.nanmean(d), matching the paper's L176 'mean of paired bootstrap differences'",
+          "All 7 suggested methods corrections found in main.tex (L176, L216, L350/L451, L241, L408, L344/L350, L80/L241) and accurate",
+          "results.json Arm A accepted_error@OPcov: M3 0.1230, M5 0.0890, M6 0.1151 vs M4 0.0867 -> maximum gap 0.036 supports Discussion item 2",
+          "Verdict: METHODS PASS. The Mode F reproduction gate is pending and was not claimed as passed. Paper compilation (make paper) was not run in this review."
+        ],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/c4ea647a-3bc1-4e7d-ae32-54e4cea301be/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "b78ef2c2c7f706175e5d90e82a6cb397fd4f23d97d3bb7c53b68a604d22aa9ce",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifact_sha256": {
+          "Makefile": "fec7e7f99d4c419f545b71e4e28fbcb1a8fd908c22e7a8a48cb6e83880393ac5",
+          "configs/full.json": "391ac13dc4b438519792baecf98efbe67717c4c2da5151900ec646b2c808f202",
+          "protocol/pipeline-integration.md": "f343668513866f0d12e91814da4a57d52413d736dbe40353063b5773a5451e14",
+          "scripts/experiment.py": "225d8ab31284b7d9e008a26bb43d9cfbb0e8eea700b3af59a11a574fa9bda470",
+          "scripts/reproduce.py": "6c04dd3ff2f211e4b29ab7b694bb069ca6673383b1c621f8188140ad03288b42",
+          "scripts/result_manifest.py": "59e686151682606f8363821ddda667bc3f656460eb490e48fe2d8fb31d33fde1",
+          "study.json": "947c819f449b0f4dbeb5a533c4152d74247b357586e3042a234d31417c2b4a79",
+          "tests_pipeline/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "tests_pipeline/test_pipeline.py": "c0bba8b3133d6064876e9d99919361810462fd0f2dd3ef59f0b99598b6bebfa7"
+        },
+        "artifacts": [
+          "scripts/experiment.py",
+          "scripts/reproduce.py",
+          "scripts/result_manifest.py",
+          "Makefile",
+          "study.json",
+          "configs/full.json",
+          "tests_pipeline/__init__.py",
+          "tests_pipeline/test_pipeline.py",
+          "protocol/pipeline-integration.md"
+        ],
+        "attempt": 1,
+        "blockers": [
+          "Approval hash: editing study.json and configs/full.json changes the harness protocol_hash, so any existing .research/approval.json no longer matches. The coordinator or user must re-record approval of these exact files. The budgets are unchanged from the recorded approval: 8h R, 15h H, 30min paper, 7GiB, 4 threads.",
+          "Input layout not verified: acquire_inputs.py writes historical/... prefixed paths under runs/F-*/inputs, but the companion build_data.py/build_cite.py take --workspace <repo>. A workspace or env mapping is still needed. Separately, the external-cache fallback in acquire_inputs.py is item-agnostic. Limiting it to third-party models only needs a change in acquire_inputs.py, which this worker does not own.",
+          "Exact-evidence file names are assumptions and must be confirmed against the scoring worker's outputs: score/bootstrap_weights.npy, score/sampled_ids.csv, protein/protein_classes_<file>.{parquet,csv}. If they are absent, compare_runs exits 3 and reproduce stops before the paper stage, as intended.",
+          "experiment.py depends on the recover.py API (main argv flags, recovery_manifest.json fields, step names). Another worker is changing recover.py (resume, caps), so this must be re-checked after that lands. Resumed duplicate ok attempts currently fail closed.",
+          "scripts/make_paper_assets.py is not implemented yet (paper worker), so the H paper stage will fail honestly until it exists along with paper/main.tex.",
+          "reproduce.py's integration with resource_guard.run_guarded, real uv sync and the companion scripts has been tested only through a mock runner. In Mode F, the M6 --expected-hashes guard is applied only to Mode R's historical checkpoint.",
+          ".venv, .cache-study and runs/ are not in .gitignore, which this worker does not own."
+        ],
+        "changed_files": [
+          "Makefile",
+          "configs/full.json",
+          "protocol/pipeline-integration.md",
+          "scripts/experiment.py",
+          "scripts/reproduce.py",
+          "scripts/result_manifest.py",
+          "study.json",
+          "tests_pipeline/__init__.py",
+          "tests_pipeline/test_pipeline.py"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791307778.8769631,
+        "job_id": "c99106d6-1bc5-48a0-87c4-355b7d885568",
+        "owner_pid": 70763,
+        "pid": 70769,
+        "previous_job": null,
+        "revision": "1466ff3b82d83bb67a16d47104d5f7f9aeaba8f8",
+        "role": "research-engineer",
+        "session_id": "3356c0b7-40ad-4a61-8783-a34cbbb704b3",
+        "started_at": 1791307564.672013,
+        "status": "blocked",
+        "validation": [
+          "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests_pipeline -t . -> Ran 12 tests, OK. Synthetic data and mocks only. Covers: aggregation (None for undefined values, exact integer counts, volatile keys dropped, no mode key), fail-closed on missing or duplicate rows, assembling arm folders by symlink (a duplicate prediction file is fatal), the mode F manifest requiring fresh_execution, D03 marked reference-check-only, the reproduce preflight failing closed (no baseline, baseline that is not mode R, results already present, baseline inside output dirs), step order env->acquire->data->A/B M1-M6 fit/predict, a deterministic failure stopping with no retry, infrastructure retries capped at 2 attempts, budget values, and experiment returning 3 with no results.json when the historical manifest is missing",
+          "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests_comparison -> OK (20 skipped, no pandas in system python)",
+          "python3 json.load of study.json and configs/full.json -> both parse",
+          "make -n reproduce test -> expands to uv sync --frozen + .venv/bin/python scripts/reproduce.py / unittest",
+          "Not run: any real recovery, reproduction, uv sync, scoring, comparison, or paper build. No results exist."
+        ],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/c99106d6-1bc5-48a0-87c4-355b7d885568/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "540e683692964fcefa49fd1dcfba99332c413a430b9b0739b6a37150cf4818b6",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifact_sha256": {
+          "evidence/claims.json": "113e04e42b0df3d7f86d1dd3d15dbc7a0316fbd70a9d76ad1c085c91cd87f1d0",
+          "paper/main.tex": "09f7d218f59f7c59ede004bc5ebced2988bf6647661f0e9d31bb9734dec980ac",
+          "protocol/paper-author-notes.md": "dbf16031b029a1bcd589011a84fbb598d6448321c2f680d1c1d9157978f2833b"
+        },
+        "artifacts": [
+          "paper/main.tex",
+          "evidence/claims.json",
+          "protocol/paper-author-notes.md"
+        ],
+        "attempt": 1,
+        "blockers": [],
+        "changed_files": [
+          "evidence/claims.json",
+          "paper/main.tex",
+          "protocol/paper-author-notes.md"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791326001.7877839,
+        "job_id": "d2db9cdf-98a2-49a7-9ce7-672ff5675f51",
+        "owner_pid": 55704,
+        "pid": 55710,
+        "previous_job": null,
+        "revision": "3898843ca759704e0caea3d6f00ccba51dbd97ad",
+        "role": "paper-author",
+        "session_id": "3721a648-a2e3-4138-b363-6223214f3fb8",
+        "started_at": 1791325745.9084501,
+        "status": "completed",
+        "validation": [
+          "Not compiled: this worker had no shell. Overfull boxes and page count are not checked. Coordinator should run: python scripts/build_paper.py and grep the log for Overfull/undefined.",
+          "Not parsed: claims.json was written by hand. Coordinator should run: python -m json.tool evidence/claims.json and check it against the harness schema.",
+          "Every measurement value and pointer in claims.json was copied from evidence/results-29879296/results.json, read with the Read/Grep tools (score_info, summary_test, paired_differences_vs_M4, protein_agreement, protein_check). Pointers avoid keys that contain dots.",
+          "Literature source_ids 01, 17, 26 and 27 were confirmed present in literature/sources.json by grep.",
+          "Grep of main.tex finds no remaining 'indistinguish', 'could not be separated/distinguished' or 'do not separate', and no references to the removed tables tab:perstudy, tab:paired, tab:platform or tab:counts.",
+          "The dynamic status conditional matches make_paper_assets.py lines 712-715: the macro holds \\textit{not available} without a report and the report's overall field otherwise. The --comparison flag exists at line 1046.",
+          "The per-study donor counts (12/12/3/5 = 32) come from donor-count-check.json. The assembly-check facts come from assembly-check.json. No new measurements were made."
+        ],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/d2db9cdf-98a2-49a7-9ce7-672ff5675f51/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "25ae78e17ce05d86b5083cef64127ab52e890637e251407b8492b1d0da7fd95d",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifacts": [],
+        "attempt": 1,
+        "blockers": [
+          "Worker exceeded its wall-clock budget"
+        ],
+        "exit_code": 143,
+        "finished_at": 1791321654.772775,
+        "job_id": "d531e80a-9be3-43d9-8141-2d480622045d",
+        "owner_pid": 33965,
+        "pid": 33971,
+        "previous_job": null,
+        "revision": "1e88bfc2302bf2f437853230dbcd995baba56f25",
+        "role": "research-engineer",
+        "started_at": 1791320754.298996,
+        "status": "failed",
+        "validation": [],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/d531e80a-9be3-43d9-8141-2d480622045d/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "db043fd18c6dd3a16170f320878a3244c8a292030e8c3c444dd1b2febc055878",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.292 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifact_sha256": {
+          "evidence/reviews/final-methods-m5-seed0-v2-r2.md": "22e93a084256654506476400035dd5628f65318d3d51a419b23d9b93a480ffc8",
+          "evidence/reviews/final-paper-m5-seed0-v2-r2.md": "824433e67a162aa8e3630df5612621acc88f76feed053c43ef6d6e72eff197e8"
+        },
+        "artifacts": [
+          "evidence/reviews/final-methods-m5-seed0-v2-r2.md",
+          "evidence/reviews/final-paper-m5-seed0-v2-r2.md"
+        ],
+        "attempt": 1,
+        "blockers": [],
+        "changed_files": [
+          "evidence/reviews/final-methods-m5-seed0-v2-r2.md",
+          "evidence/reviews/final-paper-m5-seed0-v2-r2.md"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791396246.607462,
+        "job_id": "d5b79df9-e886-4b26-8212-5c7d1426eb80",
+        "owner_pid": 18085,
+        "pid": 18102,
+        "previous_job": null,
+        "revision": "8b60ddc547b9248edd1bb90fe4f91ae08c4889f7",
+        "role": "methods-reviewer",
+        "session_id": "8e32d72a-84af-4022-8091-2bb061f8e796",
+        "started_at": 1791395903.23061,
+        "status": "completed",
+        "validation": [
+          "Methods review r2: PASS, no blocking findings. Four non-blocking findings: N1 generic 'recomputed' provenance label on the build-only steps of the 56fa receipt; N2 553 harness wall time 2992.4 s vs the 1800 s paper budget, which the drivers enforce on the asset+build steps (~22 s) and is otherwise within the 53,970 s ceiling; N3 stale 'pending' section in the preserved deviation record; N4 single seed, disclosed.",
+          "Paper/PDF review r2: PASS, no blocking findings. Prior FAIL items B1-B6 are resolved in main.tex and the rendered PDF (all 33 pages viewed, including p.20 with no overflow).",
+          "Invocation ledger: exactly 4 fit reservations (canonical A, canonical B, reproduction A, reproduction B) and 2 score reservations (canonical, reproduction).",
+          "Canonical A fit: executed in failed attempt 3f18 (744 s); retained in 448f as executed:false with source step 7e52e4a6.",
+          "c056 manifest: status failed, exit 2; receipt stopped with blocker 'CELLTRANSFER_BASELINE_MANIFEST' after all eight scientific steps returned 0. It is not relabelled as successful.",
+          "2e1c, 553 and 56fa receipts: the eight c056 steps are listed executed:false with nested source-hash bindings; only env_setup, compare, paper_assets and paper_build executed.",
+          "Strict comparison report 8b6c2ab6: 1521 checks, 0 gated breaches, 0 unsupported, failures []; grep found no non-pass status, and every M5 per-file check shows 0 label disagreements and 0.0 max confidence difference.",
+          "All 27 measurement claims in claims.json (35 entries in total) equal the packet's recorded floats exactly; spot-checked literals also match the packet CSVs.",
+          "Recorded hash-string comparisons only (no hash computed): tolerances c335e6a9 and methods.py d2cb0cde are byte-identical per the B6 binding; asset_provenance inputs equal c056 out/ hashes; PDF cf3cbf98 equals the 56fa manifest and the format note.",
+          "Inspection limits: tools were Read, Grep and Glob only. No sha256 was computed, so main.tex = 3d06fc14 is not independently confirmed. No compile, test or command was run, no citation was re-retrieved, and no per-cell arrays or large confidence arrays were opened. These are model reviews by one Opus session; no human review is claimed."
+        ],
+        "worktree": "<STUDY_ROOT>/.research/workers/d5b79df9-e886-4b26-8212-5c7d1426eb80/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "85aa280894dfe0a55502b1d75df9cf165d98d89f40bb9c63e6d355b4c9872b40",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifacts": [],
+        "attempt": 1,
+        "blockers": [
+          "Completed workers require artifacts, validation evidence, and no blockers"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791306461.528291,
+        "job_id": "d81e1493-a27e-4c85-8ddc-fa2652e133e5",
+        "owner_pid": 56820,
+        "pid": 56826,
+        "previous_job": null,
+        "revision": "b9be78359618d0b9b635e3a0e0bac1bf65e13dbb",
+        "role": "methods-reviewer",
+        "started_at": 1791306172.166742,
+        "status": "failed",
+        "validation": [],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/d81e1493-a27e-4c85-8ddc-fa2652e133e5/worktree"
+      }
+    },
+    {
+      "configuration_sha256": "1f283f3dd83936b02cf4cf50482afc34038428835c8a84bbcc77a2bd8675559c",
+      "requested_model": "claude-opus-5-5",
+      "resolved_models": [
+        "claude-opus-5-5"
+      ],
+      "runtime_version": "2.1.283 (Claude Code)",
+      "skills": [
+        {
+          "name": "research-integrity",
+          "sha256": "6ce3667a93c4aa544c73a9acc1712184b18c03decfe4a9e4b83409a5b6ff159c"
+        }
+      ],
+      "state": {
+        "artifacts": [],
+        "attempt": 1,
+        "blockers": [
+          "Completed workers require artifacts, validation evidence, and no blockers"
+        ],
+        "exit_code": 0,
+        "finished_at": 1791307820.728296,
+        "job_id": "e58ee6c9-5ef0-483b-88ac-1edf305255d2",
+        "owner_pid": 74314,
+        "pid": 74320,
+        "previous_job": null,
+        "revision": "d1dfc175a9379ce04ce0f379566778116a2830a6",
+        "role": "methods-reviewer",
+        "started_at": 1791307773.0966778,
+        "status": "failed",
+        "validation": [],
+        "worktree": "<LOCAL_HOME>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/workers/e58ee6c9-5ef0-483b-88ac-1edf305255d2/worktree"
+      }
+    }
+  ]
+}
