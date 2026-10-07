@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "parent_id": "108dfa6e36394279931f372749ad6f6c",
+  "approved_by": "Tim Richardson",
+  "user_reply": "approved",
+  "approved_at": "2026-10-07T10:33:53.060215+00:00",
+  "plan_sha256": "8acd4147f00c8b833110834e6255de9178ea6943eda0455bcadde8890b55c8c0",
+  "protocol_hash": "0f8cc011ee63ba013faae07328d4ecea24c3ec0661cef510ffb5cd45feb198e4",
+  "step": "cite_build",
+  "additional_guarded_attempts": 1,
+  "total_attempt": 3,
+  "max_step_seconds": 1200,
+  "total_reproduction_seconds": 54000,
+  "prior_seconds_used": 6152.686920165972,
+  "scientific_design": "unchanged"
+}
