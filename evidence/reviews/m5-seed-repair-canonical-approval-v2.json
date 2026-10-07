@@ -1,0 +1,32 @@
+{
+ "approved_at": "2026-10-07T11:45:00.402966+00:00",
+ "approved_by": "Tim Richardson (user)",
+ "binding_change": "Pre-execution engineering only: M6 checksum-sidecar paths avoid M5 path-token exclusion; identical sidecar bytes, no scientific change or invocation.",
+ "execution_note_sha256": "ab2cab3f90b5913738995b7dce0d7a1a03f0e3219f7674311e70d1d256a4e07b",
+ "fit_invocations": 4,
+ "inventory_payload_sha256": {
+  "canonical": "1296bef0055b549882ba5cfeb3908f29707e8a88b1b0c77b57d40c46cb76ab15"
+ },
+ "ledger_choice": "existing-cumulative",
+ "option": "R",
+ "original_run_id": "29879296d87343898100c190308744a1",
+ "parent_reproduction_id": "78542e9d412548edbfe42b38d452f7a8",
+ "prior_seconds": 7085.069447749978,
+ "proposal_sha256": "f4a8035dd18ff02455c9a727dfa429735112a16dab7b6736dfdc4c11d8d35b9e",
+ "protocol_hash": "d3bbc2c05c80b7a893ecba198a2c684fde6975831ca133f2d50b2f3e0cb4f71a",
+ "repair_config_sha256": "6d56030cf6dd1e814e0435c7d0900bf954f378ae47cc19e3e205cd2a665cab59",
+ "repair_id": "m5-seed0-v2",
+ "schema_version": 1,
+ "score_invocations": 2,
+ "stage": "canonical",
+ "status": "approved",
+ "supersedes_binding": "evidence/reviews/m5-seed-repair-canonical-approval.json",
+ "target_protocol_hash": "d3bbc2c05c80b7a893ecba198a2c684fde6975831ca133f2d50b2f3e0cb4f71a",
+ "target_science_hash": "d58f220172b3f807217712ad6984dd88cce4c128ea3296463cbca5cba5e27812",
+ "total_seconds": 53970.0,
+ "user_consent": "evidence/reviews/m5-seed-repair-user-consent.json",
+ "user_consent_sha256": "83c50039d6467404277e11a67f2d22eec26ed8b6bc0d9da1b9e60993c8fca7f9",
+ "user_reply": "approved",
+ "version": "m5-seed0-v2",
+ "worker_call_cap": 24
+}
