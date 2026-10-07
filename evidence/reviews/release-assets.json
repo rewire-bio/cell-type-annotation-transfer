@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "verified_source_commit": "fd4588c2b58eee214fea76b1874be1a37df1f0da",
+  "verification_id": "c748f3e1c09f45c4bd4c7b99b8b96a39",
+  "reproduction_id": "56fa2cab73c045e8865aca59309c0770",
+  "assets": {
+    "cell-type-annotation-transfer.pdf": {
+      "sha256": "cf3cbf988f2ef3a4af0dd86d115e815e2160597bf5430fc8ef2c0bac4063a13b",
+      "size_bytes": 255247
+    },
+    "compact-baseline.tar.gz": {
+      "sha256": "37793da3eafe3a47fa7829aeb39c2c30fdacb436baa3ec765a3ad0243bc2c5fa",
+      "size_bytes": 98748
+    },
+    "compact-release-bindings.json": {
+      "sha256": "141671f37c00061858b7e0b2efd8781e27bbedb001328ae252df69e91e6ab43d",
+      "size_bytes": 2741
+    },
+    "m4-example.tar.gz": {
+      "sha256": "7b798df27f35440f5c2c01ab1f39f284896a31fb5229dd342393d914cd1cdf78",
+      "size_bytes": 944277
+    },
+    "public-evidence.tar.gz": {
+      "sha256": "ba00209db3a8d422579d105c9359143d5b0a6b573c590373e8e734414b1935bf",
+      "size_bytes": 1282784
+    },
+    "reproduction-tools.tar.gz": {
+      "sha256": "53946a63cb91ffa2a32c2d87fe7afd39ead67a08a402b15ad6221084c6cf4731",
+      "size_bytes": 17970
+    }
+  }
+}
