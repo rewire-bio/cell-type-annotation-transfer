@@ -30,7 +30,7 @@ class ComparisonContinuation(M.Repair):
             need(sha(inside(self.source,relative))==digest and self.inventory['source_controls'].get(relative)==digest,
                  'Retained metadata missing/changed')
     def step(self,name,kind,argv_fn):
-        need((name,kind) in (('compare','compare'),('paper_assets','paper'),('paper_build','paper')),
+        need((name,kind) in (('env_setup','env'),('compare','compare'),('paper_assets','paper'),('paper_build','paper')),
              'Comparison continuation refuses scientific/setup invocations')
         return super().step(name,kind,argv_fn)
     def run(self):
@@ -120,6 +120,8 @@ class ComparisonContinuation(M.Repair):
             self.save()
         self.receipt['environment']=self.retained_receipt['environment']
         self.receipt['models']=self.retained_receipt['models']
+        self.step('env_setup','env',lambda out:['uv','sync','--frozen'])
+        self.environment_check()
         D,ci=self.role('data'),self.role('cite');elig=RM.parse_eligibility(ci/RM.ELIGIBILITY_FILE)
         need(elig['n_eligible']==2,'Approved eligible CITE inputs changed')
         arms={}
@@ -129,7 +131,7 @@ class ComparisonContinuation(M.Repair):
             arms[arm]=RM.assemble_arm(self.output/'arms'/arm,sources)
         citearm=RM.assemble_arm(self.output/'armA_cite',{m:[self.role('cite_predictions',m)] for m in METHODS}|{'M5':[outputs['A_M5_cite']]})
         refs={k:inside(self.source,v) for k,v in self.inventory['layout']['equality_references'].items()}
-        equal_non_m5(outputs['score'],refs)
+        M.equal_non_m5(outputs['score'],refs)
         self.receipt['non_m5_equality']=self.retained_receipt['non_m5_equality']
         self.receipt['reproduction_continuation_of']=self.inventory['reproduction_continue_of']
         self.finish_comparison(D,ci,arms,citearm,outputs['score'],outputs['protein'])

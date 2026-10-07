@@ -27,7 +27,7 @@ def fixture(tmp_path):
              'blocker':"'CELLTRANSFER_BASELINE_MANIFEST'",'non_m5_equality':{'status':'passed'}}
     rp=out/'generation_receipt.json';M.dump(rp,receipt);mp=folder/'manifest.json';M.dump(mp,{'status':'failed'})
     ledger=tmp_path/'runtime.m5-invocations.json';M.dump(ledger,{'m5_seed_repair':{
-        'repair_id':'repair','fit_invocations':[{'stage':s,'arm':a} for s in ('canonical','reproduction') for a in ('A','B')],
+        'repair_id':'repair','driver_stage_seconds':{},'fit_invocations':[{'stage':s,'arm':a} for s in ('canonical','reproduction') for a in ('A','B')],
         'score_invocations':[{'stage':s} for s in ('canonical','reproduction')]}})
     snapshot=tmp_path/'snapshot.json';snapshot.write_bytes(ledger.read_bytes())
     for p in (rp,mp,snapshot):controls[p.relative_to(tmp_path).as_posix()]=M.sha(p)
@@ -72,3 +72,87 @@ def test_baseline_required_before_execution(tmp_path,monkeypatch):
     monkeypatch.setenv('CELLTRANSFER_BASELINE_MANIFEST',str(p));assert r.baseline_check()==p
     p.write_text('{"changed":true}')
     with pytest.raises(M.Stop):r.baseline_check()
+
+def test_full_recovery_orchestration(tmp_path,monkeypatch):
+    """Run actual continuation/copy/assembly/finalization with synthetic subprocesses."""
+    r,ledger,receipt,rp=fixture(tmp_path)
+    c=r.reproduction_continuation
+    # Populate synthetic files matching the real assembly and equality interfaces.
+    for name in ('A_M5_predict','B_M5_predict','A_M5_cite'):
+        d=tmp_path/c['completed_steps'][name]['out_dir'];(d/'data.bin').rename(d/'predictions_fixture.parquet')
+    score=tmp_path/c['completed_steps']['score']['out_dir']
+    refs={}
+    for name in ('summary_test.csv','thresholds_validation.csv','cell_counts.csv','bootstrap_ids.csv'):
+        p=score/name;p.write_text('method,value\nM1,1\nM5,2\n');refs[name]=p.relative_to(tmp_path).as_posix()
+    (score/'bootstrap_weights.npy').write_bytes(b'weights');refs['bootstrap_weights.npy']=(score/'bootstrap_weights.npy').relative_to(tmp_path).as_posix()
+    retained={}
+    for step in receipt['steps']:
+        b=c['completed_steps'][step['name']];d=tmp_path/b['out_dir']
+        b['files']={} if step['name']=='env' else {p.relative_to(tmp_path).as_posix():M.sha(p) for p in d.rglob('*') if p.is_file()}
+        retained.update(b['files'])
+    c['retained_files']=retained
+    r.inventory['source_controls']={k:v for k,v in r.inventory['source_controls'].items() if (tmp_path/k).is_file()}
+    r.inventory['source_controls'].update(retained)
+    r.validate_reproduction_continuation(ledger)  # Actual fail-closed evidence gate.
+    r.repo=tmp_path/'repo';r.repo.mkdir();r.output=tmp_path/'new-output';r.output.mkdir()
+    r.adopted=r.output/'adopted';r.adopted.mkdir();layout={'fits':{},'predictions':{},'cite_predictions':{}}
+    for arm in ('A','B'):
+        for m in M.METHODS:
+            d=r.adopted/arm/m;d.mkdir(parents=True);(d/'predictions_fixture.parquet').write_bytes(b'predictions')
+            layout['fits'][arm+':'+m]=layout['predictions'][arm+':'+m]=str(d.relative_to(r.adopted))
+    for m in M.METHODS:
+        d=r.adopted/'cite'/m;d.mkdir(parents=True);(d/'predictions_fixture.parquet').write_bytes(b'cite')
+        layout['cite_predictions'][m]=str(d.relative_to(r.adopted))
+    for name in ('data','cite'):(r.adopted/name).mkdir(exist_ok=True);layout[name]=name
+    (r.adopted/'data/features.json').write_text('{}')
+    d03=tmp_path/'d03.json';d03.write_text('{}');layout['d03_features']='d03.json';layout['equality_references']=refs
+    layout['checkpoint_sidecars']={};layout['materialize']=[]
+    for arm in ('A','B'):
+        checkpoint=r.adopted/arm/'M6/scanvi';checkpoint.mkdir();(checkpoint/'weights.pt').write_bytes(b'fixture weights')
+        side=r.adopted/(arm+'-checkpoint.json');M.dump(side,{'weights.pt':M.sha(checkpoint/'weights.pt')})
+        layout['checkpoint_sidecars'][arm]=side.relative_to(r.adopted).as_posix()
+    # Source-relative layout and inventory permit the real hash-checked copying implementation.
+    prefix=r.adopted.relative_to(tmp_path)
+    for category in ('fits','predictions','cite_predictions','checkpoint_sidecars'):
+        layout[category]={k:(prefix/v).as_posix() for k,v in layout[category].items()}
+    for category in ('data','cite'):layout[category]=(prefix/layout[category]).as_posix()
+    r.inventory['adopted_files']={p.relative_to(tmp_path).as_posix():M.sha(p) for p in r.adopted.rglob('*') if p.is_file()}
+    r.inventory['readonly_references']={v:M.sha(tmp_path/v) for v in refs.values()}|{'d03.json':M.sha(d03)}
+    r.inventory['layout']=layout
+    monkeypatch.setattr(M.RM,'parse_eligibility',lambda path:{'n_eligible':2})
+    old=rp.parent;c['failed_output_dir']=str(old.relative_to(tmp_path))
+    original_manifest={'mode':'F','fresh_execution':True,'schema':'fixture','provenance':{'scope':'preserved'},'protein_classes':{}}
+    M.dump(old/'comparison_manifest.json',original_manifest);(old/'results.json').write_text('{"original": 2}\n')
+    c['retained_metadata']={p.relative_to(tmp_path).as_posix():M.sha(p) for p in (old/'comparison_manifest.json',old/'results.json')}
+    r.inventory['source_controls'].update(c['retained_metadata'])
+    baseline=tmp_path/'baseline.json';baseline.write_text('{}');c['canonical_baseline']={'path':'baseline.json','sha256':M.sha(baseline)}
+    r.approval['canonical_manifest_sha256']=M.sha(baseline)
+    monkeypatch.setenv('CELLTRANSFER_BASELINE_MANIFEST',str(baseline))
+    receipt.update(environment={'pinned':'fixture'},models={'A':{},'B':{}});r.retained_receipt=receipt
+    r.receipt={'steps':[],'stage':'reproduction','version':M.VERSION,'mode':'F'}
+    r.cfg={'stage_seconds':{'reproduction':26700}};r.prior=M.PRIOR_SECONDS;r.clock=lambda:1;r.started=1
+    r.ledger=M.Ledger(tmp_path/'runtime.m5-invocations.json','repair');r.step_used={};r.paper_used=0
+    r.python=str(r.repo/'.venv/bin/python');calls=[];environment_checks=[]
+    def runner(argv,name,timeout):
+        calls.append((name,argv))
+        if name=='env_setup':
+            p=Path(r.python);p.parent.mkdir(parents=True);p.write_text('synthetic pinned python')
+        if name=='compare':Path(argv[argv.index('--out')+1]).write_text('{"status":"pass"}')
+        if name=='paper_build':
+            p=r.repo/'paper/build/main.pdf';p.parent.mkdir(parents=True);p.write_bytes(b'%PDF-synthetic')
+        assert Path(r.python).exists(), 'Environment must precede interpreter use'
+        return {'status':'ok','returncode':0}
+    r.runner=runner
+    monkeypatch.setattr(r,'environment_check',lambda:environment_checks.append(True))
+    before=M.load(r.ledger.path)['m5_seed_repair']
+    r.run_reproduction_continuation()
+    after=M.load(r.ledger.path)['m5_seed_repair']
+    assert before['fit_invocations']==after['fit_invocations'] and before['score_invocations']==after['score_invocations']
+    assert [name for name,argv in calls]==['env_setup','compare','paper_assets','paper_build']
+    assert calls[0][1]==['uv','sync','--frozen'] and environment_checks==[True]
+    assert [s['name'] for s in r.receipt['steps'][:8]]==NAMES
+    assert all(s['executed'] is False for s in r.receipt['steps'][:8])
+    assert all(s['executed'] is True for s in r.receipt['steps'][8:])
+    assert r.receipt['status']=='complete'
+    assert (r.output/'results.json').read_bytes()==(old/'results.json').read_bytes()
+    assert M.load(r.output/'comparison_manifest.json')['provenance']==original_manifest['provenance']
