@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "version": "m5-seed0-v2",
+  "written_at": "2026-10-07",
+  "revision_note": "Bounded authoring correction of the draft22 supersession map (source evidence/reviews/m5-author23-inputs/draft22/m5-seed0-v2-supersession.json, sha256 3dd3510764fdb3bee342ed97e73714d16dca5b39864717a151b967a8a29281ec). Provenance and historical records that draft22 had placed in the active ledger under non-schema kinds are relocated here. Nothing in this file is a current measurement, and nothing here was re-executed or re-verified by the author.",
+  "historical_ledger": {
+    "path": "evidence/claims-history/claims-original-29879296.json",
+    "sha256": "93e0c47fd0a5cac1e4b0f6a3b05adb289467e0d54c7c29c2f603cf5b9f90339a",
+    "run_id": "29879296d87343898100c190308744a1",
+    "note": "Preserved byte-for-byte by the coordinator; not edited."
+  },
+  "current_ledger": {
+    "path": "evidence/claims.json",
+    "authoritative": true,
+    "kinds_used": ["measurement", "literature", "interpretation"],
+    "measurement_claims": 27,
+    "canonical_run_id": "448f32386dfe45588fefa84c5d486703",
+    "canonical_results": "evidence/reviews/m5-canonical-448f32386dfe45588fefa84c5d486703/results.json",
+    "canonical_results_sha256": "f98d233905325aaafef4d1e3c1f49bd92239ad6167be44af41a17a4714905b79"
+  },
+  "historical_paper_claim_inventory": {
+    "path": "evidence/paper-claim-inventory.json",
+    "sha256": "314aee11ac86b01fe92b896fa0af716e14eeaed4a1c13f09fc4ca76828c7b69e",
+    "frozen_copy": "evidence/reviews/m5-author23-inputs/original-paper-claim-inventory.json",
+    "frozen_copy_sha256": "314aee11ac86b01fe92b896fa0af716e14eeaed4a1c13f09fc4ca76828c7b69e",
+    "claims": 58,
+    "run_id": "29879296d87343898100c190308744a1",
+    "status": "historical-only; preserved unchanged (not an owned file, not edited). It predates result version m5-seed0-v2. Its M5 literals (for example the natural-unknown count of 6 of 20, the unseeded M5 per-class unknown labels and platform values, and the statement that the training seed was 0 for all methods) are superseded by evidence/claims.json and paper/main.tex. evidence/claims.json is the authoritative active ledger."
+  },
+  "basis": [
+    "evidence/reviews/m5-reproduction-failure-review.md",
+    "evidence/reviews/m5-seed-repair-proposal.md",
+    "evidence/reviews/m5-seed-repair-execution-note.md",
+    "evidence/reviews/m5-seed-repair-user-consent.json",
+    "evidence/reviews/m5-seed-repair-canonical-storage-recovery-approval.json",
+    "evidence/reviews/m5-seed-repair-canonical-postfit-continuation-approval.json"
+  ],
+  "rules": "Historical claims are not edited. Claims whose value is unchanged in the corrected run keep their ID and are re-pointed to the corrected run, with the value checked against the corrected results.json. Claims that depend on M5 are superseded by new IDs. Interpretations whose basis or limitations changed are superseded by new IDs. The active ledger uses only the harness kinds measurement, literature and interpretation; provenance and historical records are kept in this file.",
+  "mapping": [
+    {"old_id": "M01", "action": "repointed", "new_id": "M01", "value_unchanged": true},
+    {"old_id": "M02", "action": "repointed", "new_id": "M02", "value_unchanged": true},
+    {"old_id": "M03", "action": "repointed", "new_id": "M03", "value_unchanged": true},
+    {"old_id": "M04", "action": "repointed", "new_id": "M04", "value_unchanged": true},
+    {"old_id": "M05", "action": "repointed", "new_id": "M05", "value_unchanged": true},
+    {"old_id": "M06", "action": "repointed", "new_id": "M06", "value_unchanged": true},
+    {"old_id": "M07", "action": "superseded", "new_id": "M21", "reason": "M5-dependent. Historical unseeded value -0.014267743565659213; corrected seed-0 value -0.012919452282817398. Sign (below zero) unchanged."},
+    {"old_id": "M08", "action": "superseded", "new_id": "M22", "reason": "M5-dependent. Historical unseeded value 0.0020287219964541456; corrected seed-0 value 0.002966559580046049. Sign (above zero) unchanged."},
+    {"old_id": "M09", "action": "repointed", "new_id": "M09", "value_unchanged": true},
+    {"old_id": "M10", "action": "repointed", "new_id": "M10", "value_unchanged": true},
+    {"old_id": "M11", "action": "repointed", "new_id": "M11", "value_unchanged": true},
+    {"old_id": "M12", "action": "repointed", "new_id": "M12", "value_unchanged": true},
+    {"old_id": "M13", "action": "repointed", "new_id": "M13", "value_unchanged": true},
+    {"old_id": "M14", "action": "repointed", "new_id": "M14", "value_unchanged": true},
+    {"old_id": "M15", "action": "repointed", "new_id": "M15", "value_unchanged": true},
+    {"old_id": "M16", "action": "repointed", "new_id": "M16", "value_unchanged": true, "note": "Text shortened; the 2026-10-06 wording correction remains recorded in the historical ledger."},
+    {"old_id": "M17", "action": "repointed", "new_id": "M17", "value_unchanged": true},
+    {"old_id": "M18", "action": "repointed", "new_id": "M18", "value_unchanged": true},
+    {"old_id": "M19", "action": "repointed", "new_id": "M19", "value_unchanged": true},
+    {"old_id": "M20", "action": "repointed", "new_id": "M20", "value_unchanged": true},
+    {"old_id": "L01", "action": "retained", "new_id": "L01"},
+    {"old_id": "L02", "action": "retained", "new_id": "L02"},
+    {"old_id": "L03", "action": "retained", "new_id": "L03"},
+    {"old_id": "L04", "action": "retained", "new_id": "L04"},
+    {"old_id": "I01", "action": "superseded", "new_id": "I05", "reason": "Based on M07/M08 (M5) and stated 'one training seed', which was untrue for the historical M5 fit. Conclusion unchanged; basis and limitation updated."},
+    {"old_id": "I02", "action": "retained", "new_id": "I02", "note": "based_on extended with M27 (corrected Arm B M5)."},
+    {"old_id": "I03", "action": "retained", "new_id": "I03", "note": "based_on extended with M26 (corrected M5 natural-unknown count); limitation now refers to the corrected run."},
+    {"old_id": "I04", "action": "retained", "new_id": "I04"}
+  ],
+  "new_active_claims": ["M21", "M22", "M23", "M24", "M25", "M26", "M27", "M28", "M29", "I05"],
+  "version_labels": {
+    "note": "draft22 carried per-claim 'version' and 'supersedes' fields, which are not part of the harness claim schema. They were removed from the active ledger; the same information is kept here.",
+    "m5-seed0-v2": ["M21", "M22", "M23", "M24", "M25", "M26", "M27", "M28", "M29"],
+    "supersedes": {"M21": "M07", "M22": "M08", "I05": "I01"}
+  },
+  "relocated_records": {
+    "note": "Records that draft22 (claims.json sha256 76ab3b678f2b1480f1e61e2c9506d9d746ce648f2f1c68809c8dc7e81b5e00ea) placed in the active ledger under the non-schema kinds 'provenance' and 'historical_record', plus interpretation I06 whose basis was those records. They are recorded facts about run provenance and earlier runs, not current measurements, and carry no result_pointer into the corrected results. Status 'recorded' means the statement is copied from the named retained artefact; it was not re-executed or independently verified by the author.",
+    "records": [
+      {"id": "P01", "former_kind": "provenance", "status": "recorded", "text": "Both corrected M5 models record random_state 0 and solver sag, with gene, class and scaler hashes equal to the historical M5 models in each arm.", "run_id": "448f32386dfe45588fefa84c5d486703", "source_file": "evidence/reviews/m5-canonical-448f32386dfe45588fefa84c5d486703/generation-receipt.json", "source_sha256": {"original": "3d9ca345e650be589c85d25f56ee6f50b1cb8afdcba304aa79f7e2664bc964c3", "public": "fe7e49aa1ccc465178f2d5a635b3a5dd641808c04f8414738bd58d89983fb701", "index": "evidence/reviews/m5-canonical-448f32386dfe45588fefa84c5d486703/bundle-index.json"}, "source_pointer": "models.A.random_state; models.B.random_state; models.*.solver; models.*.identity vs run-manifest config.historical_m5_identity", "value": {"A_random_state": 0, "B_random_state": 0, "solver": "sag"}},
+      {"id": "P02", "former_kind": "provenance", "status": "recorded", "text": "The Arm A seed-0 M5 fit was executed in failed canonical attempt 3f18e178b78d4d75b595174cfa00cf99 and carried into the corrected run without re-execution (executed false, source step hash recorded); only the Arm B M5 fit was executed in the corrected run.", "run_id": "448f32386dfe45588fefa84c5d486703", "source_file": "evidence/reviews/m5-canonical-448f32386dfe45588fefa84c5d486703/generation-receipt.json", "source_sha256": {"original": "3d9ca345e650be589c85d25f56ee6f50b1cb8afdcba304aa79f7e2664bc964c3", "public": "fe7e49aa1ccc465178f2d5a635b3a5dd641808c04f8414738bd58d89983fb701"}, "corroborated_by": ["evidence/reviews/m5-author23-inputs/failed-3f18-receipt.json (steps[name=A_M5_fit].executed true, status ok, wall_seconds 744.05)", "evidence/reviews/m5-seed-repair-canonical-postfit-continuation-approval.json (completed_fit.step_sha256, model.pkl sha256)"], "source_pointer": "steps[name=A_M5_fit].executed; steps[name=A_M5_fit].source_run; steps[name=A_M5_fit].source_step_sha256; steps[name=B_M5_fit].executed", "value": {"A_M5_fit_executed": false, "A_M5_fit_source_run": "3f18e178b78d4d75b595174cfa00cf99", "A_M5_fit_source_step_sha256": "7e52e4a650571bf4c0a82aa870db2efdcad1ffac9d8103a518825ebc626e802f", "A_M5_model_sha256": "111e03c33dc7f8062fbb5106af155720852e2b95a0a067ad08c80836977ef11b", "B_M5_fit_executed": true}},
+      {"id": "P03", "former_kind": "provenance", "status": "recorded", "text": "The corrected run adopted M1-M4 and M6 fits and predictions, P1/P2 released predictions, the data build and the CITE build from the original run's sources by hash, adopted no M5 artefact, and its non-M5 equality check passed.", "run_id": "448f32386dfe45588fefa84c5d486703", "source_file": "evidence/reviews/m5-canonical-448f32386dfe45588fefa84c5d486703/generation-receipt.json", "source_sha256": {"original": "3d9ca345e650be589c85d25f56ee6f50b1cb8afdcba304aa79f7e2664bc964c3", "public": "fe7e49aa1ccc465178f2d5a635b3a5dd641808c04f8414738bd58d89983fb701"}, "source_pointer": "adopted_files; non_m5_equality.status", "value": {"non_m5_equality": "passed"}},
+      {"id": "H01", "former_kind": "historical_record", "status": "recorded", "text": "The failed reproduction 78542e9d compared against original run 29879296 reported overall status 'partially reproduced' over 1,523 checks, with 54 gated breaches and 0 unsupported checks.", "record_id": "78542e9d412548edbfe42b38d452f7a8", "source_file": "evidence/reviews/m5-failure-78542e9d412548edbfe42b38d452f7a8/comparison-failure-summary.json", "source_report_sha256": "2a663866746ee682b93cadcfaebba56715dbb6cf308bc78bdd86301f689d6dc8", "packet_index": "evidence/reviews/m5-failure-78542e9d412548edbfe42b38d452f7a8/packet-index.json", "source_pointer": "overall; counts.checks; counts.gated_breaches_or_structural; counts.unsupported", "value": {"overall": "partially reproduced", "checks": 1523, "gated_breaches_or_structural": 54, "unsupported": 0}, "note": "Historical record of a different run; not a measurement of the corrected canonical run."},
+      {"id": "H02", "former_kind": "historical_record", "status": "recorded", "text": "All 54 breaches in the failed reproduction were M5: 17 per-file label checks (8 Arm A, 9 Arm B files), 32 per-file confidence checks (all 17 Arm A and 15 Arm B files) and 5 Arm A natural-unknown metric checks. M1-M4, M6, P1 and P2 passed their declared gated checks; not every M5 label file breached.", "record_id": "78542e9d412548edbfe42b38d452f7a8", "source_file": "evidence/reviews/m5-failure-78542e9d412548edbfe42b38d452f7a8/comparison-failure-summary.json", "source_report_sha256": "2a663866746ee682b93cadcfaebba56715dbb6cf308bc78bdd86301f689d6dc8", "source_pointer": "failures[*] counted by check: labels=17, conf=32, tier M=5; all method=M5", "value": {"labels": 17, "conf": 32, "metric": 5}, "corroborated_by": "evidence/reviews/m5-reproduction-failure-review.md (E1; 'no breach was recorded for M1-M4, M6, P1 or P2')"},
+      {"id": "H03", "former_kind": "historical_record", "status": "recorded", "text": "The original M5 estimators were fitted by SAG with random_state None and max_iter 500, although protocol section 3 specifies seed 0 for model training; at least one one-vs-rest sub-problem per unseeded fit stopped at max_iter.", "record_id": "29879296d87343898100c190308744a1", "source_file": "evidence/reviews/m5-reproduction-failure-review.md", "source_pointer": "E4 (model_parameters); E5 (n_iter_ ranges)", "value": {"solver": "sag", "random_state": null, "max_iter": 500}},
+      {"id": "H04", "former_kind": "historical_record", "status": "recorded", "text": "Arm A M5 natural-unknown false acceptance at OP-cov was 0.30 (6/20) in the original unseeded fit and 0.15 (3/20) in the unseeded fit of the failed reproduction.", "record_id": "78542e9d412548edbfe42b38d452f7a8", "source_file": "evidence/reviews/m5-reproduction-failure-review.md", "source_pointer": "E1 M-tier table, summary_test:unknown_false_accept@OPcov", "value": {"original": 0.30, "failed_reproduction": 0.15}},
+      {"id": "I06", "former_kind": "interpretation", "status": "relocated (basis is historical records, not current measurements)", "text": "The historical M5 fits were unseeded; two unseeded fits on identical inputs differed beyond the pre-specified per-cell tolerances and in their natural-unknown counts; the results of record now use seed 0. The cause was not isolated beyond the missing seed, and three fits do not estimate seed variance.", "former_based_on": ["H01", "H02", "H03", "H04", "P01", "M26"], "limitations": "Other contributors (n_jobs=4 one-vs-rest parallelism, BLAS threading, unrecorded historical environment) were not excluded. Whether seed 0 makes the M5 fits repeatable within tolerance is tested only by the seed-controlled reproduction, which was pending at authorship.", "where_stated_now": "paper/main.tex Section 'M5 seed correction and versioning'; evidence/protocol-deviations-m5-seed0-v2.md sections 1, 2 and 6"}
+    ]
+  },
+  "failed_canonical_attempts": {
+    "note": "Retained failure records of the corrected canonical stage. Copies with absolute path prefixes replaced are in evidence/reviews/m5-author23-inputs/; original and public hashes from evidence/reviews/m5-author23-inputs/bundle-index.json.",
+    "c098a3420d0a4c99b6d2b8d65c667af7": {
+      "manifest": {"path": "evidence/reviews/m5-author23-inputs/failed-c098-manifest.json", "original_sha256": "6a3405b9ed52f563eda5274a750578650af8a307610c1d1b4600c13ccd9a9c82", "public_sha256": "49d333b1c9f94a139220c1020c8ee6df4762afad5dbfd8c27d64b1c6fbd93bdb"},
+      "receipt": {"path": "evidence/reviews/m5-author23-inputs/failed-c098-receipt.json", "original_sha256": "4734949241614fab394ebe2f8d89298016eaa45c3de6ece6cf5a0d96f4764fd7", "public_sha256": "4734949241614fab394ebe2f8d89298016eaa45c3de6ece6cf5a0d96f4764fd7"},
+      "status": "failed",
+      "recorded_failure": "storage budget exceeded (exit_code 143; duration_seconds 302.68)",
+      "steps_executed": [],
+      "note": "Receipt lists no step: the stop occurred before any env, fit, predict, score or protein step. Cumulative after attempt 7,387.75 s (prior 7,085.07 s)."
+    },
+    "3f18e178b78d4d75b595174cfa00cf99": {
+      "receipt": {"path": "evidence/reviews/m5-author23-inputs/failed-3f18-receipt.json", "original_sha256": "048f0851453afe612e32ecc7640f7adcdc8a77ced689d2be41c65b77bbaaad8d", "public_sha256": "37f60ffa86327dd531b484f1aa5c9c31e2fe9da5d1d63489473d93736d0ac20d"},
+      "manifest_original_sha256": "1b81d39a266b769b21003dcb85e0eaee433acd53166c3e04ac0faf3f89681495",
+      "manifest_sha256_source": "evidence/reviews/m5-seed-repair-canonical-postfit-continuation-approval.json (canonical_continuation.failed_manifest_sha256); manifest not in the supplied packet",
+      "status": "stopped",
+      "recorded_blocker": "Clone environment/model validation failed: AssertionError: Scaler/genes/classes changed",
+      "steps_executed": [{"name": "env", "status": "ok", "wall_seconds": 6.65}, {"name": "A_M5_fit", "status": "ok", "wall_seconds": 744.05}],
+      "note": "Stopped after the completed Arm A fit at the identity check; the checker hashed raw array bytes while the historical digests covered dtype, shape and bytes. Charged time to the cumulative ledger: 8,575.48 - 7,387.75 = 1,187.73 s (continuation approval minimum_actual_prior_seconds 8,575.48)."
+    }
+  },
+  "historical_m5_values_not_in_active_ledger": {
+    "note": "Retained for reference only; these describe unseeded fits and are not results of record. Dated 2026-10-07 from the failure review.",
+    "A_M5_unknown_false_accept_at_OPcov": {"original_29879296": 0.30, "failed_reproduction_78542e9d": 0.15, "source": "evidence/reviews/m5-reproduction-failure-review.md E1"},
+    "A_M5_macro_f1_closed": {"original_29879296": 0.68816, "failed_reproduction_78542e9d": 0.68907, "source": "evidence/reviews/m5-reproduction-failure-review.md E2"},
+    "A_M5_platform_closed_set_accuracy_original_29879296": {"Parse_v2": 0.434, "ScaleBio": 0.548, "source": "evidence/reviews/m5-reproduction-failure-review.md NB2"},
+    "A_M5_platform_label_disagreement_between_unseeded_fits": {"Parse_ScaleBio_PIPseq": "1.2-3.0% of 1,000 cells", "source": "evidence/reviews/m5-reproduction-failure-review.md line 39 and NB2"}
+  },
+  "current_m5_secondary_tables": {
+    "note": "Corrected-run tables supplied for this revision and read (not re-analysed) for the paper's M5 per-class unknown labels and platform values.",
+    "platform.csv": {"path": "evidence/reviews/m5-author23-inputs/canonical/platform.csv", "sha256": "a84051b26b670f8df9dd5b753593b32b4a5df0450fed1678f4ebf543bbb1592a"},
+    "unknowns_test.csv": {"path": "evidence/reviews/m5-author23-inputs/canonical/unknowns_test.csv", "sha256": "33a5d43fcd5832dc341f2e92528c9cf4d30cf425372708d6577e6be720167a5f"},
+    "unknowns_allstrata_secondary.csv": {"path": "evidence/reviews/m5-author23-inputs/canonical/unknowns_allstrata_secondary.csv", "sha256": "8d599777133583bc63236c4e59e0c4c3142436c10e231c31b7461b08f76323cb"},
+    "scoring_scope.json": {"path": "evidence/reviews/m5-author23-inputs/canonical/scoring_scope.json", "sha256": "b6bf902766b509097d24108346b015254182b5f98db46a55d3b90756b5f8b70f"}
+  },
+  "reproduction_status_at_authorship": "pending (separate later gate; no comparison of the corrected canonical run had been executed when this record was written)"
+}
