@@ -41,6 +41,16 @@ def sha(p): return RM.sha256_path(p)
 def load(p): return json.loads(Path(p).read_text())
 def dump(p,value): RM.write_json(Path(p),value)
 
+def array_identity_sha256(array):
+    """Original diagnostic encoding: dtype text, shape text, then raw array bytes."""
+    value=str(array.dtype).encode()+str(array.shape).encode()+array.tobytes()
+    return hashlib.sha256(value).hexdigest()
+
+
+def object_sha256(value):
+    return hashlib.sha256(json.dumps(value,sort_keys=True,allow_nan=False).encode()).hexdigest()
+
+
 def inventory_payload_sha256(inventory):
     """Canonical approval payload; harness separately binds complete inventory bytes."""
     value=json.loads(json.dumps(inventory))
@@ -192,6 +202,8 @@ class Repair:
         self.approval_path=Path(env['RESEARCH_ADOPTION_APPROVAL'])
         self.approval=load(self.approval_path)
         self.prior=float(env['RESEARCH_ADOPTION_PRIOR_SECONDS'])
+        self.continuation=self.inventory.get('canonical_continuation')
+        need(bool(self.inventory.get('canonical_continue_of'))==bool(self.continuation),'Continuation pointer/proof must be paired')
         need(cfg.get('execution_ready') is True,'Draft repair configuration is not active')
         need(self.inventory['stage']==self.stage and self.inventory['parent_id']==FRESH_PARENT,'Wrong repair parent/stage')
         a=self.approval
@@ -216,6 +228,8 @@ class Repair:
         need(not self.output.is_symlink() and (not self.output.exists() or (self.output.is_dir() and not any(self.output.iterdir()))),'Repair output must be new or empty ordinary harness directory')
         validate_identity(self.repo,cfg); verify_inventory(self.source,self.inventory)
         runtime_ledger=Path(env['RESEARCH_ADOPTION_LEDGER'])
+        if self.inventory.get('canonical_continue_of'):
+            self.validate_continuation(runtime_ledger)
         self.ledger=Ledger(runtime_ledger.with_name(runtime_ledger.stem+'.m5-invocations.json'),self.inventory['repair_id'])
         if not preflight:self.output.mkdir(parents=True,exist_ok=True)
         self.receipt={'schema_version':1,'version':VERSION,'stage':self.stage,'status':'running',
@@ -300,29 +314,106 @@ assert any(any(k.arg is None and isinstance(k.value,ast.Name) and k.value.id=='k
 print(json.dumps({'versions':versions,'train_sha256':cfg['celltypist_train_sha256']}))"""
         self.receipt['environment']=self.checked_python(code,[json.dumps(self.cfg)])
         if persist:self.save()
-    def model_check(self,directory,arm):
+    def model_check(self,directory,arm,persist=True):
         code="""import hashlib,json,pickle,sys
 sys.path.insert(0,sys.argv[1]);model=pickle.load(open(sys.argv[2],'rb'));c=model.model.classifier;s=model.model.scaler
 assert c.random_state==0 and c.solver=='sag' and c.max_iter==500 and c.n_jobs==4 and c.tol==.0001 and c.C==1.0 and c.multi_class=='ovr'
 h=lambda values:hashlib.sha256(json.dumps(list(values),default=str,separators=(',',':')).encode()).hexdigest()
 observed={'genes_sha256':h(model.genes),'classes_sha256':h(model.classes)}
-for key in ('mean_','scale_','var_'):observed['scaler_'+key.rstrip('_')+'_sha256']=hashlib.sha256(getattr(s,key).tobytes()).hexdigest()
+for key in ('mean_','scale_','var_'):
+ a=getattr(s,key);observed['scaler_'+key.rstrip('_')+'_sha256']=hashlib.sha256(str(a.dtype).encode()+str(a.shape).encode()+a.tobytes()).hexdigest()
 assert observed==json.loads(sys.argv[3]), 'Scaler/genes/classes changed'
 print(json.dumps(observed))"""
         identity=self.checked_python(code,[str(self.repo/'companion/src'),str(directory/'model.pkl'),json.dumps(self.cfg['historical_m5_identity'][arm])])
         self.receipt.setdefault('models',{})[arm]={'random_state':0,'solver':'sag','identity':identity,
-                                                  'model_sha256':sha(directory/'model.pkl')};self.save()
+                                                  'model_sha256':sha(directory/'model.pkl')}
+        if persist:self.save()
+    def historical_identity_check(self):
+        models=self.inventory['layout'].get('historical_identity_models',{})
+        need(set(models)=={'A','B'},'Historical identity preflight requires two hash-bound models')
+        code="""import hashlib,json,pickle,sys
+sys.path.insert(0,sys.argv[1]);m=pickle.load(open(sys.argv[2],'rb'));s=m.model.scaler
+h=lambda values:hashlib.sha256(json.dumps(list(values),default=str,separators=(',',':')).encode()).hexdigest()
+observed={'genes_sha256':h(m.genes),'classes_sha256':h(m.classes)}
+for key in ('mean_','scale_','var_'):
+ a=getattr(s,key);observed['scaler_'+key.rstrip('_')+'_sha256']=hashlib.sha256(str(a.dtype).encode()+str(a.shape).encode()+a.tobytes()).hexdigest()
+assert observed==json.loads(sys.argv[3]), 'Historical identity configuration differs'
+print(json.dumps(observed))"""
+        for arm,relative in models.items():
+            need(relative in self.inventory['readonly_references'],'Historical identity model must remain reference-only')
+            self.checked_python(code,[str(self.repo/'companion/src'),str(inside(self.source,relative)),json.dumps(self.cfg['historical_m5_identity'][arm])])
+
+    def validate_continuation(self,runtime_ledger):
+        c=self.continuation;a=self.approval
+        need(self.stage=='canonical' and isinstance(c,dict),'Continuation is canonical-only')
+        need(a.get('canonical_continue_of')==self.inventory['canonical_continue_of'] and a.get('canonical_continuation')==c
+             and a.get('continuation_only') is True and a.get('remaining_canonical_fits')==1
+             and a.get('independent_fits')==2 and a.get('total_fits')==4 and a.get('total_scores')==2,
+             'Explicit validation-only continuation approval differs')
+        folder=inside(self.source,'.research/runs/'+self.inventory['canonical_continue_of'])
+        receipt_path=folder/'output/generation_receipt.json'
+        for path,digest in ((folder/'manifest.json',c['failed_manifest_sha256']),(receipt_path,c['failed_receipt_sha256'])):
+            need(sha(path)==digest and self.inventory['source_controls'].get(path.relative_to(self.source).as_posix())==digest,'Continuation record binding differs')
+        receipt=load(receipt_path);steps=receipt['steps']
+        need(receipt['status']=='stopped' and len(steps)==2 and [x['name'] for x in steps]==['env','A_M5_fit']
+             and all(x['status']=='ok' and x['returncode']==0 and x.get('executed') is True for x in steps),
+             'Continuation requires exactly completed setup and A fit; no later execution')
+        fit=c['completed_fit'];step=steps[1]
+        need(fit['step']=='A_M5_fit' and fit['step_sha256']==object_sha256(step) and fit['command']==step['command'],
+             'Successful fit command/step identity differs')
+        directory=inside(self.source,fit['out_dir'])
+        need(directory==Path(step['out_dir']).resolve(),'Completed fit directory differs')
+        need(set(fit['files'])=={fit['out_dir']+'/model.pkl',fit['out_dir']+'/fit_info.json'},'Reuse exactly completed A model and fit_info')
+        for relative,digest in fit['files'].items():
+            need(sha(inside(self.source,relative))==digest and self.inventory['source_controls'].get(relative)==digest,'Completed A fit missing/changed')
+        need({p.relative_to(self.source).as_posix() for p in directory.iterdir()}==set(fit['files']),'Unexpected fit files/links refused')
+        snapshot=c['driver_ledger_snapshot'];path=inside(self.source,snapshot['path'])
+        need(sha(path)==snapshot['sha256'] and self.inventory['source_controls'].get(snapshot['path'])==snapshot['sha256'],'Continuation ledger snapshot differs')
+        state=load(path)['m5_seed_repair'];records=state['fit_invocations']
+        need(state['repair_id']==self.inventory['repair_id'] and len(records)==1
+             and records[0]['stage']=='canonical' and records[0]['arm']=='A' and state['score_invocations']==[],
+             'Continuation must retain exactly one A reservation and zero scores')
+        live=runtime_ledger.with_name(runtime_ledger.stem+'.m5-invocations.json')
+        need(sha(live)==snapshot['sha256'],'Live reservation ledger differs; no resetting allowed')
+
+    def continued_fit(self,expected_command,data):
+        need(self.continuation is not None,'Missing explicit completed-fit continuation')
+        fit=self.continuation['completed_fit'];directory=inside(self.source,fit['out_dir'])
+        self.model_check(directory,'A',persist=False)
+        dest=self.output/VERSION/'continued/A_M5_fit';dest.mkdir(parents=True)
+        for relative,digest in fit['files'].items():
+            src=inside(self.source,relative);target=dest/src.name
+            shutil.copyfile(src,target);need(sha(src)==digest and sha(target)==digest,'Continued fit copy changed')
+        old=list(fit['command']);old_data=Path(old[old.index('--data')+1]).resolve()
+        for relative,digest in self.inventory['adopted_files'].items():
+            prefix=self.inventory['layout']['data'].rstrip('/')+'/'
+            if relative.startswith(prefix):
+                rel=relative[len(prefix):]
+                need(sha(inside(old_data,rel))==digest and sha(data/rel)==digest,'Completed fit data differs from new inputs')
+        old_root=Path(old[0]).parent.parent.parent
+        old=[str(self.repo)+x[len(str(old_root)):] if x==str(old_root) or x.startswith(str(old_root)+'/') else x for x in old]
+        old[old.index('--data')+1]=str(data);old[old.index('--out')+1]=str(dest)
+        need(old==expected_command(dest),'Reused fit command changes science or estimator settings')
+        self.receipt['steps'].append({'name':'A_M5_fit','kind':'fit','attempt':1,'status':'ok','returncode':0,
+            'executed':False,'provenance':'continued completed seed0 fit; no new reservation or invocation',
+            'source_run':self.inventory['canonical_continue_of'],'source_step_sha256':fit['step_sha256'],
+            'source_command':fit['command'],'out_dir':str(dest),'copied_files_sha256':fit['files'],'wall_seconds':0})
+        self.save();return dest
+
     def run(self):
         self.copy_inputs()
         self.step('env','env',lambda _:[ 'uv','sync','--frozen'])
         self.environment_check()
+        self.historical_identity_check()
         D,ci=self.role('data'),self.role('cite')
         elig=RM.parse_eligibility(ci/RM.ELIGIBILITY_FILE)
         need(elig['n_eligible']==2,'Approved eligible CITE inputs changed')
         py=self.python;sc=self.repo/'companion/scripts';rm=[py,str(sc/'run_matched.py'),'--workspace',str(self.repo)]
         fits,preds={},{}
         for arm in ('A','B'):
-            fits[arm]=self.step(arm+'_M5_fit','fit',lambda out,arm=arm:rm+['--data',str(D),'--arm',arm,'--method','M5','--stage','fit','--out',str(out)])
+            command=lambda out,arm=arm:rm+['--data',str(D),'--arm',arm,'--method','M5','--stage','fit','--out',str(out)]
+            fits[arm]=(self.continued_fit(command,D) if arm=='A' and self.continuation is not None
+                       else self.step(arm+'_M5_fit','fit',command))
             self.model_check(fits[arm],arm)
             preds[arm]=self.step(arm+'_M5_predict','predict',lambda out,arm=arm:rm+['--data',str(D),'--arm',arm,'--method','M5','--stage','predict','--model-dir',str(fits[arm]),'--out',str(out)])
         cite5=self.step('A_M5_cite','cite_predict',lambda out:rm+['--data',str(ci),'--arm','A','--method','M5','--stage','predict','--model-dir',str(fits['A']),'--out',str(out)])
@@ -384,6 +475,8 @@ def main():
             r.python=str(r.source/'.venv/bin/python')
             need(Path(r.python).is_file(),'Pinned source clone interpreter missing for read-only preflight')
             r.environment_check(persist=False)
+            r.historical_identity_check()
+            if r.continuation:r.model_check(inside(r.source,r.continuation['completed_fit']['out_dir']),'A',persist=False)
             print(json.dumps({'status':'preflight passed; no output or scientific invocations','inventory_payload_sha256':inventory_payload_sha256(r.inventory)}));return 0
         r.run();return 0
     except (Stop,RM.ManifestError,OSError,ValueError,KeyError) as exc:

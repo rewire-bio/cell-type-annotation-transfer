@@ -223,3 +223,101 @@ def test_failed_preflight_never_saves(tmp_path,monkeypatch):
     assert not output.exists()
     assert not (tmp_path/'runtime.json').exists()
     assert not (tmp_path/'runtime.m5-invocations.json').exists()
+
+def test_array_identity_encoding_matches_metadata_and_refuses_raw():
+    import hashlib,struct
+    class Array:
+        dtype='float64';shape=(2,)
+        def tobytes(self):return struct.pack('<dd',1.,2.)
+    array=Array()
+    assert M.array_identity_sha256(array)==hashlib.sha256(b'float64(2,)'+array.tobytes()).hexdigest()
+    assert M.array_identity_sha256(array)!=hashlib.sha256(array.tobytes()).hexdigest()
+    array.shape=(1,2)
+    assert M.array_identity_sha256(array)!=hashlib.sha256(b'float64(2,)'+array.tobytes()).hexdigest()
+
+
+def continuation_fixture(tmp_path,monkeypatch):
+    repo,source,cfg,config,inv,invpath,approval,ap=approved_fixture(tmp_path,monkeypatch)
+    name='.research/runs/failed/output/m5-seed0-v2/out/A_M5_fit-1'
+    put(source,name+'/model.pkl','completed seeded A model');put(source,name+'/fit_info.json','{}')
+    put(source,'olddata/features.json',(source/'data/features.json').read_text())
+    command=[str(source/'.venv/bin/python'),str(source/'companion/scripts/run_matched.py'),'--workspace',str(source),
+             '--data',str(source/'olddata'),'--arm','A','--method','M5','--stage','fit','--out',str(source/name)]
+    step={'name':'A_M5_fit','kind':'fit','status':'ok','returncode':0,'executed':True,'attempt':1,
+          'command':command,'out_dir':str(source/name),'wall_seconds':744}
+    receipt='.research/runs/failed/output/generation_receipt.json';manifest='.research/runs/failed/manifest.json'
+    M.dump(source/receipt,{'status':'stopped','blocker':'Scaler/genes/classes changed','steps':[
+        {'name':'env','status':'ok','returncode':0,'executed':True},step]})
+    M.dump(source/manifest,{'status':'failed'})
+    snapshot='controls/fit-ledger-snapshot.json';ledger={'m5_seed_repair':{'repair_id':inv['repair_id'],
+        'fit_invocations':[{'stage':'canonical','arm':'A'}],'score_invocations':[],'driver_stage_seconds':{'canonical':756}}}
+    put(source,snapshot,'{}');M.dump(source/snapshot,ledger);M.dump(tmp_path/'runtime.m5-invocations.json',ledger)
+    proof={'failed_manifest_sha256':M.sha(source/manifest),'failed_receipt_sha256':M.sha(source/receipt),
+           'driver_ledger_snapshot':{'path':snapshot,'sha256':M.sha(source/snapshot)},
+           'completed_fit':{'step':'A_M5_fit','command':command,'step_sha256':M.object_sha256(step),
+               'out_dir':name,'files':{p:M.sha(source/p) for p in (name+'/model.pkl',name+'/fit_info.json')}}}
+    for p in (receipt,manifest,snapshot,*proof['completed_fit']['files']):inv['source_controls'][p]=M.sha(source/p)
+    inv.update(canonical_continue_of='failed',canonical_continuation=proof)
+    approval.update(canonical_continue_of='failed',canonical_continuation=proof,continuation_only=True,
+                    remaining_canonical_fits=1,independent_fits=2,total_fits=4,total_scores=2)
+    approval['inventory_payload_sha256']['canonical']=M.inventory_payload_sha256(inv);M.dump(ap,approval)
+    inv['approval']['sha256']=M.sha(ap);M.dump(invpath,inv)
+    return repo,source,cfg,config,inv,invpath,approval,ap
+
+
+def test_completed_A_continuation_no_reservation_or_refit(tmp_path,monkeypatch):
+    repo,source,cfg,config,inv,*_=continuation_fixture(tmp_path,monkeypatch)
+    r=M.Repair(repo,cfg,config,tmp_path/'output');r.model_check=lambda directory,arm,persist=True:None
+    newdata=r.output/'newdata';newdata.mkdir();(newdata/'features.json').write_text((source/'data/features.json').read_text())
+    expected=lambda out:[str(repo/'.venv/bin/python'),str(repo/'companion/scripts/run_matched.py'),'--workspace',str(repo),
+             '--data',str(newdata),'--arm','A','--method','M5','--stage','fit','--out',str(out)]
+    dest=r.continued_fit(expected,newdata)
+    assert (dest/'model.pkl').read_text()=='completed seeded A model'
+    assert r.receipt['steps'][-1]['executed'] is False
+    assert r.receipt['steps'][-1]['source_run']=='failed'
+    assert len(M.load(r.ledger.path)['m5_seed_repair']['fit_invocations'])==1
+    with pytest.raises(M.Stop):r.ledger.reserve('fit','canonical','A')
+    r.ledger.reserve('fit','canonical','B');r.ledger.reserve('score','canonical')
+    for arm in ('A','B'):r.ledger.reserve('fit','reproduction',arm)
+    r.ledger.reserve('score','reproduction')
+    assert len(M.load(r.ledger.path)['m5_seed_repair']['fit_invocations'])==4
+
+
+@pytest.mark.parametrize('change',['model','info','receipt','ledger','approval'])
+def test_continuation_changed_proof_refused(tmp_path,monkeypatch,change):
+    repo,source,cfg,config,inv,invpath,approval,ap=continuation_fixture(tmp_path,monkeypatch)
+    c=inv['canonical_continuation']
+    if change=='model':(source/c['completed_fit']['out_dir']/'model.pkl').write_text('changed')
+    if change=='info':(source/c['completed_fit']['out_dir']/'fit_info.json').write_text('changed')
+    if change=='receipt':(source/'.research/runs/failed/output/generation_receipt.json').write_text('{}')
+    if change=='ledger':M.dump(tmp_path/'runtime.m5-invocations.json',{'m5_seed_repair':{'fit_invocations':[]}})
+    if change=='approval':approval['remaining_canonical_fits']=2;M.dump(ap,approval);inv['approval']['sha256']=M.sha(ap);M.dump(invpath,inv)
+    with pytest.raises(M.Stop):M.Repair(repo,cfg,config,tmp_path/'output',preflight=True)
+    assert not (tmp_path/'output').exists()
+
+
+def test_continuation_source_command_and_training_inputs_refused(tmp_path,monkeypatch):
+    repo,source,cfg,config,inv,*_=continuation_fixture(tmp_path,monkeypatch)
+    r=M.Repair(repo,cfg,config,tmp_path/'output');r.model_check=lambda directory,arm,persist=True:None
+    newdata=r.output/'newdata';newdata.mkdir();(newdata/'features.json').write_text('wrong data')
+    with pytest.raises(M.Stop,match='data differs'):r.continued_fit(lambda out:[],newdata)
+    assert len(M.load(r.ledger.path)['m5_seed_repair']['fit_invocations'])==1
+
+
+def test_continuation_command_mismatch_refused_without_new_fit(tmp_path,monkeypatch):
+    repo,source,cfg,config,inv,*_=continuation_fixture(tmp_path,monkeypatch)
+    r=M.Repair(repo,cfg,config,tmp_path/'output');r.model_check=lambda directory,arm,persist=True:None
+    data=r.output/'newdata';data.mkdir();(data/'features.json').write_text((source/'data/features.json').read_text())
+    expected=lambda out:[str(repo/'.venv/bin/python'),str(repo/'companion/scripts/run_matched.py'),'--workspace',str(repo),
+             '--data',str(data),'--arm','A','--method','M1','--stage','fit','--out',str(out)]
+    with pytest.raises(M.Stop,match='command changes'):r.continued_fit(expected,data)
+    assert len(M.load(r.ledger.path)['m5_seed_repair']['fit_invocations'])==1
+    assert r.receipt['steps']==[]
+
+
+@pytest.mark.parametrize('field',['canonical_continue_of','canonical_continuation'])
+def test_unpaired_continuation_refused(tmp_path,monkeypatch,field):
+    repo,source,cfg,config,inv,invpath,*_=continuation_fixture(tmp_path,monkeypatch)
+    inv.pop(field);M.dump(invpath,inv)
+    with pytest.raises(M.Stop,match='paired'):M.Repair(repo,cfg,config,tmp_path/'output',preflight=True)
+    assert not (tmp_path/'output').exists()

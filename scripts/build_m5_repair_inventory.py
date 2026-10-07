@@ -38,6 +38,13 @@ def build(root,output,stage,approval,repair_id,target_protocol_hash,target_scien
         return p.relative_to(root).as_posix()
     for role in ('data','cite'):
         layout[role]=directory(base/manifest[role])
+    original_path=root/ORIGINAL_MANIFEST;original=M.load(original_path)
+    layout['historical_identity_models']={}
+    for arm in ('A','B'):
+        candidates={(original_path.parent/p/'M5/model.pkl').resolve() for p in original['arms'][arm]
+                    if (original_path.parent/p/'M5/model.pkl').is_file()}
+        M.need(len(candidates)==1,'Historical identity model missing/ambiguous')
+        layout['historical_identity_models'][arm]=add(candidates.pop(),references)
     for arm in ('A','B'):
         sources=[base/p for p in manifest['arms'][arm]]
         for method in M.METHODS:
