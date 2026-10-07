@@ -1,0 +1,19 @@
+{
+  "requested_model": "claude-opus-5-5",
+  "resolved_models": [
+    "claude-opus-5-5"
+  ],
+  "runtime_version": "2.1.292 (Claude Code)",
+  "budgets": {
+    "experiment_seconds": 28800,
+    "max_attempts": 2,
+    "max_storage_mb": 7168,
+    "max_worker_calls": 26,
+    "mode_f_seconds": 50400,
+    "paper_seconds": 1800,
+    "process_group_memory_gib": 12,
+    "reproduction_seconds": 53970,
+    "threads": 4,
+    "worker_seconds": 900
+  }
+}

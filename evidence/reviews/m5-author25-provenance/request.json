@@ -1,0 +1,30 @@
+{
+  "role": "paper-author",
+  "inputs": [
+    "evidence/reviews/m5-author25-inputs/main.tex",
+    "evidence/reviews/m5-author25-inputs/source.json",
+    "evidence/reviews/final-methods-m5-seed0-v2.md",
+    "evidence/reviews/final-paper-m5-seed0-v2.md",
+    "evidence/reviews/final-paper-B6-source-binding.json",
+    "evidence/reviews/m5-paper-text-repair-plan.md",
+    "evidence/reviews/m5-paper-text-repair-approval.json",
+    "paper/references.bib",
+    "evidence/claims.json",
+    "protocol.md",
+    "protocol/tolerances-v2.json",
+    "scripts/continue_m5_comparison.py",
+    "scripts/m5_seed_repair.py",
+    "evidence/reviews/fresh-reproduction-2e1c5df1e88948cea0d9cfb29a9ad522/reproduction-manifest.json",
+    "evidence/reviews/fresh-reproduction-2e1c5df1e88948cea0d9cfb29a9ad522/generation-receipt.json",
+    "evidence/reviews/fresh-reproduction-2e1c5df1e88948cea0d9cfb29a9ad522/comparison-report.json",
+    "evidence/reviews/fresh-reproduction-2e1c5df1e88948cea0d9cfb29a9ad522/results.json",
+    "evidence/reviews/fresh-reproduction-2e1c5df1e88948cea0d9cfb29a9ad522/runtime-ledger.json",
+    "evidence/reviews/fresh-reproduction-2e1c5df1e88948cea0d9cfb29a9ad522/invocation-ledger.json",
+    "evidence/reviews/fresh-reproduction-2e1c5df1e88948cea0d9cfb29a9ad522/canonical-generation-receipt.json",
+    "evidence/reviews/fresh-reproduction-2e1c5df1e88948cea0d9cfb29a9ad522/lineage/failed-independent/c056e758da6842f59e611930ec06bb17/manifest.json",
+    "evidence/reviews/fresh-reproduction-2e1c5df1e88948cea0d9cfb29a9ad522/lineage/failed-independent/c056e758da6842f59e611930ec06bb17/generation_receipt.json"
+  ],
+  "outputs": [
+    "paper/main.tex"
+  ]
+}
