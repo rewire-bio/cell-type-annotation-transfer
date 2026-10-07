@@ -1,0 +1,49 @@
+{
+ "m5_seed_repair": {
+  "driver_stage_seconds": {
+   "canonical": 1163.0646014170052,
+   "reproduction": 2065.9104858749924
+  },
+  "fit_invocations": [
+   {
+    "arm": "A",
+    "reserved_utc": "20261007T121047183873Z",
+    "stage": "canonical",
+    "status": "reserved before invocation"
+   },
+   {
+    "arm": "B",
+    "reserved_utc": "20261007T125129937114Z",
+    "stage": "canonical",
+    "status": "reserved before invocation"
+   },
+   {
+    "arm": "A",
+    "reserved_utc": "20261007T141732271583Z",
+    "stage": "reproduction",
+    "status": "reserved before invocation"
+   },
+   {
+    "arm": "B",
+    "reserved_utc": "20261007T143021958114Z",
+    "stage": "reproduction",
+    "status": "reserved before invocation"
+   }
+  ],
+  "repair_id": "m5-seed0-v2",
+  "score_invocations": [
+   {
+    "arm": null,
+    "reserved_utc": "20261007T130004206667Z",
+    "stage": "canonical",
+    "status": "reserved before invocation"
+   },
+   {
+    "arm": null,
+    "reserved_utc": "20261007T143923768541Z",
+    "stage": "reproduction",
+    "status": "reserved before invocation"
+   }
+  ]
+ }
+}

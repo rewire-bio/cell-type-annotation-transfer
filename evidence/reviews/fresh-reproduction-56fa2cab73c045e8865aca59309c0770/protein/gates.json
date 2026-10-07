@@ -1,0 +1,61 @@
+{
+ "totalvi_pbmc10k_protein_v3": {
+  "antibodies_used": {
+   "CD3": "CD3_TotalSeqB",
+   "CD4": "CD4_TotalSeqB",
+   "CD8": "CD8a_TotalSeqB",
+   "CD14": "CD14_TotalSeqB",
+   "CD16": "CD16_TotalSeqB",
+   "CD19": "CD19_TotalSeqB",
+   "CD56": "CD56_TotalSeqB"
+  },
+  "gates_available": [
+   "CD4 T",
+   "CD8 T",
+   "B",
+   "NK",
+   "CD14 mono",
+   "CD16 mono"
+  ],
+  "cells": 6855,
+  "resolved": 6375,
+  "protein_class_counts": {
+   "CD4 T": 2347,
+   "CD14 mono": 1484,
+   "CD8 T": 1101,
+   "NK": 885,
+   "B": 512,
+   "CD16 mono": 46
+  }
+ },
+ "totalvi_pbmc5k_protein_v3": {
+  "antibodies_used": {
+   "CD3": "CD3_TotalSeqB",
+   "CD4": "CD4_TotalSeqB",
+   "CD8": "CD8a_TotalSeqB",
+   "CD14": "CD14_TotalSeqB",
+   "CD16": "CD16_TotalSeqB",
+   "CD19": "CD19_TotalSeqB",
+   "CD20": "CD20_TotalSeqB",
+   "CD56": "CD56_TotalSeqB"
+  },
+  "gates_available": [
+   "CD4 T",
+   "CD8 T",
+   "B",
+   "NK",
+   "CD14 mono",
+   "CD16 mono"
+  ],
+  "cells": 3994,
+  "resolved": 3762,
+  "protein_class_counts": {
+   "CD4 T": 1583,
+   "CD14 mono": 1196,
+   "CD8 T": 336,
+   "NK": 311,
+   "B": 293,
+   "CD16 mono": 43
+  }
+ }
+}
