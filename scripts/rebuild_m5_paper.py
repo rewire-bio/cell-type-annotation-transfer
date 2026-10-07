@@ -2,6 +2,7 @@
 """Approved paper-only rebuild from preserved results; no scientific invocations."""
 import argparse
 import os
+import re
 import shutil
 import sys
 import time
@@ -9,6 +10,16 @@ from pathlib import Path
 import m5_seed_repair as M
 from m5_seed_repair import need,sha,load,dump,inside,object_sha256,VERSION,METHODS,RM
 from continue_m5_comparison import ComparisonContinuation
+
+FORMAT_PARENT='55363789dd714acc90a073defde48623'
+FORMAT_NAMES=['RESEARCH_ADOPTION_STAGE','RESEARCH_ADOPTION_SOURCE_ROOT','RESEARCH_ADOPTION_INVENTORY',
+              'RESEARCH_ADOPTION_APPROVAL','RESEARCH_ADOPTION_PRIOR_SECONDS','RESEARCH_ADOPTION_LEDGER']
+
+def validate_format_transform(old,new):
+    pattern=r'\\verb\|(RESEARCH_ADOPTION_[A-Z_]+)\|'
+    need(re.findall(pattern,old)==FORMAT_NAMES,'Exactly the six approved environment tokens required')
+    expected=re.sub(pattern,lambda m:'\\nolinkurl{'+m.group(1)+'}',old)
+    need(new==expected,'Formatting repair permits only six identical-token wrapper replacements')
 
 class PaperRebuild(ComparisonContinuation):
     def __init__(self,repo,cfg,config_path,output,runner=None,clock=time.monotonic,preflight=False):
@@ -62,6 +73,10 @@ class PaperRebuild(ComparisonContinuation):
         for path,digest in ((folder/'manifest.json',c['parent_manifest_sha256']),(old/'generation_receipt.json',c['parent_receipt_sha256'])):
             need(sha(path)==digest and self.inventory['source_controls'].get(path.relative_to(self.source).as_posix())==digest,'Completed parent record differs')
         manifest=load(folder/'manifest.json');receipt=load(old/'generation_receipt.json')
+        formatting=c.get('formatting_only') is True
+        if formatting:
+            need(pid==FORMAT_PARENT and manifest.get('adoption',{}).get('execution_kind')=='manuscript_only_rebuild'
+                 and not receipt.get('formatting_only'), 'Exactly one format repair of the completed paper rebuild is permitted')
         need(manifest['status']=='completed' and manifest['exit_code']==0 and receipt['status']=='complete'
              and manifest['science_hash']==self.inventory['target_science_hash']
              and manifest['protocol_hash']==self.inventory['target_protocol_hash']
@@ -78,7 +93,7 @@ class PaperRebuild(ComparisonContinuation):
             b=c['completed_steps'][step['name']];directory=inside(self.source,b['out_dir'])
             need(b['step_sha256']==object_sha256(step) and b['command']==step['source_command']
                  and directory==Path(step['out_dir']).resolve(),'Retained parent step binding differs')
-            need(step['source_reproduction']=='c056e758da6842f59e611930ec06bb17'
+            need(step['source_reproduction']==('2e1c5df1e88948cea0d9cfb29a9ad522' if formatting else 'c056e758da6842f59e611930ec06bb17')
                  and b['original_source_reproduction']==step['source_reproduction']
                  and b['original_source_step_sha256']==step['source_step_sha256'],'Independent source lineage differs')
             observed={} if step['name']=='env' else {p.relative_to(self.source).as_posix():sha(p) for p in directory.rglob('*') if p.is_file()}
@@ -92,6 +107,12 @@ class PaperRebuild(ComparisonContinuation):
         paper=c['paper_change'];oldpaper=folder/'checkout/paper/main.tex'
         need(paper['path']=='paper/main.tex' and sha(oldpaper)==paper['old_sha256']
              and sha(self.repo/'paper/main.tex')==paper['new_sha256'] and paper['old_sha256']!=paper['new_sha256'],'Explicit paper-only revision differs')
+        if formatting:
+            need(paper['old_sha256']=='037881e634a8a02a648e48a1e274ca2aa4e85ecba6d725733250998c433a88e8',
+                 'Formatting parent must preserve the exact author25 source')
+            validate_format_transform(oldpaper.read_text(),(self.repo/'paper/main.tex').read_text())
+            note=c['format_note'];need(sha(inside(self.source,note['path']))==note['sha256']
+                 and self.inventory['source_controls'].get(note['path'])==note['sha256'],'Mechanical formatting note differs')
         review=c['prior_paper_review'];need(sha(inside(self.source,review['path']))==review['sha256']
              and self.inventory['source_controls'].get(review['path'])==review['sha256'],'Original failed paper review differs')
         for key,path in (('operational_helper','scripts/rebuild_m5_paper.py'),('operational_test','tests_pipeline/test_rebuild_m5_paper.py')):
@@ -102,6 +123,7 @@ class PaperRebuild(ComparisonContinuation):
         need(state['repair_id']==self.inventory['repair_id'] and len(state['fit_invocations'])==4
              and len(state['score_invocations'])==2,'Four-fit/two-score ledger required')
         self.retained_receipt=receipt
+        self.formatting_only=formatting
     def run_reproduction_continuation(self):
         self.copy_inputs()
         outputs={}
@@ -121,7 +143,7 @@ class PaperRebuild(ComparisonContinuation):
                 'original_source_reproduction':bound['original_source_reproduction'],
                 'original_source_step_sha256':bound['original_source_step_sha256'],
                 'copied_files_sha256':bound['files'],'provenance':'retained completed independent step; no new invocation'})
-            self.receipt['steps'][-1]['original_source_binding']={k:step[k] for k in ('source_reproduction','source_step_sha256','source_command','copied_files_sha256') if k in step}
+            self.receipt['steps'][-1]['original_source_binding']={k:step[k] for k in ('source_reproduction','source_step_sha256','source_command','copied_files_sha256','original_source_binding','original_source_reproduction','original_source_step_sha256') if k in step}
             self.save()
         self.receipt['environment']=self.retained_receipt['environment']
         self.receipt['models']=self.retained_receipt['models']
@@ -138,6 +160,7 @@ class PaperRebuild(ComparisonContinuation):
         refs={k:inside(self.source,v) for k,v in self.inventory['layout']['equality_references'].items()}
         M.equal_non_m5(outputs['score'],refs)
         self.receipt['non_m5_equality']=self.retained_receipt['non_m5_equality']
+        if getattr(self,'formatting_only',False):self.receipt['formatting_only']=True
         self.receipt['paper_rebuild_of']=self.inventory['paper_rebuild_of']
         self.finish_comparison(D,ci,arms,citearm,outputs['score'],outputs['protein'])
 

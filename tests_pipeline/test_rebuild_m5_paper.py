@@ -156,3 +156,60 @@ def test_full_paper_rebuild_orchestration(tmp_path,monkeypatch):
     assert r.receipt['status']=='complete'
     assert (r.output/'results.json').read_bytes()==(old/'results.json').read_bytes()
     assert M.load(r.output/'comparison_manifest.json')['provenance']==original_manifest['provenance']
+
+def format_fixture(tmp_path):
+    r,ledger,rp,mp=fixture(tmp_path)
+    previous=rp.parents[4];destination=previous.with_name(P.FORMAT_PARENT);previous.rename(destination)
+    old_prefix=previous.relative_to(tmp_path).as_posix();new_prefix=destination.relative_to(tmp_path).as_posix()
+    def relocate(value):
+        if isinstance(value,str):return value.replace(str(previous),str(destination)).replace(old_prefix,new_prefix)
+        if isinstance(value,list):return [relocate(v) for v in value]
+        if isinstance(value,dict):return {relocate(k):relocate(v) for k,v in value.items()}
+        return value
+    r.inventory=relocate(r.inventory);r.reproduction_continuation=relocate(r.reproduction_continuation)
+    c=r.reproduction_continuation;r.inventory['paper_rebuild_of']=P.FORMAT_PARENT
+    rp=destination/'checkout/results/m5-seed0-v2/reproduction/generation_receipt.json';mp=destination/'manifest.json'
+    receipt=relocate(M.load(rp))
+    for s in receipt['steps'][:8]:
+        s['source_reproduction']='2e1c5df1e88948cea0d9cfb29a9ad522'
+        s['original_source_reproduction']='c056e758da6842f59e611930ec06bb17'
+        s['original_source_step_sha256']='c056-original-step'
+        s['original_source_binding']={'source_reproduction':'c056e758da6842f59e611930ec06bb17','source_step_sha256':'c056-original-step'}
+        b=c['completed_steps'][s['name']];b['step_sha256']=M.object_sha256(s)
+        b['original_source_reproduction']=s['source_reproduction'];b['original_source_step_sha256']=s['source_step_sha256']
+    M.dump(rp,receipt)
+    manifest=M.load(mp);manifest['adoption']={'execution_kind':'manuscript_only_rebuild'};M.dump(mp,manifest)
+    c.update(formatting_only=True,parent_manifest_sha256=M.sha(mp),parent_receipt_sha256=M.sha(rp))
+    source=(Path(__file__).resolve().parents[1]/'paper/main.tex').read_text()
+    oldpaper=destination/'checkout/paper/main.tex';oldpaper.write_text(source)
+    import re
+    new=re.sub(r'\\verb\|(RESEARCH_ADOPTION_[A-Z_]+)\|',lambda m:'\\nolinkurl{'+m.group(1)+'}',source)
+    (r.repo/'paper/main.tex').write_text(new)
+    c['paper_change'].update(old_sha256=M.sha(oldpaper),new_sha256=M.sha(r.repo/'paper/main.tex'))
+    note=tmp_path/'format-note.json';note.write_text('{"scope":"six wrappers only"}')
+    c['format_note']={'path':'format-note.json','sha256':M.sha(note)}
+    for p in (rp,mp,note):r.inventory['source_controls'][p.relative_to(tmp_path).as_posix()]=M.sha(p)
+    return r,ledger,rp,mp
+
+def test_format_only_completed_parent_and_nested_lineage(tmp_path):
+    r,ledger,*_=format_fixture(tmp_path);r.validate_paper_rebuild(ledger)
+    assert r.formatting_only and len(r.retained_receipt['steps'])==12
+    assert r.retained_receipt['steps'][1]['original_source_binding']['source_reproduction']=='c056e758da6842f59e611930ec06bb17'
+
+@pytest.mark.parametrize('change',['words','numbers','extra_wrapper','token','parent_kind','repeat','note'])
+def test_format_scope_fail_closed(tmp_path,change):
+    r,ledger,rp,mp=format_fixture(tmp_path);c=r.reproduction_continuation
+    paper=r.repo/'paper/main.tex'
+    if change in ('words','numbers','extra_wrapper','token'):
+        text=paper.read_text()
+        if change=='words':text+='unauthorised words'
+        if change=='numbers':text=text.replace('500','501',1)
+        if change=='extra_wrapper':text=text.replace('\\nolinkurl{RESEARCH_ADOPTION_STAGE}','\\texttt{RESEARCH_ADOPTION_STAGE}')
+        if change=='token':text=text.replace('RESEARCH_ADOPTION_STAGE','RESEARCH_ADOPTION_CHANGED')
+        paper.write_text(text);c['paper_change']['new_sha256']=M.sha(paper)
+    if change=='parent_kind':
+        x=M.load(mp);x['adoption']['execution_kind']='paper_format_only_rebuild';M.dump(mp,x)
+        c['parent_manifest_sha256']=M.sha(mp);r.inventory['source_controls'][mp.relative_to(tmp_path).as_posix()]=M.sha(mp)
+    if change=='repeat':r.inventory['paper_rebuild_of']='another-format-attempt'
+    if change=='note':(tmp_path/'format-note.json').write_text('changed')
+    with pytest.raises(M.Stop):r.validate_paper_rebuild(ledger)
