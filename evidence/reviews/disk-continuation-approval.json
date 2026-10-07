@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "parent_id": "727c2514a006421286527ce1d2f22148",
+  "approved_by": "Tim Richardson",
+  "user_reply": "great please continue",
+  "approved_at": "2026-10-07T09:03:31.566078+00:00",
+  "plan_sha256": "6b1e042300e16c17b53ed79fc4f446a7d5e7a371f53f188c5cd91b34b3db931c",
+  "protocol_hash": "0f8cc011ee63ba013faae07328d4ecea24c3ec0661cef510ffb5cd45feb198e4",
+  "step": "B_M6_fit",
+  "additional_guarded_attempts": 1,
+  "max_step_seconds": 4800,
+  "total_reproduction_seconds": 54000,
+  "prior_seconds_used": 4728.179236874988,
+  "scientific_design": "unchanged"
+}

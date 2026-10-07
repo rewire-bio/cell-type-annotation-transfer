@@ -345,7 +345,13 @@ def main(argv=None) -> int:
         print("BLOCKED: uv not on PATH", file=sys.stderr)
         return 3
     try:
-        r = Repro(REPO, json.loads(a.config.read_text()))
+        if os.environ.get("RESEARCH_REPRODUCTION_PARENT"):
+            sys.modules.setdefault("reproduce", sys.modules[__name__])
+            from continue_reproduction import ContinuedRepro
+            cls = ContinuedRepro
+        else:
+            cls = Repro
+        r = cls(REPO, json.loads(a.config.read_text()))
     except Stop as e:
         print(f"STOPPED: {e}", file=sys.stderr)
         return 1
