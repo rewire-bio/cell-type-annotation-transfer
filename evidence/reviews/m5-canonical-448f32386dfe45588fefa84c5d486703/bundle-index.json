@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "run_id": "448f32386dfe45588fefa84c5d486703",
+  "source_revision": "036177f41adb2b2a535e2c4700868ad5807252e3",
+  "scope": "Actual corrected canonical results; independent corrected reproduction pending",
+  "files": {
+    "run-manifest.json": {
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/manifest.json",
+      "original_sha256": "60cfbe955c5b9516532750c3873653e16f558528551403a087bf0b545e2dd516",
+      "public_sha256": "af26be4be72c5c8b88e7dc622f6e0faf7f6091f9502af792b7a4376f34358071",
+      "root_substitutions": 2,
+      "home_substitutions": 0,
+      "private_retention": ".research/private-review/m5-canonical-448f32386dfe45588fefa84c5d486703/run-manifest.json"
+    },
+    "results.json": {
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/results.json",
+      "original_sha256": "f98d233905325aaafef4d1e3c1f49bd92239ad6167be44af41a17a4714905b79",
+      "public_sha256": "f98d233905325aaafef4d1e3c1f49bd92239ad6167be44af41a17a4714905b79",
+      "root_substitutions": 0,
+      "home_substitutions": 0,
+      "private_retention": ".research/private-review/m5-canonical-448f32386dfe45588fefa84c5d486703/results.json"
+    },
+    "comparison-manifest.json": {
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/comparison_manifest.json",
+      "original_sha256": "9f7aedd33310ee69e426002cd54acbcc5e3f2833bc0cc3fb8de041e6f1a85683",
+      "public_sha256": "9f7aedd33310ee69e426002cd54acbcc5e3f2833bc0cc3fb8de041e6f1a85683",
+      "root_substitutions": 0,
+      "home_substitutions": 0,
+      "private_retention": ".research/private-review/m5-canonical-448f32386dfe45588fefa84c5d486703/comparison-manifest.json"
+    },
+    "generation-receipt.json": {
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/generation_receipt.json",
+      "original_sha256": "3d9ca345e650be589c85d25f56ee6f50b1cb8afdcba304aa79f7e2664bc964c3",
+      "public_sha256": "fe7e49aa1ccc465178f2d5a635b3a5dd641808c04f8414738bd58d89983fb701",
+      "root_substitutions": 50,
+      "home_substitutions": 0,
+      "private_retention": ".research/private-review/m5-canonical-448f32386dfe45588fefa84c5d486703/generation-receipt.json"
+    },
+    "provenance.json": {
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/provenance.json",
+      "original_sha256": "3d9ca345e650be589c85d25f56ee6f50b1cb8afdcba304aa79f7e2664bc964c3",
+      "public_sha256": "fe7e49aa1ccc465178f2d5a635b3a5dd641808c04f8414738bd58d89983fb701",
+      "root_substitutions": 50,
+      "home_substitutions": 0,
+      "private_retention": ".research/private-review/m5-canonical-448f32386dfe45588fefa84c5d486703/provenance.json"
+    },
+    "score/summary_test.csv": {
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/m5-seed0-v2/out/score-1/summary_test.csv",
+      "original_sha256": "d5ce729151ea91a7fc8d7fe47d8ff935aff54cf350077abf0270d9bf30a1bd48",
+      "public_sha256": "d5ce729151ea91a7fc8d7fe47d8ff935aff54cf350077abf0270d9bf30a1bd48",
+      "root_substitutions": 0,
+      "home_substitutions": 0,
+      "private_retention": ".research/private-review/m5-canonical-448f32386dfe45588fefa84c5d486703/score/summary_test.csv"
+    },
+    "score/paired_differences_vs_M4.csv": {
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/m5-seed0-v2/out/score-1/paired_differences_vs_M4.csv",
+      "original_sha256": "01c65206ca9d7e46abb5b6baca22c752874fe5b878c76a0c19daeba0115c204d",
+      "public_sha256": "01c65206ca9d7e46abb5b6baca22c752874fe5b878c76a0c19daeba0115c204d",
+      "root_substitutions": 0,
+      "home_substitutions": 0,
+      "private_retention": ".research/private-review/m5-canonical-448f32386dfe45588fefa84c5d486703/score/paired_differences_vs_M4.csv"
+    },
+    "score/thresholds_validation.csv": {
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/m5-seed0-v2/out/score-1/thresholds_validation.csv",
+      "original_sha256": "f1ac14fd5d3299939973b68a82f4b5b7141b540ebf2ed3ea5e43b5c9df55c859",
+      "public_sha256": "f1ac14fd5d3299939973b68a82f4b5b7141b540ebf2ed3ea5e43b5c9df55c859",
+      "root_substitutions": 0,
+      "home_substitutions": 0,
+      "private_retention": ".research/private-review/m5-canonical-448f32386dfe45588fefa84c5d486703/score/thresholds_validation.csv"
+    },
+    "score/cell_counts.csv": {
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/m5-seed0-v2/out/score-1/cell_counts.csv",
+      "original_sha256": "bd8dbdf9c9e999a37f7e5a16b634933a8e313080153c04d63d2a512ecf6bf536",
+      "public_sha256": "bd8dbdf9c9e999a37f7e5a16b634933a8e313080153c04d63d2a512ecf6bf536",
+      "root_substitutions": 0,
+      "home_substitutions": 0,
+      "private_retention": ".research/private-review/m5-canonical-448f32386dfe45588fefa84c5d486703/score/cell_counts.csv"
+    },
+    "score/calibration_test.csv": {
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/m5-seed0-v2/out/score-1/calibration_test.csv",
+      "original_sha256": "caa365717a3122f114fc9b78c2f6078980583ac1bc2db1685481b46b1af374d0",
+      "public_sha256": "caa365717a3122f114fc9b78c2f6078980583ac1bc2db1685481b46b1af374d0",
+      "root_substitutions": 0,
+      "home_substitutions": 0,
+      "private_retention": ".research/private-review/m5-canonical-448f32386dfe45588fefa84c5d486703/score/calibration_test.csv"
+    },
+    "score/per_class_test.csv": {
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/m5-seed0-v2/out/score-1/per_class_test.csv",
+      "original_sha256": "6e6ffa69edda3f91db0aa292b9e96186ff71c7f27a97e4ca43f37e918776023a",
+      "public_sha256": "6e6ffa69edda3f91db0aa292b9e96186ff71c7f27a97e4ca43f37e918776023a",
+      "root_substitutions": 0,
+      "home_substitutions": 0,
+      "private_retention": ".research/private-review/m5-canonical-448f32386dfe45588fefa84c5d486703/score/per_class_test.csv"
+    },
+    "score/per_study_test.csv": {
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/m5-seed0-v2/out/score-1/per_study_test.csv",
+      "original_sha256": "c9041caea5ae1c8887bd09495e4e20f9cbc85bc7861dc630d02bd0cf38183e59",
+      "public_sha256": "c9041caea5ae1c8887bd09495e4e20f9cbc85bc7861dc630d02bd0cf38183e59",
+      "root_substitutions": 0,
+      "home_substitutions": 0,
+      "private_retention": ".research/private-review/m5-canonical-448f32386dfe45588fefa84c5d486703/score/per_study_test.csv"
+    },
+    "score/score_info.json": {
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/m5-seed0-v2/out/score-1/score_info.json",
+      "original_sha256": "dd34b101e9288a950c985770048d8ad8beb5f737d9bffbcd2c8cfcd57b7a9fd9",
+      "public_sha256": "dd34b101e9288a950c985770048d8ad8beb5f737d9bffbcd2c8cfcd57b7a9fd9",
+      "root_substitutions": 0,
+      "home_substitutions": 0,
+      "private_retention": ".research/private-review/m5-canonical-448f32386dfe45588fefa84c5d486703/score/score_info.json"
+    },
+    "protein/protein_agreement.csv": {
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/m5-seed0-v2/out/protein-1/protein_agreement.csv",
+      "original_sha256": "b09c2033dec77cfab93aaeb25200402567a7e8ec5dbd7803376d4a1661623df6",
+      "public_sha256": "b09c2033dec77cfab93aaeb25200402567a7e8ec5dbd7803376d4a1661623df6",
+      "root_substitutions": 0,
+      "home_substitutions": 0,
+      "private_retention": ".research/private-review/m5-canonical-448f32386dfe45588fefa84c5d486703/protein/protein_agreement.csv"
+    },
+    "protein/gates.json": {
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/m5-seed0-v2/out/protein-1/gates.json",
+      "original_sha256": "ea8b7011586cf77d7bfb72354742dd1c90c9caa5a209e502dd411b6b517172e5",
+      "public_sha256": "ea8b7011586cf77d7bfb72354742dd1c90c9caa5a209e502dd411b6b517172e5",
+      "root_substitutions": 0,
+      "home_substitutions": 0,
+      "private_retention": ".research/private-review/m5-canonical-448f32386dfe45588fefa84c5d486703/protein/gates.json"
+    }
+  }
+}

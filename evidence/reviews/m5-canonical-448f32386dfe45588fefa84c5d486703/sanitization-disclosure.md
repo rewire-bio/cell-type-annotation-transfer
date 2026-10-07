@@ -1,0 +1,1 @@
+These are disclosed derivatives of actual completed canonical files. Only absolute study/home prefixes were replaced; no scientific values, IDs, statuses, tolerances or original hashes were changed. Exact originals remain in the private-retention paths in bundle-index.json. Corrected independent reproduction is pending. No review verdict is asserted.

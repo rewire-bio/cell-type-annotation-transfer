@@ -1,0 +1,21 @@
+{
+ "reps": 1000,
+ "seed": 20261005,
+ "methods": [
+  "A:M1",
+  "A:M2",
+  "A:M3",
+  "A:M4",
+  "A:M5",
+  "A:M6",
+  "B:M1",
+  "B:M2",
+  "B:M3",
+  "B:M4",
+  "B:M5",
+  "B:M6",
+  "practical:P1",
+  "practical:P2"
+ ],
+ "test_donors": 32
+}
