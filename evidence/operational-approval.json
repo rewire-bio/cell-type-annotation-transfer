@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "approved_at": "2026-10-07T07:23:10.130640+00:00",
+  "approved_by": "Tim Richardson (user)",
+  "user_reply": "Do it",
+  "follow_up": "Keep going till everything done",
+  "plan": "protocol/reproduction-retry-plan.md",
+  "plan_sha256": "0d9adadd36b44b14850df7fe25c15223095315d751c3f4dd9f948a46c8e019a8",
+  "protocol_hash": "0f8cc011ee63ba013faae07328d4ecea24c3ec0661cef510ffb5cd45feb198e4",
+  "budget_changes": {
+    "max_worker_calls": 22,
+    "prior_reproduction_seconds": 30
+  },
+  "environment_setup_attempts_remaining": 1,
+  "scope": "Only the bounded continuation requested in the linked plan. Scientific protocol, tolerance values, source results, maximum scientific step attempts and overall compute/resource ceilings remain unchanged."
+}

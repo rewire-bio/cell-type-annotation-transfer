@@ -36,6 +36,7 @@ import argparse
 import json
 import os
 import shutil
+import signal
 import subprocess
 import sys
 import time
@@ -73,8 +74,16 @@ class Repro:
         self.step_ceil = f["step_ceilings_s"]
         self.max_attempts = int(f["max_attempts"])
         self.now = now
-        self.t0 = now()
-        self.f_used = 0.0
+        op_path = repo / "evidence/operational-approval.json"
+        operational = json.loads(op_path.read_text()) if op_path.is_file() else {}
+        prior = float(operational.get("budget_changes", {}).get("prior_reproduction_seconds", 0))
+        if prior < 0 or prior >= self.ceiling_f:
+            raise Stop("Invalid prior reproduction runtime")
+        self.env_attempts = int(operational.get("environment_setup_attempts_remaining", self.max_attempts))
+        if not 1 <= self.env_attempts <= self.max_attempts:
+            raise Stop("Invalid environment attempt allowance")
+        self.t0 = now() - prior
+        self.f_used = prior
         self.pool_used = {}
         self.paper_used = 0.0
         self.runner = runner or self._guarded
@@ -86,7 +95,8 @@ class Repro:
                     "PYTHONDONTWRITEBYTECODE": "1", "PYTHONWARNINGS": "ignore"}
         self.receipt = {"driver": "scripts/reproduce.py", "created_utc": utc(), "mode": "F",
                         "fresh_execution": True, "config": cfg, "steps": [], "status": "running",
-                        "external_cache": None}
+                        "external_cache": None, "prior_seconds_reserved": prior,
+                        "environment_setup_attempts_remaining": self.env_attempts}
         self.python = str(repo / ".venv" / "bin" / "python")
         self.amendment = dict(cfg["amendment"]) if cfg.get("amendment") else None
         # The full-run config predates this reproduction-only key. Its approved
@@ -121,7 +131,7 @@ class Repro:
                               cap_paths=[self.repo / p for p in CAP_DIRS], time_l=True)
 
     def step(self, name, kind, argv_fn, mode_f=True, out=True):
-        for attempt in range(1, self.max_attempts + 1):
+        for attempt in range(1, (self.env_attempts if name == "env" else self.max_attempts) + 1):
             h_left = self.ceiling_h - (self.now() - self.t0)
             f_left = self.ceiling_f - self.f_used if mode_f else h_left
             left = min(h_left, f_left)
@@ -352,4 +362,9 @@ def main(argv=None) -> int:
 
 
 if __name__ == "__main__":
+    # Allow the nested resource guard to clean its separate process group when
+    # the outer harness terminates make and this driver.
+    def interrupted(signum, frame):
+        raise KeyboardInterrupt
+    signal.signal(signal.SIGTERM, interrupted)
     sys.exit(main())
