@@ -96,6 +96,9 @@ class ContinuedRepro(base.Repro):
         if self.old.get('mode') != 'F' or self.old.get('fresh_execution') is not True or self.old['config'] != cfg:
             raise base.Stop('Parent is not the same clean Mode F configuration')
         steps = self.old['steps']
+        replay = [s for s in steps if s['name'] != 'repair_acquire']
+        if any(s['name'] == 'repair_acquire' and (s['status'] != 'ok' or s.get('executed') is not True) for s in steps):
+            raise base.Stop('Invalid prior repair acquisition record')
         failed = [s for s in steps if s['status'] != 'ok']
         self.retry_step = 'B_M6_fit'
         disk_parent = (len(failed) == 2 and all(s['name'] == 'B_M6_fit' for s in failed)
@@ -104,7 +107,7 @@ class ContinuedRepro(base.Repro):
                        and steps[-2:] == failed)
         cite_parent = (len(failed) == 1 and failed[0]['name'] == 'cite_build'
                        and failed[0]['attempt'] == 1 and failed[0]['kind'] == 'cite_build'
-                       and steps[-1:] == failed and self.old.get('continuation')
+                       and replay[-1:] == failed and self.old.get('continuation')
                        and manifest.get('parent_reproduction_id') == self.old['continuation']['parent_id'])
         if not disk_parent and not cite_parent:
             raise base.Stop('Parent does not have only the approved exhausted B_M6 fit or first cite attempt')
@@ -112,11 +115,32 @@ class ContinuedRepro(base.Repro):
             self.retry_step = 'cite_build'
             expected = ['env', 'acquire', 'data'] + [f'{a}_{m}_{stage}' for a in ('A', 'B')
                         for m in base.METHODS for stage in ('fit', 'predict')]
-            if [x['name'] for x in steps[:-1]] != expected or any(x['status'] != 'ok' for x in steps[:-1]):
+            if [x['name'] for x in replay[:-1]] != expected or any(x['status'] != 'ok' for x in replay[:-1]):
                 raise base.Stop('Cite continuation requires all 27 completed fresh steps')
-        self.completed = [s for s in steps if s['status'] == 'ok']
-        if self.inventory['completed_steps'] != [s['name'] for s in self.completed]:
+        self.completed = [s for s in replay if s['status'] == 'ok']
+        if self.inventory['completed_steps'] != [s['name'] for s in steps if s['status'] == 'ok']:
             raise base.Stop('Inventory completed-step prefix differs')
+        self.extra_cite_approval = None
+        self.retry_total_attempt = 3 if disk_parent else 2
+        if cite_parent and failed[0].get('total_attempt', 1) == 2:
+            # This candidate path is deliberately unavailable without a new explicit approval.
+            extra_path = repo / 'evidence/reviews/cite-preflight-retry-approval.json'
+            extra_plan = repo / 'evidence/reviews/cite-preflight-retry-plan.md'
+            if not extra_path.is_file() or not extra_plan.is_file():
+                raise base.Stop('Additional CITE preflight attempt requires explicit approval')
+            extra = json.loads(extra_path.read_text())
+            if (manifest['id'] != '108dfa6e36394279931f372749ad6f6c'
+                or extra.get('parent_id') != manifest['id']
+                or extra.get('protocol_hash') != manifest['protocol_hash']
+                or extra.get('step') != 'cite_build' or extra.get('additional_guarded_attempts') != 1
+                or extra.get('total_attempt') != 3 or not extra.get('approved_by')
+                or not extra.get('user_reply') or extra.get('plan_sha256') != digest(extra_plan)):
+                raise base.Stop('Additional CITE preflight approval differs from concrete plan/parent')
+            self.retry_total_attempt = 3
+            self.extra_cite_approval = {'path': str(extra_path.relative_to(repo)),
+                                        'sha256': digest(extra_path), 'record': extra}
+        elif cite_parent and failed[0].get('total_attempt', 1) != 1:
+            raise base.Stop('CITE attempt allowance exhausted for this parent')
         acq = next(s for s in self.completed if s['name'] == 'acquire')
         suffix = '/.venv/bin/python'
         if not acq['command'][0].endswith(suffix):
@@ -161,7 +185,8 @@ class ContinuedRepro(base.Repro):
                                           'inventory_sha256': digest(inv_path), 'receipt_sha256': digest(receipt_path),
                                           'prior_seconds_charged': used, 'copy_validation_seconds': overhead,
                                           'parent_steps': steps, 'carried_pool_usage': dict(self.pool_used),
-                                          'retry_step': self.retry_step, 'copy_roots': self.inventory['copy_roots']})
+                                          'extra_cite_approval': self.extra_cite_approval,
+                                          'retry_step': self.retry_step, 'retry_total_attempt': self.retry_total_attempt, 'copy_roots': self.inventory['copy_roots']})
         self.retry_used = False
 
     def save(self):
@@ -192,6 +217,19 @@ class ContinuedRepro(base.Repro):
         """Restore only omitted pinned acquisition inputs, under existing acquisition budget."""
         import acquire_inputs as acquisition
         items = [acquisition.ITEMS_BY_ID[k] for k in ('sctab-hparams', 'sctab-var')]
+        if self.retry_total_attempt == 3:
+            for item in items:
+                copied = any(item.dest == root or item.dest.startswith(root.rstrip('/') + '/')
+                             for root in self.inventory['copy_roots'])
+                if not copied or self.inventory['files'].get(item.dest) != item.sha256:
+                    raise base.Stop('Third CITE attempt requires hash-bound copied pinned inputs')
+        if all((self.repo / item.dest).is_file() and not (self.repo / item.dest).is_symlink()
+               and digest(self.repo / item.dest) == item.sha256 for item in items):
+            self.receipt['continuation']['pinned_inputs_verified'] = {item.dest: item.sha256 for item in items}
+            self.save()
+            return
+        if self.retry_total_attempt == 3:
+            raise base.Stop('Third CITE attempt requires all pinned acquisition inputs in copied inventory')
         repair = self.run_dir / 'repair_acquisition'
         repair.mkdir(parents=True, exist_ok=True)
         old_manifest = self.repo / 'runs/data/retrieval-manifest.json'
@@ -262,6 +300,9 @@ class ContinuedRepro(base.Repro):
             if kind != expected_kind or not mode_f or not out:
                 raise base.Stop('Approved retry must be the normal guarded fit')
             self.retry_used = True
+            # The builder checks disk space at OUT.parent before creating OUT itself.
+            # Replayed earlier outputs live in old control directories, so create this infrastructure path.
+            (self.run_dir / 'out').mkdir(parents=True, exist_ok=True)
             source = self.old['steps'][-1]
             def approved_argv(od):
                 argv = argv_fn(od)
@@ -279,7 +320,7 @@ class ContinuedRepro(base.Repro):
                 self.max_attempts = attempts
                 for rec in self.receipt['steps']:
                     if rec['name'] == name:
-                        rec.update(total_attempt=3 if name == 'B_M6_fit' else 2, executed=True, continuation_attempt=1)
+                        rec.update(total_attempt=self.retry_total_attempt, executed=True, continuation_attempt=1)
                 self.save()
         if name.endswith('_fit'):
             raise base.Stop(f'Unapproved extra fit retry: {name}')

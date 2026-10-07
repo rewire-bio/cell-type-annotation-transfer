@@ -260,3 +260,85 @@ def test_descendant_guarded_missing_input_repair(descendant,monkeypatch):
     assert r.receipt['steps'][-1]['name']=='repair_acquire'
     assert len(r.receipt['continuation']['repair_acquisition']['outputs_sha256'])==2
     assert not any((r.parent/item.dest).exists() for item in items)
+
+
+@pytest.fixture
+def preflight_parent(descendant,monkeypatch):
+    parent,repo,cfg,inv,ip,_=descendant
+    import acquire_inputs as acquisition
+    from dataclasses import replace
+    for key in ('sctab-hparams','sctab-var'):
+        item=acquisition.ITEMS_BY_ID[key]
+        p=write(parent/item.dest,'pinned '+key)
+        monkeypatch.setitem(acquisition.ITEMS_BY_ID,key,replace(item,sha256=C.digest(p)))
+        inv['files'][item.dest]=C.digest(p)
+        inv['copy_roots'].append(item.dest)
+    old=json.loads((parent/inv['receipt']).read_text())
+    old['continuation']['carried_pool_usage']={'data_acquisition':50,'B_arm':613.801,'cite':16}
+    old['continuation']['parent_id']='child-id'
+    for step in old['steps'][:-1]:
+        step['wall_seconds']=0
+        step['executed']=False
+    old['steps'][-1].update(total_attempt=2,executed=True,wall_seconds=.04)
+    old['steps'].insert(0,{'name':'repair_acquire','kind':'acquire','status':'ok','attempt':1,
+                          'command':['repair'],'out_dir':None,'executed':True,'wall_seconds':6,'pool':'data_acquisition'})
+    old.update(h_seconds_used=900,f_seconds_used=899)
+    (parent/inv['receipt']).write_text(json.dumps(old))
+    inv['receipt_sha256']=C.digest(parent/inv['receipt'])
+    inv['files'][inv['receipt']]=inv['receipt_sha256']
+    inv['parent_id']='108dfa6e36394279931f372749ad6f6c'
+    inv['completed_steps'].insert(0,'repair_acquire')
+    ip.write_text(json.dumps(inv))
+    mp=Path(os.environ['RESEARCH_REPRODUCTION_PARENT_MANIFEST'])
+    manifest=json.loads(mp.read_text())
+    manifest.update(id=inv['parent_id'],parent_reproduction_id='child-id')
+    mp.write_text(json.dumps(manifest))
+    return descendant
+
+
+def extra_approval(setup):
+    _,repo,_,inv,_,_=setup
+    plan=write(repo/'evidence/reviews/cite-preflight-retry-plan.md','concrete one extra CITE attempt')
+    return write(repo/'evidence/reviews/cite-preflight-retry-approval.json',json.dumps({
+        'parent_id':inv['parent_id'],'protocol_hash':'ph','step':'cite_build',
+        'additional_guarded_attempts':1,'total_attempt':3,'approved_by':'test user',
+        'user_reply':'approve this concrete extra attempt','plan_sha256':C.digest(plan)}))
+
+
+def test_third_cite_refused_without_new_explicit_approval(preflight_parent):
+    with pytest.raises(R.Stop,match='requires explicit approval'): create(preflight_parent)
+
+
+def test_old_approval_cannot_authorize_third_cite(preflight_parent):
+    _,repo,_,_,_,_=preflight_parent
+    extra_approval(preflight_parent)
+    old=json.loads((repo/'evidence/reviews/disk-continuation-approval.json').read_text())
+    (repo/'evidence/reviews/cite-preflight-retry-approval.json').write_text(json.dumps(old))
+    with pytest.raises(R.Stop,match='approval differs'): create(preflight_parent)
+
+
+def test_third_cite_out_parent_created_and_only_one_retry(preflight_parent):
+    extra_approval(preflight_parent)
+    calls=[]
+    def runner(argv,name,timeout,cwd):
+        out=Path(argv[argv.index('--out')+1])
+        assert out.parent.is_dir(), 'builder disk preflight requires existing OUT.parent'
+        calls.append(name)
+        return {'status':'timeout','returncode':None}
+    r=create(preflight_parent,runner)
+    assert len(r.completed)==27
+    assert r.f_used==900
+    assert r.pool_used==pytest.approx({'data_acquisition':56,'B_arm':613.801,'cite':16.04})
+    r.repair_acquisition()  # already hash-bound and copied; no subprocess allowed
+    assert not calls
+    assert len(r.receipt['continuation']['pinned_inputs_verified'])==2
+    r.cursor=len(r.completed)
+    with pytest.raises(R.Stop):
+        r.step('cite_build','cite_build',lambda out:[r.python,'cite_build','--out',str(out)])
+    assert calls==['cite_build']
+    assert r.receipt['steps'][-1]['total_attempt']==3
+    with pytest.raises(R.Stop,match='allowance exhausted'):
+        r.step('cite_build','cite_build',lambda out:[])
+    with pytest.raises(R.Stop,match='Unapproved extra fit'):
+        r.step('A_M1_fit','fit',lambda out:[])
+    assert calls==['cite_build']
