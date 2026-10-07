@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "approved",
+  "approved_by": "User (explicit task reply)",
+  "user_reply": "Great! Looks good",
+  "approved_at": "2026-10-07T16:40:10.391653+00:00",
+  "protocol_hash": "d3bbc2c05c80b7a893ecba198a2c684fde6975831ca133f2d50b2f3e0cb4f71a",
+  "plan": "evidence/reviews/m5-paper-text-repair-plan.md",
+  "plan_sha256": "47a30cdce2766b80624e3770022990cef8de7d0946ca568c061057df021e9cb4",
+  "parent_operational_approval_sha256": "adfe32c84915e8ef8e58b146fefd987041df984e0999fa80a59d0feeea066e7c",
+  "budget_changes": {
+    "max_worker_calls": 26
+  },
+  "scope": "paper_text_and_reviews_only",
+  "allowed_outputs": [
+    "paper/main.tex",
+    "evidence/reviews"
+  ],
+  "additional_calls": 2,
+  "per_call_seconds": 900,
+  "new_fits": 0,
+  "new_predictions": 0,
+  "new_scores": 0,
+  "resource_changes": null,
+  "historical_records_preserved": true
+}
