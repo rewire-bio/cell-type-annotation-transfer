@@ -1,0 +1,36 @@
+{
+  "reproduction_status": "failed",
+  "review_status": "not yet reviewed",
+  "private_retention_relative": ".research/private-review/m5-failure-78542e9d412548edbfe42b38d452f7a8",
+  "sources": {
+    "reproduction-manifest.json": {
+      "source_relative": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/manifest.json",
+      "original_sha256": "8d744a694661229a293434a5aea93e63d193c666a7db8ecdd79f942ad0404fca",
+      "public_sha256": "8d744a694661229a293434a5aea93e63d193c666a7db8ecdd79f942ad0404fca",
+      "path_sanitization_only": true
+    },
+    "generation-receipt.json": {
+      "source_relative": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/runs/F-20261007T103704949889Z/generation_receipt.json",
+      "original_sha256": "3e1160c1f64fab2fa6b7dbe001580446d92759d84ca89924e1fa79d0f6a61eb7",
+      "public_sha256": "c663bae48bc183f582c1880693b8a495076ddc46f3a4c15ee2d3335b7e84dfe7",
+      "path_sanitization_only": true
+    },
+    "comparison-manifest.json": {
+      "source_relative": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/runs/F-20261007T103704949889Z/comparison_manifest.json",
+      "original_sha256": "e2bac834d5565a5a573fd8e4d2ffedbbf8fbd3901e39209d808d6ea12dcba125",
+      "public_sha256": "e2bac834d5565a5a573fd8e4d2ffedbbf8fbd3901e39209d808d6ea12dcba125",
+      "path_sanitization_only": true
+    },
+    "results.json": {
+      "source_relative": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/results/full/results.json",
+      "original_sha256": "4c695aafb7331c7c0e68040190b95c30d4164e165f71cb8e78718c0c406147bc",
+      "public_sha256": "4c695aafb7331c7c0e68040190b95c30d4164e165f71cb8e78718c0c406147bc",
+      "path_sanitization_only": true
+    },
+    "comparison-report.json": {
+      "original_sha256": "2a663866746ee682b93cadcfaebba56715dbb6cf308bc78bdd86301f689d6dc8",
+      "retention_relative": ".research/private-review/m5-failure-78542e9d412548edbfe42b38d452f7a8/comparison-report.json",
+      "public_derivative": "comparison-failure-summary.json"
+    }
+  }
+}

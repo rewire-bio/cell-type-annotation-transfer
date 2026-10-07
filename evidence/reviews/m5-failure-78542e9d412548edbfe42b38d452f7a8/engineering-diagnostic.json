@@ -1,0 +1,618 @@
+{
+  "schema_version": 1,
+  "scope": "Read-only engineering diagnosis of existing M5 artifacts; no fit/prediction/scoring execution, source/tolerance change or scientific review.",
+  "reproduction_id": "78542e9d412548edbfe42b38d452f7a8",
+  "original_run_id": "29879296d87343898100c190308744a1",
+  "comparison": {
+    "report": {
+      "path": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/runs/F-20261007T103704949889Z/compare/report.json",
+      "sha256": "2a663866746ee682b93cadcfaebba56715dbb6cf308bc78bdd86301f689d6dc8",
+      "bytes": 26158936
+    },
+    "overall": "partially reproduced",
+    "counts": {
+      "checks": 1523,
+      "gated_breaches_or_structural": 54,
+      "unsupported": 0
+    },
+    "breaches_by_method": {
+      "M5": 54
+    },
+    "breaches_by_check": {
+      "labels": 17,
+      "conf": 32,
+      "summary_test:unknown_false_accept@OPcov[primary]": 1,
+      "summary_test:unknown_auroc[primary]": 1,
+      "summary_test:unknown_false_accept@OPcov_ci95.hi[primary]": 1,
+      "paired:unknown_false_accept@OPcov:mean_diff[primary]": 1,
+      "paired:unknown_false_accept@OPcov:ci95_hi[primary]": 1
+    }
+  },
+  "arms": {
+    "A": {
+      "original_fit_info": {
+        "arm": "A",
+        "method": "M5",
+        "stage": "fit",
+        "data": "/Users/<USER>/Documents/projects/personal/blog/rewire.it/workbench/outputs/blog-post-cell-type-annotation-transfer-20261005-182352/runs/D05-build-data-full-20261006T084048Z",
+        "K": [
+          "ASC",
+          "B",
+          "CD14 mono",
+          "CD16 mono",
+          "CD4 T",
+          "CD8 T",
+          "HSPC",
+          "ILC",
+          "MAIT",
+          "NK",
+          "cDC",
+          "gamma-delta T",
+          "pDC",
+          "platelet/MK"
+        ],
+        "n_genes": 2020,
+        "reference_cells": 63767,
+        "seconds_stage": 775.73
+      },
+      "fresh_fit_info": {
+        "arm": "A",
+        "method": "M5",
+        "stage": "fit",
+        "data": "/Users/<USER>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/reproductions/727c2514a006421286527ce1d2f22148/checkout/runs/F-20261007T072328186948Z/out/data-1",
+        "K": [
+          "ASC",
+          "B",
+          "CD14 mono",
+          "CD16 mono",
+          "CD4 T",
+          "CD8 T",
+          "HSPC",
+          "ILC",
+          "MAIT",
+          "NK",
+          "cDC",
+          "gamma-delta T",
+          "pDC",
+          "platelet/MK"
+        ],
+        "n_genes": 2020,
+        "reference_cells": 63767,
+        "seconds_stage": 749.02
+      },
+      "original_model": {
+        "path": "historical/runs/T01-matched-armA-20261006T092352Z/M5/model.pkl",
+        "sha256": "a66a529f4097cf86198c5c5a9e5734954eab7e28ce28bcba6ca9fcee6bf754d2",
+        "bytes": 320974
+      },
+      "fresh_model": {
+        "path": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/runs/F-20261007T072328186948Z/out/A_M5_fit-1/model.pkl",
+        "sha256": "8d2ba1322028400cae13ab80fc4a4b30bbcec23748cd5e49cb083179f9d23222",
+        "bytes": 320974
+      },
+      "model_parameters": {
+        "solver": {
+          "original": "sag",
+          "fresh": "sag"
+        },
+        "random_state": {
+          "original": null,
+          "fresh": null
+        },
+        "n_jobs": {
+          "original": 4,
+          "fresh": 4
+        },
+        "max_iter": {
+          "original": 500,
+          "fresh": 500
+        },
+        "tol": {
+          "original": 0.0001,
+          "fresh": 0.0001
+        },
+        "C": {
+          "original": 1.0,
+          "fresh": 1.0
+        },
+        "multi_class": {
+          "original": "ovr",
+          "fresh": "ovr"
+        }
+      },
+      "coefficient_checks": {
+        "coef_": {
+          "original_sha256": "acb54b46ed19723ba010e3f6b45bc2b2b833e408b18816706f4eb31bc352cda8",
+          "fresh_sha256": "3a9a596ae40d9483b13e9fabac2377814365d5d2c36cf38e73f7c230ea04f656",
+          "exactly_equal": false,
+          "max_abs_difference": 0.06674564816057682,
+          "original_range": [
+            -1.1183156967163086,
+            1.0
+          ],
+          "fresh_range": [
+            -1.1186758279800415,
+            1.0
+          ]
+        },
+        "intercept_": {
+          "original_sha256": "8ff97abaaf3a2a508a1e959c6f70bd7851f2910374d226cf781f2e6cb23445b3",
+          "fresh_sha256": "33d48b790dfd26604fbe55466f4f183d89853f1cc253bc956113882a43f924ae",
+          "exactly_equal": false,
+          "max_abs_difference": 0.0037660598754882812,
+          "original_range": [
+            -8.07613468170166,
+            -6.066194534301758
+          ],
+          "fresh_range": [
+            -8.075125694274902,
+            -6.0650200843811035
+          ]
+        },
+        "n_iter_": {
+          "original_sha256": "78c1a5f87b18fdb495c4b5988be289b777b818238d180ff09c5384b34ce43917",
+          "fresh_sha256": "bbec146b7e67b115affe35502a65fcd2c48f57dfe54c7a893270c578ad20ad13",
+          "exactly_equal": false,
+          "max_abs_difference": 44.0,
+          "original_range": [
+            371.0,
+            500.0
+          ],
+          "fresh_range": [
+            391.0,
+            500.0
+          ]
+        }
+      },
+      "scaler_checks": {
+        "mean_": {
+          "original_sha256": "1ee5179d30ed9bb42538ed0c948c0285dde8276c8606636c4ada73bc7c3c5155",
+          "fresh_sha256": "1ee5179d30ed9bb42538ed0c948c0285dde8276c8606636c4ada73bc7c3c5155",
+          "exactly_equal": true,
+          "max_abs_difference": 0.0
+        },
+        "scale_": {
+          "original_sha256": "f6a32e4ab58ef9f2286528088f7066ea3767899461d487c87328778fc6496909",
+          "fresh_sha256": "f6a32e4ab58ef9f2286528088f7066ea3767899461d487c87328778fc6496909",
+          "exactly_equal": true,
+          "max_abs_difference": 0.0
+        },
+        "var_": {
+          "original_sha256": "b44ffa640992c5d351e39becd1348b3bb5af2c2b996950ee8525ecd935194555",
+          "fresh_sha256": "b44ffa640992c5d351e39becd1348b3bb5af2c2b996950ee8525ecd935194555",
+          "exactly_equal": true,
+          "max_abs_difference": 0.0
+        }
+      },
+      "genes_exactly_equal": true,
+      "classes_exactly_equal": true,
+      "fresh_predict_receipt": {
+        "path": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/runs/F-20261007T072328186948Z/out/A_M5_predict-1/predict_info.json",
+        "model_pkl_sha256": "8d2ba1322028400cae13ab80fc4a4b30bbcec23748cd5e49cb083179f9d23222",
+        "matches_fresh_fit_model": true
+      }
+    },
+    "B": {
+      "original_fit_info": {
+        "arm": "B",
+        "method": "M5",
+        "stage": "fit",
+        "data": "/Users/<USER>/Documents/projects/personal/blog/cell-type-annotation-transfer/historical/runs/D05-build-data-full-20261006T084048Z",
+        "K": [
+          "B",
+          "CD14 mono",
+          "CD16 mono",
+          "CD4 T",
+          "CD8 T",
+          "HSPC",
+          "ILC",
+          "NK",
+          "cDC",
+          "gamma-delta T",
+          "platelet/MK"
+        ],
+        "n_genes": 2016,
+        "reference_cells": 58245,
+        "seconds_stage": 561.51
+      },
+      "fresh_fit_info": {
+        "arm": "B",
+        "method": "M5",
+        "stage": "fit",
+        "data": "/Users/<USER>/Documents/projects/personal/blog/cell-type-annotation-transfer/.research/reproductions/727c2514a006421286527ce1d2f22148/checkout/runs/F-20261007T072328186948Z/out/data-1",
+        "K": [
+          "B",
+          "CD14 mono",
+          "CD16 mono",
+          "CD4 T",
+          "CD8 T",
+          "HSPC",
+          "ILC",
+          "NK",
+          "cDC",
+          "gamma-delta T",
+          "platelet/MK"
+        ],
+        "n_genes": 2016,
+        "reference_cells": 58245,
+        "seconds_stage": 537.4
+      },
+      "original_model": {
+        "path": ".research/runs/29879296d87343898100c190308744a1/output/compare_arms/B/M5/model.pkl",
+        "sha256": "832f53a30679519743388064bd29bb59ed43deebf8e9dd6da777990d11bc3316",
+        "bytes": 296092
+      },
+      "fresh_model": {
+        "path": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/runs/F-20261007T072328186948Z/out/B_M5_fit-1/model.pkl",
+        "sha256": "788647ee4acd6046b9fe4e440f84eae96174c44112e1a665967400d87e75b5d2",
+        "bytes": 296092
+      },
+      "model_parameters": {
+        "solver": {
+          "original": "sag",
+          "fresh": "sag"
+        },
+        "random_state": {
+          "original": null,
+          "fresh": null
+        },
+        "n_jobs": {
+          "original": 4,
+          "fresh": 4
+        },
+        "max_iter": {
+          "original": 500,
+          "fresh": 500
+        },
+        "tol": {
+          "original": 0.0001,
+          "fresh": 0.0001
+        },
+        "C": {
+          "original": 1.0,
+          "fresh": 1.0
+        },
+        "multi_class": {
+          "original": "ovr",
+          "fresh": "ovr"
+        }
+      },
+      "coefficient_checks": {
+        "coef_": {
+          "original_sha256": "2091529fa72b8a9fecac1b1311c171d72e62808174e1728b56ade070c4eec122",
+          "fresh_sha256": "498226283267a27eb785a4b395109a4ce582cfa501d2fdedd5ccd2253fbccb03",
+          "exactly_equal": false,
+          "max_abs_difference": 0.045343123376369476,
+          "original_range": [
+            -1.1625020503997803,
+            1.0350009202957153
+          ],
+          "fresh_range": [
+            -1.1622421741485596,
+            1.0346708297729492
+          ]
+        },
+        "intercept_": {
+          "original_sha256": "6987e74819fa579c668ece0dfa4d00c3790f6bf371721a9291a6a58a6570fb76",
+          "fresh_sha256": "600b288775bc20801a34d449dd269990d0a97d9136d81304a85fb1ae7f30f71c",
+          "exactly_equal": false,
+          "max_abs_difference": 0.005278587341308594,
+          "original_range": [
+            -8.0,
+            -4.331451416015625
+          ],
+          "fresh_range": [
+            -8.0,
+            -4.329739093780518
+          ]
+        },
+        "n_iter_": {
+          "original_sha256": "c3074b2491f9bc2a38820222c205eb57776a0419cebe5d655166f7448d9fe5a8",
+          "fresh_sha256": "b45e4625da4d7985f93d514548e51d22c6706495c7a2107e58e529882aeb4b1f",
+          "exactly_equal": false,
+          "max_abs_difference": 47.0,
+          "original_range": [
+            369.0,
+            500.0
+          ],
+          "fresh_range": [
+            331.0,
+            500.0
+          ]
+        }
+      },
+      "scaler_checks": {
+        "mean_": {
+          "original_sha256": "fbf36d22b4fdcb5cc81a5a6a8794a514eddddad3e50259ecac947bf78e9ddc8c",
+          "fresh_sha256": "fbf36d22b4fdcb5cc81a5a6a8794a514eddddad3e50259ecac947bf78e9ddc8c",
+          "exactly_equal": true,
+          "max_abs_difference": 0.0
+        },
+        "scale_": {
+          "original_sha256": "9143edac5f5de242531ff5f49e41369d39fe331cb3c8f0dfbfef5e81451de28c",
+          "fresh_sha256": "9143edac5f5de242531ff5f49e41369d39fe331cb3c8f0dfbfef5e81451de28c",
+          "exactly_equal": true,
+          "max_abs_difference": 0.0
+        },
+        "var_": {
+          "original_sha256": "1ff73e4e3f700c0f2e0f1000b943bcc1c9f49ea228fed461fd60a7448e7669ec",
+          "fresh_sha256": "1ff73e4e3f700c0f2e0f1000b943bcc1c9f49ea228fed461fd60a7448e7669ec",
+          "exactly_equal": true,
+          "max_abs_difference": 0.0
+        }
+      },
+      "genes_exactly_equal": true,
+      "classes_exactly_equal": true,
+      "fresh_predict_receipt": {
+        "path": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/runs/F-20261007T072328186948Z/out/B_M5_predict-1/predict_info.json",
+        "model_pkl_sha256": "788647ee4acd6046b9fe4e440f84eae96174c44112e1a665967400d87e75b5d2",
+        "matches_fresh_fit_model": true
+      }
+    }
+  },
+  "source": {
+    "companion/src/celltransfer/methods.py": {
+      "current": "914989c507d02ffe04886907b0812fd3c80ac597c8c87a657890923f35cf3c14",
+      "fresh": "914989c507d02ffe04886907b0812fd3c80ac597c8c87a657890923f35cf3c14",
+      "current_equals_fresh": true,
+      "historical": "914989c507d02ffe04886907b0812fd3c80ac597c8c87a657890923f35cf3c14"
+    },
+    "companion/scripts/run_matched.py": {
+      "current": "adeca9d66edce6d62651f6fe695108921f0d41f447ba5f95e768fed033b4c614",
+      "fresh": "adeca9d66edce6d62651f6fe695108921f0d41f447ba5f95e768fed033b4c614",
+      "current_equals_fresh": true,
+      "historical": "0894eb1a3a95b6076973e7fae410ee39634822170dc5550b823afe58a73cb2c4"
+    },
+    "companion/scripts/build_data.py": {
+      "current": "a3d267e8a347ea9222062cc87af566cde1ad209cded1aabdd24e251588439591",
+      "fresh": "a3d267e8a347ea9222062cc87af566cde1ad209cded1aabdd24e251588439591",
+      "current_equals_fresh": true,
+      "historical": "a3d267e8a347ea9222062cc87af566cde1ad209cded1aabdd24e251588439591"
+    },
+    "uv.lock": {
+      "current": "05fa7e7342a3fc4aaa60752f314f9f0b991ab7548dbfc75c16f7f718df71b67f",
+      "fresh": "05fa7e7342a3fc4aaa60752f314f9f0b991ab7548dbfc75c16f7f718df71b67f",
+      "current_equals_fresh": true,
+      "historical": null
+    },
+    "pyproject.toml": {
+      "current": "67ef1ed6401912021814d1179e1f161c54e52607a83e570a4e858ad27f3c8367",
+      "fresh": "67ef1ed6401912021814d1179e1f161c54e52607a83e570a4e858ad27f3c8367",
+      "current_equals_fresh": true,
+      "historical": null
+    },
+    "configs/full.json": {
+      "current": "0e6e99676858c152c8d22c4ddecfdda0668c4e7f1bb8a6030a24b41189950814",
+      "fresh": "0e6e99676858c152c8d22c4ddecfdda0668c4e7f1bb8a6030a24b41189950814",
+      "current_equals_fresh": true,
+      "historical": null
+    },
+    "data/manifest.json": {
+      "current": "d59051fac4bcc418c70545f4d09fca0ee4649c413c7aedd7309241173aabdcdc",
+      "fresh": "d59051fac4bcc418c70545f4d09fca0ee4649c413c7aedd7309241173aabdcdc",
+      "current_equals_fresh": true,
+      "historical": null
+    }
+  },
+  "environment": {
+    "celltypist": {
+      "local_installed_version": "1.7.1",
+      "fresh_metadata": [
+        {
+          "path": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/.venv/lib/python3.11/site-packages/celltypist-1.7.1.dist-info/METADATA",
+          "sha256": "c5c2693cb24d8f2f044afb5542d729151ad33fd9ac3af53e2971ad0e9f5c1b85",
+          "version": "1.7.1"
+        }
+      ]
+    },
+    "scikit-learn": {
+      "local_installed_version": "1.5.2",
+      "fresh_metadata": [
+        {
+          "path": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/.venv/lib/python3.11/site-packages/scikit_learn-1.5.2.dist-info/METADATA",
+          "sha256": "486833d77aa752cb0e5dfa4fccb0ccfd92e3647f35a80307b1ed923efe650c86",
+          "version": "1.5.2"
+        }
+      ]
+    },
+    "numpy": {
+      "local_installed_version": "1.26.4",
+      "fresh_metadata": [
+        {
+          "path": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/.venv/lib/python3.11/site-packages/numpy-1.26.4.dist-info/METADATA",
+          "sha256": "c7e07fd91847cb89b28c262e481e5656b4cd417b34d121a056b817b10b66fc01",
+          "version": "1.26.4"
+        }
+      ]
+    },
+    "scipy": {
+      "local_installed_version": "1.13.1",
+      "fresh_metadata": [
+        {
+          "path": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/.venv/lib/python3.11/site-packages/scipy-1.13.1.dist-info/METADATA",
+          "sha256": "1dcb51211d980ba75ad33aeb45216dd278e7c424ab171d748bcdae6d6b580603",
+          "version": "1.13.1"
+        }
+      ]
+    },
+    "joblib": {
+      "local_installed_version": "1.6.0",
+      "fresh_metadata": [
+        {
+          "path": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/.venv/lib/python3.11/site-packages/joblib-1.6.0.dist-info/METADATA",
+          "sha256": "c5fd6509906c5795fd6724d97bc1709d1f266b78aff92c0156d6cf5ad7c045e3",
+          "version": "1.6.0"
+        }
+      ]
+    },
+    "anndata": {
+      "local_installed_version": "0.12.19",
+      "fresh_metadata": [
+        {
+          "path": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/.venv/lib/python3.11/site-packages/anndata-0.12.19.dist-info/METADATA",
+          "sha256": "f903c23f265c26dfe32615197bdabf0f85af1de137b633cee80b43f1a969b122",
+          "version": "0.12.19"
+        }
+      ]
+    },
+    "torch": {
+      "local_installed_version": "2.4.1",
+      "fresh_metadata": [
+        {
+          "path": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/.venv/lib/python3.11/site-packages/torch-2.4.1.dist-info/METADATA",
+          "sha256": "51c2a71a265a4c7b24c7efe8e891d32399f2a5a79f0bbcfa2a31b70577086ce7",
+          "version": "2.4.1"
+        }
+      ]
+    },
+    "celltypist_training_code": {
+      "current": {
+        "path": ".venv/lib/python3.11/site-packages/celltypist/train.py",
+        "sha256": "2c15d177f7b5a1b82e37aa6ec125f7c2ff709f823a0e71d054fb8766eeb1bff0",
+        "bytes": 21504
+      },
+      "fresh": {
+        "path": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/.venv/lib/python3.11/site-packages/celltypist/train.py",
+        "sha256": "2c15d177f7b5a1b82e37aa6ec125f7c2ff709f823a0e71d054fb8766eeb1bff0",
+        "bytes": 21504
+      },
+      "exactly_equal": true,
+      "solver_rule": "solver=None selects sag for no_cells>50000; LogisticRegression receives no random_state unless supplied in kwargs",
+      "source_lines": "113-127"
+    },
+    "requirements-core.lock.txt": {
+      "sha256": "86781c10a75fdecdd77133b0ca5f9e46d25049fb0840d4a5d865dab5f2100071",
+      "relevant_pins": [
+        "anndata==0.12.19",
+        "celltypist==1.7.1",
+        "joblib==1.6.0",
+        "numpy==1.26.4",
+        "scikit-learn==1.5.2",
+        "scipy==1.13.1",
+        "torch==2.4.1"
+      ]
+    },
+    "requirements-full.lock.txt": {
+      "sha256": "438f98b330f7d6071c5f0348c7148b40d79134fca7e7a1cf412d04615596aaea",
+      "relevant_pins": [
+        "anndata==0.12.19",
+        "celltypist==1.7.1",
+        "joblib==1.6.0",
+        "numpy==1.26.4",
+        "scikit-learn==1.5.2",
+        "scipy==1.13.1",
+        "torch==2.4.1"
+      ]
+    }
+  },
+  "input_checks": {
+    "original": {
+      "reference_file": {
+        "path": "historical/runs/D05-build-data-full-20261006T084048Z/reference_F.h5ad",
+        "sha256": "20c71221d88794b645c028026e1ab6ba8e123a808fb6c5db856aca3654ac7854",
+        "bytes": 32623066
+      },
+      "shape": [
+        63853,
+        2450
+      ],
+      "csr_data_sha256": "8d4a25508b2583cc30a9d1ad7c8304437230a10168c6c2d5d139b3b61f72f213",
+      "csr_indices_sha256": "139b40623749835bb448f70a5f3ca68f87990732a78c5e777d6170c794f2bd11",
+      "csr_indptr_sha256": "5faa4607da9fd7ede06f69c8246014e4fbd75c34ae4bd87239226367eda8617f",
+      "obs_names_sha256": "9949a7c69a4a002b4150876bebdf808947c9dd57c7b62a6551beb32b5eeb1854",
+      "var_names_sha256": "79b2c50460bd1a297c6bd7b2c353dd5da6febf0da0c5f26e8079da3dea384e24",
+      "target_labels_sha256": "5b6a08734b63d4834639751da230921907d5771b8420dabcf539dea38fe0fbdc",
+      "total_counts_all_sha256": "356ad880e41a999376dc3a6c1c61a8d5314f11f5e291b14588cd0e3b710c0f7a",
+      "features_and_classes": {
+        "path": "historical/runs/D05-build-data-full-20261006T084048Z/features_and_classes.json",
+        "sha256": "0472df1f9a59546595569e40fbf13a8097ca21f9c0ba9f6c30b23b1da91071f6",
+        "bytes": 176117
+      }
+    },
+    "fresh": {
+      "reference_file": {
+        "path": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/runs/F-20261007T072328186948Z/out/data-1/reference_F.h5ad",
+        "sha256": "20c71221d88794b645c028026e1ab6ba8e123a808fb6c5db856aca3654ac7854",
+        "bytes": 32623066
+      },
+      "shape": [
+        63853,
+        2450
+      ],
+      "csr_data_sha256": "8d4a25508b2583cc30a9d1ad7c8304437230a10168c6c2d5d139b3b61f72f213",
+      "csr_indices_sha256": "139b40623749835bb448f70a5f3ca68f87990732a78c5e777d6170c794f2bd11",
+      "csr_indptr_sha256": "5faa4607da9fd7ede06f69c8246014e4fbd75c34ae4bd87239226367eda8617f",
+      "obs_names_sha256": "9949a7c69a4a002b4150876bebdf808947c9dd57c7b62a6551beb32b5eeb1854",
+      "var_names_sha256": "79b2c50460bd1a297c6bd7b2c353dd5da6febf0da0c5f26e8079da3dea384e24",
+      "target_labels_sha256": "5b6a08734b63d4834639751da230921907d5771b8420dabcf539dea38fe0fbdc",
+      "total_counts_all_sha256": "356ad880e41a999376dc3a6c1c61a8d5314f11f5e291b14588cd0e3b710c0f7a",
+      "features_and_classes": {
+        "path": ".research/reproductions/78542e9d412548edbfe42b38d452f7a8/checkout/runs/F-20261007T072328186948Z/out/data-1/features_and_classes.json",
+        "sha256": "0472df1f9a59546595569e40fbf13a8097ca21f9c0ba9f6c30b23b1da91071f6",
+        "bytes": 176117
+      }
+    },
+    "original_equals_fresh": {
+      "shape": true,
+      "csr_data_sha256": true,
+      "csr_indices_sha256": true,
+      "csr_indptr_sha256": true,
+      "obs_names_sha256": true,
+      "var_names_sha256": true,
+      "target_labels_sha256": true,
+      "total_counts_all_sha256": true
+    }
+  },
+  "limits": [
+    "An unseeded stochastic estimator is directly evidenced. This read-only inspection does not prove its causal share of every prediction difference.",
+    "Original Arm A process runtime/NumPy RNG state was not recorded in fit_info; original library versions are supported by preserved lock files and serialized metadata, not a complete per-process environment dump.",
+    "No fit/prediction/re-scoring was run. No tolerance adjustment, baseline replacement or scientific approval is proposed or recorded here."
+  ],
+  "launches": {
+    "original_B": {
+      "file": {
+        "path": ".research/runs/6ef427915cfa4087a9bdf8646a0c26f7/output/recovery/attempts/B_M5_fit/attempt-1-20261006T174127897732Z/launch.json",
+        "sha256": "dc3c19efea78662cb7ea74ee7ed0550e3a3623410f520fc8296e1fc1e26592eb",
+        "bytes": 68
+      },
+      "record": {
+        "pid": 80078,
+        "pgid": 80078,
+        "start_utc": "20261006T174127898134Z"
+      }
+    },
+    "fresh_A": {
+      "file": {
+        "path": ".research/reproductions/727c2514a006421286527ce1d2f22148/checkout/runs/F-20261007T072328186948Z/attempts/A_M5_fit/attempt-1-20261007T074946032902Z/launch.json",
+        "sha256": "671828cd48f2e39c066299b59399258e5fdc6180fbc1e6249966697fbf722928",
+        "bytes": 68
+      },
+      "record": {
+        "pid": 85107,
+        "pgid": 85107,
+        "start_utc": "20261007T074946033349Z"
+      }
+    },
+    "fresh_B": {
+      "file": {
+        "path": ".research/reproductions/727c2514a006421286527ce1d2f22148/checkout/runs/F-20261007T072328186948Z/attempts/B_M5_fit/attempt-1-20261007T082351631155Z/launch.json",
+        "sha256": "9d7ccdf4ff65c6b6a6c72fda61b7c8e357ced408ab4f5248d663a9ca0e258a81",
+        "bytes": 68
+      },
+      "record": {
+        "pid": 89058,
+        "pgid": 89058,
+        "start_utc": "20261007T082351631600Z"
+      }
+    }
+  },
+  "engineering_findings": [
+    "Both actual original and fresh M5 estimators use stochastic SAG with random_state=None and n_jobs=4.",
+    "Study M5 call does not pass random_state or solver; run_matched does not set numpy.random.seed. PYTHONHASHSEED=0 is not a NumPy/estimator random seed.",
+    "Original/fresh training reference CSR values/order, row/feature identifiers, target labels and all-gene library counts match by canonical hashes.",
+    "Saved M5 scalers and genes/classes match; fitted coefficient/intercept values differ.",
+    "Fresh predict receipt model hashes match their corresponding preserved fresh fit models.",
+    "Fresh fit outputs were computed in failed parent727 and reused under explicit frozen inventories; this comparison does not diagnose resumed model training.",
+    "Historical run_matched source differs in added M6 checkpoint relocation/hash logging; M5 fit/prediction implementation is unchanged."
+  ]
+}

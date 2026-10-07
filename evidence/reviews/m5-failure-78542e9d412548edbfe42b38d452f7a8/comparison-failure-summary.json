@@ -1,0 +1,3176 @@
+{
+  "schema_version": 1,
+  "reproduction_id": "78542e9d412548edbfe42b38d452f7a8",
+  "source_report_sha256": "2a663866746ee682b93cadcfaebba56715dbb6cf308bc78bdd86301f689d6dc8",
+  "source_report_bytes": 26158936,
+  "overall": "partially reproduced",
+  "counts": {
+    "checks": 1523,
+    "gated_breaches_or_structural": 54,
+    "unsupported": 0
+  },
+  "failures": [
+    {
+      "tier": "T2",
+      "check": "labels",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "ClonalHaem",
+      "details": {
+        "n": 4196,
+        "disagreements": 7,
+        "allowed": 4,
+        "agreement": 0.9983317445185891,
+        "disagreeing_cells": [
+          {
+            "id": "7315060",
+            "original": "gamma-delta T",
+            "reproduction": "CD8 T"
+          },
+          {
+            "id": "7315287",
+            "original": "CD14 mono",
+            "reproduction": "ASC"
+          },
+          {
+            "id": "7319126",
+            "original": "gamma-delta T",
+            "reproduction": "NK"
+          },
+          {
+            "id": "7319211",
+            "original": "gamma-delta T",
+            "reproduction": "platelet/MK"
+          },
+          {
+            "id": "7328342",
+            "original": "CD8 T",
+            "reproduction": "gamma-delta T"
+          },
+          {
+            "id": "7332219",
+            "original": "ASC",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "7335432",
+            "original": "HSPC",
+            "reproduction": "NK"
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "ClonalHaem",
+      "details": {
+        "n_agreeing": 4189,
+        "max_abs_conf_diff_agreeing": 0.08102589699965101,
+        "confidence_breach_count": 2907,
+        "max_abs_diff": 0.08102589699965101,
+        "first_three_breaches": [
+          {
+            "id": "7303571",
+            "original": 0.36856534195868706,
+            "reproduction": 0.36786507236485877,
+            "abs_diff": 0.0007002695938282955,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "7303573",
+            "original": 0.964381802560087,
+            "reproduction": 0.9646719665670788,
+            "abs_diff": 0.0002901640069917777,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "7303574",
+            "original": 0.8432227598414431,
+            "reproduction": 0.8444413015165774,
+            "abs_diff": 0.0012185416751342437,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "labels",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "Glaucoma",
+      "details": {
+        "n": 2500,
+        "disagreements": 5,
+        "allowed": 2,
+        "agreement": 0.998,
+        "disagreeing_cells": [
+          {
+            "id": "23037796",
+            "original": "NK",
+            "reproduction": "CD16 mono"
+          },
+          {
+            "id": "23041902",
+            "original": "CD16 mono",
+            "reproduction": "ASC"
+          },
+          {
+            "id": "23044945",
+            "original": "NK",
+            "reproduction": "gamma-delta T"
+          },
+          {
+            "id": "23046086",
+            "original": "HSPC",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "23060171",
+            "original": "NK",
+            "reproduction": "B"
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "Glaucoma",
+      "details": {
+        "n_agreeing": 2495,
+        "max_abs_conf_diff_agreeing": 0.10484544411195129,
+        "confidence_breach_count": 1359,
+        "max_abs_diff": 0.10484544411195129,
+        "first_three_breaches": [
+          {
+            "id": "23026243",
+            "original": 0.9240275344129524,
+            "reproduction": 0.9231260948523604,
+            "abs_diff": 0.0009014395605919656,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "23026275",
+            "original": 0.9543589323939596,
+            "reproduction": 0.9548528425647758,
+            "abs_diff": 0.0004939101708161253,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "23026309",
+            "original": 0.9981497364250846,
+            "reproduction": 0.9982154607069296,
+            "abs_diff": 6.572428184492551e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "HIHA",
+      "details": {
+        "n_agreeing": 10459,
+        "max_abs_conf_diff_agreeing": 0.21661804132291645,
+        "confidence_breach_count": 5100,
+        "max_abs_diff": 0.21661804132291645,
+        "first_three_breaches": [
+          {
+            "id": "105331912",
+            "original": 0.7534634345961921,
+            "reproduction": 0.7533542305383795,
+            "abs_diff": 0.00010920405781267295,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "105331932",
+            "original": 0.9835344582084843,
+            "reproduction": 0.9833426403226284,
+            "abs_diff": 0.00019181788585587167,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "105331947",
+            "original": 0.9774703964067931,
+            "reproduction": 0.9773983132998685,
+            "abs_diff": 7.208310692463638e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "JDM",
+      "details": {
+        "n_agreeing": 3574,
+        "max_abs_conf_diff_agreeing": 0.0353412617646508,
+        "confidence_breach_count": 2008,
+        "max_abs_diff": 0.0353412617646508,
+        "first_three_breaches": [
+          {
+            "id": "31308337",
+            "original": 0.9964479635586575,
+            "reproduction": 0.9963737588656234,
+            "abs_diff": 7.420469303409671e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "31308358",
+            "original": 0.8347304486969406,
+            "reproduction": 0.8355851986342288,
+            "abs_diff": 0.0008547499372881795,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "31308374",
+            "original": 0.589564997654444,
+            "reproduction": 0.5917512585573861,
+            "abs_diff": 0.00218626090294205,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "KidneyBlood",
+      "details": {
+        "n_agreeing": 9345,
+        "max_abs_conf_diff_agreeing": 0.07455313589138224,
+        "confidence_breach_count": 2998,
+        "max_abs_diff": 0.07455313589138224,
+        "first_three_breaches": [
+          {
+            "id": "33882781",
+            "original": 0.9987031879125396,
+            "reproduction": 0.9987355317320548,
+            "abs_diff": 3.234381951511267e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "33882794",
+            "original": 0.9903373053188766,
+            "reproduction": 0.9906170973819889,
+            "abs_diff": 0.0002797920631122386,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "33882811",
+            "original": 0.9954553084927145,
+            "reproduction": 0.9957614908672927,
+            "abs_diff": 0.0003061823745782455,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "Platform_10x3v3",
+      "details": {
+        "n_agreeing": 999,
+        "max_abs_conf_diff_agreeing": 0.05746730262707006,
+        "confidence_breach_count": 471,
+        "max_abs_diff": 0.05746730262707006,
+        "first_three_breaches": [
+          {
+            "id": "22334841",
+            "original": 0.999907304841884,
+            "reproduction": 0.9998815816171467,
+            "abs_diff": 2.572322473726185e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "22334847",
+            "original": 0.9980411984203754,
+            "reproduction": 0.998080488283712,
+            "abs_diff": 3.928986333656681e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "22334903",
+            "original": 0.7834139648293396,
+            "reproduction": 0.7983097971446089,
+            "abs_diff": 0.014895832315269364,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "Platform_10x5v2",
+      "details": {
+        "n_agreeing": 999,
+        "max_abs_conf_diff_agreeing": 0.04408731427544632,
+        "confidence_breach_count": 334,
+        "max_abs_diff": 0.04408731427544632,
+        "first_three_breaches": [
+          {
+            "id": "19600501",
+            "original": 0.997314084329537,
+            "reproduction": 0.9972537840443297,
+            "abs_diff": 6.030028520731534e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "19600509",
+            "original": 0.998948005803282,
+            "reproduction": 0.9989075712577602,
+            "abs_diff": 4.0434545521828014e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "19600511",
+            "original": 0.8353559286422347,
+            "reproduction": 0.8360078686087635,
+            "abs_diff": 0.0006519399665287917,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "labels",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "Platform_10xgeneexpressionflex",
+      "details": {
+        "n": 1000,
+        "disagreements": 4,
+        "allowed": 1,
+        "agreement": 0.996,
+        "disagreeing_cells": [
+          {
+            "id": "14507009",
+            "original": "CD14 mono",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "14507613",
+            "original": "cDC",
+            "reproduction": "CD16 mono"
+          },
+          {
+            "id": "14511415",
+            "original": "CD16 mono",
+            "reproduction": "MAIT"
+          },
+          {
+            "id": "14512803",
+            "original": "NK",
+            "reproduction": "MAIT"
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "Platform_10xgeneexpressionflex",
+      "details": {
+        "n_agreeing": 996,
+        "max_abs_conf_diff_agreeing": 0.07996049602705532,
+        "confidence_breach_count": 339,
+        "max_abs_diff": 0.07996049602705532,
+        "first_three_breaches": [
+          {
+            "id": "14506898",
+            "original": 0.9912142846041527,
+            "reproduction": 0.9909485196004478,
+            "abs_diff": 0.00026576500370489864,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "14506932",
+            "original": 0.6279838655757689,
+            "reproduction": 0.6233493964579147,
+            "abs_diff": 0.004634469117854256,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "14506937",
+            "original": 0.09399079153997317,
+            "reproduction": 0.0945834865661752,
+            "abs_diff": 0.0005926950262020309,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "Platform_AsteriascRNAseqkit",
+      "details": {
+        "n_agreeing": 1000,
+        "max_abs_conf_diff_agreeing": 0.1323373429405887,
+        "confidence_breach_count": 604,
+        "max_abs_diff": 0.1323373429405887,
+        "first_three_breaches": [
+          {
+            "id": "5756374",
+            "original": 0.9817927715565505,
+            "reproduction": 0.9822953007032742,
+            "abs_diff": 0.0005025291467236626,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "5756382",
+            "original": 0.17695814583708902,
+            "reproduction": 0.1771715079275024,
+            "abs_diff": 0.00021336209041336596,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "5756384",
+            "original": 0.8203073580107698,
+            "reproduction": 0.8188761749664836,
+            "abs_diff": 0.0014311830442862439,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "labels",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "Platform_BDRhapsodyWholeTranscriptomeAnalysis",
+      "details": {
+        "n": 1000,
+        "disagreements": 2,
+        "allowed": 1,
+        "agreement": 0.998,
+        "disagreeing_cells": [
+          {
+            "id": "22680932",
+            "original": "CD14 mono",
+            "reproduction": "gamma-delta T"
+          },
+          {
+            "id": "22682511",
+            "original": "B",
+            "reproduction": "CD14 mono"
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "Platform_BDRhapsodyWholeTranscriptomeAnalysis",
+      "details": {
+        "n_agreeing": 998,
+        "max_abs_conf_diff_agreeing": 0.058704531496685086,
+        "confidence_breach_count": 519,
+        "max_abs_diff": 0.058704531496685086,
+        "first_three_breaches": [
+          {
+            "id": "22680674",
+            "original": 0.9980571197258263,
+            "reproduction": 0.9980795623789293,
+            "abs_diff": 2.2442653102916488e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "22680682",
+            "original": 0.981832690455442,
+            "reproduction": 0.9809874910955897,
+            "abs_diff": 0.0008451993598522778,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "22680690",
+            "original": 0.9937461987695992,
+            "reproduction": 0.9944419213960055,
+            "abs_diff": 0.0006957226264062699,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "Platform_HIVECLXSingleCellRNAseqSolution",
+      "details": {
+        "n_agreeing": 999,
+        "max_abs_conf_diff_agreeing": 0.192807084090575,
+        "confidence_breach_count": 739,
+        "max_abs_diff": 0.192807084090575,
+        "first_three_breaches": [
+          {
+            "id": "16323913",
+            "original": 0.8821428036892088,
+            "reproduction": 0.8827319881679973,
+            "abs_diff": 0.0005891844787884182,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "16323914",
+            "original": 0.9967849094360652,
+            "reproduction": 0.9972729765915209,
+            "abs_diff": 0.0004880671554556848,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "16323925",
+            "original": 0.980091314116076,
+            "reproduction": 0.9806355316419753,
+            "abs_diff": 0.0005442175258992821,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "labels",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "Platform_ParseEvercodeWholeTranscriptomev2",
+      "details": {
+        "n": 1000,
+        "disagreements": 19,
+        "allowed": 1,
+        "agreement": 0.981,
+        "disagreeing_cells": [
+          {
+            "id": "21405149",
+            "original": "cDC",
+            "reproduction": "pDC"
+          },
+          {
+            "id": "21405977",
+            "original": "cDC",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "21406146",
+            "original": "ASC",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "21406299",
+            "original": "cDC",
+            "reproduction": "pDC"
+          },
+          {
+            "id": "21406890",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "21406904",
+            "original": "pDC",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "21407256",
+            "original": "MAIT",
+            "reproduction": "ASC"
+          },
+          {
+            "id": "21407674",
+            "original": "CD4 T",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "21407950",
+            "original": "cDC",
+            "reproduction": "ASC"
+          },
+          {
+            "id": "21408029",
+            "original": "MAIT",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "21408475",
+            "original": "gamma-delta T",
+            "reproduction": "ASC"
+          },
+          {
+            "id": "21408494",
+            "original": "cDC",
+            "reproduction": "pDC"
+          },
+          {
+            "id": "21408726",
+            "original": "CD8 T",
+            "reproduction": "gamma-delta T"
+          },
+          {
+            "id": "21409124",
+            "original": "MAIT",
+            "reproduction": "B"
+          },
+          {
+            "id": "21409458",
+            "original": "B",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "21410484",
+            "original": "CD16 mono",
+            "reproduction": "B"
+          },
+          {
+            "id": "21411290",
+            "original": "HSPC",
+            "reproduction": "pDC"
+          },
+          {
+            "id": "21411604",
+            "original": "CD14 mono",
+            "reproduction": "B"
+          },
+          {
+            "id": "21412088",
+            "original": "HSPC",
+            "reproduction": "CD14 mono"
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "Platform_ParseEvercodeWholeTranscriptomev2",
+      "details": {
+        "n_agreeing": 981,
+        "max_abs_conf_diff_agreeing": 0.11766911362616544,
+        "confidence_breach_count": 877,
+        "max_abs_diff": 0.11766911362616544,
+        "first_three_breaches": [
+          {
+            "id": "21404862",
+            "original": 0.30793564524703687,
+            "reproduction": 0.2957772515234076,
+            "abs_diff": 0.012158393723629257,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "21404876",
+            "original": 0.9958082231865347,
+            "reproduction": 0.9956879336344449,
+            "abs_diff": 0.00012028955208986947,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "21404885",
+            "original": 0.01694887356484012,
+            "reproduction": 0.016549055712474548,
+            "abs_diff": 0.0003998178523655707,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "labels",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "Platform_ScaleBiosinglecellRNAsequencing",
+      "details": {
+        "n": 1000,
+        "disagreements": 12,
+        "allowed": 1,
+        "agreement": 0.988,
+        "disagreeing_cells": [
+          {
+            "id": "24870672",
+            "original": "HSPC",
+            "reproduction": "MAIT"
+          },
+          {
+            "id": "24871108",
+            "original": "ASC",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "24871137",
+            "original": "pDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "24871337",
+            "original": "MAIT",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "24871402",
+            "original": "MAIT",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "24875059",
+            "original": "ASC",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "24875515",
+            "original": "CD14 mono",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "24875760",
+            "original": "B",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "24876028",
+            "original": "platelet/MK",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "24877113",
+            "original": "NK",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "24877613",
+            "original": "HSPC",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "24877701",
+            "original": "NK",
+            "reproduction": "cDC"
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "Platform_ScaleBiosinglecellRNAsequencing",
+      "details": {
+        "n_agreeing": 988,
+        "max_abs_conf_diff_agreeing": 0.10115223386121514,
+        "confidence_breach_count": 882,
+        "max_abs_diff": 0.10115223386121514,
+        "first_three_breaches": [
+          {
+            "id": "24870651",
+            "original": 0.974242431151513,
+            "reproduction": 0.9737977786177625,
+            "abs_diff": 0.0004446525337504781,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "24870669",
+            "original": 0.8571442722673585,
+            "reproduction": 0.86435167234783,
+            "abs_diff": 0.007207400080471493,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "24870701",
+            "original": 0.15367930963673102,
+            "reproduction": 0.19202190349426224,
+            "abs_diff": 0.03834259385753122,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "labels",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "Platform_particletemplatedinstantpartitionsequencing",
+      "details": {
+        "n": 1000,
+        "disagreements": 22,
+        "allowed": 1,
+        "agreement": 0.978,
+        "disagreeing_cells": [
+          {
+            "id": "25444329",
+            "original": "pDC",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "25445123",
+            "original": "NK",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "25445166",
+            "original": "MAIT",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "25445520",
+            "original": "platelet/MK",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "25445600",
+            "original": "HSPC",
+            "reproduction": "platelet/MK"
+          },
+          {
+            "id": "25445955",
+            "original": "platelet/MK",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "25445960",
+            "original": "MAIT",
+            "reproduction": "CD4 T"
+          },
+          {
+            "id": "25446217",
+            "original": "CD14 mono",
+            "reproduction": "pDC"
+          },
+          {
+            "id": "25446361",
+            "original": "platelet/MK",
+            "reproduction": "B"
+          },
+          {
+            "id": "25446866",
+            "original": "CD14 mono",
+            "reproduction": "ASC"
+          },
+          {
+            "id": "25446956",
+            "original": "CD16 mono",
+            "reproduction": "pDC"
+          },
+          {
+            "id": "25447073",
+            "original": "cDC",
+            "reproduction": "CD8 T"
+          },
+          {
+            "id": "25447244",
+            "original": "CD16 mono",
+            "reproduction": "platelet/MK"
+          },
+          {
+            "id": "25447300",
+            "original": "NK",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "25448305",
+            "original": "MAIT",
+            "reproduction": "CD16 mono"
+          },
+          {
+            "id": "25448720",
+            "original": "NK",
+            "reproduction": "B"
+          },
+          {
+            "id": "25449658",
+            "original": "cDC",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "25450256",
+            "original": "HSPC",
+            "reproduction": "MAIT"
+          },
+          {
+            "id": "25450301",
+            "original": "B",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "25450358",
+            "original": "platelet/MK",
+            "reproduction": "ASC"
+          },
+          {
+            "id": "25450649",
+            "original": "CD16 mono",
+            "reproduction": "pDC"
+          },
+          {
+            "id": "25450965",
+            "original": "NK",
+            "reproduction": "B"
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "Platform_particletemplatedinstantpartitionsequencing",
+      "details": {
+        "n_agreeing": 978,
+        "max_abs_conf_diff_agreeing": 0.1687430172641104,
+        "confidence_breach_count": 626,
+        "max_abs_diff": 0.1687430172641104,
+        "first_three_breaches": [
+          {
+            "id": "25443348",
+            "original": 0.9969316929024101,
+            "reproduction": 0.9971068029479627,
+            "abs_diff": 0.00017511004555259557,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "25443409",
+            "original": 0.9967882170702481,
+            "reproduction": 0.9963129533268279,
+            "abs_diff": 0.0004752637434202178,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "25443421",
+            "original": 0.9623633433846919,
+            "reproduction": 0.9604060144191835,
+            "abs_diff": 0.001957328965508376,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "labels",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "RA",
+      "details": {
+        "n": 8684,
+        "disagreements": 28,
+        "allowed": 8,
+        "agreement": 0.9967756794104099,
+        "disagreeing_cells": [
+          {
+            "id": "4987889",
+            "original": "cDC",
+            "reproduction": "NK"
+          },
+          {
+            "id": "4999388",
+            "original": "CD8 T",
+            "reproduction": "CD4 T"
+          },
+          {
+            "id": "5001497",
+            "original": "CD4 T",
+            "reproduction": "CD8 T"
+          },
+          {
+            "id": "5011272",
+            "original": "NK",
+            "reproduction": "CD4 T"
+          },
+          {
+            "id": "5014017",
+            "original": "B",
+            "reproduction": "CD4 T"
+          },
+          {
+            "id": "5015044",
+            "original": "CD4 T",
+            "reproduction": "B"
+          },
+          {
+            "id": "5016787",
+            "original": "MAIT",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "5019785",
+            "original": "CD4 T",
+            "reproduction": "B"
+          },
+          {
+            "id": "5024867",
+            "original": "CD4 T",
+            "reproduction": "CD8 T"
+          },
+          {
+            "id": "5025261",
+            "original": "gamma-delta T",
+            "reproduction": "MAIT"
+          },
+          {
+            "id": "5028038",
+            "original": "B",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "5030525",
+            "original": "CD4 T",
+            "reproduction": "CD8 T"
+          },
+          {
+            "id": "5038660",
+            "original": "CD8 T",
+            "reproduction": "NK"
+          },
+          {
+            "id": "5040983",
+            "original": "CD8 T",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "5044747",
+            "original": "B",
+            "reproduction": "NK"
+          },
+          {
+            "id": "5047716",
+            "original": "B",
+            "reproduction": "CD4 T"
+          },
+          {
+            "id": "5052791",
+            "original": "B",
+            "reproduction": "NK"
+          },
+          {
+            "id": "5055018",
+            "original": "B",
+            "reproduction": "NK"
+          },
+          {
+            "id": "5056694",
+            "original": "MAIT",
+            "reproduction": "CD4 T"
+          },
+          {
+            "id": "5059811",
+            "original": "B",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "5060822",
+            "original": "cDC",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "5066961",
+            "original": "HSPC",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "5071119",
+            "original": "MAIT",
+            "reproduction": "CD16 mono"
+          },
+          {
+            "id": "5080152",
+            "original": "B",
+            "reproduction": "pDC"
+          },
+          {
+            "id": "5087055",
+            "original": "CD4 T",
+            "reproduction": "ASC"
+          },
+          {
+            "id": "5092597",
+            "original": "B",
+            "reproduction": "CD4 T"
+          },
+          {
+            "id": "5095349",
+            "original": "cDC",
+            "reproduction": "CD4 T"
+          },
+          {
+            "id": "5095374",
+            "original": "pDC",
+            "reproduction": "B"
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "RA",
+      "details": {
+        "n_agreeing": 8656,
+        "max_abs_conf_diff_agreeing": 0.19293084267321192,
+        "confidence_breach_count": 7227,
+        "max_abs_diff": 0.19293084267321192,
+        "first_three_breaches": [
+          {
+            "id": "4987269",
+            "original": 0.7132861399751547,
+            "reproduction": 0.6525657349261023,
+            "abs_diff": 0.060720405049052406,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "4987271",
+            "original": 0.10647285950945164,
+            "reproduction": 0.10717319324057982,
+            "abs_diff": 0.0007003337311281832,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "4987273",
+            "original": 0.9616431243061527,
+            "reproduction": 0.9589364277955253,
+            "abs_diff": 0.002706696510627382,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "totalvi_pbmc10k_protein_v3",
+      "details": {
+        "n_agreeing": 6854,
+        "max_abs_conf_diff_agreeing": 0.04996333761569882,
+        "confidence_breach_count": 3343,
+        "max_abs_diff": 0.04996333761569882,
+        "first_three_breaches": [
+          {
+            "id": "10",
+            "original": 0.9212628273063269,
+            "reproduction": 0.9212906362554217,
+            "abs_diff": 2.780894909482079e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "1000",
+            "original": 0.9283385485398603,
+            "reproduction": 0.9285166192365998,
+            "abs_diff": 0.00017807069673947407,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "1001",
+            "original": 0.9187856448113733,
+            "reproduction": 0.9193649009418081,
+            "abs_diff": 0.0005792561304348576,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": "totalvi_pbmc5k_protein_v3",
+      "details": {
+        "n_agreeing": 3994,
+        "max_abs_conf_diff_agreeing": 0.052754570603961604,
+        "confidence_breach_count": 2264,
+        "max_abs_diff": 0.052754570603961604,
+        "first_three_breaches": [
+          {
+            "id": "1",
+            "original": 0.8602636017868789,
+            "reproduction": 0.8604436769239666,
+            "abs_diff": 0.00018007513708773182,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "10",
+            "original": 0.942913614910312,
+            "reproduction": 0.9430586558059473,
+            "abs_diff": 0.00014504089563527334,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "1001",
+            "original": 0.7465338913156118,
+            "reproduction": 0.747116902178496,
+            "abs_diff": 0.000583010862884259,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "ClonalHaem",
+      "details": {
+        "n_agreeing": 4193,
+        "max_abs_conf_diff_agreeing": 0.13301480045365882,
+        "confidence_breach_count": 2636,
+        "max_abs_diff": 0.13301480045365882,
+        "first_three_breaches": [
+          {
+            "id": "7303571",
+            "original": 0.11691102076020353,
+            "reproduction": 0.11777674368307317,
+            "abs_diff": 0.0008657229228696411,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "7303573",
+            "original": 0.9622056117093276,
+            "reproduction": 0.9624586436565346,
+            "abs_diff": 0.00025303194720693867,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "7303574",
+            "original": 0.9275024292755764,
+            "reproduction": 0.9281551553219204,
+            "abs_diff": 0.0006527260463440321,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "labels",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "Glaucoma",
+      "details": {
+        "n": 2500,
+        "disagreements": 7,
+        "allowed": 2,
+        "agreement": 0.9972,
+        "disagreeing_cells": [
+          {
+            "id": "23028757",
+            "original": "CD4 T",
+            "reproduction": "gamma-delta T"
+          },
+          {
+            "id": "23035221",
+            "original": "CD14 mono",
+            "reproduction": "CD4 T"
+          },
+          {
+            "id": "23050572",
+            "original": "B",
+            "reproduction": "CD8 T"
+          },
+          {
+            "id": "23054115",
+            "original": "B",
+            "reproduction": "CD16 mono"
+          },
+          {
+            "id": "23072480",
+            "original": "cDC",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "23078718",
+            "original": "B",
+            "reproduction": "CD8 T"
+          },
+          {
+            "id": "23089377",
+            "original": "B",
+            "reproduction": "gamma-delta T"
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "Glaucoma",
+      "details": {
+        "n_agreeing": 2493,
+        "max_abs_conf_diff_agreeing": 0.11687813866005714,
+        "confidence_breach_count": 1266,
+        "max_abs_diff": 0.11687813866005714,
+        "first_three_breaches": [
+          {
+            "id": "23026243",
+            "original": 0.9756141246454488,
+            "reproduction": 0.9755484347289438,
+            "abs_diff": 6.568991650501843e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "23026275",
+            "original": 0.9927848304441653,
+            "reproduction": 0.992764219591849,
+            "abs_diff": 2.0610852316305106e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "23026309",
+            "original": 0.9993830981546324,
+            "reproduction": 0.9994339073241744,
+            "abs_diff": 5.080916954192105e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "labels",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "HIHA",
+      "details": {
+        "n": 10466,
+        "disagreements": 22,
+        "allowed": 10,
+        "agreement": 0.997897955283776,
+        "disagreeing_cells": [
+          {
+            "id": "105362123",
+            "original": "B",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "105380044",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "105384026",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "105393387",
+            "original": "CD16 mono",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "105403546",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "105406029",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "105414586",
+            "original": "platelet/MK",
+            "reproduction": "NK"
+          },
+          {
+            "id": "105459294",
+            "original": "B",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "105504223",
+            "original": "HSPC",
+            "reproduction": "NK"
+          },
+          {
+            "id": "105504668",
+            "original": "NK",
+            "reproduction": "platelet/MK"
+          },
+          {
+            "id": "105504731",
+            "original": "CD8 T",
+            "reproduction": "CD4 T"
+          },
+          {
+            "id": "105515333",
+            "original": "HSPC",
+            "reproduction": "CD4 T"
+          },
+          {
+            "id": "105521194",
+            "original": "B",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "105523534",
+            "original": "HSPC",
+            "reproduction": "NK"
+          },
+          {
+            "id": "105525486",
+            "original": "CD4 T",
+            "reproduction": "platelet/MK"
+          },
+          {
+            "id": "105563265",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "105568587",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "105574674",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "105577816",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "105578930",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "105579326",
+            "original": "B",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "105590362",
+            "original": "cDC",
+            "reproduction": "B"
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "HIHA",
+      "details": {
+        "n_agreeing": 10444,
+        "max_abs_conf_diff_agreeing": 0.12658744602624983,
+        "confidence_breach_count": 4962,
+        "max_abs_diff": 0.12658744602624983,
+        "first_three_breaches": [
+          {
+            "id": "105331912",
+            "original": 0.9578915197628087,
+            "reproduction": 0.9577469142401537,
+            "abs_diff": 0.00014460552265505022,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "105331932",
+            "original": 0.9432437936707376,
+            "reproduction": 0.9430727242877535,
+            "abs_diff": 0.00017106938298416807,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "105331947",
+            "original": 0.9185019068386183,
+            "reproduction": 0.9190519875353621,
+            "abs_diff": 0.0005500806967437821,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "labels",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "JDM",
+      "details": {
+        "n": 3575,
+        "disagreements": 6,
+        "allowed": 3,
+        "agreement": 0.9983216783216783,
+        "disagreeing_cells": [
+          {
+            "id": "31332251",
+            "original": "B",
+            "reproduction": "NK"
+          },
+          {
+            "id": "31355693",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "31373010",
+            "original": "B",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "31384855",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "31388465",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "31404192",
+            "original": "cDC",
+            "reproduction": "B"
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "JDM",
+      "details": {
+        "n_agreeing": 3569,
+        "max_abs_conf_diff_agreeing": 0.03013709049120117,
+        "confidence_breach_count": 1952,
+        "max_abs_diff": 0.03013709049120117,
+        "first_three_breaches": [
+          {
+            "id": "31308337",
+            "original": 0.9947372319985124,
+            "reproduction": 0.9948224690500329,
+            "abs_diff": 8.523705152052585e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "31308358",
+            "original": 0.9629975057591174,
+            "reproduction": 0.9639426010080542,
+            "abs_diff": 0.0009450952489368225,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "31308374",
+            "original": 0.9657105429254365,
+            "reproduction": 0.9656483167113904,
+            "abs_diff": 6.222621404605722e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "KidneyBlood",
+      "details": {
+        "n_agreeing": 9343,
+        "max_abs_conf_diff_agreeing": 0.16242616520272804,
+        "confidence_breach_count": 2856,
+        "max_abs_diff": 0.16242616520272804,
+        "first_three_breaches": [
+          {
+            "id": "33882785",
+            "original": 0.9996902941141869,
+            "reproduction": 0.999741972384026,
+            "abs_diff": 5.167826983909496e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "33882786",
+            "original": 0.996000193702971,
+            "reproduction": 0.9966460283467156,
+            "abs_diff": 0.0006458346437445694,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "33882787",
+            "original": 0.9989778421775037,
+            "reproduction": 0.9993291280553662,
+            "abs_diff": 0.0003512858778624839,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "labels",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "Platform_10x3v3",
+      "details": {
+        "n": 1000,
+        "disagreements": 4,
+        "allowed": 1,
+        "agreement": 0.996,
+        "disagreeing_cells": [
+          {
+            "id": "22336115",
+            "original": "B",
+            "reproduction": "CD4 T"
+          },
+          {
+            "id": "22336470",
+            "original": "CD16 mono",
+            "reproduction": "B"
+          },
+          {
+            "id": "22338479",
+            "original": "CD8 T",
+            "reproduction": "NK"
+          },
+          {
+            "id": "22338815",
+            "original": "gamma-delta T",
+            "reproduction": "CD8 T"
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "Platform_10x3v3",
+      "details": {
+        "n_agreeing": 996,
+        "max_abs_conf_diff_agreeing": 0.19310013554495287,
+        "confidence_breach_count": 390,
+        "max_abs_diff": 0.19310013554495287,
+        "first_three_breaches": [
+          {
+            "id": "22334841",
+            "original": 0.9995680131007284,
+            "reproduction": 0.9996268541136317,
+            "abs_diff": 5.884101290332122e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "22334847",
+            "original": 0.9725660645817003,
+            "reproduction": 0.9721472245943217,
+            "abs_diff": 0.000418839987378572,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "22334903",
+            "original": 0.9353529552923442,
+            "reproduction": 0.9386493512953074,
+            "abs_diff": 0.0032963960029631645,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "Platform_10x5v2",
+      "details": {
+        "n_agreeing": 999,
+        "max_abs_conf_diff_agreeing": 0.05670148556230825,
+        "confidence_breach_count": 273,
+        "max_abs_diff": 0.05670148556230825,
+        "first_three_breaches": [
+          {
+            "id": "19600511",
+            "original": 0.7412403023988775,
+            "reproduction": 0.740753581979299,
+            "abs_diff": 0.0004867204195785346,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "19600515",
+            "original": 0.850895749110027,
+            "reproduction": 0.8551670851600314,
+            "abs_diff": 0.004271336050004404,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "19600585",
+            "original": 0.10105877719447881,
+            "reproduction": 0.11850307616555991,
+            "abs_diff": 0.0174442989710811,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "Platform_10xgeneexpressionflex",
+      "details": {
+        "n_agreeing": 999,
+        "max_abs_conf_diff_agreeing": 0.04375354035651535,
+        "confidence_breach_count": 229,
+        "max_abs_diff": 0.04375354035651535,
+        "first_three_breaches": [
+          {
+            "id": "14506898",
+            "original": 0.9970455847440253,
+            "reproduction": 0.9970168134324067,
+            "abs_diff": 2.8771311618602802e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "14506932",
+            "original": 0.667763129048718,
+            "reproduction": 0.6703872508883586,
+            "abs_diff": 0.0026241218396405586,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "14506937",
+            "original": 0.46123813689567067,
+            "reproduction": 0.46268182867748003,
+            "abs_diff": 0.0014436917818093642,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "Platform_AsteriascRNAseqkit",
+      "details": {
+        "n_agreeing": 999,
+        "max_abs_conf_diff_agreeing": 0.13198060171371773,
+        "confidence_breach_count": 573,
+        "max_abs_diff": 0.13198060171371773,
+        "first_three_breaches": [
+          {
+            "id": "5756374",
+            "original": 0.9884538372571584,
+            "reproduction": 0.9881300383568811,
+            "abs_diff": 0.00032379890027733893,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "5756382",
+            "original": 0.9305025909223679,
+            "reproduction": 0.9294216979983609,
+            "abs_diff": 0.0010808929240069265,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "5756384",
+            "original": 0.9849876706397187,
+            "reproduction": 0.9845448105763538,
+            "abs_diff": 0.0004428600633649138,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "Platform_BDRhapsodyWholeTranscriptomeAnalysis",
+      "details": {
+        "n_agreeing": 999,
+        "max_abs_conf_diff_agreeing": 0.08136370685262995,
+        "confidence_breach_count": 524,
+        "max_abs_diff": 0.08136370685262995,
+        "first_three_breaches": [
+          {
+            "id": "22680674",
+            "original": 0.9736836005479057,
+            "reproduction": 0.9736457107069326,
+            "abs_diff": 3.788984097308212e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "22680690",
+            "original": 0.9920203915640337,
+            "reproduction": 0.9915682169684888,
+            "abs_diff": 0.00045217459554480754,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "22680732",
+            "original": 0.9989372267921975,
+            "reproduction": 0.9989126176760601,
+            "abs_diff": 2.4609116137441767e-05,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "labels",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "Platform_HIVECLXSingleCellRNAseqSolution",
+      "details": {
+        "n": 1000,
+        "disagreements": 3,
+        "allowed": 1,
+        "agreement": 0.997,
+        "disagreeing_cells": [
+          {
+            "id": "16329628",
+            "original": "CD4 T",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "16330844",
+            "original": "cDC",
+            "reproduction": "CD16 mono"
+          },
+          {
+            "id": "16331161",
+            "original": "CD16 mono",
+            "reproduction": "CD14 mono"
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "Platform_HIVECLXSingleCellRNAseqSolution",
+      "details": {
+        "n_agreeing": 997,
+        "max_abs_conf_diff_agreeing": 0.12977608556129505,
+        "confidence_breach_count": 698,
+        "max_abs_diff": 0.12977608556129505,
+        "first_three_breaches": [
+          {
+            "id": "16323913",
+            "original": 0.5318393253029521,
+            "reproduction": 0.5275200807060605,
+            "abs_diff": 0.004319244596891592,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "16323914",
+            "original": 0.8415271192333483,
+            "reproduction": 0.8702859209297826,
+            "abs_diff": 0.0287588016964343,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "16323925",
+            "original": 0.5315363514648923,
+            "reproduction": 0.525224202784716,
+            "abs_diff": 0.006312148680176266,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "labels",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "Platform_ParseEvercodeWholeTranscriptomev2",
+      "details": {
+        "n": 1000,
+        "disagreements": 26,
+        "allowed": 1,
+        "agreement": 0.974,
+        "disagreeing_cells": [
+          {
+            "id": "21404888",
+            "original": "B",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "21405302",
+            "original": "cDC",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "21405477",
+            "original": "cDC",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "21405908",
+            "original": "B",
+            "reproduction": "NK"
+          },
+          {
+            "id": "21406096",
+            "original": "CD14 mono",
+            "reproduction": "B"
+          },
+          {
+            "id": "21406121",
+            "original": "HSPC",
+            "reproduction": "B"
+          },
+          {
+            "id": "21406665",
+            "original": "B",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "21406850",
+            "original": "B",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "21407370",
+            "original": "B",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "21407603",
+            "original": "CD16 mono",
+            "reproduction": "B"
+          },
+          {
+            "id": "21407684",
+            "original": "cDC",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "21407812",
+            "original": "gamma-delta T",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "21408080",
+            "original": "B",
+            "reproduction": "CD16 mono"
+          },
+          {
+            "id": "21408818",
+            "original": "gamma-delta T",
+            "reproduction": "CD16 mono"
+          },
+          {
+            "id": "21409240",
+            "original": "HSPC",
+            "reproduction": "B"
+          },
+          {
+            "id": "21409733",
+            "original": "cDC",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "21409807",
+            "original": "B",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "21410216",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "21410568",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "21411283",
+            "original": "cDC",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "21411319",
+            "original": "B",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "21411574",
+            "original": "CD16 mono",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "21412278",
+            "original": "gamma-delta T",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "21412305",
+            "original": "HSPC",
+            "reproduction": "B"
+          },
+          {
+            "id": "21412488",
+            "original": "B",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "21412541",
+            "original": "B",
+            "reproduction": "CD14 mono"
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "Platform_ParseEvercodeWholeTranscriptomev2",
+      "details": {
+        "n_agreeing": 974,
+        "max_abs_conf_diff_agreeing": 0.20036742749078995,
+        "confidence_breach_count": 827,
+        "max_abs_diff": 0.20036742749078995,
+        "first_three_breaches": [
+          {
+            "id": "21404854",
+            "original": 0.8660212712373659,
+            "reproduction": 0.852917359706269,
+            "abs_diff": 0.013103911531096912,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "21404862",
+            "original": 0.01532279883525826,
+            "reproduction": 0.01422917593200296,
+            "abs_diff": 0.001093622903255301,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "21404885",
+            "original": 0.048781695090020415,
+            "reproduction": 0.08737959383528011,
+            "abs_diff": 0.0385978987452597,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "labels",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "Platform_ScaleBiosinglecellRNAsequencing",
+      "details": {
+        "n": 1000,
+        "disagreements": 24,
+        "allowed": 1,
+        "agreement": 0.976,
+        "disagreeing_cells": [
+          {
+            "id": "24870736",
+            "original": "HSPC",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "24871402",
+            "original": "HSPC",
+            "reproduction": "B"
+          },
+          {
+            "id": "24871592",
+            "original": "B",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "24872012",
+            "original": "NK",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "24872053",
+            "original": "B",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "24872354",
+            "original": "HSPC",
+            "reproduction": "CD4 T"
+          },
+          {
+            "id": "24872743",
+            "original": "platelet/MK",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "24873224",
+            "original": "B",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "24873267",
+            "original": "HSPC",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "24873311",
+            "original": "HSPC",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "24874098",
+            "original": "CD4 T",
+            "reproduction": "NK"
+          },
+          {
+            "id": "24874495",
+            "original": "CD14 mono",
+            "reproduction": "B"
+          },
+          {
+            "id": "24874827",
+            "original": "CD14 mono",
+            "reproduction": "B"
+          },
+          {
+            "id": "24875192",
+            "original": "gamma-delta T",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "24875268",
+            "original": "HSPC",
+            "reproduction": "B"
+          },
+          {
+            "id": "24876028",
+            "original": "CD14 mono",
+            "reproduction": "B"
+          },
+          {
+            "id": "24876682",
+            "original": "HSPC",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "24876875",
+            "original": "NK",
+            "reproduction": "platelet/MK"
+          },
+          {
+            "id": "24876887",
+            "original": "CD14 mono",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "24877055",
+            "original": "gamma-delta T",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "24877378",
+            "original": "B",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "24877613",
+            "original": "HSPC",
+            "reproduction": "CD8 T"
+          },
+          {
+            "id": "24877705",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "24878212",
+            "original": "HSPC",
+            "reproduction": "CD14 mono"
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "Platform_ScaleBiosinglecellRNAsequencing",
+      "details": {
+        "n_agreeing": 976,
+        "max_abs_conf_diff_agreeing": 0.18027193674225403,
+        "confidence_breach_count": 813,
+        "max_abs_diff": 0.18027193674225403,
+        "first_three_breaches": [
+          {
+            "id": "24870651",
+            "original": 0.9953185347168362,
+            "reproduction": 0.9958438097734384,
+            "abs_diff": 0.0005252750566022701,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "24870669",
+            "original": 0.984405051773557,
+            "reproduction": 0.9841897003334134,
+            "abs_diff": 0.0002153514401436185,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "24870672",
+            "original": 0.10308534554849007,
+            "reproduction": 0.1748975547525191,
+            "abs_diff": 0.07181220920402905,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "labels",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "Platform_particletemplatedinstantpartitionsequencing",
+      "details": {
+        "n": 1000,
+        "disagreements": 30,
+        "allowed": 1,
+        "agreement": 0.97,
+        "disagreeing_cells": [
+          {
+            "id": "25443410",
+            "original": "CD14 mono",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "25443437",
+            "original": "HSPC",
+            "reproduction": "NK"
+          },
+          {
+            "id": "25443462",
+            "original": "HSPC",
+            "reproduction": "CD16 mono"
+          },
+          {
+            "id": "25443486",
+            "original": "NK",
+            "reproduction": "B"
+          },
+          {
+            "id": "25444002",
+            "original": "B",
+            "reproduction": "CD16 mono"
+          },
+          {
+            "id": "25444948",
+            "original": "NK",
+            "reproduction": "B"
+          },
+          {
+            "id": "25445163",
+            "original": "B",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "25445727",
+            "original": "B",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "25445819",
+            "original": "B",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "25446001",
+            "original": "B",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "25446212",
+            "original": "HSPC",
+            "reproduction": "NK"
+          },
+          {
+            "id": "25446277",
+            "original": "CD16 mono",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "25446658",
+            "original": "HSPC",
+            "reproduction": "platelet/MK"
+          },
+          {
+            "id": "25447652",
+            "original": "HSPC",
+            "reproduction": "B"
+          },
+          {
+            "id": "25447742",
+            "original": "B",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "25448343",
+            "original": "B",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "25448457",
+            "original": "CD14 mono",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "25448677",
+            "original": "CD8 T",
+            "reproduction": "B"
+          },
+          {
+            "id": "25449066",
+            "original": "NK",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "25449186",
+            "original": "CD16 mono",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "25449255",
+            "original": "CD8 T",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "25449324",
+            "original": "B",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "25449421",
+            "original": "CD14 mono",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "25449606",
+            "original": "CD16 mono",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "25449658",
+            "original": "NK",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "25450430",
+            "original": "B",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "25450563",
+            "original": "CD14 mono",
+            "reproduction": "platelet/MK"
+          },
+          {
+            "id": "25450607",
+            "original": "CD8 T",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "25450851",
+            "original": "NK",
+            "reproduction": "B"
+          },
+          {
+            "id": "25450856",
+            "original": "B",
+            "reproduction": "HSPC"
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "Platform_particletemplatedinstantpartitionsequencing",
+      "details": {
+        "n_agreeing": 970,
+        "max_abs_conf_diff_agreeing": 0.1887926643669855,
+        "confidence_breach_count": 587,
+        "max_abs_diff": 0.1887926643669855,
+        "first_three_breaches": [
+          {
+            "id": "25443348",
+            "original": 0.9971234759184507,
+            "reproduction": 0.9968923597329411,
+            "abs_diff": 0.00023111618550963886,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "25443368",
+            "original": 0.9967226898173065,
+            "reproduction": 0.9971631974536507,
+            "abs_diff": 0.00044050763634417844,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "25443421",
+            "original": 0.7539254398150803,
+            "reproduction": 0.7528860976383885,
+            "abs_diff": 0.001039342176691771,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "labels",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "RA",
+      "details": {
+        "n": 8684,
+        "disagreements": 30,
+        "allowed": 8,
+        "agreement": 0.9965453707968678,
+        "disagreeing_cells": [
+          {
+            "id": "4996343",
+            "original": "CD8 T",
+            "reproduction": "B"
+          },
+          {
+            "id": "4998897",
+            "original": "B",
+            "reproduction": "CD4 T"
+          },
+          {
+            "id": "5012188",
+            "original": "CD4 T",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "5015751",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "5018714",
+            "original": "CD8 T",
+            "reproduction": "B"
+          },
+          {
+            "id": "5019785",
+            "original": "CD8 T",
+            "reproduction": "B"
+          },
+          {
+            "id": "5024981",
+            "original": "NK",
+            "reproduction": "B"
+          },
+          {
+            "id": "5029692",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "5033724",
+            "original": "NK",
+            "reproduction": "B"
+          },
+          {
+            "id": "5038282",
+            "original": "NK",
+            "reproduction": "gamma-delta T"
+          },
+          {
+            "id": "5039327",
+            "original": "NK",
+            "reproduction": "B"
+          },
+          {
+            "id": "5040972",
+            "original": "B",
+            "reproduction": "CD8 T"
+          },
+          {
+            "id": "5043137",
+            "original": "NK",
+            "reproduction": "B"
+          },
+          {
+            "id": "5057510",
+            "original": "CD8 T",
+            "reproduction": "NK"
+          },
+          {
+            "id": "5060115",
+            "original": "CD8 T",
+            "reproduction": "B"
+          },
+          {
+            "id": "5062949",
+            "original": "cDC",
+            "reproduction": "CD8 T"
+          },
+          {
+            "id": "5073262",
+            "original": "CD14 mono",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "5073292",
+            "original": "CD4 T",
+            "reproduction": "CD8 T"
+          },
+          {
+            "id": "5077582",
+            "original": "cDC",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "5080169",
+            "original": "CD4 T",
+            "reproduction": "CD8 T"
+          },
+          {
+            "id": "5082858",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "5083813",
+            "original": "CD4 T",
+            "reproduction": "B"
+          },
+          {
+            "id": "5084778",
+            "original": "B",
+            "reproduction": "NK"
+          },
+          {
+            "id": "5087745",
+            "original": "cDC",
+            "reproduction": "CD8 T"
+          },
+          {
+            "id": "5088729",
+            "original": "CD8 T",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "5089335",
+            "original": "cDC",
+            "reproduction": "B"
+          },
+          {
+            "id": "5092055",
+            "original": "CD14 mono",
+            "reproduction": "cDC"
+          },
+          {
+            "id": "5092666",
+            "original": "B",
+            "reproduction": "CD14 mono"
+          },
+          {
+            "id": "5094095",
+            "original": "B",
+            "reproduction": "HSPC"
+          },
+          {
+            "id": "5095091",
+            "original": "HSPC",
+            "reproduction": "CD14 mono"
+          }
+        ]
+      }
+    },
+    {
+      "tier": "T2",
+      "check": "conf",
+      "status": "breach",
+      "gated": true,
+      "arm": "B",
+      "method": "M5",
+      "file": "RA",
+      "details": {
+        "n_agreeing": 8654,
+        "max_abs_conf_diff_agreeing": 0.12295495706138371,
+        "confidence_breach_count": 7193,
+        "max_abs_diff": 0.12295495706138371,
+        "first_three_breaches": [
+          {
+            "id": "4987269",
+            "original": 0.9800533566204994,
+            "reproduction": 0.9814229798251801,
+            "abs_diff": 0.0013696232046807033,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "4987271",
+            "original": 0.06727622374622239,
+            "reproduction": 0.06777011302888554,
+            "abs_diff": 0.0004938892826631541,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          },
+          {
+            "id": "4987273",
+            "original": 0.3021287844965727,
+            "reproduction": 0.3082978712179641,
+            "abs_diff": 0.006169086721391381,
+            "states": [
+              "finite",
+              "finite"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "tier": "M",
+      "check": "summary_test:unknown_false_accept@OPcov[primary]",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": null,
+      "details": {
+        "original": 0.3,
+        "reproduction": 0.15,
+        "abs_diff": 0.15,
+        "states": [
+          "finite",
+          "finite"
+        ],
+        "tolerance": {
+          "abs": 0.01,
+          "rel": 0.0
+        }
+      }
+    },
+    {
+      "tier": "M",
+      "check": "summary_test:unknown_auroc[primary]",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": null,
+      "details": {
+        "original": 0.8028078662319907,
+        "reproduction": 0.8256309811757282,
+        "abs_diff": 0.022823114943737455,
+        "states": [
+          "finite",
+          "finite"
+        ],
+        "tolerance": {
+          "abs": 0.01,
+          "rel": 0.0
+        }
+      }
+    },
+    {
+      "tier": "M",
+      "check": "summary_test:unknown_false_accept@OPcov_ci95.hi[primary]",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": null,
+      "details": {
+        "original": 0.31578946113586426,
+        "reproduction": 0.15789473056793213,
+        "abs_diff": 0.15789473056793213,
+        "states": [
+          "finite",
+          "finite"
+        ],
+        "tolerance": {
+          "abs": 0.01,
+          "rel": 0.0
+        }
+      }
+    },
+    {
+      "tier": "M",
+      "check": "paired:unknown_false_accept@OPcov:mean_diff[primary]",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": null,
+      "details": {
+        "original": -0.13210223252870126,
+        "reproduction": -0.24530628970579096,
+        "abs_diff": 0.1132040571770897,
+        "states": [
+          "finite",
+          "finite"
+        ],
+        "tolerance": {
+          "abs": 0.01,
+          "rel": 0.0
+        },
+        "vs": "A:M4"
+      }
+    },
+    {
+      "tier": "M",
+      "check": "paired:unknown_false_accept@OPcov:ci95_hi[primary]",
+      "status": "breach",
+      "gated": true,
+      "arm": "A",
+      "method": "M5",
+      "file": null,
+      "details": {
+        "original": 0.21052630245685577,
+        "reproduction": 0.052631571888923645,
+        "abs_diff": 0.15789473056793213,
+        "states": [
+          "finite",
+          "finite"
+        ],
+        "tolerance": {
+          "abs": 0.01,
+          "rel": 0.0
+        },
+        "vs": "A:M4"
+      }
+    }
+  ],
+  "unsupported": [],
+  "disclosure": "Mechanical summary of existing failed comparison; full original report retained privately. Long confidence breach arrays reduced to count, maximum absolute difference and first three rows. No tolerance, measurements, predictions or verdicts changed."
+}
