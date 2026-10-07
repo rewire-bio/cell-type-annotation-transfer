@@ -47,7 +47,7 @@ class ComparisonContinuation(M.Repair):
              'Canonical run record hash differs')
         manifest=load(record)
         need(manifest['id']==canonical_id and manifest['status']=='completed'
-             and manifest['mode']=='R' and manifest['exit_code']==0,
+             and manifest['mode']=='full' and manifest['exit_code']==0,
              'Canonical run must be completed')
         digest=manifest['outputs']['comparison_manifest.json']
         need(binding['path']==(folder/'output/comparison_manifest.json').relative_to(self.source).as_posix()

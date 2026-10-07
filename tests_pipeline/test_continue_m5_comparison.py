@@ -67,7 +67,7 @@ def test_never_invokes_scientific_steps(name,kind):
 def canonical_fixture(r,tmp_path,monkeypatch):
     cid='corrected-canonical';folder=tmp_path/'.research/runs'/cid;folder.mkdir(parents=True)
     baseline=folder/'output/comparison_manifest.json';baseline.parent.mkdir();baseline.write_text('{"mode":"R"}')
-    manifest=folder/'manifest.json';M.dump(manifest,{'id':cid,'status':'completed','mode':'R','exit_code':0,
+    manifest=folder/'manifest.json';M.dump(manifest,{'id':cid,'status':'completed','mode':'full','exit_code':0,
         'outputs':{'comparison_manifest.json':M.sha(baseline)}})
     r.inventory['canonical_run_id']=cid;r.approval['canonical_manifest_sha256']=M.sha(manifest)
     r.reproduction_continuation['canonical_baseline']={'path':baseline.relative_to(tmp_path).as_posix(),'sha256':M.sha(baseline)}
@@ -81,6 +81,10 @@ def test_baseline_record_and_comparison_hashes_are_distinct(tmp_path,monkeypatch
     with pytest.raises(M.Stop):r.baseline_check()
     baseline,manifest=canonical_fixture(r,tmp_path,monkeypatch)
     assert r.baseline_check()==baseline
+    saved=manifest.read_bytes();invalid=M.load(manifest);invalid['mode']='R';M.dump(manifest,invalid)
+    r.approval['canonical_manifest_sha256']=M.sha(manifest)
+    with pytest.raises(M.Stop):r.baseline_check()
+    manifest.write_bytes(saved);r.approval['canonical_manifest_sha256']=M.sha(manifest)
     comparison_digest=r.reproduction_continuation['canonical_baseline']['sha256']
     r.approval['canonical_manifest_sha256']=comparison_digest
     with pytest.raises(M.Stop):r.baseline_check()
