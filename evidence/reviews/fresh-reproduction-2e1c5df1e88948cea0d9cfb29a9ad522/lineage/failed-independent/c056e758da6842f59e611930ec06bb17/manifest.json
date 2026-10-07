@@ -1,0 +1,32 @@
+{
+  "adoption": {
+    "execution_kind": "selective_adoption_with_new_execution",
+    "inventory_sha256": "5657a42706d0f0b1fb20c34b9942e0b85f9e38e5f684d5b20858f6a18900db0f",
+    "parent_id": "78542e9d412548edbfe42b38d452f7a8",
+    "record_path": ".research/reproductions/c056e758da6842f59e611930ec06bb17",
+    "repair_id": "m5-seed0-v2",
+    "stage": "reproduction",
+    "stage_attempt": 1
+  },
+  "code_revision": "d9058c17b4cb92fd8696f227799b49e4a15303d6",
+  "coordinator_pid": 23948,
+  "cumulative_seconds": 14544.97205053996,
+  "duration_seconds": 4055.3673419999977,
+  "duration_total": 14544.97205053996,
+  "exit_code": 2,
+  "failure": "Clean reproduction command failed: {'exit_code': 2, 'duration_seconds': 2066.423127000002, 'failure': None}",
+  "finished_at": "2026-10-07T14:49:46.403316+00:00",
+  "id": "c056e758da6842f59e611930ec06bb17",
+  "lineage": [],
+  "manuscript_hash": "d9786526b184af013149d4118a59d0189aa72cb3eb2a71af7a3eb8c7b673a3af",
+  "missing_parent_pinned_inputs": [],
+  "parent_reproduction_id": null,
+  "prior_seconds": 10489.604708539962,
+  "protocol_hash": "d3bbc2c05c80b7a893ecba198a2c684fde6975831ca133f2d50b2f3e0cb4f71a",
+  "run_id": "448f32386dfe45588fefa84c5d486703",
+  "runtime_budget_seconds": 43480.39529146004,
+  "schema_version": 1,
+  "science_hash": "8abf752483eb827b79f6e34d80b18bb73c8809f2f63fd2932248a34cc32237f7",
+  "started_at": "2026-10-07T14:07:42.445661+00:00",
+  "status": "failed"
+}

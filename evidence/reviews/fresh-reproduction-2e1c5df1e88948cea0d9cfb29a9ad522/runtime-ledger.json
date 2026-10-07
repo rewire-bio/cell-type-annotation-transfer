@@ -1,0 +1,48 @@
+{
+  "parent_id": "78542e9d412548edbfe42b38d452f7a8",
+  "parent_manifest_sha256": "8d744a694661229a293434a5aea93e63d193c666a7db8ecdd79f942ad0404fca",
+  "prior_seconds": 7085.069447749978,
+  "repair_id": "m5-seed0-v2",
+  "schema_version": 1,
+  "stages": [
+    {
+      "duration_seconds": 302.6784645829903,
+      "manifest_sha256": "6a3405b9ed52f563eda5274a750578650af8a307610c1d1b4600c13ccd9a9c82",
+      "record_path": ".research/runs/c098a3420d0a4c99b6d2b8d65c667af7",
+      "stage": "canonical",
+      "status": "finished"
+    },
+    {
+      "attempt": 2,
+      "duration_seconds": 1187.7336622909934,
+      "manifest_sha256": "1b81d39a266b769b21003dcb85e0eaee433acd53166c3e04ac0faf3f89681495",
+      "record_path": ".research/runs/3f18e178b78d4d75b595174cfa00cf99",
+      "stage": "canonical",
+      "status": "finished"
+    },
+    {
+      "attempt": 3,
+      "duration_seconds": 1914.1231339160004,
+      "manifest_sha256": "60cfbe955c5b9516532750c3873653e16f558528551403a087bf0b545e2dd516",
+      "record_path": ".research/runs/448f32386dfe45588fefa84c5d486703",
+      "stage": "canonical",
+      "status": "finished"
+    },
+    {
+      "attempt": 1,
+      "duration_seconds": 4055.3673419999977,
+      "manifest_sha256": "7d222651d38934acca2a8c4821f9b522e11211afe1a86e6be630492f0d7d91eb",
+      "record_path": ".research/reproductions/c056e758da6842f59e611930ec06bb17",
+      "stage": "reproduction",
+      "status": "finished"
+    },
+    {
+      "attempt": 2,
+      "duration_seconds": 2079.0819693749945,
+      "manifest_sha256": "69448695c8da06b39658dfe25416b2d478417259c93c3a952c0e5321f64b5e62",
+      "record_path": ".research/reproductions/2e1c5df1e88948cea0d9cfb29a9ad522",
+      "stage": "reproduction",
+      "status": "finished"
+    }
+  ]
+}

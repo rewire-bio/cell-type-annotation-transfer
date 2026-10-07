@@ -1,0 +1,66 @@
+{
+  "code_revision": "1e95aac46e212446d4ad08d10838084e9fc90df1",
+  "coordinator_pid": 47589,
+  "cumulative_seconds": 7085.069447749978,
+  "duration_seconds": 962.3825275840063,
+  "duration_total": 7085.069447749978,
+  "exit_code": 2,
+  "failure": "Clean reproduction command failed: {'exit_code': 2, 'duration_seconds': 961.9492232909979, 'failure': None}",
+  "finished_at": "2026-10-07T10:53:06.848181+00:00",
+  "id": "78542e9d412548edbfe42b38d452f7a8",
+  "lineage": [
+    {
+      "duration_seconds": 4698.179236874988,
+      "parent_id": "727c2514a006421286527ce1d2f22148",
+      "record_files": {
+        "continuation-inventory.json": "71a3bd61f9b8ae81d669fbb1bd43821e1fdc43df7c3df8cae4f16b146615c6ac",
+        "execution.log": "9865df005208b548cf45b964764ae1f0d3d57ff09a10033731e3f6a17867c003",
+        "manifest.json": "e90bc49b1c7c53dd5ee070287f08c53c2f4631d66e15051bc590d545fc8d40de"
+      }
+    },
+    {
+      "duration_seconds": 1326.0228726249916,
+      "missing_pinned_inputs": [
+        {
+          "path": "evidence/probes/P00-metadata-20261005/hf-hparams.yaml",
+          "sha256": "e53f93c42017b20021c70ce0251d8a6bcc19a5dc6374cea1c6019a4003dfbf94",
+          "source": "https://huggingface.co/MohamedMabrouk/scTab/resolve/9d49621154863948c057db0741452b18dcb78559/hparams.yaml"
+        },
+        {
+          "path": "evidence/probes/P01-census-blood-obs-20261005/sctab_var.parquet",
+          "sha256": "eca915f6fb7158ac67c58736b54f78f79c455632c977828d4295deb010317579",
+          "source": "https://huggingface.co/MohamedMabrouk/scTab/resolve/9d49621154863948c057db0741452b18dcb78559/merlin_cxg_2023_05_15_sf-log1p_minimal/var.parquet"
+        }
+      ],
+      "parent_id": "7860abd5206648fb87b5e5f30e16946d",
+      "record_files": {
+        "continuation-inventory.json": "b75e09c57363d900b0727d63b63c11f4531e73ae196824be64c553cb9f17442c",
+        "execution.log": "95e7dfe823f54baa623de5d459c5f43bfc09cdd6168d256cf09a922cc6cbab2b",
+        "manifest.json": "d178e881b3c1aab3621840c1f8427773123b25093212767dc90f78ae4727df78",
+        "process.json": "1101289e72a40fe2d94631fe3807aaefffa7edb3ff101fd11c68156a00263e6d"
+      }
+    },
+    {
+      "duration_seconds": 98.48481066599197,
+      "missing_pinned_inputs": [],
+      "parent_id": "108dfa6e36394279931f372749ad6f6c",
+      "record_files": {
+        "continuation-inventory.json": "b295d133936b65dd925d221f32a01053e6b868735fee1bf38ffc48b89b96d5f5",
+        "execution.log": "95e7dfe823f54baa623de5d459c5f43bfc09cdd6168d256cf09a922cc6cbab2b",
+        "manifest.json": "796074134b84dfdfe60723721a5a5c9d13bf474e1263f89160c20c1890923868",
+        "process.json": "4007f2649976bcd351be96c632bfe940cbf61e7a8a8eedaa60b30dc2ba842e4d"
+      }
+    }
+  ],
+  "manuscript_hash": "712fad45a3227fa565590b963aca8058e1dac6f34ba4f0f108ea7affcac4e826",
+  "missing_parent_pinned_inputs": [],
+  "parent_reproduction_id": "108dfa6e36394279931f372749ad6f6c",
+  "prior_seconds": 6122.686920165972,
+  "protocol_hash": "0f8cc011ee63ba013faae07328d4ecea24c3ec0661cef510ffb5cd45feb198e4",
+  "run_id": "29879296d87343898100c190308744a1",
+  "runtime_budget_seconds": 47847.31307983403,
+  "schema_version": 1,
+  "science_hash": "b5097a7eab01657419456773f2e5ca03570cd62a1547940a0ebcbd5de978021a",
+  "started_at": "2026-10-07T10:37:04.354166+00:00",
+  "status": "failed"
+}
