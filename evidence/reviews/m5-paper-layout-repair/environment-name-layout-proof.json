@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "source-only mechanical candidate; not compiled or approved for another harness stage",
+  "source_path": "paper/main.tex",
+  "source_sha256": "037881e634a8a02a648e48a1e274ca2aa4e85ecba6d725733250998c433a88e8",
+  "candidate_path": "/Volumes/Extreme SSD/rewire-studies/cell-type-annotation-transfer/.research/m5-paper-layout-repair/main-env-nolinkurl.tex",
+  "candidate_sha256": "3d06fc1491597f5319becd3d496a4b661a518749835e6b13d5fce62a7eca2217",
+  "replacement_count": 6,
+  "unchanged_literal_tokens": [
+    "RESEARCH_ADOPTION_STAGE",
+    "RESEARCH_ADOPTION_SOURCE_ROOT",
+    "RESEARCH_ADOPTION_INVENTORY",
+    "RESEARCH_ADOPTION_APPROVAL",
+    "RESEARCH_ADOPTION_PRIOR_SECONDS",
+    "RESEARCH_ADOPTION_LEDGER"
+  ],
+  "allowed_change": "\\\\verb|RESEARCH_ADOPTION_NAME| -> \\\\nolinkurl{RESEARCH_ADOPTION_NAME}",
+  "normalization": "Replace only the six named verb/nolinkurl wrappers by their identical literal token; compare entire remaining source byte for byte",
+  "normalized_source_sha256": "beb72402711498d82ea35264777c342315a58b541cd21011ea64ac06a7f2e1db",
+  "normalized_candidate_sha256": "beb72402711498d82ea35264777c342315a58b541cd21011ea64ac06a7f2e1db",
+  "normalized_source_equality": true,
+  "actual_pdf_visible_text_equality": "not measured; candidate has not been compiled",
+  "bibliography_claims_scientific_source_data_changed": false,
+  "original_history_changed": false,
+  "compilation_status": "not attempted; xurl and hyperref already loaded in original preamble"
+}

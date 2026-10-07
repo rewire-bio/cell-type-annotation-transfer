@@ -1,0 +1,12 @@
+{
+  "status": "mechanical_layout_preview_only",
+  "scientific_invocations": 0,
+  "visible_pdf_text_normalized_equal": true,
+  "normalization": "Remove standalone page-number lines, remove end-line word hyphenation, remove whitespace; normalize the single known lexical compound harness-set (line-hyphenation differs)",
+  "original_text_sha256": "89ff716682bf923ebf5cc3ea8c63085ddf2117d4b50a7bd7a5f397934b01ee14",
+  "candidate_text_sha256": "89ff716682bf923ebf5cc3ea8c63085ddf2117d4b50a7bd7a5f397934b01ee14",
+  "candidate_pdf_sha256": "cf3cbf988f2ef3a4af0dd86d115e815e2160597bf5430fc8ef2c0bac4063a13b",
+  "overfull_boxes": 0,
+  "pages": 33,
+  "visual_check": "Page20 rendered and inspected: corrected paragraph within margins; name wrapping retained"
+}
