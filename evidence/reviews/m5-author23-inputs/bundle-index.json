@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "scope": "Exact draft22 and actual omitted canonical tables; draft not accepted or verified",
+  "files": {
+    "draft22/main.tex": {
+      "original_sha256": "4d62290d916baa0736b62efee6d51d5a31136b6f9129256903d21403238cdd82",
+      "public_sha256": "4d62290d916baa0736b62efee6d51d5a31136b6f9129256903d21403238cdd82",
+      "source": ".research/workers/c1b4bdaf-fe86-4dc2-b833-2e04156b217c/worktree/paper/main.tex",
+      "root_substitutions": 0,
+      "home_substitutions": 0
+    },
+    "draft22/claims.json": {
+      "original_sha256": "76ab3b678f2b1480f1e61e2c9506d9d746ce648f2f1c68809c8dc7e81b5e00ea",
+      "public_sha256": "76ab3b678f2b1480f1e61e2c9506d9d746ce648f2f1c68809c8dc7e81b5e00ea",
+      "source": ".research/workers/c1b4bdaf-fe86-4dc2-b833-2e04156b217c/worktree/evidence/claims.json",
+      "root_substitutions": 0,
+      "home_substitutions": 0
+    },
+    "draft22/m5-seed0-v2-supersession.json": {
+      "original_sha256": "3dd3510764fdb3bee342ed97e73714d16dca5b39864717a151b967a8a29281ec",
+      "public_sha256": "3dd3510764fdb3bee342ed97e73714d16dca5b39864717a151b967a8a29281ec",
+      "source": ".research/workers/c1b4bdaf-fe86-4dc2-b833-2e04156b217c/worktree/evidence/claims-history/m5-seed0-v2-supersession.json",
+      "root_substitutions": 0,
+      "home_substitutions": 0
+    },
+    "draft22/protocol-deviations-m5-seed0-v2.md": {
+      "original_sha256": "568a995193eeaba26e78a249d6703f75ce7def731d37c80061d8b9bcfbceb0cf",
+      "public_sha256": "568a995193eeaba26e78a249d6703f75ce7def731d37c80061d8b9bcfbceb0cf",
+      "source": ".research/workers/c1b4bdaf-fe86-4dc2-b833-2e04156b217c/worktree/evidence/protocol-deviations-m5-seed0-v2.md",
+      "root_substitutions": 0,
+      "home_substitutions": 0
+    },
+    "canonical/platform.csv": {
+      "original_sha256": "a84051b26b670f8df9dd5b753593b32b4a5df0450fed1678f4ebf543bbb1592a",
+      "public_sha256": "a84051b26b670f8df9dd5b753593b32b4a5df0450fed1678f4ebf543bbb1592a",
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/m5-seed0-v2/out/score-1/platform.csv",
+      "root_substitutions": 0,
+      "home_substitutions": 0
+    },
+    "canonical/unknowns_test.csv": {
+      "original_sha256": "33a5d43fcd5832dc341f2e92528c9cf4d30cf425372708d6577e6be720167a5f",
+      "public_sha256": "33a5d43fcd5832dc341f2e92528c9cf4d30cf425372708d6577e6be720167a5f",
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/m5-seed0-v2/out/score-1/unknowns_test.csv",
+      "root_substitutions": 0,
+      "home_substitutions": 0
+    },
+    "canonical/unknowns_allstrata_secondary.csv": {
+      "original_sha256": "8d599777133583bc63236c4e59e0c4c3142436c10e231c31b7461b08f76323cb",
+      "public_sha256": "8d599777133583bc63236c4e59e0c4c3142436c10e231c31b7461b08f76323cb",
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/m5-seed0-v2/out/score-1/unknowns_allstrata_secondary.csv",
+      "root_substitutions": 0,
+      "home_substitutions": 0
+    },
+    "canonical/scoring_scope.json": {
+      "original_sha256": "b6bf902766b509097d24108346b015254182b5f98db46a55d3b90756b5f8b70f",
+      "public_sha256": "b6bf902766b509097d24108346b015254182b5f98db46a55d3b90756b5f8b70f",
+      "source": ".research/runs/448f32386dfe45588fefa84c5d486703/output/m5-seed0-v2/out/score-1/scoring_scope.json",
+      "root_substitutions": 0,
+      "home_substitutions": 0
+    },
+    "failed-c098-manifest.json": {
+      "original_sha256": "6a3405b9ed52f563eda5274a750578650af8a307610c1d1b4600c13ccd9a9c82",
+      "public_sha256": "49d333b1c9f94a139220c1020c8ee6df4762afad5dbfd8c27d64b1c6fbd93bdb",
+      "source": ".research/runs/c098a3420d0a4c99b6d2b8d65c667af7/manifest.json",
+      "root_substitutions": 2,
+      "home_substitutions": 0
+    },
+    "failed-c098-receipt.json": {
+      "original_sha256": "4734949241614fab394ebe2f8d89298016eaa45c3de6ece6cf5a0d96f4764fd7",
+      "public_sha256": "4734949241614fab394ebe2f8d89298016eaa45c3de6ece6cf5a0d96f4764fd7",
+      "source": ".research/runs/c098a3420d0a4c99b6d2b8d65c667af7/output/generation_receipt.json",
+      "root_substitutions": 0,
+      "home_substitutions": 0
+    },
+    "failed-3f18-receipt.json": {
+      "original_sha256": "048f0851453afe612e32ecc7640f7adcdc8a77ced689d2be41c65b77bbaaad8d",
+      "public_sha256": "37f60ffa86327dd531b484f1aa5c9c31e2fe9da5d1d63489473d93736d0ac20d",
+      "source": ".research/runs/3f18e178b78d4d75b595174cfa00cf99/output/generation_receipt.json",
+      "root_substitutions": 7,
+      "home_substitutions": 0
+    },
+    "original-paper-claim-inventory.json": {
+      "original_sha256": "314aee11ac86b01fe92b896fa0af716e14eeaed4a1c13f09fc4ca76828c7b69e",
+      "public_sha256": "314aee11ac86b01fe92b896fa0af716e14eeaed4a1c13f09fc4ca76828c7b69e",
+      "source": "evidence/paper-claim-inventory.json",
+      "root_substitutions": 0,
+      "home_substitutions": 0
+    }
+  }
+}

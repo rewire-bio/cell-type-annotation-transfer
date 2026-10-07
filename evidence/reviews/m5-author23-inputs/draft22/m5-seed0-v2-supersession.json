@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "version": "m5-seed0-v2",
+  "written_at": "2026-10-07",
+  "historical_ledger": {
+    "path": "evidence/claims-history/claims-original-29879296.json",
+    "sha256": "93e0c47fd0a5cac1e4b0f6a3b05adb289467e0d54c7c29c2f603cf5b9f90339a",
+    "run_id": "29879296d87343898100c190308744a1",
+    "note": "Preserved byte-for-byte by the coordinator; not edited."
+  },
+  "current_ledger": {
+    "path": "evidence/claims.json",
+    "canonical_run_id": "448f32386dfe45588fefa84c5d486703",
+    "canonical_results": "evidence/reviews/m5-canonical-448f32386dfe45588fefa84c5d486703/results.json",
+    "canonical_results_sha256": "f98d233905325aaafef4d1e3c1f49bd92239ad6167be44af41a17a4714905b79"
+  },
+  "basis": [
+    "evidence/reviews/m5-reproduction-failure-review.md",
+    "evidence/reviews/m5-seed-repair-proposal.md",
+    "evidence/reviews/m5-seed-repair-execution-note.md",
+    "evidence/reviews/m5-seed-repair-user-consent.json",
+    "evidence/reviews/m5-seed-repair-canonical-postfit-continuation-approval.json"
+  ],
+  "rules": "Historical claims are not edited. Claims whose value is unchanged in the corrected run keep their ID and are re-pointed to the corrected run, with the value checked against the corrected results.json. Claims that depend on M5 are superseded by new IDs. Interpretations whose basis or limitations changed are superseded by new IDs.",
+  "mapping": [
+    {"old_id": "M01", "action": "repointed", "new_id": "M01", "value_unchanged": true},
+    {"old_id": "M02", "action": "repointed", "new_id": "M02", "value_unchanged": true},
+    {"old_id": "M03", "action": "repointed", "new_id": "M03", "value_unchanged": true},
+    {"old_id": "M04", "action": "repointed", "new_id": "M04", "value_unchanged": true},
+    {"old_id": "M05", "action": "repointed", "new_id": "M05", "value_unchanged": true},
+    {"old_id": "M06", "action": "repointed", "new_id": "M06", "value_unchanged": true},
+    {"old_id": "M07", "action": "superseded", "new_id": "M21", "reason": "M5-dependent. Historical unseeded value -0.014267743565659213; corrected seed-0 value -0.012919452282817398. Sign (below zero) unchanged."},
+    {"old_id": "M08", "action": "superseded", "new_id": "M22", "reason": "M5-dependent. Historical unseeded value 0.0020287219964541456; corrected seed-0 value 0.002966559580046049. Sign (above zero) unchanged."},
+    {"old_id": "M09", "action": "repointed", "new_id": "M09", "value_unchanged": true},
+    {"old_id": "M10", "action": "repointed", "new_id": "M10", "value_unchanged": true},
+    {"old_id": "M11", "action": "repointed", "new_id": "M11", "value_unchanged": true},
+    {"old_id": "M12", "action": "repointed", "new_id": "M12", "value_unchanged": true},
+    {"old_id": "M13", "action": "repointed", "new_id": "M13", "value_unchanged": true},
+    {"old_id": "M14", "action": "repointed", "new_id": "M14", "value_unchanged": true},
+    {"old_id": "M15", "action": "repointed", "new_id": "M15", "value_unchanged": true},
+    {"old_id": "M16", "action": "repointed", "new_id": "M16", "value_unchanged": true, "note": "Text shortened; the 2026-10-06 wording correction remains recorded in the historical ledger."},
+    {"old_id": "M17", "action": "repointed", "new_id": "M17", "value_unchanged": true},
+    {"old_id": "M18", "action": "repointed", "new_id": "M18", "value_unchanged": true},
+    {"old_id": "M19", "action": "repointed", "new_id": "M19", "value_unchanged": true},
+    {"old_id": "M20", "action": "repointed", "new_id": "M20", "value_unchanged": true},
+    {"old_id": "L01", "action": "retained", "new_id": "L01"},
+    {"old_id": "L02", "action": "retained", "new_id": "L02"},
+    {"old_id": "L03", "action": "retained", "new_id": "L03"},
+    {"old_id": "L04", "action": "retained", "new_id": "L04"},
+    {"old_id": "I01", "action": "superseded", "new_id": "I05", "reason": "Based on M07/M08 (M5) and stated 'one training seed', which was untrue for the historical M5 fit. Conclusion unchanged; basis and limitation updated."},
+    {"old_id": "I02", "action": "retained", "new_id": "I02", "note": "based_on extended with M27 (corrected Arm B M5)."},
+    {"old_id": "I03", "action": "retained", "new_id": "I03", "note": "based_on extended with M26 (corrected M5 natural-unknown count); limitation now refers to the corrected run."},
+    {"old_id": "I04", "action": "retained", "new_id": "I04"}
+  ],
+  "new_claims": ["M21", "M22", "M23", "M24", "M25", "M26", "M27", "M28", "M29", "P01", "P02", "P03", "H01", "H02", "H03", "H04", "I05", "I06"],
+  "historical_m5_values_not_in_active_ledger": {
+    "note": "Retained for reference only; these describe unseeded fits and are not results of record.",
+    "A_M5_unknown_false_accept_at_OPcov": {"original_29879296": 0.30, "failed_reproduction_78542e9d": 0.15, "source": "evidence/reviews/m5-reproduction-failure-review.md E1"},
+    "A_M5_macro_f1_closed": {"original_29879296": 0.68816, "failed_reproduction_78542e9d": 0.68907, "source": "evidence/reviews/m5-reproduction-failure-review.md E2"}
+  },
+  "paper_inventory": {
+    "path": "evidence/paper-claim-inventory.json",
+    "status": "not updated (not an owned output); historical inventory of original-run manuscript literals"
+  },
+  "reproduction_status_at_authorship": "pending"
+}
