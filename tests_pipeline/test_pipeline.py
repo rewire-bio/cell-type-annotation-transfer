@@ -92,6 +92,10 @@ class Reproduce(unittest.TestCase):
             if name.endswith("_M6_fit"):
                 w(Path(argv[argv.index("--out") + 1]) / "scanvi/model.pt", "synthetic-checkpoint")
             return {"status": (statuses or {}).get(name, "ok"), "returncode": 0}
+        # The current approved amendment requires these source inputs at preflight.
+        # Subprocesses remain mocked; the placeholder builder is never executed.
+        w(Path(t) / "protocol/tolerances-v2.json", "{}")
+        w(Path(t) / RP.REPLACEMENT_BUILDER, "# synthetic fixture; never executed\n")
         r = RP.Repro(Path(t), cfg(), runner=runner)
         return r, calls
 
@@ -118,7 +122,7 @@ class Reproduce(unittest.TestCase):
     def test_order_until_assembly(self):
         with tempfile.TemporaryDirectory() as t:
             r, calls = self.make(t)
-            b = w(Path(t) / "ext/base.json", json.dumps({"schema": RM.MANIFEST_SCHEMA, "mode": "R"}))
+            b = w(Path(t) / "ext/base.json", json.dumps({"schema": RM.MANIFEST_SCHEMA, "mode": "R", "amendment": RM.AMENDMENT_ID}))
             with self.assertRaises(RM.ManifestError):  # mocks write no predictions -> fail closed
                 r.run(str(b))
             exp = ["env", "acquire", "data"] + [f"{a}_{m}_{s}" for a in "AB" for m in RM.METHODS
@@ -131,7 +135,7 @@ class Reproduce(unittest.TestCase):
     def test_deterministic_failure_stops_no_retry(self):
         with tempfile.TemporaryDirectory() as t:
             r, calls = self.make(t, {"data": "failed"})
-            b = w(Path(t) / "ext/base.json", json.dumps({"schema": RM.MANIFEST_SCHEMA, "mode": "R"}))
+            b = w(Path(t) / "ext/base.json", json.dumps({"schema": RM.MANIFEST_SCHEMA, "mode": "R", "amendment": RM.AMENDMENT_ID}))
             with self.assertRaises(RP.Stop):
                 r.run(str(b))
             self.assertEqual(calls, ["env", "acquire", "data"])
@@ -139,7 +143,7 @@ class Reproduce(unittest.TestCase):
     def test_infra_retry_bounded(self):
         with tempfile.TemporaryDirectory() as t:
             r, calls = self.make(t, {"env": "timeout"})
-            b = w(Path(t) / "ext/base.json", json.dumps({"schema": RM.MANIFEST_SCHEMA, "mode": "R"}))
+            b = w(Path(t) / "ext/base.json", json.dumps({"schema": RM.MANIFEST_SCHEMA, "mode": "R", "amendment": RM.AMENDMENT_ID}))
             with self.assertRaises(RP.Stop):
                 r.run(str(b))
             self.assertEqual(calls, ["env", "env"])
