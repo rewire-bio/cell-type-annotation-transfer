@@ -64,14 +64,30 @@ def test_never_invokes_scientific_steps(name,kind):
     r=object.__new__(C.ComparisonContinuation)
     with pytest.raises(M.Stop):r.step(name,kind,lambda out:[])
 
-def test_baseline_required_before_execution(tmp_path,monkeypatch):
-    r=object.__new__(C.ComparisonContinuation);r.reproduction_continuation=None
+def canonical_fixture(r,tmp_path,monkeypatch):
+    cid='corrected-canonical';folder=tmp_path/'.research/runs'/cid;folder.mkdir(parents=True)
+    baseline=folder/'output/comparison_manifest.json';baseline.parent.mkdir();baseline.write_text('{"mode":"R"}')
+    manifest=folder/'manifest.json';M.dump(manifest,{'id':cid,'status':'completed','mode':'R','exit_code':0,
+        'outputs':{'comparison_manifest.json':M.sha(baseline)}})
+    r.inventory['canonical_run_id']=cid;r.approval['canonical_manifest_sha256']=M.sha(manifest)
+    r.reproduction_continuation['canonical_baseline']={'path':baseline.relative_to(tmp_path).as_posix(),'sha256':M.sha(baseline)}
+    assert M.sha(manifest)!=M.sha(baseline)
+    monkeypatch.setenv('CELLTRANSFER_BASELINE_MANIFEST',str(baseline))
+    return baseline,manifest
+
+def test_baseline_record_and_comparison_hashes_are_distinct(tmp_path,monkeypatch):
+    r,*_=fixture(tmp_path)
     monkeypatch.delenv('CELLTRANSFER_BASELINE_MANIFEST',raising=False)
     with pytest.raises(M.Stop):r.baseline_check()
-    p=tmp_path/'baseline.json';p.write_text('{}');r.approval={'canonical_manifest_sha256':M.sha(p)}
-    monkeypatch.setenv('CELLTRANSFER_BASELINE_MANIFEST',str(p));assert r.baseline_check()==p
-    p.write_text('{"changed":true}')
+    baseline,manifest=canonical_fixture(r,tmp_path,monkeypatch)
+    assert r.baseline_check()==baseline
+    comparison_digest=r.reproduction_continuation['canonical_baseline']['sha256']
+    r.approval['canonical_manifest_sha256']=comparison_digest
     with pytest.raises(M.Stop):r.baseline_check()
+    r.approval['canonical_manifest_sha256']=M.sha(manifest)
+    baseline.write_text('{"changed":true}')
+    with pytest.raises(M.Stop):r.baseline_check()
+
 
 def test_full_recovery_orchestration(tmp_path,monkeypatch):
     """Run actual continuation/copy/assembly/finalization with synthetic subprocesses."""
@@ -125,9 +141,7 @@ def test_full_recovery_orchestration(tmp_path,monkeypatch):
     M.dump(old/'comparison_manifest.json',original_manifest);(old/'results.json').write_text('{"original": 2}\n')
     c['retained_metadata']={p.relative_to(tmp_path).as_posix():M.sha(p) for p in (old/'comparison_manifest.json',old/'results.json')}
     r.inventory['source_controls'].update(c['retained_metadata'])
-    baseline=tmp_path/'baseline.json';baseline.write_text('{}');c['canonical_baseline']={'path':'baseline.json','sha256':M.sha(baseline)}
-    r.approval['canonical_manifest_sha256']=M.sha(baseline)
-    monkeypatch.setenv('CELLTRANSFER_BASELINE_MANIFEST',str(baseline))
+    canonical_fixture(r,tmp_path,monkeypatch)
     receipt.update(environment={'pinned':'fixture'},models={'A':{},'B':{}});r.retained_receipt=receipt
     r.receipt={'steps':[],'stage':'reproduction','version':M.VERSION,'mode':'F'}
     r.cfg={'stage_seconds':{'reproduction':26700}};r.prior=M.PRIOR_SECONDS;r.clock=lambda:1;r.started=1

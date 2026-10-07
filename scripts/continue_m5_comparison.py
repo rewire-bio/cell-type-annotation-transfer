@@ -39,12 +39,21 @@ class ComparisonContinuation(M.Repair):
         raw=os.environ.get('CELLTRANSFER_BASELINE_MANIFEST')
         need(bool(raw),'Corrected canonical baseline environment binding missing')
         baseline=Path(raw).resolve()
-        need(baseline.is_file() and sha(baseline)==self.approval['canonical_manifest_sha256'],
-             'Corrected canonical baseline hash differs')
-        if self.reproduction_continuation:
-            binding=self.reproduction_continuation['canonical_baseline']
-            need(baseline==inside(self.source,binding['path']) and sha(baseline)==binding['sha256'],
-                 'Continuation canonical baseline binding differs')
+        binding=self.reproduction_continuation['canonical_baseline']
+        canonical_id=self.inventory['canonical_run_id']
+        folder=inside(self.source,'.research/runs/'+canonical_id)
+        record=folder/'manifest.json'
+        need(sha(record)==self.approval['canonical_manifest_sha256'],
+             'Canonical run record hash differs')
+        manifest=load(record)
+        need(manifest['id']==canonical_id and manifest['status']=='completed'
+             and manifest['mode']=='R' and manifest['exit_code']==0,
+             'Canonical run must be completed')
+        digest=manifest['outputs']['comparison_manifest.json']
+        need(binding['path']==(folder/'output/comparison_manifest.json').relative_to(self.source).as_posix()
+             and binding['sha256']==digest and baseline==inside(self.source,binding['path'])
+             and baseline.is_file() and sha(baseline)==digest,
+             'Continuation canonical comparison baseline binding differs')
         return baseline
 
     def validate_reproduction_continuation(self,runtime_ledger):
