@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "original_run_id": "29879296d87343898100c190308744a1",
+  "source_revision": "74bc9e6",
+  "source_path": "evidence/claims.json",
+  "archive_path": "evidence/claims-history/claims-original-29879296.json",
+  "sha256": "93e0c47fd0a5cac1e4b0f6a3b05adb289467e0d54c7c29c2f603cf5b9f90339a",
+  "purpose": "Byte-identical preservation before approved corrected M5 canonical ledger."
+}

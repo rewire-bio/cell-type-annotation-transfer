@@ -1,8 +1,8 @@
 # M5 repair: execution and budget clarification
 
-Status: prepared, not approved for real-data execution. Read with the actual Opus proposal in `m5-seed-repair-proposal.md`.
+Status: user approved the repair scope with “approved” on 7 October 2026. Real-data execution still requires the tested driver, immutable inventories and approval binding. Read with the actual Opus proposal in `m5-seed-repair-proposal.md`.
 
-The proposal's 47,847-second remainder was the budget at the start of the latest continuation. Its final cumulative time is 7,085.069447749978 seconds. The existing 54,000-second ceiling therefore leaves **46,914.93055225002 seconds**. This plan requests no new runtime ledger: both repair stages, validation, copying, scoring and PDF compilation must fit in that remainder. Individual step ceilings cannot all be consumed at once; the remaining total takes precedence.
+The proposal's 47,847-second remainder was the budget at the start of the latest continuation. Its final cumulative time is 7,085.069447749978 seconds. The existing raw ceiling is 54,000 seconds. Preserve its single 30-second reserve: the effective ceiling is **53,970 seconds**, leaving **46,884.93055225002 seconds** after the recorded prior duration. Do not subtract another reserve per stage or ancestor. This plan requests no new runtime ledger: both repair stages, validation, copying, scoring and PDF compilation must fit in that remainder. Individual step ceilings cannot all be consumed at once; the remaining total takes precedence.
 
 Exactly **four real-data M5 fits** are permitted: canonical A/B and independent reproduction A/B, each capped at 4,800 seconds. No fifth fit or automatic fit retry is permitted. Two full score/bootstrap stages retain the existing limits. Threads (four), process-group memory (12 GiB), guarded storage (7 GiB), scientific inputs, solver, iteration cap and comparison tolerances stay unchanged.
 
