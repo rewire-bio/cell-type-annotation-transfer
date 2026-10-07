@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-10-07T16:19:08.554805+00:00",
+  "failed_reproduction": "c056e758da6842f59e611930ec06bb17",
+  "completed_reproduction": "2e1c5df1e88948cea0d9cfb29a9ad522",
+  "prior_revision": "d9058c17b4cb92fd8696f227799b49e4a15303d6",
+  "completed_revision": "f8070d06b6bd5cb80f06356897ee099096bc2087",
+  "hash_definition": "Harness manuscript_hash binds all tracked sources/resources excluding append-only review/archive paths, plus explicitly declared protocol/config/paper/scientific inputs. It excludes generated paper/build output.",
+  "hash_definition_source": "research-harness/src/research_harness/core.py:422",
+  "old_manuscript_hash": "d9786526b184af013149d4118a59d0189aa72cb3eb2a71af7a3eb8c7b673a3af",
+  "completed_manuscript_hash": "b5a5e34ca798071cf6de9bc81ec9153d51a6fb08c9bf51ab0ae7781d3b1eb9fe",
+  "scientific_and_paper_files": {
+    "paper/main.tex": {
+      "prior_sha256": "1a6f46ae19c03808fa171666ce8ec502630245528fd418cf7c046bbf9f26a657",
+      "completed_sha256": "1a6f46ae19c03808fa171666ce8ec502630245528fd418cf7c046bbf9f26a657",
+      "byte_identical": true
+    },
+    "paper/references.bib": {
+      "prior_sha256": "04978c17dc6aaa8fa5f718a85c98e14aad3e7c1bd7451654685df5521e841d2c",
+      "completed_sha256": "04978c17dc6aaa8fa5f718a85c98e14aad3e7c1bd7451654685df5521e841d2c",
+      "byte_identical": true
+    },
+    "evidence/claims.json": {
+      "prior_sha256": "ba363057245b148d693a0c0e379f86b26708c9eb73e5c198e89f77e45af64ffa",
+      "completed_sha256": "ba363057245b148d693a0c0e379f86b26708c9eb73e5c198e89f77e45af64ffa",
+      "byte_identical": true
+    },
+    "companion/src/celltransfer/methods.py": {
+      "prior_sha256": "d2cb0cdef8a25cdc98df43ffdff3c9fcf6040972cab51b8ad5416be7da2f167e",
+      "completed_sha256": "d2cb0cdef8a25cdc98df43ffdff3c9fcf6040972cab51b8ad5416be7da2f167e",
+      "byte_identical": true
+    },
+    "protocol/tolerances-v2.json": {
+      "prior_sha256": "c335e6a9403b1353bcb1f5b187edb92e4868f8124e31946a20b07a6710c90edb",
+      "completed_sha256": "c335e6a9403b1353bcb1f5b187edb92e4868f8124e31946a20b07a6710c90edb",
+      "byte_identical": true
+    }
+  },
+  "changed_source_files": [
+    "A\tevidence/reviews/m5-seed-repair-independent-comparison-continuation-approval-r2.json",
+    "A\tevidence/reviews/m5-seed-repair-independent-comparison-continuation-approval.json",
+    "A\tscripts/continue_m5_comparison.py",
+    "A\ttests_pipeline/test_continue_m5_comparison.py"
+  ],
+  "explanation": "Only two new mechanical continuation helper/test source files were added outside append-only reviews. The broad source hash changes for those additions; paper, references, claims and scientific methods retain original bytes. No generated output causes this hash change.",
+  "review_verdict": "Not a scientific review; mechanical source-byte disclosure for B6."
+}
