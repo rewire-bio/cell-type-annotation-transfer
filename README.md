@@ -1,5 +1,7 @@
 # Cell-type annotation transfer
 
+**[Read the paper (PDF)](https://github.com/rewire-bio/cell-type-annotation-transfer/releases/download/study-v1-seed0-20261007/cell-type-annotation-transfer.pdf)** · [LaTeX source](https://github.com/rewire-bio/cell-type-annotation-transfer/blob/fd4588c2b58eee214fea76b1874be1a37df1f0da/paper/main.tex) · [Results and evidence](https://github.com/rewire-bio/cell-type-annotation-transfer/releases/tag/study-v1-seed0-20261007)
+
 The study paper and private clean reproduction passed final verification. Public full reproduction with the compact package remains untested. Use the pinned source and release instructions below.
 
 ## Frozen study and delivery records
@@ -14,8 +16,8 @@ The study paper and private clean reproduction passed final verification. Public
 | Final paper review | `6b73d31ed0a9418f8b653871ff21af26` |
 | Public evidence archive | `public-evidence.tar.gz`, SHA256 `ba00209db3a8d422579d105c9359143d5b0a6b573c590373e8e734414b1935bf` |
 | Compact baseline metadata | `compact-baseline.tar.gz`, SHA256 `37793da3eafe3a47fa7829aeb39c2c30fdacb436baa3ec765a3ad0243bc2c5fa` |
-| Paper PDF | `cell-type-annotation-transfer.pdf`, SHA256 `cf3cbf988f2ef3a4af0dd86d115e815e2160597bf5430fc8ef2c0bac4063a13b` |
-| GitHub release | `study-v1-seed0-20261007` / `https://github.com/rewire-bio/cell-type-annotation-transfer/releases/tag/study-v1-seed0-20261007` |
+| Paper PDF | [Download PDF](https://github.com/rewire-bio/cell-type-annotation-transfer/releases/download/study-v1-seed0-20261007/cell-type-annotation-transfer.pdf), SHA256 `cf3cbf988f2ef3a4af0dd86d115e815e2160597bf5430fc8ef2c0bac4063a13b` |
+| GitHub release | `study-v1-seed0-20261007` / [Open release](https://github.com/rewire-bio/cell-type-annotation-transfer/releases/tag/study-v1-seed0-20261007) |
 
 The verification record binds the scientific source commit above. The documentation/release tip may contain later delivery instructions; it is a distinct commit. Commands below check out the verified source. Read the release evidence for the actual comparison outcome and review records. Automated model reviews must be identified as model reviews; no human scientific review is implied.
 
