@@ -4,7 +4,7 @@ The study paper and private clean reproduction passed final verification. Public
 
 ## Frozen study and delivery records
 
-| Record | Actual value to insert |
+| Record | Recorded value |
 | --- | --- |
 | Verified scientific source commit | `fd4588c2b58eee214fea76b1874be1a37df1f0da` |
 | Documentation/release tip commit | `Later documentation delivery; see this file in Git history.` |
@@ -21,7 +21,7 @@ The verification record binds the scientific source commit above. The documentat
 
 ## Run the recorded M4 CLI wiring example
 
-The prepared `m4-example.tar.gz` is 944,277 bytes, SHA256 `7b798df27f35440f5c2c01ab1f39f284896a31fb5229dd342393d914cd1cdf78`. Its existing provenance and outputs accompany the original Arm A M4 export and 12-cell CELLxGENE Census query. The bundle contains the study’s own M4 coefficients, without upstream pretrained weights.
+The released `m4-example.tar.gz` is 944,277 bytes, SHA256 `7b798df27f35440f5c2c01ab1f39f284896a31fb5229dd342393d914cd1cdf78`. Its existing provenance and outputs accompany the original Arm A M4 export and 12-cell CELLxGENE Census query. The bundle contains the study’s own M4 coefficients, without upstream pretrained weights.
 
 The recorded example passed input checks with every model gene present. All 12 cells received `unassigned`, reason `low_counts_or_genes`, using the default minimum of 500 total counts and 200 detected genes. This checks model loading, input wiring and output generation and supplies no accuracy estimate. Keep the default quality screen.
 
@@ -84,7 +84,7 @@ For other queries, use full raw nonnegative integer counts in `.X`, or the suppo
 
 Use the frozen source commit, locked environment, approved protocol and versioned tolerances. Full execution includes model fitting, predictions, scoring, comparison and paper generation. It requires acquisition of the pinned source data and sufficient resources; the small CLI example does not execute the study.
 
-The public compact baseline contains aggregate/reference metadata and independently frozen original file hashes. It excludes withheld per-cell reference arrays, barcodes, source RNA/ADT matrices and fitted model objects. The original baseline and complete execution histories remain privately preserved. The public archive must disclose its omissions and every sanitized derivative.
+The public compact baseline contains aggregate/reference metadata and independently frozen original file hashes. It excludes withheld per-cell reference arrays, barcodes, source RNA/ADT matrices and fitted model objects. The original baseline and complete execution histories remain privately preserved. The public archive lists its omissions and every sanitized derivative.
 
 The recovery tool can restore a separate local reference file only when the reader's independently generated candidate has the exact original recorded SHA256 and byte size. A missing or mismatching candidate leaves the reference unsupported. It cannot substitute a tolerance decision or claim successful reproduction. The unchanged study comparator still checks all gates after exact restoration.
 
